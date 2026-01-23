@@ -73,6 +73,7 @@ async function onFinish() {
       email: formState.email?.toLowerCase(),
       username: formState.username,
       password: formState.password,
+      password2: formState.password2,
     })
 
     if (result.success) {
