@@ -145,7 +145,7 @@ export function useAuth() {
   }
 
   // Register function
-  async function register(userData: any): Promise<{ success: boolean, error?: string }> {
+  async function register(userData: any): Promise<{ success: boolean, error?: string, errorCode?: string, errorData?: any }> {
     try {
       await apiClient.post('/auth/register/', userData)
       return { success: true }
@@ -155,6 +155,8 @@ export function useAuth() {
       return {
         success: false,
         error: error.data?.message || error.statusMessage || 'Registration failed',
+        errorCode: error.data?.code,
+        errorData: error.data,
       }
     }
   }
