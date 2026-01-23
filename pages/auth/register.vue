@@ -18,6 +18,15 @@ const formState = reactive<RegisterRequest>({
 })
 
 const loading = ref(false)
+const validationErrors = ref<Record<string, string[]>>({})
+const generalError = ref<string>('')
+
+// Filter out username errors since username is auto-generated and not shown in form
+const displayValidationErrors = computed(() => {
+  const filtered = { ...validationErrors.value }
+  delete filtered.username
+  return filtered
+})
 
 /**
  * Generate username from email by taking the part before @
@@ -33,6 +42,30 @@ function generateUsernameFromEmail(email: string): string {
 watch(() => formState.email, (newEmail) => {
   if (newEmail) {
     formState.username = generateUsernameFromEmail(newEmail)
+  }
+  // Clear email error when user types
+  if (validationErrors.value.email) {
+    delete validationErrors.value.email
+  }
+})
+
+// Watch username changes to clear error
+watch(() => formState.username, () => {
+  if (validationErrors.value.username) {
+    delete validationErrors.value.username
+  }
+})
+
+// Watch password changes to clear errors
+watch(() => formState.password, () => {
+  if (validationErrors.value.password) {
+    delete validationErrors.value.password
+  }
+})
+
+watch(() => formState.password2, () => {
+  if (validationErrors.value.password2) {
+    delete validationErrors.value.password2
   }
 })
 
@@ -67,6 +100,8 @@ async function onFinish() {
   }
 
   loading.value = true
+  validationErrors.value = {}
+  generalError.value = ''
 
   try {
     const result = await register({
@@ -127,16 +162,27 @@ async function onFinish() {
       }
     }
     else {
-      notification.error({
-        message: result.error || t('auth.register.notifications.failed'),
-      })
+      // Handle validation errors from API
+      if (result.errorCode === 'validation_error' && result.errorData?.details) {
+        validationErrors.value = result.errorData.details
+        generalError.value = result.error || t('auth.register.notifications.failed')
+      }
+      else {
+        generalError.value = result.error || t('auth.register.notifications.failed')
+      }
     }
   }
   catch (error: any) {
     console.error('Register error:', error)
-    notification.error({
-      message: t('auth.register.notifications.error'),
-    })
+    
+    // Handle validation errors from catch block
+    if (error?.data?.code === 'validation_error' && error?.data?.details) {
+      validationErrors.value = error.data.details
+      generalError.value = error.data?.message || t('auth.register.notifications.error')
+    }
+    else {
+      generalError.value = error?.data?.message || error?.statusMessage || t('auth.register.notifications.error')
+    }
   }
   finally {
     loading.value = false
@@ -240,6 +286,8 @@ async function onFinish() {
                 { required: true, message: t('auth.register.form.emailRequired') },
                 { type: 'email', message: t('auth.register.form.emailInvalid') },
               ]"
+              :validate-status="validationErrors.email ? 'error' : ''"
+              :help="validationErrors.email ? validationErrors.email.join(', ') : ''"
               class="mb-0"
             >
               <a-input
@@ -262,6 +310,8 @@ async function onFinish() {
                 { required: true, message: t('auth.register.form.passwordRequired') },
                 { min: 8, message: t('auth.register.form.passwordMinLength') },
               ]"
+              :validate-status="validationErrors.password ? 'error' : ''"
+              :help="validationErrors.password ? validationErrors.password.join(', ') : ''"
               class="mb-0"
             >
               <a-input-password
@@ -284,6 +334,8 @@ async function onFinish() {
                 { required: true, message: t('auth.register.form.confirmPasswordRequired') },
                 { min: 8, message: t('auth.register.form.passwordMinLength') },
               ]"
+              :validate-status="validationErrors.password2 ? 'error' : ''"
+              :help="validationErrors.password2 ? validationErrors.password2.join(', ') : ''"
               class="mb-0"
             >
               <a-input-password
@@ -297,6 +349,27 @@ async function onFinish() {
                 </template>
               </a-input-password>
             </a-form-item>
+          </div>
+
+          <!-- Validation Errors Display -->
+          <div v-if="Object.keys(displayValidationErrors).length > 0 || generalError" class="mb-4">
+            <a-alert
+              type="error"
+              :message="generalError || t('auth.register.validation.errors')"
+              show-icon
+              class="!rounded-xl"
+            >
+              <template #description>
+                <ul class="list-disc list-inside mt-2 space-y-1">
+                  <li v-for="(errors, field) in displayValidationErrors" :key="field">
+                    <span class="font-semibold capitalize">{{ field }}:</span>
+                    <span v-for="(error, index) in errors" :key="index">
+                      {{ error }}<span v-if="index < errors.length - 1">, </span>
+                    </span>
+                  </li>
+                </ul>
+              </template>
+            </a-alert>
           </div>
 
           <!-- Create Account Button -->
