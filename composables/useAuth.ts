@@ -161,7 +161,7 @@ export function useAuth() {
     }
   }
 
-  // reset password function
+  // reset password function (legacy token-based)
   async function resetPassword(email: string): Promise<{ success: boolean, error?: string, token?: string }> {
     try {
       const response = await apiClient.post('/auth/password/reset/', { email })
@@ -175,6 +175,40 @@ export function useAuth() {
       return {
         success: false,
         error: error.data?.message || error.statusMessage || 'Reset password failed',
+      }
+    }
+  }
+
+  // Forgot password with OTP - Request OTP
+  async function forgotPasswordOTP(email: string): Promise<{ success: boolean, error?: string, errorCode?: string, errorData?: any }> {
+    try {
+      await apiClient.post('/auth/password/forgot/', { email })
+      return { success: true }
+    }
+    catch (error: any) {
+      console.error('Forgot password OTP error:', error)
+      return {
+        success: false,
+        error: error.data?.message || error.statusMessage || 'Failed to send OTP',
+        errorCode: error.data?.code,
+        errorData: error.data,
+      }
+    }
+  }
+
+  // Reset password with OTP - Verify OTP and reset password
+  async function resetPasswordOTP(data: { email: string, otp: string, new_password: string, new_password2: string }): Promise<{ success: boolean, error?: string, errorCode?: string, errorData?: any }> {
+    try {
+      await apiClient.post('/auth/password/reset/otp/', data)
+      return { success: true }
+    }
+    catch (error: any) {
+      console.error('Reset password OTP error:', error)
+      return {
+        success: false,
+        error: error.data?.message || error.statusMessage || 'Failed to reset password',
+        errorCode: error.data?.code,
+        errorData: error.data,
       }
     }
   }
@@ -282,6 +316,8 @@ export function useAuth() {
     initAuth,
     resetPassword,
     confirmPassword,
+    forgotPasswordOTP,
+    resetPasswordOTP,
     fetchProfile,
     updateProfile,
   }

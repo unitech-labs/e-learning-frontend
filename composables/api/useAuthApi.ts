@@ -25,6 +25,14 @@ export function useAuthApi() {
     forgotPassword: (email: string) =>
       apiClient.post('/auth/forgot-password/', { email }),
 
+    // Forgot password with OTP
+    forgotPasswordOTP: (email: string) =>
+      apiClient.post('/auth/password/forgot/', { email }),
+
+    // Reset password with OTP
+    resetPasswordOTP: (data: { email: string, otp: string, new_password: string, new_password2: string }) =>
+      apiClient.post('/auth/password/reset/otp/', data),
+
     // Reset password
     resetPassword: (token: string, password: string) =>
       apiClient.post('/auth/reset-password/', { token, password }),

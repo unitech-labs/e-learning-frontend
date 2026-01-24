@@ -174,7 +174,7 @@ async function onFinish() {
   }
   catch (error: any) {
     console.error('Register error:', error)
-    
+
     // Handle validation errors from catch block
     if (error?.data?.code === 'validation_error' && error?.data?.details) {
       validationErrors.value = error.data.details

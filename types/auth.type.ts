@@ -12,6 +12,17 @@ export interface ResetRequest {
   new_password2: string
 }
 
+export interface ForgotPasswordOTPRequest {
+  email: string
+}
+
+export interface ResetPasswordOTPRequest {
+  email: string
+  otp: string
+  new_password: string
+  new_password2: string
+}
+
 export interface LoginRequest {
   email: string
   password: string
