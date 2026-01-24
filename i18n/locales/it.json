@@ -2104,12 +2104,22 @@
       },
       "form": {
         "title": "Password Dimenticata?",
-        "subtitle": "Nessun problema, ti invieremo le istruzioni per reimpostarla",
+        "subtitle": "Nessun problema, ti invieremo un codice OTP alla tua email",
         "resetTitle": "Reimposta Password",
-        "resetSubtitle": "Inserisci la tua nuova password qui sotto",
+        "resetSubtitle": "Inserisci il codice OTP e la tua nuova password qui sotto",
         "email": "Indirizzo Email",
         "emailRequired": "Inserisci la tua email!",
         "emailInvalid": "Inserisci un'email valida!",
+        "changeEmail": "Cambia",
+        "otp": "Codice OTP",
+        "otpRequired": "Inserisci il codice OTP!",
+        "otpPlaceholder": "Inserisci codice OTP a 6 cifre",
+        "otpLength": "Il codice OTP deve essere di 6 cifre",
+        "didntReceiveOtp": "Non hai ricevuto l'OTP?",
+        "resendOtp": "Invia di nuovo OTP",
+        "resendIn": "Invia di nuovo tra",
+        "otpHelpTitle": "Controlla la Tua Email",
+        "otpHelpText": "Abbiamo inviato un codice OTP a 6 cifre alla tua email. Il codice scadrà tra 10 minuti.",
         "newPassword": "Nuova Password",
         "newPasswordPlaceholder": "Crea una nuova password",
         "newPasswordRequired": "Inserisci la tua nuova password!",
@@ -2118,7 +2128,7 @@
         "confirmPasswordPlaceholder": "Reinserisci la tua nuova password",
         "confirmPasswordRequired": "Conferma la tua password!",
         "confirmPasswordMinLength": "La conferma della password deve essere di almeno 8 caratteri",
-        "sendButton": "Invia Email di Reimpostazione",
+        "sendButton": "Invia Codice OTP",
         "resetButton": "Reimposta Password",
         "backToEmail": "Torna all'Email",
         "backToLogin": "Torna all'Accesso",
@@ -2128,10 +2138,24 @@
       "notifications": {
         "emailSent": "Email di reimpostazione password inviata con successo!",
         "emailFailed": "Impossibile inviare l'email di reimpostazione password",
+        "otpSent": "Il codice OTP è stato inviato al tuo indirizzo email!",
+        "otpResent": "Il codice OTP è stato reinviato al tuo indirizzo email!",
+        "otpFailed": "Impossibile inviare il codice OTP",
+        "otpExpired": "Il codice OTP è scaduto. Richiedi un nuovo codice OTP.",
+        "invalidOtp": "Il codice OTP non è corretto. Controlla e riprova.",
+        "emailMismatch": "L'email non corrisponde. Usa la stessa email per cui hai richiesto l'OTP.",
         "passwordMismatch": "La conferma della password non corrisponde",
         "resetSuccess": "Reimpostazione password riuscita! Effettua l'accesso.",
         "resetFailed": "Reimpostazione password fallita",
         "error": "Si è verificato un errore, riprova"
+      },
+      "success": {
+        "title": "Reimpostazione Password Riuscita!",
+        "message": "La tua password è stata reimpostata con successo. Reindirizzamento al login...",
+        "goToLogin": "Vai al Login"
+      },
+      "validation": {
+        "errors": "Si sono verificati errori di validazione"
       }
     }
   },
