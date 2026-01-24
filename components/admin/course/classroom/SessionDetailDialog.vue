@@ -31,6 +31,7 @@ const {
   quickEnrollStudent,
   removeStudentFromClassroom,
   updateClassroomSession,
+  deleteClassroomSession,
   getClassroomStudents,
   getSessionAttendance,
   getSessionVideoUploadUrl,
@@ -104,6 +105,9 @@ const videosLoading = ref(false)
 // Attendance state
 const attendance = ref<SessionAttendance[]>([])
 const attendanceLoading = ref(false)
+
+// Delete session state
+const isDeletingSession = ref(false)
 
 // Dialog visibility
 const dialogVisible = computed({
@@ -424,6 +428,47 @@ function handleCancel() {
   else {
     dialogVisible.value = false
   }
+}
+
+async function handleDeleteSession() {
+  if (!props.sessionId)
+    return
+
+  Modal.confirm({
+    title: 'Xác nhận xóa buổi học',
+    content: 'Bạn có chắc chắn muốn xóa buổi học này không? Hệ thống có thể tự động sinh buổi mới để bù vào theo lịch của lớp.',
+    okText: 'Xóa',
+    cancelText: 'Hủy',
+    okType: 'danger',
+    async onOk() {
+      if (!props.sessionId)
+        return
+
+      try {
+        isDeletingSession.value = true
+        await deleteClassroomSession(props.sessionId)
+
+        notification.success({
+          message: 'Đã xóa buổi học',
+          duration: 3,
+        })
+
+        dialogVisible.value = false
+        emit('sessionUpdated')
+      }
+      catch (err: any) {
+        console.error('Error deleting session:', err)
+        notification.error({
+          message: 'Lỗi khi xóa buổi học',
+          description: err?.message || err?.detail || 'Vui lòng thử lại',
+          duration: 5,
+        })
+      }
+      finally {
+        isDeletingSession.value = false
+      }
+    },
+  })
 }
 
 // Handle meeting info inline edit
@@ -823,7 +868,7 @@ function formatFileSize(bytes: number): string {
             v-if="sessionDetail.start_time && sessionDetail.end_time && !isEditMode"
             class="text-sm text-gray-500 ml-7"
           >
-            {{ formatDateTimeRange(sessionDetail.start_time, sessionDetail.end_time) }}
+            {{ formatDateTimeRange(sessionDetail.start_time.replace('Z', ''), sessionDetail.end_time.replace('Z', '')) }}
           </p>
         </div>
         <a-button
@@ -1337,6 +1382,23 @@ function formatFileSize(bytes: number): string {
               </div>
             </a-tooltip>
           </div>
+        </div>
+
+        <!-- Footer actions -->
+        <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+          <a-button
+            danger
+            class="!flex !items-center gap-1.5"
+            :loading="isDeletingSession"
+            @click="handleDeleteSession"
+          >
+            <Icon name="i-heroicons-trash" class="w-4 h-4" />
+            Xóa buổi học
+          </a-button>
+
+          <a-button class="!flex !items-center" @click="dialogVisible = false">
+            Đóng
+          </a-button>
         </div>
       </div>
     </div>

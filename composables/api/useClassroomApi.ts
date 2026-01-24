@@ -6,6 +6,9 @@ export interface ClassroomPayload {
   course_id: string
   title: string
   student_count: number
+  // Auto-sessions fields (new calendar)
+  number_of_sessions?: number
+  start_date?: string // YYYY-MM-DD (UTC)
   schedules_data: ClassroomSchedule[]
   meeting_link?: string
   // Pricing fields (independent from course)
