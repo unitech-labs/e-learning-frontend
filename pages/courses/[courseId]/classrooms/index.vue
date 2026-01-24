@@ -1089,7 +1089,6 @@ function cancelPayment() {
   padding: 0;
   border-radius: 10px;
   box-shadow: none;
-  transition: all 0.3s ease;
   background: transparent !important;
 }
 
@@ -1111,7 +1110,6 @@ function cancelPayment() {
 
 :deep(.date-picker.vuecal--default-theme.vuecal--date-picker .vuecal__cell-date) {
   font-weight: 500;
-  transition: all 0.2s ease;
 }
 
 :deep(.date-picker .vuecal__cell--selected),
@@ -1133,21 +1131,13 @@ function cancelPayment() {
 :deep(.calendar .vuecal__title-bar button) {
   height: 36px;
   border-radius: 10px;
-  /* color: #ffffff !important; */
   font-weight: 600;
-  transition: all 0.3s ease;
 }
 
 :deep(.calendar .vuecal__nav--today) {
   margin-left: 3px;
-  /* display: none; */
 }
 
-/* Event content styling */
-:deep(.vuecal__event) {
-  position: relative;
-  overflow: hidden;
-}
 
 :deep(.vuecal__event .vuecal__event-title),
 :deep(.calendar .vuecal__event-time) {

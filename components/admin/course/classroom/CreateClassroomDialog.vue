@@ -1,27 +1,48 @@
 <script lang="ts" setup>
+import type { Course } from '~/types/course.type'
 import { notification } from 'ant-design-vue'
 import { useClassroomApi } from '~/composables/api/useClassroomApi'
+import { useCourseApi } from '~/composables/api/useCourseApi'
+import { useGeneralSessionsApi } from '~/composables/api/useGeneralSessionsApi'
 
 const props = withDefaults(defineProps<Props>(), {
   loading: false,
+  mode: 'create',
 })
 const emit = defineEmits<Emits>()
 const { t } = useI18n()
 const { createClassroom } = useClassroomApi()
+const { getCourses, getDetailCourses } = useCourseApi()
+const { bulkGenerateSessions } = useGeneralSessionsApi()
 
 interface Props {
   open: boolean
-  courseId: string
+  // When provided (course page), course is fixed and selector is hidden.
+  courseId?: string
   loading?: boolean
+  // create: legacy behavior (create only)
+  // select_or_create: allow selecting existing classroom OR creating new classroom
+  mode?: 'create' | 'select_or_create'
 }
 
 interface Emits {
   (e: 'update:open', value: boolean): void
   (e: 'success'): void
+  (e: 'selected', payload: { courseId: string, classroomId: string, classroomTitle?: string }): void
 }
 
 const confirmLoading = ref(false)
 const formRef = ref()
+
+// Select-or-create state
+const isCreateNew = ref(true)
+const coursesLoading = ref(false)
+const courses = ref<Course[]>([])
+const selectedCourseId = ref<string | null>(null)
+const classroomsLoading = ref(false)
+const classrooms = ref<Array<{ id: string, title: string }>>([])
+const selectedClassroomId = ref<string | null>(null)
+const bulkNumberOfSessions = ref<number | null>(null)
 
 const daysOfWeek = [
   { value: 'monday', label: 'Monday' },
@@ -54,9 +75,11 @@ const BACKGROUND_COLORS = [
 
 const formState = ref({
   title: '',
-  student_count: '',
+  student_count: null as number | null,
+  number_of_sessions: null as number | null,
+  start_date: null as any,
   schedule: [
-    { day: null, start: null, end: null, repeat: true, repeat_start_date: null as any, repeat_end_date: null as any },
+    { day: null, start: null, end: null },
   ],
   // Pricing fields
   price: null as number | null,
@@ -72,8 +95,42 @@ const dialogVisible = computed({
   },
 })
 
+const effectiveCourseId = computed(() => props.courseId || selectedCourseId.value)
+
+async function fetchCourses() {
+  try {
+    coursesLoading.value = true
+    const response = await getCourses({ limit: 200 })
+    const list = response?.results || []
+    courses.value = list.filter(c => c.course_type === 'course')
+  }
+  catch (err) {
+    console.error('Error fetching courses:', err)
+    courses.value = []
+  }
+  finally {
+    coursesLoading.value = false
+  }
+}
+
+async function fetchClassroomsOfCourse(courseId: string) {
+  try {
+    classroomsLoading.value = true
+    const detail: any = await getDetailCourses(courseId)
+    const cls = (detail?.classrooms || []) as Array<{ id: string, title: string }>
+    classrooms.value = cls
+  }
+  catch (err) {
+    console.error('Error fetching course classrooms:', err)
+    classrooms.value = []
+  }
+  finally {
+    classroomsLoading.value = false
+  }
+}
+
 function addScheduleItem() {
-  formState.value.schedule.push({ day: null, start: null, end: null, repeat: true, repeat_start_date: null, repeat_end_date: null })
+  formState.value.schedule.push({ day: null, start: null, end: null })
 }
 
 function removeScheduleItem(index: number) {
@@ -92,22 +149,6 @@ function formatTimeForApi(time: any): string {
     return time.format('HH:mm')
   }
   return time.toString()
-}
-
-// Validate repeat date range for schedule item
-function validateRepeatDateRange(rule: any, value: any, callback: any, scheduleItem: any) {
-  // Repeat is always true now, so always validate dates
-  if (!scheduleItem.repeat_start_date || !scheduleItem.repeat_end_date) {
-    callback()
-    return
-  }
-
-  if (scheduleItem.repeat_start_date.isAfter && scheduleItem.repeat_start_date.isAfter(scheduleItem.repeat_end_date)) {
-    callback(new Error('Ngày bắt đầu phải trước ngày kết thúc'))
-    return
-  }
-
-  callback()
 }
 
 // Validate price
@@ -141,9 +182,11 @@ function validateDiscountPrice(rule: any, value: any, callback: any) {
 function resetForm() {
   formState.value = {
     title: '',
-    student_count: '',
+    student_count: null,
+    number_of_sessions: null,
+    start_date: null,
     schedule: [
-      { day: null, start: null, end: null, repeat: true, repeat_start_date: null, repeat_end_date: null },
+      { day: null, start: null, end: null },
     ],
     // Reset pricing fields
     price: null,
@@ -164,30 +207,103 @@ function resetForm() {
 
 // Handle OK button
 async function handleOk() {
+  // Select existing classroom mode
+  if (props.mode === 'select_or_create' && !isCreateNew.value) {
+    const courseId = effectiveCourseId.value
+    const classroomId = selectedClassroomId.value
+    const classroomTitle = classrooms.value.find(c => c.id === classroomId)?.title
+
+    if (!courseId) {
+      notification.error({
+        message: 'Vui lòng chọn khóa học',
+        duration: 3,
+      })
+      return
+    }
+    if (!classroomId) {
+      notification.error({
+        message: 'Vui lòng chọn lớp học',
+        duration: 3,
+      })
+      return
+    }
+
+    if (!bulkNumberOfSessions.value || bulkNumberOfSessions.value <= 0) {
+      notification.error({
+        message: 'Vui lòng nhập số buổi cần tạo',
+        duration: 3,
+      })
+      return
+    }
+
+    try {
+      confirmLoading.value = true
+      const res = await bulkGenerateSessions({
+        course_id: courseId,
+        classroom_id: classroomId,
+        number_of_sessions: Number(bulkNumberOfSessions.value),
+      })
+
+      notification.success({
+        message: `Đã tạo thêm ${res?.created_count ?? bulkNumberOfSessions.value} buổi học`,
+        duration: 3,
+      })
+
+      // Let parent reload if needed
+      emit('success')
+
+      dialogVisible.value = false
+      await nextTick()
+      resetForm()
+      bulkNumberOfSessions.value = null
+
+      emit('selected', { courseId, classroomId, classroomTitle })
+      return
+    }
+    catch (err: any) {
+      console.error('Error bulk generating sessions:', err)
+      notification.error({
+        message: 'Không thể tạo thêm buổi học',
+        description: err?.message || err?.data?.detail || 'Vui lòng thử lại',
+        duration: 5,
+      })
+      return
+    }
+    finally {
+      confirmLoading.value = false
+    }
+  }
+
   try {
     await formRef.value?.validateFields()
     confirmLoading.value = true
 
+    const courseId = effectiveCourseId.value
+    if (!courseId) {
+      notification.error({
+        message: 'Vui lòng chọn khóa học',
+        duration: 3,
+      })
+      return
+    }
+
     // Transform form data to API format
     const classroomPayload: any = {
-      course_id: props.courseId,
+      course_id: courseId,
       title: formState.value.title,
-      student_count: Number.parseInt(formState.value.student_count),
+      student_count: Number(formState.value.student_count),
+      number_of_sessions: Number(formState.value.number_of_sessions),
+      start_date: formState.value.start_date?.format
+        ? formState.value.start_date.format('YYYY-MM-DD')
+        : undefined,
       schedules_data: formState.value.schedule
         .filter(schedule => schedule.day && schedule.start && schedule.end)
         .map((schedule) => {
-          const scheduleData: any = {
+          const scheduleData = {
             day_of_week: schedule.day as unknown as string,
             start_time: formatTimeForApi(schedule.start),
             end_time: formatTimeForApi(schedule.end),
           }
-
-          // Add repeat dates (always required now)
-          if (schedule.repeat_start_date && schedule.repeat_end_date) {
-            scheduleData.repeat_start_date = schedule.repeat_start_date.format('YYYY-MM-DD')
-            scheduleData.repeat_end_date = schedule.repeat_end_date.format('YYYY-MM-DD')
-          }
-
           return scheduleData
         }),
       // Pricing fields
@@ -199,17 +315,20 @@ async function handleOk() {
 
     // Call API to create classroom
     // console.warn('Classroom payload (ready for backend):', JSON.stringify(classroomPayload, null, 2))
-    await createClassroom(classroomPayload)
+    const created: any = await createClassroom(classroomPayload)
 
     // Close modal first
     dialogVisible.value = false
-    
+
     // Reset form after dialog closes to avoid formRef errors
     await nextTick()
     resetForm()
 
     // Emit success event
     emit('success')
+    if (created?.id) {
+      emit('selected', { courseId, classroomId: created.id, classroomTitle: created?.title })
+    }
 
     // Show success message
     notification.success({
@@ -242,7 +361,38 @@ function handleCancel() {
 // Watch for dialog close to reset form
 watch(() => props.open, (newValue) => {
   if (!newValue) {
+    // reset select-or-create state
+    isCreateNew.value = true
+    selectedClassroomId.value = null
+    bulkNumberOfSessions.value = null
+    classrooms.value = []
+    if (!props.courseId) {
+      selectedCourseId.value = null
+      courses.value = []
+    }
     resetForm()
+  }
+})
+
+watch(() => props.open, (newValue) => {
+  if (newValue) {
+    // Fetch courses if course is not fixed
+    if (!props.courseId) {
+      fetchCourses()
+    }
+    // If course is fixed (or already selected), prefetch classrooms for selection mode
+    const cid = effectiveCourseId.value
+    if (cid && props.mode === 'select_or_create') {
+      fetchClassroomsOfCourse(cid)
+    }
+  }
+})
+
+watch(effectiveCourseId, (cid) => {
+  selectedClassroomId.value = null
+  classrooms.value = []
+  if (cid && props.mode === 'select_or_create') {
+    fetchClassroomsOfCourse(cid)
   }
 })
 </script>
@@ -252,10 +402,74 @@ watch(() => props.open, (newValue) => {
     v-model:open="dialogVisible"
     :title="$t('admin.classroom.form.title')"
     :confirm-loading="confirmLoading"
+    :ok-text="props.mode === 'select_or_create' && !isCreateNew ? 'Tạo buổi' : undefined"
     @ok="handleOk"
     @cancel="handleCancel"
   >
+    <div v-if="props.mode === 'select_or_create'" class="w-full mb-4 mt-6 flex items-center justify-between">
+      <div class="text-sm font-medium text-gray-800">
+        Tạo lớp mới
+      </div>
+      <a-switch v-model:checked="isCreateNew" />
+    </div>
+
+    <!-- Course selector (only when not fixed by prop) -->
+    <div v-if="!props.courseId" class="w-full mb-4">
+      <div class="text-sm font-medium text-gray-700 mb-2">
+        Khóa học
+      </div>
+      <a-select
+        v-model:value="selectedCourseId"
+        size="large"
+        class="w-full"
+        placeholder="Chọn khóa học"
+        show-search
+        :loading="coursesLoading"
+        :filter-option="(input: string, option: any) => (option?.label || '').toLowerCase().includes(input.toLowerCase())"
+        :options="courses.map(c => ({ value: c.id, label: c.title }))"
+      />
+    </div>
+
+    <!-- Select existing classroom -->
+    <div v-if="props.mode === 'select_or_create' && !isCreateNew" class="w-full">
+      <div class="text-sm text-gray-600 mb-3">
+        Chọn lớp học có sẵn để tiếp tục.
+      </div>
+      <div class="text-sm font-medium text-gray-700 mb-2">
+        Lớp học
+      </div>
+      <a-select
+        v-model:value="selectedClassroomId"
+        size="large"
+        class="w-full"
+        placeholder="Chọn lớp học"
+        show-search
+        :loading="classroomsLoading"
+        :disabled="!effectiveCourseId"
+        :filter-option="(input: string, option: any) => (option?.label || '').toLowerCase().includes(input.toLowerCase())"
+        :options="classrooms.map(c => ({ value: c.id, label: c.title }))"
+      />
+
+      <div class="mt-4">
+        <div class="text-sm font-medium text-gray-700 mb-2">
+          Số buổi cần tạo
+        </div>
+        <a-input-number
+          v-model:value="bulkNumberOfSessions"
+          size="large"
+          class="w-full"
+          :min="1"
+          placeholder="Ví dụ: 10"
+        />
+        <div class="text-xs text-gray-500 mt-1">
+          Hệ thống sẽ tạo thêm số buổi này theo lịch (slot) của lớp.
+        </div>
+      </div>
+    </div>
+
+    <!-- Create new classroom (legacy form) -->
     <a-form
+      v-else
       ref="formRef"
       :model="formState"
       name="basic"
@@ -293,6 +507,41 @@ watch(() => props.open, (newValue) => {
           class="w-full"
         />
       </a-form-item>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+        <a-form-item
+          label="Ngày bắt đầu"
+          name="start_date"
+          class="w-full"
+          :rules="[{ required: true, message: 'Vui lòng chọn ngày bắt đầu' }]"
+        >
+          <a-date-picker
+            v-model:value="formState.start_date"
+            size="large"
+            placeholder="Chọn ngày bắt đầu"
+            class="w-full"
+            format="YYYY-MM-DD"
+          />
+        </a-form-item>
+
+        <a-form-item
+          label="Tổng số buổi học"
+          name="number_of_sessions"
+          class="w-full"
+          :rules="[
+            { required: true, message: 'Vui lòng nhập tổng số buổi học' },
+            { type: 'number', min: 1, message: 'Tổng số buổi học phải >= 1' },
+          ]"
+        >
+          <a-input-number
+            v-model:value="formState.number_of_sessions"
+            size="large"
+            placeholder="Ví dụ: 10"
+            :min="1"
+            class="w-full"
+          />
+        </a-form-item>
+      </div>
 
       <a-form-item
         :label="$t('admin.classroom.form.schedule')"
@@ -349,46 +598,6 @@ watch(() => props.open, (newValue) => {
                   @click="removeScheduleItem(index)"
                 />
               </div>
-            </div>
-
-            <!-- Repeat Date Range (always shown, repeat is always true) -->
-            <div class="flex gap-4 w-full">
-              <a-form-item
-                label="Các buổi học lặp lại từ ngày"
-                :name="['schedule', index, 'repeat_start_date']"
-                class="w-full"
-                :rules="[
-                  { required: true, message: 'Vui lòng chọn ngày bắt đầu' },
-                  { validator: (rule: any, value: any, callback: any) => validateRepeatDateRange(rule, value, callback, item), trigger: 'change' },
-                ]"
-              >
-                <a-date-picker
-                  v-model:value="item.repeat_start_date"
-                  size="large"
-                  placeholder="Chọn ngày bắt đầu"
-                  class="w-full"
-                  format="YYYY-MM-DD"
-                />
-              </a-form-item>
-
-              <a-form-item
-                label="đến ngày"
-                :name="['schedule', index, 'repeat_end_date']"
-                class="w-full"
-                :rules="[
-                  { required: true, message: 'Vui lòng chọn ngày kết thúc' },
-                  { validator: (rule: any, value: any, callback: any) => validateRepeatDateRange(rule, value, callback, item), trigger: 'change' },
-                ]"
-              >
-                <a-date-picker
-                  v-model:value="item.repeat_end_date"
-                  size="large"
-                  placeholder="Chọn ngày kết thúc"
-                  class="w-full"
-                  format="YYYY-MM-DD"
-                  :disabled-date="(current: any) => item.repeat_start_date && current && current < item.repeat_start_date.startOf('day')"
-                />
-              </a-form-item>
             </div>
           </div>
 

@@ -1443,6 +1443,7 @@
   },
   "adminMenu": {
     "overview": "Overview",
+    "generalCalendar": "General Calendar",
     "course": "Course",
     "classroom": "Classroom",
     "quizManagement": "Quiz Management",

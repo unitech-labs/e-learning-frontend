@@ -79,6 +79,11 @@ export function useSidebar(isAdmin = false) {
       link: '/admin',
     },
     {
+      name: t('adminMenu.generalCalendar'),
+      icon: 'solar:calendar-bold',
+      link: '/admin/calendars',
+    },
+    {
       name: t('adminMenu.course'),
       icon: 'i-heroicons-academic-cap',
       link: '/admin/courses',

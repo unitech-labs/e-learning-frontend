@@ -641,11 +641,6 @@ onMounted(async () => {
   /* display: none; */
 }
 
-/* Event content styling */
-:deep(.vuecal__event) {
-  position: relative;
-  overflow: hidden;
-}
 
 :deep(.vuecal__event .vuecal__event-title),
 :deep(.calendar .vuecal__event-time) {
