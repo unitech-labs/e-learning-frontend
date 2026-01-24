@@ -86,6 +86,7 @@ export interface NewQuiz {
   created_by_name: string
   created_at: string
   updated_at: string
+  user_attempts_count?: number // Number of attempts by current user (optional, returned by API)
 }
 
 export interface NewQuizDetail extends NewQuiz {
