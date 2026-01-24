@@ -17,7 +17,7 @@ useHead({
   ],
 })
 
-const { getLevels, getQuizzes, getOverallRanking, getQuizAttempts } = useNewQuizApi()
+const { getLevels, getQuizzes, getOverallRanking } = useNewQuizApi()
 
 const heroHighlights = [
   'Cấu trúc theo khung CEFR',
@@ -113,8 +113,12 @@ async function loadQuizzData() {
     // Load overall ranking
     await loadOverallRanking()
 
-    // Load attempts count for each quiz
-    await loadQuizAttemptsCounts()
+    // Map user_attempts_count from API response to quizAttemptsMap
+    quizzes.value.forEach((quiz) => {
+      if (quiz.user_attempts_count !== undefined) {
+        quizAttemptsMap.value[quiz.id] = quiz.user_attempts_count
+      }
+    })
   }
   catch (error) {
     console.error(error)
@@ -185,23 +189,17 @@ function formatUpdatedAt(date: string) {
   }
 }
 
-async function loadQuizAttemptsCounts() {
-  // Load attempts count for each quiz in parallel
-  const promises = quizzes.value.map(async (quiz) => {
-    try {
-      const response = await getQuizAttempts(quiz.id)
-      quizAttemptsMap.value[quiz.id] = response.results.length
-    }
-    catch (error) {
-      console.error(`Error loading attempts for quiz ${quiz.id}:`, error)
-      quizAttemptsMap.value[quiz.id] = 0
-    }
-  })
-  await Promise.all(promises)
-}
-
 function getAttemptsCount(quizId: string): number {
-  return quizAttemptsMap.value[quizId] || 0
+  // First try to get from quiz object (from API response)
+  const quiz = quizzes.value.find(q => q.id === quizId)
+  if (quiz?.user_attempts_count !== undefined) {
+    return quiz.user_attempts_count
+  }
+  // Fallback: try to get from quizAttemptsMap (if populated)
+  if (quizAttemptsMap.value[quizId] !== undefined) {
+    return quizAttemptsMap.value[quizId]
+  }
+  return 0
 }
 
 function isRetakeLimitReached(quiz: NewQuiz): boolean {
