@@ -152,10 +152,10 @@ onMounted(async () => {
     </div>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
       <!-- Show loading skeleton when no data -->
       <div
-        v-for="i in 4"
+        v-for="i in 5"
         v-if="statsCards.length === 0 && isLoadingStats"
         :key="`loading-${i}`"
         class="group relative overflow-hidden rounded-2xl p-6 bg-gray-200 animate-pulse"
@@ -204,7 +204,7 @@ onMounted(async () => {
             <div class="size-10 flex items-center justify-center rounded-xl backdrop-blur-sm" :class="stat.iconBg">
               <Icon :name="stat.icon" class="w-7 h-7" :class="stat.iconColor" />
             </div>
-            <span class="inline-flex items-center gap-1 text-sm font-bold text-white bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full">
+            <span v-if="stat.showChange !== false" class="inline-flex items-center gap-1 text-sm font-bold text-white bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full">
               <Icon name="i-heroicons-arrow-trending-up" class="w-4 h-4" />
               {{ stat.change }}
             </span>

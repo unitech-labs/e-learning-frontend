@@ -4,6 +4,7 @@ import { notification } from 'ant-design-vue'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { VueCal } from 'vue-cal'
+import { useI18n } from 'vue-i18n'
 import CreateClassroomDialog from '~/components/admin/course/classroom/CreateClassroomDialog.vue'
 import SessionDetailDialog from '~/components/admin/course/classroom/SessionDetailDialog.vue'
 import { useClassroomApi } from '~/composables/api/useClassroomApi'
@@ -16,8 +17,10 @@ definePageMeta({
   middleware: 'admin',
 })
 
+const { t } = useI18n()
+
 useHead({
-  title: 'General Calendar - Admin Panel',
+  title: `${t('admin.calendars.title')} - Admin Panel`,
 })
 
 dayjs.extend(utc)
@@ -239,7 +242,7 @@ async function validateCreation() {
   const classroomTitle = pickedForNewEvent.value?.classroomTitle
   if (!courseId || !classroomId) {
     notification.error({
-      message: 'Vui lòng chọn lớp học',
+      message: t('admin.calendars.notifications.selectClassroomRequired'),
       duration: 3,
     })
     return
@@ -287,7 +290,7 @@ async function validateCreation() {
     pickedForNewEvent.value = null
 
     notification.success({
-      message: 'Đã tạo buổi học',
+      message: t('admin.calendars.notifications.createSessionSuccess'),
       duration: 3,
     })
 
@@ -296,8 +299,8 @@ async function validateCreation() {
   catch (err: any) {
     console.error('Error creating session from calendar:', err)
     notification.error({
-      message: 'Không thể tạo buổi học',
-      description: err?.message || err?.data?.detail || 'Vui lòng thử lại',
+      message: t('admin.calendars.notifications.createSessionFailed'),
+      description: err?.message || err?.data?.detail || t('common.tryAgain'),
       duration: 5,
     })
   }
@@ -366,7 +369,7 @@ async function loadSessionsForCurrentView() {
   }
   catch (err: any) {
     console.error('Error loading sessions:', err)
-    error.value = err?.message || err?.data?.detail || 'Có lỗi xảy ra khi tải lịch tổng'
+    error.value = err?.message || err?.data?.detail || t('admin.calendars.notifications.loadSessionsError')
     sessionsData.value = []
     calendarEvents.value = []
   }
@@ -450,8 +453,8 @@ async function resolveSessionContextAndOpen(sessionId: string) {
 
     if (!courseId || !classroomId) {
       notification.error({
-        message: 'Không thể mở chi tiết buổi học',
-        description: 'Thiếu courseId/classroomId từ API session detail.',
+        message: t('admin.calendars.notifications.openSessionDetailError'),
+        description: t('admin.calendars.notifications.openSessionDetailErrorDesc'),
         duration: 5,
       })
       return
@@ -465,8 +468,8 @@ async function resolveSessionContextAndOpen(sessionId: string) {
   catch (err: any) {
     console.error('Error resolving session context:', err)
     notification.error({
-      message: 'Không thể tải chi tiết buổi học',
-      description: err?.message || err?.data?.detail || 'Vui lòng thử lại',
+      message: t('admin.calendars.notifications.loadSessionDetailError'),
+      description: err?.message || err?.data?.detail || t('common.tryAgain'),
       duration: 5,
     })
   }
@@ -498,15 +501,15 @@ async function handleEventChange(payload: any) {
     })
 
     notification.success({
-      message: 'Đã cập nhật thời gian buổi học',
+      message: t('admin.calendars.notifications.updateSessionTimeSuccess'),
       duration: 2,
     })
   }
   catch (err: any) {
     console.error('Error updating session time:', err)
     notification.error({
-      message: 'Không thể cập nhật thời gian',
-      description: err?.message || err?.data?.detail || 'Vui lòng thử lại',
+      message: t('admin.calendars.notifications.updateSessionTimeFailed'),
+      description: err?.message || err?.data?.detail || t('common.tryAgain'),
       duration: 5,
     })
 
@@ -524,6 +527,13 @@ function handleStudentChanged() {
 }
 
 async function handleClassroomDeleted() {
+  // Close dialog and reset selected session state immediately
+  openSessionDetailDialog.value = false
+  selectedSessionId.value = null
+  selectedCourseId.value = null
+  selectedClassroomId.value = null
+  
+  // Then reload sessions
   await loadSessionsForCurrentView()
 }
 
@@ -539,7 +549,7 @@ onMounted(() => {
         <div class="flex items-center gap-4">
           <h2 class="font-bold text-2xl flex items-center gap-3">
             <Icon name="solar:calendar-bold" size="28" class="text-green-600" />
-            {{ $t('adminMenu.generalCalendar') }}
+            {{ t('admin.calendars.title') }}
           </h2>
           <a-button
             type="default"
@@ -547,7 +557,7 @@ onMounted(() => {
             :loading="isLoading"
             @click="loadSessionsForCurrentView"
           >
-            Tải lại
+            {{ t('admin.calendars.refresh') }}
             <Icon name="i-heroicons-arrow-path" class="text-[16px]" />
           </a-button>
         </div>
@@ -556,7 +566,7 @@ onMounted(() => {
           class="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-500"
         >
           <Icon name="i-heroicons-list-bullet" class="h-5 w-5 text-gray-300" />
-          {{ calendarEvents.length }} buổi học
+          {{ t('admin.calendars.sessionsCount', { count: calendarEvents.length }) }}
         </div>
       </div>
 
@@ -576,7 +586,7 @@ onMounted(() => {
             {{ error }}
           </p>
           <a-button @click="loadSessionsForCurrentView">
-            {{ $t('common.tryAgain') }}
+            {{ t('common.tryAgain') }}
           </a-button>
         </div>
 
@@ -616,7 +626,7 @@ onMounted(() => {
                 {{ formatEventTime(event.start) }} - {{ formatEventTime(event.end) }}
               </div>
               <div v-if="event.limit" class="text-xs font-semibold text-white opacity-90">
-                Tối đa {{ event.limit }} học viên
+                {{ t('admin.calendars.eventDisplay.maxStudents', { limit: event.limit }) }}
               </div>
             </div>
           </template>
@@ -644,7 +654,7 @@ onMounted(() => {
               class="!text-gray-500 cursor-pointer hover:!text-gray-700 transition-colors"
               @click.stop.prevent="handleTodayClick"
             >
-              Hôm nay
+              {{ t('admin.calendars.today') }}
             </button>
           </template>
         </VueCal>
@@ -665,13 +675,13 @@ onMounted(() => {
     <!-- Choice dialog: new classroom or existing classroom -->
     <a-modal
       v-model:open="showChoiceDialog"
-      title="Chọn loại tạo"
+      :title="t('admin.calendars.choiceDialog.title')"
       :footer="null"
       @cancel="cancelCreation"
     >
       <div class="space-y-4 py-4">
         <div class="text-sm text-gray-600 mb-4">
-          Bạn muốn tạo lớp học mới hay tạo buổi học cho lớp có sẵn?
+          {{ t('admin.calendars.choiceDialog.message') }}
         </div>
         <div class="flex flex-col gap-3">
           <a-button
@@ -680,7 +690,7 @@ onMounted(() => {
             class="!h-12 !text-base !font-medium"
             @click="handleChoiceSelected('new_classroom')"
           >
-            Tạo lớp học mới
+            {{ t('admin.calendars.choiceDialog.newClassroom') }}
           </a-button>
           <a-button
             type="default"
@@ -688,7 +698,7 @@ onMounted(() => {
             class="!h-12 !text-base !font-medium"
             @click="handleChoiceSelected('existing_classroom')"
           >
-            Tạo buổi học cho lớp có sẵn
+            {{ t('admin.calendars.choiceDialog.existingClassroom') }}
           </a-button>
         </div>
       </div>
@@ -708,9 +718,9 @@ onMounted(() => {
     <!-- VueCal editable-event creation dialog -->
     <a-modal
       v-model:open="showCreationDialog"
-      title="Tạo buổi học"
-      ok-text="OK"
-      cancel-text="Cancel"
+      :title="t('admin.calendars.createSessionDialog.title')"
+      :ok-text="t('admin.calendars.createSessionDialog.ok')"
+      :cancel-text="t('admin.calendars.createSessionDialog.cancel')"
       @ok="validateCreation"
       @cancel="cancelCreation"
     >
@@ -721,21 +731,21 @@ onMounted(() => {
 
         <div>
           <div class="text-xs text-gray-600 mb-1">
-            Tiêu đề buổi học
+            {{ t('admin.calendars.createSessionDialog.sessionTitle') }}
           </div>
-          <a-input v-model:value="creationForm.title" placeholder="Event Title" />
+          <a-input v-model:value="creationForm.title" :placeholder="t('admin.calendars.createSessionDialog.sessionTitlePlaceholder')" />
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
             <div class="text-xs text-gray-600 mb-1">
-              Event Class (optional)
+              {{ t('admin.calendars.createSessionDialog.eventClass') }}
             </div>
-            <a-input v-model:value="creationForm.class" placeholder="Event Class" />
+            <a-input v-model:value="creationForm.class" :placeholder="t('admin.calendars.createSessionDialog.eventClassPlaceholder')" />
           </div>
           <div class="flex items-center gap-3 pt-5">
             <a-switch v-model:checked="creationForm.background" />
-            <span class="text-sm text-gray-700">Background</span>
+            <span class="text-sm text-gray-700">{{ t('admin.calendars.createSessionDialog.background') }}</span>
           </div>
         </div>
       </div>

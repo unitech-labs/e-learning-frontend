@@ -233,7 +233,7 @@ function formatTimeForApi(time: any): string {
 function validatePrice(_rule: any, value: any) {
   return new Promise<void>((resolve, reject) => {
     if (!value || value <= 0) {
-      reject(new Error('Giá cả là bắt buộc và phải lớn hơn 0'))
+      reject(new Error(t('admin.classroom.dialog.priceRequired')))
       return
     }
     resolve()
@@ -308,7 +308,7 @@ async function handleOk() {
     }
     if (!classroomId) {
       notification.error({
-        message: 'Vui lòng chọn lớp học',
+        message: t('admin.classroom.dialog.selectClassroomRequired'),
         duration: 3,
       })
       return
@@ -316,7 +316,7 @@ async function handleOk() {
 
     if (!sessionFormState.value.topic?.trim()) {
       notification.error({
-        message: 'Vui lòng nhập tiêu đề buổi học',
+        message: t('admin.classroom.dialog.sessionTitleRequired'),
         duration: 3,
       })
       return
@@ -324,7 +324,7 @@ async function handleOk() {
 
     if (!sessionFormState.value.start_time || !sessionFormState.value.end_time) {
       notification.error({
-        message: 'Vui lòng chọn thời gian bắt đầu/kết thúc',
+        message: t('admin.classroom.dialog.startEndTimeRequired'),
         duration: 3,
       })
       return
@@ -334,7 +334,7 @@ async function handleOk() {
     const end = dayjs(sessionFormState.value.end_time)
     if (!start.isValid() || !end.isValid() || !end.isAfter(start)) {
       notification.error({
-        message: 'Thời gian kết thúc phải sau thời gian bắt đầu',
+        message: t('admin.classroom.dialog.endTimeAfterStartTime'),
         duration: 3,
       })
       return
@@ -353,7 +353,7 @@ async function handleOk() {
       })
 
       notification.success({
-        message: 'Đã tạo buổi học',
+        message: t('admin.classroom.dialog.createSessionSuccess'),
         duration: 3,
       })
 
@@ -369,8 +369,8 @@ async function handleOk() {
     catch (err: any) {
       console.error('Error creating session:', err)
       notification.error({
-        message: 'Không thể tạo buổi học',
-        description: err?.message || err?.data?.detail || 'Vui lòng thử lại',
+        message: t('admin.classroom.dialog.createSessionFailed'),
+        description: err?.message || err?.data?.detail || t('common.tryAgain'),
         duration: 5,
       })
       return
@@ -523,13 +523,13 @@ watch(() => props.prefillRange, () => {
   <a-modal
     v-model:open="dialogVisible"
     :confirm-loading="confirmLoading"
-    :ok-text="props.mode === 'select_or_create' && !isCreateNew ? 'Tạo buổi học' : undefined"
+    :ok-text="props.mode === 'select_or_create' && !isCreateNew ? t('admin.classroom.dialog.createSession') : undefined"
     @ok="handleOk"
     @cancel="handleCancel"
   >
     <div v-if="props.mode === 'select_or_create' && props.initialCreateNew === undefined" class="w-fit mb-4 mt-6">
       <div class="text-sm font-medium text-gray-800">
-        Tạo lớp mới
+        {{ t('admin.classroom.dialog.createNewClassroom') }}
       </div>
       <a-switch v-model:checked="isCreateNew" />
     </div>
@@ -537,13 +537,13 @@ watch(() => props.prefillRange, () => {
     <!-- Course selector (only when not fixed by prop) -->
     <div v-if="!props.courseId" class="w-full mb-4">
       <div class="text-sm font-medium text-gray-700 mb-2">
-        Khóa học
+        {{ t('admin.classroom.dialog.selectCourse') }}
       </div>
       <a-select
         v-model:value="selectedCourseId"
         size="large"
         class="w-full"
-        placeholder="Chọn khóa học"
+        :placeholder="t('admin.classroom.dialog.selectCoursePlaceholder')"
         show-search
         :loading="coursesLoading"
         :filter-option="(input: string, option: any) => (option?.label || '').toLowerCase().includes(input.toLowerCase())"
@@ -554,16 +554,16 @@ watch(() => props.prefillRange, () => {
     <!-- Select existing classroom -->
     <div v-if="props.mode === 'select_or_create' && !isCreateNew" class="w-full">
       <div class="text-sm text-gray-600 mb-3">
-        Chọn lớp học có sẵn để tiếp tục.
+        {{ t('admin.classroom.dialog.selectExistingClassroom') }}
       </div>
       <div class="text-sm font-medium text-gray-700 mb-2">
-        Lớp học
+        {{ t('admin.classroom.dialog.selectClassroom') }}
       </div>
       <a-select
         v-model:value="selectedClassroomId"
         size="large"
         class="w-full"
-        placeholder="Chọn lớp học"
+        :placeholder="t('admin.classroom.dialog.selectClassroomPlaceholder')"
         show-search
         :loading="classroomsLoading"
         :disabled="!effectiveCourseId"
@@ -573,40 +573,40 @@ watch(() => props.prefillRange, () => {
 
       <div class="mt-4">
         <div class="text-sm font-medium text-gray-700 mb-2">
-          Tạo buổi học
+          {{ t('admin.classroom.dialog.createSession') }}
         </div>
 
         <div class="space-y-3">
           <div>
             <div class="text-xs text-gray-600 mb-1">
-              Tiêu đề
+              {{ t('admin.classroom.dialog.sessionTitle') }}
             </div>
-            <a-input v-model:value="sessionFormState.topic" placeholder="Nhập tiêu đề buổi học" />
+            <a-input v-model:value="sessionFormState.topic" :placeholder="t('admin.classroom.dialog.sessionTitlePlaceholder')" />
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
               <div class="text-xs text-gray-600 mb-1">
-                Bắt đầu
+                {{ t('admin.classroom.dialog.startTime') }}
               </div>
               <a-date-picker
                 v-model:value="sessionFormState.start_time"
                 show-time
                 format="YYYY-MM-DD HH:mm"
                 class="w-full"
-                placeholder="Chọn thời gian bắt đầu"
+                :placeholder="t('admin.classroom.dialog.startTimePlaceholder')"
               />
             </div>
             <div>
               <div class="text-xs text-gray-600 mb-1">
-                Kết thúc
+                {{ t('admin.classroom.dialog.endTime') }}
               </div>
               <a-date-picker
                 v-model:value="sessionFormState.end_time"
                 show-time
                 format="YYYY-MM-DD HH:mm"
                 class="w-full"
-                placeholder="Chọn thời gian kết thúc"
+                :placeholder="t('admin.classroom.dialog.endTimePlaceholder')"
               />
             </div>
           </div>
@@ -614,23 +614,23 @@ watch(() => props.prefillRange, () => {
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
               <div class="text-xs text-gray-600 mb-1">
-                Meeting link
+                {{ t('admin.classroom.dialog.meetingLink') }}
               </div>
-              <a-input v-model:value="sessionFormState.meeting_link" placeholder="https://..." />
+              <a-input v-model:value="sessionFormState.meeting_link" :placeholder="t('admin.classroom.dialog.meetingLinkPlaceholder')" />
             </div>
             <div>
               <div class="text-xs text-gray-600 mb-1">
-                Meeting ID
+                {{ t('admin.classroom.dialog.meetingId') }}
               </div>
-              <a-input v-model:value="sessionFormState.meeting_id" placeholder="Meeting ID" />
+              <a-input v-model:value="sessionFormState.meeting_id" :placeholder="t('admin.classroom.dialog.meetingIdPlaceholder')" />
             </div>
           </div>
 
           <div>
             <div class="text-xs text-gray-600 mb-1">
-              Meeting pass
+              {{ t('admin.classroom.dialog.meetingPass') }}
             </div>
-            <a-input v-model:value="sessionFormState.meeting_pass" placeholder="Meeting pass" />
+            <a-input v-model:value="sessionFormState.meeting_pass" :placeholder="t('admin.classroom.dialog.meetingPassPlaceholder')" />
           </div>
         </div>
       </div>
@@ -679,33 +679,33 @@ watch(() => props.prefillRange, () => {
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
         <a-form-item
-          label="Ngày bắt đầu"
+          :label="t('admin.classroom.dialog.startDate')"
           name="start_date"
           class="w-full"
-          :rules="[{ required: true, message: 'Vui lòng chọn ngày bắt đầu' }]"
+          :rules="[{ required: true, message: t('admin.classroom.form.startDateRequired') }]"
         >
           <a-date-picker
             v-model:value="formState.start_date"
             size="large"
-            placeholder="Chọn ngày bắt đầu"
+            :placeholder="t('admin.classroom.dialog.startDatePlaceholder')"
             class="w-full"
             format="YYYY-MM-DD"
           />
         </a-form-item>
 
         <a-form-item
-          label="Tổng số buổi học"
+          :label="t('admin.classroom.dialog.numberOfSessions')"
           name="number_of_sessions"
           class="w-full"
           :rules="[
-            { required: true, message: 'Vui lòng nhập tổng số buổi học' },
-            { type: 'number', min: 1, message: 'Tổng số buổi học phải >= 1' },
+            { required: true, message: t('admin.classroom.dialog.numberOfSessionsRequired') },
+            { type: 'number', min: 1, message: t('admin.classroom.dialog.numberOfSessionsMin') },
           ]"
         >
           <a-input-number
             v-model:value="formState.number_of_sessions"
             size="large"
-            placeholder="Ví dụ: 10"
+            :placeholder="t('admin.classroom.dialog.numberOfSessionsPlaceholder')"
             :min="1"
             class="w-full"
           />
@@ -784,11 +784,11 @@ watch(() => props.prefillRange, () => {
       <!-- Pricing Section -->
       <div class="w-full border-t border-gray-200 pt-4 mt-4">
         <h3 class="text-base font-semibold text-gray-900 mb-4">
-          Giá cả
+          {{ t('admin.classroom.dialog.pricing') }}
         </h3>
 
         <a-form-item
-          label="Giá gốc"
+          :label="t('admin.classroom.dialog.originalPrice')"
           name="price"
           class="w-full"
           :rules="[{ required: true, validator: validatePrice, trigger: 'change' }]"
@@ -796,7 +796,7 @@ watch(() => props.prefillRange, () => {
           <a-input-number
             v-model:value="formState.price"
             size="large"
-            placeholder="Nhập giá gốc"
+            :placeholder="t('admin.classroom.dialog.originalPricePlaceholder')"
             :min="0"
             :step="0.01"
             :precision="2"
@@ -807,7 +807,7 @@ watch(() => props.prefillRange, () => {
             </template>
           </a-input-number>
           <div class="text-xs text-gray-500 mt-1">
-            Giá gốc của lớp học (bắt buộc)
+            {{ t('admin.classroom.dialog.originalPriceDescription') }}
           </div>
         </a-form-item>
       </div>
@@ -815,11 +815,11 @@ watch(() => props.prefillRange, () => {
       <!-- Background Color Section -->
       <div class="w-full border-t border-gray-200 pt-4 mt-4">
         <h3 class="text-base font-semibold text-gray-900 mb-4">
-          Màu nền cho lịch học
+          {{ t('admin.classroom.dialog.backgroundColor') }}
         </h3>
 
         <a-form-item
-          label="Màu nền"
+          :label="t('admin.classroom.dialog.backgroundColorLabel')"
           name="background_color"
           class="w-full"
         >
@@ -835,7 +835,7 @@ watch(() => props.prefillRange, () => {
           </div>
         </a-form-item>
         <div class="text-xs text-gray-500 mt-1">
-          Chọn màu nền để hiển thị trên lịch học
+          {{ t('admin.classroom.dialog.backgroundColorDescription') }}
         </div>
       </div>
     </a-form>
