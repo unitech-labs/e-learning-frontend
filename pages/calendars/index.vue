@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import type { CalendarClassroom, CalendarSession } from '~/types/course.type'
+import type { CalendarClassroom } from '~/types/course.type'
+import { notification } from 'ant-design-vue'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import { formatDate, VueCal } from 'vue-cal'
+import { VueCal } from 'vue-cal'
 import EventDetailDialog from '~/components/calendar/EventDetailDialog.vue'
 import { useClassroomApi } from '~/composables/api/useClassroomApi'
 import 'vue-cal/style'
@@ -11,12 +12,11 @@ import 'vue-cal/style'
 dayjs.extend(utc)
 
 export interface CalendarEvent {
-  start: string
-  end: string
+  start: Date
+  end: Date
   title: string
   class?: string
   content?: string
-  background?: string
   deletable?: boolean
   resizable?: boolean
   schedule?: number
@@ -26,16 +26,27 @@ export interface CalendarEvent {
   classroom_id?: string
   classroom?: CalendarClassroom
   course_title?: string
+  backgroundColor?: string
+  is_enrolled?: boolean
 }
 
 // Default background color if classroom doesn't have background_color
 const DEFAULT_BACKGROUND_COLOR = '#268100' // Green
 
-// Format event time (from "YYYY-MM-DD HH:mm" to "HH:mm")
-function formatEventTime(dateTimeString: string): string {
-  if (!dateTimeString)
+// Format event time (from Date to "HH:mm")
+function formatEventTime(dateTime: Date | string): string {
+  if (!dateTime)
     return ''
-  return dayjs(dateTimeString).format('HH:mm')
+  const date = typeof dateTime === 'string' ? new Date(dateTime) : dateTime
+  return dayjs(date).format('HH:mm')
+}
+
+// Helper function to safely extract time from date string or Date
+function extractTimeFromDateString(dateString: Date | string | undefined): string {
+  if (!dateString)
+    return ''
+  const date = typeof dateString === 'string' ? new Date(dateString) : dateString
+  return dayjs(date).format('HH:mm')
 }
 
 interface DemoExample {
@@ -72,51 +83,54 @@ const vueCalRef = ref<any>(null)
 // API composable
 const { getCalendarData, selfCheckInSession } = useClassroomApi()
 
-// Helper function to safely extract time from date string
-function extractTimeFromDateString(dateString: string | undefined): string {
-  if (!dateString)
-    return ''
-  return dayjs(dateString).format('HH:mm')
-}
-
 // Convert session data to calendar events
-function convertSessionToEvent(session: CalendarSession, classroom: CalendarClassroom): CalendarEvent {
-  // Parse date strings - backend can return UTC or timezone
-  // dayjs will automatically parse the timezone from the string
-  const startDate = dayjs(session.start_time)
-  const endDate = dayjs(session.end_time)
-
+function convertSessionToEvent(session: any): CalendarEvent {
   return {
     id: session.id,
-    start: startDate.format('YYYY-MM-DD HH:mm'),
-    end: endDate.format('YYYY-MM-DD HH:mm'),
-    title: classroom.title,
-    classroom,
-    classroom_id: classroom.id,
-    course_title: classroom.course.title,
+    start: new Date(session.start_time.replace('Z', '')),
+    end: new Date(session.end_time.replace('Z', '')),
+    title: session.classroom_title || session.topic,
+    classroom_id: session.classroom,
+    course_title: session.course_title,
     meeting_link: session.meeting_link || '',
     resizable: false,
     schedule: 1,
     // Use background_color from session if available, otherwise default
-    background: classroom.background_color || DEFAULT_BACKGROUND_COLOR,
+    backgroundColor: session.background_color || DEFAULT_BACKGROUND_COLOR,
+    is_enrolled: session.is_enrolled,
   }
 }
 
 // Fetch calendar data
 async function fetchCalendarData() {
+  if (!vueCalRef.value?.view) {
+    return
+  }
+
   try {
     loading.value = true
     data.value.events = []
+
+    const view = vueCalRef.value.view
+    let startDate: string | undefined
+    let endDate: string | undefined
+
+    if (view && view.cellDates && view.cellDates.length > 0) {
+      const firstCell = view.cellDates[0]
+      const lastCell = view.cellDates[view.cellDates.length - 1]
+      startDate = firstCell.startFormatted // YYYY-MM-DD
+      endDate = lastCell.startFormatted // YYYY-MM-DD
+    }
+
     const response = await getCalendarData({
-      view: currentView.value,
-      date: formatDate(selectedDate.value),
+      start_date: startDate,
+      end_date: endDate,
     })
+
     // Convert sessions to calendar events
     const events: CalendarEvent[] = []
-    response.classrooms.forEach((classroom: CalendarClassroom) => {
-      classroom.sessions.forEach((session: CalendarSession) => {
-        events.push(convertSessionToEvent(session, classroom))
-      })
+    response.results.forEach((session: any) => {
+      events.push(convertSessionToEvent(session))
     })
 
     data.value.events = events
@@ -126,10 +140,8 @@ async function fetchCalendarData() {
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()) // Start of today
     const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000) // Start of tomorrow
 
-    const todayEvents = response.classrooms
-      .flatMap((classroom: CalendarClassroom) =>
-        classroom.sessions.map((session: CalendarSession) => convertSessionToEvent(session, classroom)),
-      )
+    const todayEvents = response.results
+      .map((session: any) => convertSessionToEvent(session))
       .filter((event: CalendarEvent) => {
         const eventDate = new Date(event.start)
         return eventDate >= today && eventDate < tomorrow
@@ -157,7 +169,9 @@ watch(viewDate, (newViewDate) => {
     selectedDate.value = firstDayOfWeek
   }
   // Fetch calendar data when view date changes
-  fetchCalendarData()
+  nextTick(() => {
+    fetchCalendarData()
+  })
 })
 
 // Handle previous button click
@@ -213,6 +227,15 @@ function handleTodayClick() {
 
 // Handle event click to show detail dialog
 function openEventDetail(event: any) {
+  if (!event.event.is_enrolled) {
+    // show toast bạn không thuộc lớp này
+    notification.error({
+      message: 'Bạn không thuộc lớp này',
+      description: 'Bạn không thuộc lớp này',
+      duration: 5,
+    })
+    return
+  }
   const calendarEvent = event.event as CalendarEvent
   selectedEventForDetail.value = calendarEvent
   showEventDetailDialog.value = true
@@ -295,8 +318,16 @@ function cancelJoinClass() {
   checkInError.value = null
 }
 
+function handleCalendarReady({ view }: any) {
+  view.scrollToCurrentTime()
+  if (!ready.value) {
+    nextTick(() => {
+      fetchCalendarData()
+    })
+  }
+}
+
 onMounted(async () => {
-  await fetchCalendarData()
   setTimeout(() => {
     ready.value = true
   }, 400)
@@ -429,26 +460,32 @@ onMounted(async () => {
               v-model:view="currentView"
               :views-bar="false"
               class="custom-theme calendar w-full !h-auto"
-              :time-from="7 * 60"
+              :time-from="1 * 60"
               :time-step="60"
               :time-to="24 * 60"
               :time-cell-height="72"
               :events="data.events"
               :views="['week']"
               time-at-cursor
-              @ready="({ view }: any) => view.scrollToCurrentTime()"
+              @ready="handleCalendarReady"
               @event-click="openEventDetail"
             >
               <template #event="{ event }">
                 <div
                   class="flex flex-col gap-1 text-white p-1 px-2 rounded-[5px] h-full"
-                  :style="{ backgroundColor: event.background || DEFAULT_BACKGROUND_COLOR }"
+                  :style="{ backgroundColor: event.backgroundColor || 'DEFAULT_BACKGROUND_COLOR' }"
                 >
                   <div class="text-sm font-medium text-white leading-tight">
                     {{ event.title }}
                   </div>
+                  <div v-if="event.courseTitle" class="text-[11px] font-semibold text-white opacity-90 line-clamp-1">
+                    {{ event.courseTitle }}
+                  </div>
                   <div v-if="event.start && event.end" class="text-xs font-semibold text-white opacity-90">
                     {{ formatEventTime(event.start) }} - {{ formatEventTime(event.end) }}
+                  </div>
+                  <div v-if="event.limit" class="text-xs font-semibold text-white opacity-90">
+                    Tối đa {{ event.limit }} học viên
                   </div>
                 </div>
               </template>
@@ -587,7 +624,7 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-/* Vue-cal theme customization */
+/* Vue-cal theme customization (reuse from other calendar pages) */
 :deep(.vuecal.custom-theme) {
   --vuecal-primary-color: #fff;
   --vuecal-secondary-color: #fafbfc;
@@ -612,14 +649,12 @@ onMounted(async () => {
   color: var(--vuecal-base-color) !important;
 }
 
-/* Event styling - background color is set via inline style in custom template */
 :deep(.vuecal--default-theme .vuecal__event) {
   color: #ffffff;
   border: 1px solid rgba(203, 213, 225, 0.35);
   padding: 0;
   border-radius: 10px;
   box-shadow: none;
-  transition: all 0.3s ease;
   background: transparent !important;
 }
 
@@ -628,19 +663,15 @@ onMounted(async () => {
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
 }
 
-/* Calendar navigation */
 :deep(.calendar .vuecal__title-bar button) {
   height: 36px;
   border-radius: 10px;
   font-weight: 600;
-  transition: all 0.3s ease;
 }
 
 :deep(.calendar .vuecal__nav--today) {
   margin-left: 3px;
-  /* display: none; */
 }
-
 
 :deep(.vuecal__event .vuecal__event-title),
 :deep(.calendar .vuecal__event-time) {
@@ -656,7 +687,6 @@ onMounted(async () => {
   font-weight: 600;
 }
 
-/* Week and day view styling */
 :deep(.vuecal--default-theme .vuecal__time-cell) {
   border-color: #e2e8f0;
 }
@@ -671,69 +701,11 @@ onMounted(async () => {
   color: #fff;
 }
 
-/* Date picker styling */
-:deep(.date-picker.vuecal--default-theme.vuecal--date-picker.vuecal--light .vuecal__cell--today:before) {
-  background: #94a3b8;
-  box-shadow: 0 4px 16px rgba(148, 163, 184, 0.25);
-}
-
-:deep(.date-picker.vuecal--default-theme.vuecal--light .vuecal__cell--selected:before) {
-  background: #64748b;
-  background-color: color-mix(in srgb, #15803d 10%, transparent) !important;
-}
-
-:deep(.date-picker.vuecal--default-theme.vuecal--date-picker .vuecal__cell-date) {
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-:deep(.date-picker .vuecal__cell--selected),
-:deep(.date-picker.vuecal--default-theme.vuecal--date-picker.vuecal--light .vuecal__cell--today) {
-  font-weight: 600;
-}
-
-:deep(.date-picker .vuecal__cell:hover.vuecal__cell:before) {
-  background: #64748b;
-}
-
-:deep(.date-picker .vuecal__cell:hover) {
-  color: #fff;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.date-picker :deep(.vuecal__title-bar) {
-  color: white !important;
-}
-
-/* Custom modal styling */
-.join-class-modal :deep(.ant-modal-content) {
-  border-radius: 20px;
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  box-shadow: 0 24px 45px -18px rgba(15, 23, 42, 0.35);
-  background: #ffffff;
-}
-
-.join-class-modal :deep(.ant-modal-body) {
-  padding: 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  :deep(.vuecal--default-theme .vuecal__event) {
-    font-size: 12px;
-  }
-
-  :deep(.vuecal__event .vuecal__event-title) {
-    font-size: 12px;
-  }
-
-  :deep(.vuecal__event .vuecal__event-time) {
-    font-size: 10px;
-  }
-}
-
-:deep(.vuecal__event-details) {
-  padding: 0;
 }
 </style>

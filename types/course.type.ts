@@ -471,16 +471,29 @@ export interface CalendarClassroom {
 }
 
 export interface CalendarApiResponse {
-  view_type: string
-  period: string
-  date_range: {
-    start: string
-    end: string
-  }
-  classrooms: CalendarClassroom[]
-  upcoming_today: any[]
-  total_classrooms: number
-  total_sessions: number
+  count: number
+  next: string | null
+  previous: string | null
+  results: Array<{
+    id: string
+    topic: string
+    description: string
+    start_time: string
+    end_time: string
+    location: string
+    limit: number
+    status: string
+    classroom_title: string
+    course_title: string
+    background_color?: string | null
+    meeting_link?: string | null
+    is_enrolled?: boolean
+    attendance_count: number
+    present_count: number
+    created_at: string
+    updated_at: string
+    classroom?: string
+  }>
 }
 
 export interface ResourcePricePlan {
