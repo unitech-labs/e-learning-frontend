@@ -98,10 +98,10 @@ function isEventEnded(): boolean {
           <Icon name="solar:calendar-add-bold" size="20" class="text-gray-500" />
           <div>
             <p class="text-sm font-medium text-gray-900">
-              {{ formatDateTime(event.start) }}
+              {{ formatDateTime(event.start.toISOString()) }}
             </p>
             <p class="text-sm text-gray-600">
-              {{ formatTime(event.start) }} - {{ formatTime(event.end) }}
+              {{ formatTime(event.start.toISOString()) }} - {{ formatTime(event.end.toISOString()) }}
             </p>
           </div>
         </div>

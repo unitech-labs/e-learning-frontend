@@ -136,8 +136,8 @@ export function useClassroomApi() {
       apiClient.get<SessionAttendance[]>(`/classrooms/sessions/${sessionId}/attendances/`),
 
     // Get calendar data
-    getCalendarData: (params?: { view?: string; date?: string }) =>
-      apiClient.get<CalendarApiResponse>('/classrooms/calendar/', { params }),
+    getCalendarData: (params?: { start_date?: string, end_date?: string }) =>
+      apiClient.get<CalendarApiResponse>('/students/sessions/', { params }),
 
     // Get course sessions (all sessions of all classrooms in a course)
     getCourseSessions: (courseId: string, params?: {
@@ -161,7 +161,7 @@ export function useClassroomApi() {
       apiClient.get<any>(`/classrooms/${classroomId}/students/`, { params }),
 
     // Quick enroll student to classroom
-    quickEnrollStudent: (classroomId: string, data: { email: string; send_welcome_email?: boolean }) =>
+    quickEnrollStudent: (classroomId: string, data: { email: string, send_welcome_email?: boolean }) =>
       apiClient.post<any>(`/classrooms/${classroomId}/quick-enroll/`, data),
 
     // Remove student from classroom
@@ -178,7 +178,7 @@ export function useClassroomApi() {
     getSessionVideoUploadUrl: (
       courseId: string,
       sessionId: string,
-      payload: { file_name: string; content_type: string },
+      payload: { file_name: string, content_type: string },
     ) =>
       apiClient.post<{
         upload_url: string
@@ -214,7 +214,7 @@ export function useClassroomApi() {
       }>(`/courses/${courseId}/sessions/${sessionId}/videos/`, payload),
 
     // List session videos
-    getSessionVideos: (courseId: string, sessionId: string, params?: { page?: number; page_size?: number }) =>
+    getSessionVideos: (courseId: string, sessionId: string, params?: { page?: number, page_size?: number }) =>
       apiClient.get<{
         count: number
         next: string | null
@@ -247,7 +247,7 @@ export function useClassroomApi() {
     getSessionMaterialUploadUrl: (
       courseId: string,
       sessionId: string,
-      payload: { file_name: string; content_type: string },
+      payload: { file_name: string, content_type: string },
     ) =>
       apiClient.post<{
         upload_url: string
@@ -273,7 +273,7 @@ export function useClassroomApi() {
       apiClient.post<any>(`/courses/${courseId}/sessions/${sessionId}/materials/`, payload),
 
     // List session materials
-    getSessionMaterials: (courseId: string, sessionId: string, params?: { page?: number; page_size?: number }) =>
+    getSessionMaterials: (courseId: string, sessionId: string, params?: { page?: number, page_size?: number }) =>
       apiClient.get<{
         count: number
         next: string | null
@@ -304,7 +304,7 @@ export function useClassroomApi() {
       courseId: string,
       sessionId: string,
       materialId: string,
-      payload: { title?: string; description?: string },
+      payload: { title?: string, description?: string },
     ) =>
       apiClient.patch<any>(`/courses/${courseId}/sessions/${sessionId}/materials/${materialId}/`, payload),
 
