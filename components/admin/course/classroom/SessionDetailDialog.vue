@@ -4,6 +4,7 @@ import type { SessionAttendance } from '~/composables/api/useClassroomApi'
 import { CloseOutlined } from '@ant-design/icons-vue'
 import { Modal, notification } from 'ant-design-vue'
 import dayjs from 'dayjs'
+import { useI18n } from 'vue-i18n'
 import { useClassroomApi } from '~/composables/api/useClassroomApi'
 import { useFileUpload } from '~/composables/useFileUpload'
 import EditClassroomDialog from './EditClassroomDialog.vue'
@@ -25,6 +26,7 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
+const { t } = useI18n()
 
 const {
   getCourseSessionDetail,
@@ -157,6 +159,9 @@ async function loadSessionDetail() {
   try {
     isLoading.value = true
     const response = await getCourseSessionDetail(props.courseId, props.sessionId)
+    // Check if dialog is still open before updating state
+    if (!props.open)
+      return
     sessionDetail.value = response
     // Initialize meeting edit state
     meetingEditState.value = {
@@ -166,10 +171,13 @@ async function loadSessionDetail() {
     }
   }
   catch (err: any) {
+    // Don't show error if dialog is closed (classroom was deleted) or if it's a 404
+    if (!props.open || err?.statusCode === 404 || err?.response?.status === 404 || err?.status === 404)
+      return
     console.error('Error loading session detail:', err)
     notification.error({
-      message: 'Lỗi khi tải thông tin buổi học',
-      description: err.message || 'Vui lòng thử lại',
+      message: t('admin.classroom.sessionDetail.loadSessionError'),
+      description: err.message || t('common.tryAgain'),
       duration: 5,
     })
   }
@@ -188,13 +196,19 @@ async function loadStudents() {
 
     // Get classroom students directly
     const response = await getClassroomStudents(props.classroomId)
+    // Check if dialog is still open before updating state
+    if (!props.open)
+      return
     students.value = (response.results || [])
   }
   catch (err: any) {
+    // Don't show error if dialog is closed or if it's a 404
+    if (!props.open || err?.statusCode === 404 || err?.response?.status === 404 || err?.status === 404)
+      return
     console.error('Error loading students:', err)
     notification.error({
-      message: 'Lỗi khi tải danh sách học sinh',
-      description: err.message || err.detail || 'Vui lòng thử lại',
+      message: t('admin.classroom.sessionDetail.loadStudentsError'),
+      description: err.message || err.detail || t('common.tryAgain'),
       duration: 5,
     })
   }
@@ -229,7 +243,7 @@ async function handleAddStudent() {
     })
 
     notification.success({
-      message: 'Đã thêm học sinh vào lớp thành công',
+      message: t('admin.classroom.sessionDetail.addStudentSuccess'),
       duration: 3,
     })
 
@@ -244,8 +258,8 @@ async function handleAddStudent() {
   catch (err: any) {
     console.error('Error adding student:', err)
     notification.error({
-      message: 'Lỗi khi thêm học sinh',
-      description: err.message || err.detail || 'Vui lòng thử lại',
+      message: t('admin.classroom.sessionDetail.addStudentError'),
+      description: err.message || err.detail || t('common.tryAgain'),
       duration: 5,
     })
   }
@@ -271,8 +285,8 @@ async function confirmRemoveStudent() {
     await removeStudentFromClassroom(props.classroomId, studentToRemove.value, deleteOrderOnRemove.value)
 
     const message = deleteOrderOnRemove.value
-      ? 'Đã xóa học sinh và đơn hàng khỏi lớp thành công'
-      : 'Đã xóa học sinh khỏi lớp thành công'
+      ? t('admin.classroom.sessionDetail.removeStudentAndOrderSuccess')
+      : t('admin.classroom.sessionDetail.removeStudentSuccess')
 
     notification.success({
       message,
@@ -291,8 +305,8 @@ async function confirmRemoveStudent() {
   catch (err: any) {
     console.error('Error removing student:', err)
     notification.error({
-      message: 'Lỗi khi xóa học sinh',
-      description: err.message || err.detail || 'Vui lòng thử lại',
+      message: t('admin.classroom.sessionDetail.removeStudentError'),
+      description: err.message || err.detail || t('common.tryAgain'),
       duration: 5,
     })
   }
@@ -397,8 +411,8 @@ async function handleSaveEdit() {
     await updateClassroomSession(props.sessionId, updatePayload)
 
     notification.success({
-      message: 'Thành công',
-      description: 'Đã cập nhật buổi học thành công',
+      message: t('admin.classroom.sessionDetail.updateSessionSuccess'),
+      description: t('admin.classroom.sessionDetail.updateSessionSuccessDesc'),
       duration: 3,
     })
 
@@ -408,10 +422,13 @@ async function handleSaveEdit() {
     emit('sessionUpdated')
   }
   catch (err: any) {
+    // Don't show error if dialog is closed
+    if (!props.open)
+      return
     console.error('Error updating session:', err)
     notification.error({
-      message: 'Lỗi khi cập nhật buổi học',
-      description: err.message || err.detail || 'Vui lòng thử lại',
+      message: t('admin.classroom.sessionDetail.updateSessionError'),
+      description: err.message || err.detail || t('common.tryAgain'),
       duration: 5,
     })
   }
@@ -435,10 +452,10 @@ async function handleDeleteSession() {
     return
 
   Modal.confirm({
-    title: 'Xác nhận xóa buổi học',
-    content: 'Bạn có chắc chắn muốn xóa buổi học này không? Hệ thống có thể tự động sinh buổi mới để bù vào theo lịch của lớp.',
-    okText: 'Xóa',
-    cancelText: 'Hủy',
+    title: t('admin.classroom.sessionDetail.confirmDeleteSession'),
+    content: t('admin.classroom.sessionDetail.deleteSessionMessage'),
+    okText: t('admin.classroom.sessionDetail.delete'),
+    cancelText: t('admin.classroom.sessionDetail.cancel'),
     okType: 'danger',
     async onOk() {
       if (!props.sessionId)
@@ -449,7 +466,7 @@ async function handleDeleteSession() {
         await deleteClassroomSession(props.sessionId)
 
         notification.success({
-          message: 'Đã xóa buổi học',
+          message: t('admin.classroom.sessionDetail.deleteSessionSuccess'),
           duration: 3,
         })
 
@@ -459,8 +476,8 @@ async function handleDeleteSession() {
       catch (err: any) {
         console.error('Error deleting session:', err)
         notification.error({
-          message: 'Lỗi khi xóa buổi học',
-          description: err?.message || err?.detail || 'Vui lòng thử lại',
+          message: t('admin.classroom.sessionDetail.deleteSessionError'),
+          description: err?.message || err?.detail || t('common.tryAgain'),
           duration: 5,
         })
       }
@@ -511,8 +528,8 @@ async function saveMeetingInfo() {
     await updateClassroomSession(props.sessionId, updatePayload)
 
     notification.success({
-      message: 'Thành công',
-      description: 'Đã cập nhật thông tin meeting',
+      message: t('admin.classroom.sessionDetail.updateMeetingSuccess'),
+      description: t('admin.classroom.sessionDetail.updateMeetingSuccessDesc'),
       duration: 3,
     })
 
@@ -521,10 +538,13 @@ async function saveMeetingInfo() {
     emit('sessionUpdated')
   }
   catch (error: any) {
+    // Don't show error if dialog is closed
+    if (!props.open)
+      return
     console.error('Error updating meeting info:', error)
     notification.error({
-      message: 'Lỗi',
-      description: error?.data?.detail || 'Không thể cập nhật thông tin meeting',
+      message: t('admin.classroom.sessionDetail.updateMeetingError'),
+      description: error?.data?.detail || t('admin.classroom.sessionDetail.updateMeetingErrorDesc'),
       duration: 5,
     })
   }
@@ -542,7 +562,7 @@ function handleEditClassroom() {
 
 async function handleClassroomUpdated() {
   // Reload session detail to get updated classroom data
-  if (props.sessionId && props.courseId) {
+  if (props.sessionId && props.courseId && props.open) {
     loadSessionDetail().then(() => {
       emit('sessionUpdated')
     })
@@ -553,6 +573,16 @@ function handleClassroomDeleted() {
   // Close all dialogs when classroom is deleted
   dialogVisible.value = false
   showEditClassroomDialog.value = false
+  
+  // Reset state immediately
+  sessionDetail.value = null
+  students.value = []
+  showAddStudent.value = false
+  addStudentEmail.value = ''
+  isEditMode.value = false
+  videoFileList.value = []
+  attendance.value = []
+  
   emit('classroomDeleted')
 }
 
@@ -590,9 +620,15 @@ async function loadAttendance() {
   try {
     attendanceLoading.value = true
     const response = await getSessionAttendance(props.sessionId)
+    // Check if dialog is still open before updating state
+    if (!props.open)
+      return
     attendance.value = response || []
   }
   catch (err: any) {
+    // Don't show error if dialog is closed or if it's a 404
+    if (!props.open || err?.statusCode === 404 || err?.response?.status === 404 || err?.status === 404)
+      return
     console.error('Error loading attendance:', err)
     // Don't show error notification, just log it
   }
@@ -619,12 +655,12 @@ function getAttendanceStatusBadge(status: string): { class: string, text: string
     case 'present':
       return {
         class: 'bg-green-100 text-green-800 border-green-200',
-        text: 'Có mặt',
+        text: t('admin.classroom.sessionDetail.present'),
       }
     case 'late':
       return {
         class: 'bg-orange-100 text-orange-800 border-orange-200',
-        text: 'Muộn',
+        text: t('admin.classroom.sessionDetail.late'),
       }
     default:
       return {
@@ -642,6 +678,9 @@ async function loadVideos() {
   try {
     videosLoading.value = true
     const response = await getSessionVideos(props.courseId, props.sessionId)
+    // Check if dialog is still open before updating state
+    if (!props.open)
+      return
     videoFileList.value = (response.results || []).map((video: any) => ({
       uid: video.id,
       name: video.file_name,
@@ -655,6 +694,9 @@ async function loadVideos() {
     }))
   }
   catch (err: any) {
+    // Don't show error if dialog is closed or if it's a 404
+    if (!props.open || err?.statusCode === 404 || err?.response?.status === 404 || err?.status === 404)
+      return
     console.error('Error loading videos:', err)
     // Don't show error notification, just log it
   }
@@ -674,8 +716,8 @@ async function uploadSingleVideo(uid: string) {
 
   if (!props.sessionId || !props.courseId) {
     notification.error({
-      message: 'Lỗi',
-      description: 'Thiếu thông tin session hoặc course',
+      message: t('admin.classroom.sessionDetail.missingSessionOrCourse'),
+      description: t('admin.classroom.sessionDetail.missingSessionOrCourseDesc'),
       duration: 5,
     })
     return
@@ -692,7 +734,7 @@ async function uploadSingleVideo(uid: string) {
     const fileType = file.type || 'video/mp4'
 
     if (!allowedTypes.includes(fileType)) {
-      throw new Error(`Loại file không được hỗ trợ. Chỉ chấp nhận: ${allowedTypes.join(', ')}`)
+      throw new Error(t('admin.classroom.sessionDetail.fileTypeNotSupported', { types: allowedTypes.join(', ') }))
     }
 
     // Step 1: Get presigned URL
@@ -719,7 +761,7 @@ async function uploadSingleVideo(uid: string) {
 
     if (!uploadUrl || !publicUrl) {
       console.error('Missing upload URLs in response:', presignedResponse)
-      throw new Error('Không nhận được upload URL từ server')
+      throw new Error(t('admin.classroom.sessionDetail.missingUploadUrl'))
     }
 
     // Step 2: Upload to S3 with progress tracking
@@ -755,8 +797,8 @@ async function uploadSingleVideo(uid: string) {
     fileItem.duration = videoResponse.duration || undefined
 
     notification.success({
-      message: 'Upload thành công',
-      description: `Đã upload ${fileItem.name} thành công`,
+      message: t('admin.classroom.sessionDetail.uploadVideoSuccess'),
+      description: t('admin.classroom.sessionDetail.uploadVideoSuccessDesc', { name: fileItem.name }),
       duration: 3,
     })
   }
@@ -773,7 +815,7 @@ async function uploadSingleVideo(uid: string) {
     fileItem.status = 'error'
 
     // Extract error message
-    let errorMessage = `Không thể upload ${fileItem.name}`
+    let errorMessage = t('admin.classroom.sessionDetail.uploadVideoError')
     if (err?.data?.detail) {
       errorMessage = err.data.detail
     }
@@ -808,10 +850,10 @@ function removeVideo(uid: string) {
   // If video is already uploaded, show confirm dialog and delete from server
   if (fileItem.status === 'done' && fileItem.id) {
     Modal.confirm({
-      title: 'Xác nhận xóa video',
-      content: `Bạn có chắc chắn muốn xóa video "${fileItem.name}"? Video đã được upload sẽ bị xóa khỏi hệ thống.`,
-      okText: 'Xóa',
-      cancelText: 'Hủy',
+      title: t('admin.classroom.sessionDetail.deleteVideo'),
+      content: t('admin.classroom.sessionDetail.deleteVideoMessage', { name: fileItem.name }),
+      okText: t('admin.classroom.sessionDetail.delete'),
+      cancelText: t('admin.classroom.sessionDetail.cancel'),
       okType: 'danger',
       async onOk() {
         try {
@@ -820,16 +862,16 @@ function removeVideo(uid: string) {
           }
           videoFileList.value = videoFileList.value.filter(file => file.uid !== uid)
           notification.success({
-            message: 'Đã xóa video',
-            description: `Đã xóa ${fileItem.name}`,
+            message: t('admin.classroom.sessionDetail.deleteVideoSuccess'),
+            description: t('admin.classroom.sessionDetail.deleteVideoSuccessDesc', { name: fileItem.name }),
             duration: 3,
           })
         }
         catch (err: any) {
           console.error('Error deleting video:', err)
           notification.error({
-            message: 'Lỗi khi xóa video',
-            description: err?.message || err?.detail || 'Vui lòng thử lại',
+            message: t('admin.classroom.sessionDetail.deleteVideoError'),
+            description: err?.message || err?.detail || t('common.tryAgain'),
             duration: 5,
           })
         }
@@ -854,7 +896,7 @@ function formatFileSize(bytes: number): string {
 
 <template>
   <a-modal
-    v-model:open="dialogVisible" :title="isEditMode ? 'Chỉnh sửa buổi học' : 'Chi tiết buổi học'" width="700px"
+    v-model:open="dialogVisible" :title="isEditMode ? t('admin.classroom.sessionDetail.editSession') : t('admin.classroom.sessionDetail.sessionDetail')" width="700px"
     :footer="null" @cancel="handleCancel"
   >
     <div v-if="isLoading" class="flex items-center justify-center py-8">
@@ -868,7 +910,7 @@ function formatFileSize(bytes: number): string {
           <div class="flex items-center gap-2 mb-2">
             <Icon name="i-heroicons-calendar-days" class="w-5 h-5 text-gray-400" />
             <h3 class="text-xl font-semibold text-gray-900">
-              {{ sessionDetail.topic || 'Buổi học' }}
+              {{ sessionDetail.topic || t('admin.classroom.sessionDetail.sessionFallback') }}
             </h3>
           </div>
           <p
@@ -883,67 +925,67 @@ function formatFileSize(bytes: number): string {
           @click="handleEdit"
         >
           <Icon name="i-material-symbols-edit-outline" class="text-[14px]" />
-          Chỉnh sửa
+          {{ t('admin.classroom.sessionDetail.edit') }}
         </a-button>
       </div>
 
       <!-- Edit Mode -->
       <div v-if="isEditMode">
         <a-form ref="editFormRef" :model="editFormState" layout="vertical" class="space-y-4">
-          <a-form-item label="Tiêu đề" name="topic" :rules="[{ required: false }]">
-            <a-input v-model:value="editFormState.topic" placeholder="Nhập tiêu đề buổi học" size="large" />
+          <a-form-item :label="t('admin.classroom.sessionDetail.title')" name="topic" :rules="[{ required: false }]">
+            <a-input v-model:value="editFormState.topic" :placeholder="t('admin.classroom.sessionDetail.titlePlaceholder')" size="large" />
           </a-form-item>
 
-          <a-form-item label="Mô tả" name="description">
+          <a-form-item :label="t('admin.classroom.sessionDetail.description')" name="description">
             <a-textarea
-              v-model:value="editFormState.description" placeholder="Nhập mô tả buổi học" :rows="3"
+              v-model:value="editFormState.description" :placeholder="t('admin.classroom.sessionDetail.descriptionPlaceholder')" :rows="3"
               size="large"
             />
           </a-form-item>
 
           <div class="grid grid-cols-2 gap-4">
             <a-form-item
-              label="Thời gian bắt đầu" name="start_time"
-              :rules="[{ required: true, message: 'Vui lòng chọn thời gian bắt đầu' }]"
+              :label="t('admin.classroom.sessionDetail.startTime')" name="start_time"
+              :rules="[{ required: true, message: t('admin.classroom.sessionDetail.startTimeRequired') }]"
             >
               <a-date-picker
                 v-model:value="editFormState.start_time" show-time format="YYYY-MM-DD HH:mm"
-                placeholder="Chọn thời gian bắt đầu" size="large" class="w-full"
+                :placeholder="t('admin.classroom.sessionDetail.startTimePlaceholder')" size="large" class="w-full"
               />
             </a-form-item>
 
             <a-form-item
-              label="Thời gian kết thúc" name="end_time"
-              :rules="[{ required: true, message: 'Vui lòng chọn thời gian kết thúc' }]"
+              :label="t('admin.classroom.sessionDetail.endTime')" name="end_time"
+              :rules="[{ required: true, message: t('admin.classroom.sessionDetail.endTimeRequired') }]"
             >
               <a-date-picker
                 v-model:value="editFormState.end_time" show-time format="YYYY-MM-DD HH:mm"
-                placeholder="Chọn thời gian kết thúc" size="large" class="w-full"
+                :placeholder="t('admin.classroom.sessionDetail.endTimePlaceholder')" size="large" class="w-full"
               />
             </a-form-item>
           </div>
 
-          <a-form-item label="Địa điểm" name="location">
-            <a-input v-model:value="editFormState.location" placeholder="Nhập địa điểm" size="large" />
+          <a-form-item :label="t('admin.classroom.sessionDetail.location')" name="location">
+            <a-input v-model:value="editFormState.location" :placeholder="t('admin.classroom.sessionDetail.locationPlaceholder')" size="large" />
           </a-form-item>
 
           <div class="border-t border-gray-200 pt-4">
             <h4 class="font-semibold text-gray-900 mb-4">
-              Thông tin meeting
+              {{ t('admin.classroom.sessionDetail.meetingInfo') }}
             </h4>
             <div class="space-y-4">
-              <a-form-item label="Meeting Link" name="meeting_link">
-                <a-input v-model:value="editFormState.meeting_link" placeholder="https://zoom.us/j/..." size="large" />
+              <a-form-item :label="t('admin.classroom.sessionDetail.meetingLink')" name="meeting_link">
+                <a-input v-model:value="editFormState.meeting_link" :placeholder="t('admin.classroom.sessionDetail.meetingLinkPlaceholder')" size="large" />
               </a-form-item>
 
               <div class="grid grid-cols-2 gap-4">
-                <a-form-item label="Meeting ID" name="meeting_id">
-                  <a-input v-model:value="editFormState.meeting_id" placeholder="Nhập Meeting ID" size="large" />
+                <a-form-item :label="t('admin.classroom.sessionDetail.meetingId')" name="meeting_id">
+                  <a-input v-model:value="editFormState.meeting_id" :placeholder="t('admin.classroom.sessionDetail.meetingIdPlaceholder')" size="large" />
                 </a-form-item>
 
-                <a-form-item label="Meeting Password" name="meeting_pass">
+                <a-form-item :label="t('admin.classroom.sessionDetail.meetingPassword')" name="meeting_pass">
                   <a-input
-                    v-model:value="editFormState.meeting_pass" placeholder="Nhập password" type="password"
+                    v-model:value="editFormState.meeting_pass" :placeholder="t('admin.classroom.sessionDetail.meetingPasswordPlaceholder')" type="password"
                     size="large"
                   />
                 </a-form-item>
@@ -953,13 +995,13 @@ function formatFileSize(bytes: number): string {
 
           <div class="flex justify-end gap-2 pt-4 border-t border-gray-200">
             <a-button size="large" class="!flex !justify-center !items-center" @click="handleCancelEdit">
-              Hủy
+              {{ t('admin.classroom.sessionDetail.cancel') }}
             </a-button>
             <a-button
               type="primary" size="large" class="!flex !justify-center !items-center" :loading="isSaving"
               @click="handleSaveEdit"
             >
-              Lưu thay đổi
+              {{ t('admin.classroom.sessionDetail.saveChanges') }}
             </a-button>
           </div>
         </a-form>
@@ -973,7 +1015,7 @@ function formatFileSize(bytes: number): string {
             <div class="flex items-center gap-2">
               <Icon name="i-heroicons-video-camera" class="w-4 h-4 text-blue-500" />
               <h4 class="text-sm font-semibold text-gray-900">
-                Thông tin meeting
+                {{ t('admin.classroom.sessionDetail.meetingInfoTitle') }}
               </h4>
             </div>
             <a-button
@@ -981,7 +1023,7 @@ function formatFileSize(bytes: number): string {
               @click="startEditMeeting"
             >
               <Icon name="i-material-symbols-edit-outline" class="w-3 h-3" />
-              Chỉnh sửa
+              {{ t('admin.classroom.sessionDetail.editMeeting') }}
             </a-button>
           </div>
 
@@ -991,7 +1033,7 @@ function formatFileSize(bytes: number): string {
             <div class="flex items-center gap-2 p-2 bg-gray-50 rounded">
               <Icon name="i-heroicons-link" class="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
               <div class="flex-1 min-w-0">
-                <span class="text-xs text-gray-500 mr-2">Link:</span>
+                <span class="text-xs text-gray-500 mr-2">{{ t('admin.classroom.sessionDetail.linkLabel') }}</span>
                 <a
                   v-if="sessionDetail.meeting_link" :href="sessionDetail.meeting_link" target="_blank"
                   rel="noopener noreferrer"
@@ -999,7 +1041,7 @@ function formatFileSize(bytes: number): string {
                 >
                   {{ sessionDetail.meeting_link }}
                 </a>
-                <span v-else class="text-xs text-gray-400 italic">Chưa có</span>
+                <span v-else class="text-xs text-gray-400 italic">{{ t('admin.classroom.sessionDetail.notSet') }}</span>
               </div>
             </div>
 
@@ -1008,21 +1050,21 @@ function formatFileSize(bytes: number): string {
               <div class="flex items-center gap-2 flex-1 p-2 bg-gray-50 rounded">
                 <Icon name="i-heroicons-identification" class="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
                 <div class="flex-1 min-w-0">
-                  <span class="text-xs text-gray-500 mr-2">ID:</span>
+                  <span class="text-xs text-gray-500 mr-2">{{ t('admin.classroom.sessionDetail.idLabel') }}</span>
                   <span v-if="sessionDetail.meeting_id" class="text-xs font-medium text-gray-900">
                     {{ sessionDetail.meeting_id }}
                   </span>
-                  <span v-else class="text-xs text-gray-400 italic">Chưa có</span>
+                  <span v-else class="text-xs text-gray-400 italic">{{ t('admin.classroom.sessionDetail.notSet') }}</span>
                 </div>
               </div>
               <div class="flex items-center gap-2 flex-1 p-2 bg-gray-50 rounded">
                 <Icon name="i-heroicons-lock-closed" class="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
                 <div class="flex-1 min-w-0">
-                  <span class="text-xs text-gray-500 mr-2">Pass:</span>
+                  <span class="text-xs text-gray-500 mr-2">{{ t('admin.classroom.sessionDetail.passwordLabel') }}</span>
                   <span v-if="sessionDetail.meeting_pass" class="text-xs font-medium text-gray-900 font-mono">
                     {{ sessionDetail.meeting_pass }}
                   </span>
-                  <span v-else class="text-xs text-gray-400 italic">Chưa có</span>
+                  <span v-else class="text-xs text-gray-400 italic">{{ t('admin.classroom.sessionDetail.notSet') }}</span>
                 </div>
               </div>
             </div>
@@ -1031,7 +1073,7 @@ function formatFileSize(bytes: number): string {
           <!-- Edit Mode -->
           <div v-else class="space-y-2">
             <a-input
-              v-model:value="meetingEditState.meeting_link" placeholder="Meeting Link" size="small"
+              v-model:value="meetingEditState.meeting_link" :placeholder="t('admin.classroom.sessionDetail.meetingLinkPlaceholderEdit')" size="small"
               class="!text-xs !h-8"
             >
               <template #prefix>
@@ -1041,7 +1083,7 @@ function formatFileSize(bytes: number): string {
 
             <div class="flex items-center gap-2">
               <a-input
-                v-model:value="meetingEditState.meeting_id" placeholder="Meeting ID" size="small"
+                v-model:value="meetingEditState.meeting_id" :placeholder="t('admin.classroom.sessionDetail.meetingIdPlaceholderEdit')" size="small"
                 class="!text-xs !h-8 flex-1"
               >
                 <template #prefix>
@@ -1050,7 +1092,7 @@ function formatFileSize(bytes: number): string {
               </a-input>
 
               <a-input
-                v-model:value="meetingEditState.meeting_pass" placeholder="Password" size="small"
+                v-model:value="meetingEditState.meeting_pass" :placeholder="t('admin.classroom.sessionDetail.meetingPasswordPlaceholderEdit')" size="small"
                 class="!text-xs !h-8 flex-1"
               >
                 <template #prefix>
@@ -1061,13 +1103,13 @@ function formatFileSize(bytes: number): string {
 
             <div class="flex items-center justify-end gap-2 pt-1">
               <a-button size="small" class="!h-7 !px-3 text-xs" @click="cancelEditMeeting">
-                Hủy
+                {{ t('admin.classroom.sessionDetail.cancel') }}
               </a-button>
               <a-button
                 type="primary" size="small" class="!h-7 !px-3 text-xs" :loading="isSavingMeeting"
                 @click="saveMeetingInfo"
               >
-                Lưu
+                {{ t('admin.classroom.sessionDetail.save') }}
               </a-button>
             </div>
           </div>
@@ -1080,7 +1122,7 @@ function formatFileSize(bytes: number): string {
             <Icon name="i-heroicons-map-pin" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
             <div class="flex-1 min-w-0">
               <p class="text-xs text-gray-500 mb-1">
-                Địa điểm
+                {{ t('admin.classroom.sessionDetail.locationLabel') }}
               </p>
               <p class="text-sm font-medium text-gray-900">
                 {{ sessionDetail.location }}
@@ -1097,11 +1139,11 @@ function formatFileSize(bytes: number): string {
               <div class="flex items-center gap-2">
                 <Icon name="i-heroicons-academic-cap" class="w-4 h-4 text-purple-500" />
                 <h4 class="text-sm font-semibold text-gray-700">
-                  Lớp học
+                  {{ t('admin.classroom.sessionDetail.classroomLabel') }}
                 </h4>
               </div>
               <a-button type="link" size="small" class="!h-auto !p-0 !text-xs" @click="handleEditClassroom">
-                Sửa
+                {{ t('admin.classroom.sessionDetail.edit') }}
               </a-button>
             </div>
             <p class="text-sm font-medium text-gray-900 mb-2">
@@ -1110,7 +1152,7 @@ function formatFileSize(bytes: number): string {
             <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600">
               <span class="flex items-center gap-1">
                 <Icon name="i-heroicons-users" class="w-3.5 h-3.5" />
-                Tối đa {{ sessionDetail.classroom.student_count }} học viên
+                {{ t('admin.classroom.sessionDetail.maxStudents', { count: sessionDetail.classroom.student_count }) }}
               </span>
               <span class="flex items-center gap-1">
                 <Icon name="i-heroicons-currency-euro" class="w-3.5 h-3.5" />
@@ -1118,7 +1160,7 @@ function formatFileSize(bytes: number): string {
               </span>
               <span v-if="sessionDetail.classroom.discount_price" class="flex items-center gap-1 text-orange-600">
                 <Icon name="i-heroicons-tag" class="w-3.5 h-3.5" />
-                KM: €{{ sessionDetail.classroom.discount_price }}
+                {{ t('admin.classroom.sessionDetail.discountLabel') }} €{{ sessionDetail.classroom.discount_price }}
               </span>
             </div>
           </div>
@@ -1128,7 +1170,7 @@ function formatFileSize(bytes: number): string {
             <div class="flex items-center gap-2 mb-3">
               <Icon name="i-heroicons-book-open" class="w-4 h-4 text-green-500" />
               <h4 class="text-sm font-semibold text-gray-700">
-                Khóa học
+                {{ t('admin.classroom.sessionDetail.courseLabel') }}
               </h4>
             </div>
             <p class="text-sm font-medium text-gray-900">
@@ -1143,17 +1185,17 @@ function formatFileSize(bytes: number): string {
             <div class="flex items-center gap-2">
               <Icon name="i-heroicons-clipboard-document-check" class="w-4 h-4 text-emerald-500" />
               <h4 class="text-sm font-semibold text-gray-900">
-                Danh sách học sinh đã điểm danh
+                {{ t('admin.classroom.sessionDetail.attendanceListTitle') }}
               </h4>
             </div>
             <div v-if="attendance.length > 0" class="flex items-center gap-3 text-xs text-gray-500">
               <span class="flex items-center gap-1">
                 <div class="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                {{ attendance.filter(a => a.status === 'present').length }} Có mặt
+                {{ t('admin.classroom.sessionDetail.presentCount', { count: attendance.filter(a => a.status === 'present').length }) }}
               </span>
               <span class="flex items-center gap-1">
                 <div class="w-1.5 h-1.5 bg-orange-500 rounded-full" />
-                {{ attendance.filter(a => a.status === 'late').length }} Muộn
+                {{ t('admin.classroom.sessionDetail.lateCount', { count: attendance.filter(a => a.status === 'late').length }) }}
               </span>
             </div>
           </div>
@@ -1167,7 +1209,7 @@ function formatFileSize(bytes: number): string {
           <div v-else-if="attendance.length === 0" class="text-center py-6 text-gray-400">
             <Icon name="i-heroicons-users" class="w-6 h-6 mx-auto mb-1.5" />
             <p class="text-sm">
-              Chưa có học sinh nào tham gia
+              {{ t('admin.classroom.sessionDetail.noAttendanceYet') }}
             </p>
           </div>
 
@@ -1208,7 +1250,7 @@ function formatFileSize(bytes: number): string {
             <div class="flex items-center gap-2">
               <Icon name="i-heroicons-video-camera" class="w-4 h-4 text-red-500" />
               <h4 class="text-sm font-semibold text-gray-900">
-                Video buổi học
+                {{ t('admin.classroom.sessionDetail.videoSectionTitle') }}
               </h4>
             </div>
             <a-upload
@@ -1217,7 +1259,7 @@ function formatFileSize(bytes: number): string {
             >
               <a-button type="default" size="small" class="!flex !justify-center !items-center gap-1 !h-7">
                 <Icon name="i-material-symbols-add-2-rounded" class="text-[14px]" />
-                Thêm
+                {{ t('admin.classroom.sessionDetail.add') }}
               </a-button>
             </a-upload>
           </div>
@@ -1255,7 +1297,7 @@ function formatFileSize(bytes: number): string {
                     type="primary" size="small" class="!h-7 !px-2 !text-xs"
                     @click="uploadSingleVideo(file.uid)"
                   >
-                    Upload
+                    {{ t('admin.classroom.sessionDetail.upload') }}
                   </a-button>
                 </template>
 
@@ -1305,7 +1347,7 @@ function formatFileSize(bytes: number): string {
           <div v-else class="text-center py-6 text-gray-400">
             <Icon name="i-heroicons-video-camera-slash" class="w-6 h-6 mx-auto mb-1.5" />
             <p class="text-xs">
-              Chưa có video nào
+              {{ t('admin.classroom.sessionDetail.noVideosYet') }}
             </p>
           </div>
         </div>
@@ -1316,7 +1358,7 @@ function formatFileSize(bytes: number): string {
             <div class="flex items-center gap-2">
               <Icon name="i-heroicons-user-group" class="w-4 h-4 text-indigo-500" />
               <h4 class="text-sm font-semibold text-gray-900">
-                Danh sách học sinh
+                {{ t('admin.classroom.sessionDetail.studentListTitle') }}
               </h4>
             </div>
             <a-button
@@ -1324,7 +1366,7 @@ function formatFileSize(bytes: number): string {
               @click="showAddStudent = !showAddStudent"
             >
               <Icon name="i-material-symbols-add-2-rounded" class="text-[14px]" />
-              Thêm
+              {{ t('admin.classroom.sessionDetail.add') }}
             </a-button>
           </div>
 
@@ -1332,14 +1374,14 @@ function formatFileSize(bytes: number): string {
           <div v-if="showAddStudent" class="mb-3 p-3 bg-gray-50 rounded-md">
             <div class="flex gap-2">
               <a-input
-                v-model:value="addStudentEmail" placeholder="Nhập email học sinh" size="small" class="flex-1"
+                v-model:value="addStudentEmail" :placeholder="t('admin.classroom.sessionDetail.emailPlaceholder')" size="small" class="flex-1"
                 @press-enter="handleAddStudent"
               />
               <a-button type="primary" size="small" class="!h-7" :loading="addStudentLoading" @click="handleAddStudent">
-                Thêm
+                {{ t('admin.classroom.sessionDetail.add') }}
               </a-button>
               <a-button size="small" class="!h-7" @click="showAddStudent = false">
-                Hủy
+                {{ t('admin.classroom.sessionDetail.cancel') }}
               </a-button>
             </div>
           </div>
@@ -1353,7 +1395,7 @@ function formatFileSize(bytes: number): string {
           <div v-else-if="students.length === 0" class="text-center py-6 text-gray-400">
             <Icon name="i-heroicons-users" class="w-6 h-6 mx-auto mb-1.5" />
             <p class="text-xs">
-              Chưa có học sinh nào trong lớp
+              {{ t('admin.classroom.sessionDetail.noStudentsInClass') }}
             </p>
           </div>
 
@@ -1361,7 +1403,7 @@ function formatFileSize(bytes: number): string {
           <div v-else class="flex flex-wrap gap-2">
             <a-tooltip
               v-for="student in students" :key="student.id"
-              :title="student.email_linked || 'Không có email liên kết'" placement="top"
+              :title="student.email_linked || t('admin.classroom.sessionDetail.noLinkedEmail')" placement="top"
             >
               <div
                 class="flex w-fit items-center gap-2 px-2.5 py-1.5 bg-gray-50 rounded-full border border-gray-200 hover:bg-gray-100 transition-colors"
@@ -1400,11 +1442,11 @@ function formatFileSize(bytes: number): string {
             @click="handleDeleteSession"
           >
             <Icon name="i-heroicons-trash" class="w-4 h-4" />
-            Xóa buổi học
+            {{ t('admin.classroom.sessionDetail.deleteSessionButton') }}
           </a-button>
 
           <a-button class="!flex !items-center" @click="dialogVisible = false">
-            Đóng
+            {{ t('admin.classroom.sessionDetail.close') }}
           </a-button>
         </div>
       </div>
@@ -1413,24 +1455,22 @@ function formatFileSize(bytes: number): string {
 
   <!-- Remove Student Confirm Dialog -->
   <a-modal
-    v-model:open="showRemoveStudentDialog" title="Xác nhận xóa học sinh" width="500px"
+    v-model:open="showRemoveStudentDialog" :title="t('admin.classroom.sessionDetail.confirmRemoveStudentTitle')" width="500px"
     :confirm-loading="removingStudent" @ok="confirmRemoveStudent" @cancel="cancelRemoveStudent"
   >
     <div class="py-2">
       <p class="text-gray-700 mb-4">
-        Bạn có chắc chắn muốn xóa học sinh này khỏi lớp không?
+        {{ t('admin.classroom.sessionDetail.confirmRemoveStudentMessage') }}
       </p>
 
       <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
         <a-checkbox v-model:checked="deleteOrderOnRemove" class="w-full">
           <div>
             <div class="font-medium text-yellow-900 mb-1">
-              Xóa luôn đơn hàng
+              {{ t('admin.classroom.sessionDetail.deleteOrderLabel') }}
             </div>
-            <div class="text-sm text-yellow-700">
-              Nếu bạn đã thêm nhầm học sinh và muốn xóa luôn đơn hàng để doanh thu không bị nhầm, hãy chọn tùy chọn này.
-              <br>
-              Mặc định chỉ xóa enrollment, đơn hàng sẽ được đánh dấu là "đã hủy".
+            <div class="text-sm text-yellow-700 whitespace-pre-line">
+              {{ t('admin.classroom.sessionDetail.deleteOrderDescription') }}
             </div>
           </div>
         </a-checkbox>

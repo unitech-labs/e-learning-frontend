@@ -1,5 +1,6 @@
-import { useApiClient } from '~/api/apiClient'
 import type { UserRole } from '~/types/auth.type'
+import { useApiClient } from '~/api/apiClient'
+import { formatCurrency } from '~/utils/currency'
 
 // Types for dashboard stats
 export interface DashboardStats {
@@ -15,6 +16,9 @@ export interface DashboardStats {
     value: number
     growth: number
   }
+  total_revenue: {
+    value: number
+  }
   completion_rate: {
     value: number
     growth: number
@@ -24,24 +28,27 @@ export interface DashboardStats {
 export interface StatsCard {
   title: string
   value: string
-  change: string
-  changeType: 'increase' | 'decrease' | 'neutral'
+  change?: string
+  changeType?: 'increase' | 'decrease' | 'neutral'
   icon: string
   gradient: string
   cardBg: string
   iconBg: string
   iconColor: string
+  showChange?: boolean
 }
 
 export function useAdmin() {
   const { user, isLoggedIn } = useAuth()
   const apiClient = useApiClient()
+  const { t } = useI18n()
 
   // Dashboard stats data
   const dashboardStats = ref<DashboardStats>({
     total_students: { value: 0, growth: 0 },
     active_courses: { value: 0, growth: 0 },
     monthly_revenue: { value: 0, growth: 0 },
+    total_revenue: { value: 0 },
     completion_rate: { value: 0, growth: 0 },
   })
 
@@ -80,9 +87,11 @@ export function useAdmin() {
 
   // Format growth percentage
   function formatGrowth(growth: number): string {
-    if (growth === 0)
+    // Convert decimal to percentage (e.g., 0.038 -> 3.8%)
+    const percentage = growth * 100
+    if (percentage === 0)
       return '0%'
-    return growth > 0 ? `+${growth}%` : `${growth}%`
+    return percentage > 0 ? `+${percentage.toFixed(1)}%` : `${percentage.toFixed(1)}%`
   }
 
   // Format values based on type
@@ -93,6 +102,8 @@ export function useAdmin() {
       case 'active_courses':
         return value.toLocaleString()
       case 'monthly_revenue':
+        return `${formatCurrency(value)}`
+      case 'total_revenue':
         return `${formatCurrency(value)}`
       case 'completion_rate':
         return `${(value * 100).toFixed(1)}%`
@@ -116,7 +127,26 @@ export function useAdmin() {
       isLoadingStats.value = true
       statsError.value = null
       const response = await apiClient.get('/system/dashboard/summary/')
-      dashboardStats.value = response
+      
+      // Handle response - check if it's wrapped in 'data' property
+      const data = (response as any)?.data || response
+      
+      console.log('Dashboard stats response:', response)
+      console.log('Dashboard stats data:', data)
+      
+      // Ensure response structure matches DashboardStats
+      if (data && typeof data === 'object') {
+        dashboardStats.value = {
+          total_students: data.total_students || { value: 0, growth: 0 },
+          active_courses: data.active_courses || { value: 0, growth: 0 },
+          monthly_revenue: data.monthly_revenue || { value: 0, growth: 0 },
+          total_revenue: data.total_revenue || { value: 0 },
+          completion_rate: data.completion_rate || { value: 0, growth: 0 },
+        }
+      }
+      else {
+        console.error('Invalid response structure:', response)
+      }
     }
     catch (error: any) {
       console.error('Error fetching dashboard stats:', error)
@@ -128,9 +158,10 @@ export function useAdmin() {
   }
 
   // Generate stats cards from dashboard data
-  const statsCards = computed<StatsCard[]>(() => [
+  const statsCards = computed<StatsCard[]>(() => {
+    return [
       {
-        title: 'Tổng học viên',
+        title: t('admin.dashboard.stats.totalUsers'),
         value: formatValue('total_students', dashboardStats.value.total_students.value),
         change: formatGrowth(dashboardStats.value.total_students.growth),
         changeType: getChangeType(dashboardStats.value.total_students.growth),
@@ -139,9 +170,10 @@ export function useAdmin() {
         cardBg: 'bg-gradient-to-br from-blue-500 to-cyan-500',
         iconBg: 'bg-white/20',
         iconColor: 'text-white',
+        showChange: true,
       },
       {
-        title: 'Khóa học hoạt động',
+        title: t('admin.dashboard.stats.activeCourses'),
         value: formatValue('active_courses', dashboardStats.value.active_courses.value),
         change: formatGrowth(dashboardStats.value.active_courses.growth),
         changeType: getChangeType(dashboardStats.value.active_courses.growth),
@@ -150,9 +182,10 @@ export function useAdmin() {
         cardBg: 'bg-gradient-to-br from-purple-500 to-pink-500',
         iconBg: 'bg-white/20',
         iconColor: 'text-white',
+        showChange: true,
       },
       {
-        title: 'Doanh thu tháng',
+        title: t('admin.dashboard.stats.monthlyRevenue'),
         value: formatValue('monthly_revenue', dashboardStats.value.monthly_revenue.value),
         change: formatGrowth(dashboardStats.value.monthly_revenue.growth),
         changeType: getChangeType(dashboardStats.value.monthly_revenue.growth),
@@ -161,9 +194,20 @@ export function useAdmin() {
         cardBg: 'bg-gradient-to-br from-emerald-500 to-teal-500',
         iconBg: 'bg-white/20',
         iconColor: 'text-white',
+        showChange: true,
       },
       {
-        title: 'Tỷ lệ hoàn thành',
+        title: t('admin.dashboard.stats.totalRevenue'),
+        value: formatValue('total_revenue', dashboardStats.value.total_revenue.value),
+        icon: 'i-heroicons-banknotes-solid',
+        gradient: 'from-indigo-500 to-blue-500',
+        cardBg: 'bg-gradient-to-br from-indigo-500 to-blue-500',
+        iconBg: 'bg-white/20',
+        iconColor: 'text-white',
+        showChange: false,
+      },
+      {
+        title: t('admin.dashboard.stats.completionRate'),
         value: formatValue('completion_rate', dashboardStats.value.completion_rate.value),
         change: formatGrowth(dashboardStats.value.completion_rate.growth),
         changeType: getChangeType(dashboardStats.value.completion_rate.growth),
@@ -172,8 +216,10 @@ export function useAdmin() {
         cardBg: 'bg-gradient-to-br from-orange-500 to-red-500',
         iconBg: 'bg-white/20',
         iconColor: 'text-white',
+        showChange: true,
       },
-  ])
+    ]
+  })
 
   // Refresh dashboard stats
   async function refreshDashboardStats(): Promise<void> {
