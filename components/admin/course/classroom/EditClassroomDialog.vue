@@ -10,6 +10,7 @@ interface Props {
 interface Emits {
   (e: 'update:open', value: boolean): void
   (e: 'success'): void
+  (e: 'classroomDeleted'): void
 }
 
 const props = defineProps<Props>()
@@ -198,6 +199,7 @@ async function confirmDeleteClassroom() {
     showDeleteClassroomDialog.value = false
     dialogVisible.value = false
     emit('success')
+    emit('classroomDeleted')
   }
   catch (error: any) {
     console.error('Error deleting classroom:', error)
