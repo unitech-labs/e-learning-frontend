@@ -93,7 +93,7 @@ export function useAdmin() {
       case 'active_courses':
         return value.toLocaleString()
       case 'monthly_revenue':
-        return `$${value.toLocaleString()}`
+        return `${formatCurrency(value)}`
       case 'completion_rate':
         return `${(value * 100).toFixed(1)}%`
       default:

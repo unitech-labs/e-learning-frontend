@@ -1,388 +1,302 @@
-// Classrooms list
 <script lang="ts" setup>
-import type { ClassroomSession } from '~/composables/api/useClassroomApi'
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
-import { VueCal } from 'vue-cal'
-import CreateClassroomDialog from '~/components/admin/course/classroom/CreateClassroomDialog.vue'
+import type { TableColumnsType } from 'ant-design-vue'
+import type { Classroom } from '~/types/course.type'
+import { Modal, notification } from 'ant-design-vue'
+import { computed, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import CreateSessionsDialog from '~/components/admin/course/classroom/CreateSessionsDialog.vue'
-import SessionDetailDialog from '~/components/admin/course/classroom/SessionDetailDialog.vue'
 import { useCourseApi } from '~/composables/api'
 import { useClassroomApi } from '~/composables/api/useClassroomApi'
-// import { createClassroom } from useClassroomApi() // TODO: Uncomment when backend is ready
-import 'vue-cal/style'
 
-// Enable UTC plugin for dayjs
-dayjs.extend(utc)
-
-const { t } = useI18n()
-
+const router = useRouter()
 const route = useRoute()
 const courseId = computed(() => route.params.id as string)
 const { getDetailCourses } = useCourseApi()
-const { getCourseSessions } = useClassroomApi()
+
+definePageMeta({
+  layout: 'admin',
+  middleware: ['auth', 'admin'],
+})
 
 // State
-const sessionsData = ref<ClassroomSession[]>([])
-const isLoading = ref(false)
-const error = ref<string | null>(null)
+const loading = ref(false)
+const classrooms = ref<Classroom[]>([])
 const courseDetail = ref<any>(null)
-
-const open = ref<boolean>(false)
 const openSessionsDialog = ref<boolean>(false)
-const openSessionDetailDialog = ref<boolean>(false)
-const selectedSessionId = ref<string | null>(null)
-const selectedClassroomId = ref<string | null>(null)
-const calendarReady = ref(false)
-const isLoadingSessions = ref(false)
 
-// Calendar state
-interface CalendarEvent {
-  start: string
-  end: string
-  title: string
-  id?: string
-  class?: string
-  sessionId?: string
-  classroomId?: string
-  description?: string
-  meeting_link?: string
-  background?: string
-  limit?: number
-}
-
-// Default background color if classroom doesn't have background_color
-const DEFAULT_BACKGROUND_COLOR = '#268100' // Green
-
-// Format event time (from "YYYY-MM-DD HH:mm" to "HH:mm")
-function formatEventTime(dateTimeString: string): string {
-  if (!dateTimeString)
-    return ''
-  return dayjs(dateTimeString).format('HH:mm')
-}
-
-const calendarEvents = ref<CalendarEvent[]>([])
-// Set initial date to 5/1/2026 (Monday of that week)
-// const initialDate = new Date(2026, 0, 5) // January 5, 2026
-const selectedDate = ref()
-const viewDate = ref()
-const currentView = ref('week')
-
-// VueCal template ref
-const vueCalRef = ref<any>(null)
-
-function AddNewClassroom() {
-  open.value = true
-}
-
-function AddNewSessions() {
-  openSessionsDialog.value = true
-}
-
-// Generate calendar events from sessions
-function generateCalendarEventsFromSessions(sessions: ClassroomSession[]): CalendarEvent[] {
-  const events: CalendarEvent[] = []
-
-  sessions.forEach((session) => {
-    // Parse date strings - backend can return UTC (2026-01-05T18:00:00.000Z) or timezone (2026-01-12T03:00:00+07:00)
-    // dayjs will automatically parse the timezone from the string
-    const startDate = dayjs(session.start_time)
-    const endDate = dayjs(session.end_time)
-
-    events.push({
-      id: session.id,
-      start: startDate.format('YYYY-MM-DD HH:mm'),
-      end: endDate.format('YYYY-MM-DD HH:mm'),
-      title: session.classroom_title,
-      sessionId: session.id,
-      classroomId: session.classroom,
-      description: session.description,
-      meeting_link: session.meeting_link,
-      background: session.background_color || DEFAULT_BACKGROUND_COLOR,
-      limit: session.limit,
-    })
+// Format date
+function formatDate(dateString: string) {
+  const date = new Date(dateString)
+  return date.toLocaleDateString('vi-VN', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
   })
-
-  return events
 }
 
-// Load all sessions from all classrooms in the course
-async function loadAllSessions() {
-  // Prevent multiple simultaneous calls
-  if (isLoadingSessions.value) {
-    return
-  }
+// Format price
+function formatPrice(price: string | null) {
+  if (!price)
+    return '-'
+  return `€${Number.parseFloat(price).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+}
 
+// Load classrooms
+async function loadClassrooms() {
   try {
-    isLoadingSessions.value = true
-    isLoading.value = true
-    error.value = null
-
-    // Get current week range from calendar
-    const view = vueCalRef.value?.view
-    let startDate: string | undefined
-    let endDate: string | undefined
-
-    if (view && view.cellDates && view.cellDates.length > 0) {
-      const firstCell = view.cellDates[0]
-      const lastCell = view.cellDates[view.cellDates.length - 1]
-      startDate = firstCell.startFormatted // Format: YYYY-MM-DD
-      endDate = lastCell.startFormatted // Format: YYYY-MM-DD
-    }
-
-    // Call API to get sessions with date range
-    const sessionsResponse = await getCourseSessions(courseId.value, {
-      start_date: startDate,
-      end_date: endDate,
-    })
-
-    if (sessionsResponse.results && sessionsResponse.results.length > 0) {
-      sessionsData.value = sessionsResponse.results
-      calendarEvents.value = generateCalendarEventsFromSessions(sessionsData.value)
-    }
-    else {
-      // No sessions found
-      sessionsData.value = []
-      calendarEvents.value = []
-    }
-
-    // Also get course detail for classrooms list (for dialogs)
-    try {
-      const response = await getDetailCourses(courseId.value)
-      courseDetail.value = response
-    }
-    catch (err: any) {
-      console.error('Error loading course detail:', err)
-    }
+    loading.value = true
+    const response = await getDetailCourses(courseId.value)
+    courseDetail.value = response
+    classrooms.value = response.classrooms || []
   }
   catch (err: any) {
-    console.error('Error loading sessions:', err)
-    error.value = err.message || 'Có lỗi xảy ra khi tải danh sách buổi học'
-    sessionsData.value = []
-    calendarEvents.value = []
+    console.error('Error loading classrooms:', err)
+    notification.error({
+      message: 'Lỗi',
+      description: err?.message || 'Không thể tải danh sách lớp học',
+      duration: 5,
+    })
   }
   finally {
-    isLoading.value = false
-    isLoadingSessions.value = false
-  }
-}
-
-// Handle calendar ready
-function handleCalendarReady({ view }: any) {
-  view.scrollToCurrentTime()
-  // Load sessions only once when calendar is ready for the first time
-  if (!calendarReady.value && !isLoadingSessions.value) {
-    calendarReady.value = true
-    nextTick(() => {
-      loadAllSessions()
-    })
+    loading.value = false
   }
 }
 
 // Handle classroom creation success
 async function handleClassroomCreated() {
-  // Reload sessions to get updated data
-  await loadAllSessions()
+  await loadClassrooms()
 }
 
-// Handle classroom deleted - reload sessions
-async function handleClassroomDeleted() {
-  // Reload sessions to remove deleted classroom sessions
-  await loadAllSessions()
+// Handle refresh
+async function handleRefresh() {
+  await loadClassrooms()
+  notification.success({ message: 'Đã làm mới danh sách' })
 }
 
-// Watch for view date changes
-watch(viewDate, (newViewDate) => {
-  if (currentView.value === 'week') {
-    const firstDayOfWeek = new Date(newViewDate)
-    const dayOfWeek = firstDayOfWeek.getDay()
-    const diff = firstDayOfWeek.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)
-    firstDayOfWeek.setDate(diff)
-    selectedDate.value = firstDayOfWeek
-  }
-})
-
-// Handle event click
-function handleEventClick(event: any) {
-  const calendarEvent = event.event as CalendarEvent
-  if (calendarEvent.sessionId) {
-    const session = sessionsData.value.find(s => s.id === calendarEvent.sessionId)
-    if (session) {
-      selectedSessionId.value = session.id
-      selectedClassroomId.value = session.classroom
-      openSessionDetailDialog.value = true
-    }
-  }
+// Handle view classroom detail
+function handleViewClassroom(classroom: Classroom) {
+  router.push(`/admin/courses/${courseId.value}/classrooms/${classroom.id}`)
 }
 
-// Handle student added/removed
-function handleStudentChanged() {
-  // Reload sessions to update attendance count
-  loadAllSessions()
+// Handle delete classroom
+async function handleDeleteClassroom(classroom: Classroom) {
+  const { deleteClassroom } = useClassroomApi()
+  Modal.confirm({
+    title: 'Xác nhận xóa lớp học',
+    content: `Bạn có chắc chắn muốn xóa lớp học "${classroom.title}" không?`,
+    okText: 'Xóa',
+    cancelText: 'Hủy',
+    okType: 'danger',
+    async onOk() {
+      try {
+        await deleteClassroom(classroom.id)
+        notification.success({ message: 'Đã xóa lớp học thành công' })
+        await loadClassrooms()
+      }
+      catch (error: any) {
+        console.error('Error deleting classroom:', error)
+        notification.error({
+          message: 'Lỗi',
+          description: error?.message || 'Không thể xóa lớp học',
+          duration: 5,
+        })
+      }
+    },
+  })
 }
 
-// Handle previous button click
-function handlePreviousClick() {
-  if (vueCalRef.value?.view && !isLoadingSessions.value) {
-    vueCalRef.value.view.previous()
+// Table columns
+const columns = computed((): TableColumnsType<Classroom> => [
+  {
+    title: 'Tên lớp học',
+    key: 'title',
+    width: 250,
+    fixed: 'left',
+  },
+  {
+    title: 'Số học viên',
+    key: 'student_count',
+    width: 120,
+  },
+  {
+    title: 'Số buổi học',
+    key: 'session_count',
+    width: 120,
+  },
+  {
+    title: 'Số học viên đã đăng ký',
+    key: 'enrollment_count',
+    width: 150,
+  },
+  {
+    title: 'Giá',
+    key: 'price',
+    width: 150,
+  },
+  {
+    title: 'Lịch học',
+    key: 'schedule_summary',
+    width: 200,
+  },
+  {
+    title: 'Ngày tạo',
+    key: 'created_at',
+    width: 180,
+    sorter: (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+  },
+  {
+    title: 'Thao tác',
+    key: 'actions',
+    width: 150,
+    fixed: 'right',
+  },
+])
 
-    // Wait for view to update, then reload sessions for new week
-    nextTick(() => {
-      loadAllSessions()
-    })
-  }
-}
-
-// Handle next button click
-function handleNextClick() {
-  if (vueCalRef.value?.view && !isLoadingSessions.value) {
-    vueCalRef.value.view.next()
-
-    // Wait for view to update, then reload sessions for new week
-    nextTick(() => {
-      loadAllSessions()
-    })
-  }
-}
-
-// Handle today button click
-function handleTodayClick() {
-  if (vueCalRef.value?.view && !isLoadingSessions.value) {
-    vueCalRef.value.view.goToToday()
-
-    // Update viewDate and selectedDate to today
-    const today = new Date()
-    viewDate.value = today
-    selectedDate.value = today
-
-    // Wait for view to update, then reload sessions
-    nextTick(() => {
-      loadAllSessions()
-    })
-  }
-}
-
-// Load sessions on mount - will be triggered by calendar ready event
 onMounted(() => {
-  // Sessions will be loaded when calendar is ready via handleCalendarReady
+  loadClassrooms()
 })
 </script>
 
 <template>
-  <div class="classroom relative">
-    <!-- Calendar View -->
-    <div class="bg-white rounded-lg border border-gray-200 p-6">
-      <div class="flex items-center justify-between mb-6">
-        <div class="flex items-center gap-4">
-          <h2 class="font-bold text-2xl flex items-center gap-3">
-            <Icon name="solar:calendar-bold" size="28" class="text-green-600" />
-            Lịch học các lớp
-          </h2>
-          <a-button
-            type="primary"
-            class="!px-6 !h-10 rounded-lg text-sm !font-semibold !flex !items-center !justify-center gap-1 !bg-[#548A1D]"
-            @click="AddNewClassroom"
-          >
-            {{ t('admin.classroom.addNewClassroom') }}
-            <Icon name="i-material-symbols-add-2-rounded" class="text-[16px] text-white" />
-          </a-button>
-          <a-button
-            type="default"
-            class="!px-6 !h-10 rounded-lg text-sm !font-semibold !flex !items-center !justify-center gap-1 !border-[#548A1D] !text-[#548A1D] hover:!bg-[#548A1D] hover:!text-white"
-            @click="AddNewSessions"
-          >
-            Thêm buổi học cho lớp
-            <Icon name="i-material-symbols-add-2-rounded" class="text-[16px]" />
-          </a-button>
-        </div>
-        <div
-          class="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-500"
-        >
-          <Icon name="i-heroicons-list-bullet" class="h-5 w-5 text-gray-300" />
-          {{ calendarEvents.length }} buổi học
-        </div>
-      </div>
-
-      <div class="flex flex-col overflow-auto rounded-xl border border-gray-200 bg-white shadow-sm relative">
-        <!-- Loading Overlay -->
-        <div
-          v-if="isLoading"
-          class="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50 rounded-xl"
-        >
-          <a-spin size="large" />
-        </div>
-
-        <!-- Error State -->
-        <div
-          v-if="error && !isLoading"
-          class="absolute inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center z-50 rounded-xl p-8"
-        >
-          <p class="text-red-500 mb-4 text-center">
-            {{ error }}
-          </p>
-          <a-button @click="loadAllSessions">
-            {{ t('common.tryAgain') }}
-          </a-button>
-        </div>
-
-        <VueCal
-          ref="vueCalRef" v-model:selected-date="selectedDate" v-model:view-date="viewDate"
-          v-model:view="currentView" :views-bar="false" class="custom-theme calendar w-full !h-auto" :time-from="7 * 60"
-          :time-step="60" :time-to="24 * 60" :time-cell-height="72" :events="calendarEvents" :views="['week']"
-          time-at-cursor @ready="handleCalendarReady" @event-click="handleEventClick"
-        >
-          <template #event="{ event }">
-            <div
-              class="flex flex-col gap-1 text-white p-1 px-2 rounded-[5px] h-full"
-              :style="{ backgroundColor: event.background || DEFAULT_BACKGROUND_COLOR }"
-            >
-              <div class="text-sm font-medium text-white leading-tight">
-                {{ event.title }}
-              </div>
-              <div v-if="event.start && event.end" class="text-xs font-semibold text-white opacity-90">
-                {{ formatEventTime(event.start) }} - {{ formatEventTime(event.end) }}
-              </div>
-              <!-- limit -->
-              <div v-if="event.limit" class="text-xs font-semibold text-white opacity-90">
-                Tối đa {{ event.limit }} học viên
-              </div>
+  <div class="min-h-screen bg-gray-50 pt-0 pb-6">
+    <!-- Page Header -->
+    <div class="mb-6">
+      <div class="flex items-center justify-between mb-2 flex-wrap">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900 flex items-center gap-3">
+            <div class="size-12 flex items-center justify-center bg-gradient-to-br from-green-500 to-green-600 rounded-xl">
+              <Icon name="solar:calendar-bold" size="28" class="text-white" />
             </div>
-          </template>
-          <template #previous-button>
-            <button
-              class="!text-gray-500 cursor-pointer hover:!text-gray-700 transition-colors"
-              @click.stop.prevent="handlePreviousClick"
-            >
-              <Icon name="i-heroicons-chevron-left" class="text-[26px]" />
-            </button>
-          </template>
-
-          <template #next-button>
-            <button
-              class="!text-gray-500 cursor-pointer hover:!text-gray-700 transition-colors"
-              @click.stop.prevent="handleNextClick"
-            >
-              <Icon name="i-heroicons-chevron-right" class="text-[26px]" />
-            </button>
-          </template>
-
-          <template #today-button>
-            <button
-              class="!text-gray-500 cursor-pointer hover:!text-gray-700 transition-colors"
-              @click.stop.prevent="handleTodayClick"
-            >
-              Hôm nay
-            </button>
-          </template>
-        </VueCal>
+            Danh sách lớp học
+          </h1>
+          <p class="text-gray-600 mt-1">
+            Quản lý tất cả các lớp học trong khóa học này
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a-button
+            class="rounded-lg gap-1 text-sm !font-semibold !flex !justify-center !items-center bg-green-700 border-green-700 text-white hover:bg-green-800 hover:border-green-800"
+            @click="handleRefresh"
+          >
+            <Icon name="solar:refresh-bold" size="18" />
+            Làm mới
+          </a-button>
+        </div>
       </div>
     </div>
 
-    <CreateClassroomDialog
-      v-model:open="open"
-      :course-id="courseId"
-      @success="handleClassroomCreated"
-    />
+    <!-- Classrooms Table -->
+    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <a-table
+        :columns="columns"
+        :data-source="classrooms"
+        :loading="loading"
+        :scroll="{ x: 1200 }"
+        row-key="id"
+        class="custom-table"
+      >
+        <!-- Empty State -->
+        <template #emptyText>
+          <div class="py-12 text-center">
+            <div class="mb-4">
+              <Icon name="solar:calendar-bold" size="48" class="text-gray-300 mx-auto" />
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">
+              Chưa có lớp học nào
+            </h3>
+            <p class="text-gray-500 mb-4">
+              Hãy tạo lớp học đầu tiên để bắt đầu
+            </p>
+          </div>
+        </template>
+
+        <!-- Table Body Cells -->
+        <template #bodyCell="{ column, record }">
+          <!-- Title Column -->
+          <template v-if="column.key === 'title'">
+            <div class="font-medium text-gray-900">
+              {{ record.title }}
+            </div>
+          </template>
+
+          <!-- Student Count Column -->
+          <template v-else-if="column.key === 'student_count'">
+            <div class="text-gray-900">
+              {{ record.student_count }}
+            </div>
+          </template>
+
+          <!-- Session Count Column -->
+          <template v-else-if="column.key === 'session_count'">
+            <div class="text-gray-900">
+              {{ record.session_count }}
+            </div>
+          </template>
+
+          <!-- Enrollment Count Column -->
+          <template v-else-if="column.key === 'enrollment_count'">
+            <div class="text-gray-900">
+              {{ record.enrollment_count }}
+            </div>
+          </template>
+
+          <!-- Price Column -->
+          <template v-else-if="column.key === 'price'">
+            <div class="text-gray-900">
+              <span v-if="record.is_free" class="text-green-600 font-semibold">Miễn phí</span>
+              <span v-else>
+                <span v-if="record.discount_price && Number.parseFloat(record.discount_price) < Number.parseFloat(record.price)">
+                  <span class="line-through text-gray-400">{{ formatPrice(record.price) }}</span>
+                  <span class="text-green-600 font-semibold ml-2">{{ formatPrice(record.discount_price) }}</span>
+                </span>
+                <span v-else>
+                  {{ formatPrice(record.price) }}
+                </span>
+              </span>
+            </div>
+          </template>
+
+          <!-- Schedule Summary Column -->
+          <template v-else-if="column.key === 'schedule_summary'">
+            <div class="text-gray-600">
+              {{ record.schedule_summary || '-' }}
+            </div>
+          </template>
+
+          <!-- Created At Column -->
+          <template v-else-if="column.key === 'created_at'">
+            <div class="text-gray-600">
+              {{ formatDate(record.created_at) }}
+            </div>
+          </template>
+
+          <!-- Actions Column -->
+          <template v-else-if="column.key === 'actions'">
+            <div class="flex items-center gap-2">
+              <a-button
+                type="text"
+                size="small"
+                class="!flex !items-center !justify-center !gap-1"
+                @click="handleViewClassroom(record)"
+              >
+                <Icon name="solar:eye-bold" size="16" />
+              </a-button>
+              <a-button
+                type="text"
+                danger
+                size="small"
+                class="!flex !items-center !justify-center !gap-1"
+                @click="handleDeleteClassroom(record)"
+              >
+                <Icon name="solar:trash-bin-trash-bold" size="16" />
+              </a-button>
+            </div>
+          </template>
+        </template>
+      </a-table>
+    </div>
 
     <CreateSessionsDialog
       v-model:open="openSessionsDialog"
@@ -390,121 +304,17 @@ onMounted(() => {
       :classrooms="(courseDetail?.classrooms || []) as Array<{ id: string; title: string }>"
       @success="handleClassroomCreated"
     />
-
-    <SessionDetailDialog
-      v-model:open="openSessionDetailDialog"
-      :course-id="courseId"
-      :session-id="selectedSessionId"
-      :classroom-id="selectedClassroomId"
-      @student-added="handleStudentChanged"
-      @student-removed="handleStudentChanged"
-      @session-updated="handleStudentChanged"
-      @classroom-deleted="handleClassroomDeleted"
-    />
   </div>
 </template>
 
 <style scoped>
-/* Vue-cal theme customization */
-:deep(.vuecal.custom-theme) {
-  --vuecal-primary-color: #fff;
-  --vuecal-secondary-color: #fafbfc;
-  --vuecal-base-color: #0f172a;
-  --vuecal-contrast-color: #ffffff;
-  --vuecal-time-cell-height: 50px !important;
-}
-
-:deep(.vuecal__header) {
-  color: var(--vuecal-base-color) !important;
-  background: #fafbfc;
-  border: 1px solid #f1f5f9;
-  border-bottom: none;
-}
-
-:deep(.vuecal__event) {
-  color: var(--vuecal-base-color) !important;
-  border-color: rgba(203, 213, 225, 0.25) !important;
-}
-
-:deep(.vuecal__today-btn) {
-  color: var(--vuecal-base-color) !important;
-}
-
-/* Event styling - background color is set via inline style in custom template */
-:deep(.vuecal--default-theme .vuecal__event) {
-  color: #ffffff;
-  border: 1px solid rgba(203, 213, 225, 0.35);
-  padding: 0;
-  border-radius: 10px;
-  box-shadow: none;
-  transition: all 0.3s ease;
-  background: transparent !important;
-}
-
-:deep(.vuecal--default-theme .vuecal__event:hover) {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-}
-
-/* Calendar navigation */
-:deep(.calendar .vuecal__title-bar button) {
-  height: 36px;
-  border-radius: 10px;
-  /* color: #ffffff !important; */
+.custom-table :deep(.ant-table-thead > tr > th) {
+  background-color: #f9fafb;
   font-weight: 600;
-  transition: all 0.3s ease;
+  color: #374151;
 }
 
-:deep(.calendar .vuecal__nav--today) {
-  margin-left: 3px;
-  /* display: none; */
-}
-
-:deep(.vuecal__event .vuecal__event-title),
-:deep(.calendar .vuecal__event-time) {
-  font-size: 14px;
-  color: #ffffff;
-  font-weight: 700;
-}
-
-:deep(.vuecal__event .vuecal__event-time) {
-  margin-top: 4px;
-  font-size: 12px;
-  color: #ffffff;
-  font-weight: 600;
-}
-
-/* Week and day view styling */
-:deep(.vuecal--default-theme .vuecal__time-cell) {
-  border-color: #e2e8f0;
-}
-
-:deep(.vuecal--default-theme .vuecal__time-cell--now) {
-  background: #fef9c3;
-  border-color: #fbbf24;
-}
-
-:deep(.vuecal__weekday.vuecal__weekday--today .vuecal__weekday-date) {
-  background: #15803d;
-  color: #fff;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  :deep(.vuecal--default-theme .vuecal__event) {
-    font-size: 12px;
-  }
-
-  :deep(.vuecal__event .vuecal__event-title) {
-    font-size: 12px;
-  }
-
-  :deep(.vuecal__event .vuecal__event-time) {
-    font-size: 10px;
-  }
-}
-
-:deep(.vuecal__event-details) {
-  padding: 0;
+.custom-table :deep(.ant-table-tbody > tr:hover > td) {
+  background-color: #f9fafb;
 }
 </style>
