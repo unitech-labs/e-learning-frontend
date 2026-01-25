@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import type { Course } from '~/types/course.type'
 import { notification } from 'ant-design-vue'
+import dayjs from 'dayjs'
 import { useClassroomApi } from '~/composables/api/useClassroomApi'
 import { useCourseApi } from '~/composables/api/useCourseApi'
-import { useGeneralSessionsApi } from '~/composables/api/useGeneralSessionsApi'
 
 const props = withDefaults(defineProps<Props>(), {
   loading: false,
@@ -11,24 +11,29 @@ const props = withDefaults(defineProps<Props>(), {
 })
 const emit = defineEmits<Emits>()
 const { t } = useI18n()
-const { createClassroom } = useClassroomApi()
+const { createClassroom, createClassroomSession } = useClassroomApi()
 const { getCourses, getDetailCourses } = useCourseApi()
-const { bulkGenerateSessions } = useGeneralSessionsApi()
 
 interface Props {
   open: boolean
   // When provided (course page), course is fixed and selector is hidden.
   courseId?: string
+  // Optional: prefill create-classroom form based on a dragged event time range.
+  // Used when creating classroom from calendar drag-to-create.
+  prefillRange?: { start: string | Date, end: string | Date } | null
   loading?: boolean
   // create: legacy behavior (create only)
   // select_or_create: allow selecting existing classroom OR creating new classroom
   mode?: 'create' | 'select_or_create'
+  // When provided, sets initial value of isCreateNew and hides the switch
+  initialCreateNew?: boolean
 }
 
 interface Emits {
   (e: 'update:open', value: boolean): void
   (e: 'success'): void
   (e: 'selected', payload: { courseId: string, classroomId: string, classroomTitle?: string }): void
+  (e: 'sessionCreated', payload: { courseId: string, classroomId: string, session: any }): void
 }
 
 const confirmLoading = ref(false)
@@ -42,7 +47,7 @@ const selectedCourseId = ref<string | null>(null)
 const classroomsLoading = ref(false)
 const classrooms = ref<Array<{ id: string, title: string }>>([])
 const selectedClassroomId = ref<string | null>(null)
-const bulkNumberOfSessions = ref<number | null>(null)
+const prefillApplied = ref(false)
 
 const daysOfWeek = [
   { value: 'monday', label: 'Monday' },
@@ -53,6 +58,31 @@ const daysOfWeek = [
   { value: 'saturday', label: 'Saturday' },
   { value: 'sunday', label: 'Sunday' },
 ]
+
+interface ScheduleItem {
+  day: string | null
+  start: any | null
+  end: any | null
+}
+
+interface CreateClassroomFormState {
+  title: string
+  student_count: number | null
+  number_of_sessions: number | null
+  start_date: any
+  schedule: ScheduleItem[]
+  price: number | null
+  background_color: string
+}
+
+interface CreateSessionFormState {
+  topic: string
+  start_time: any
+  end_time: any
+  meeting_link: string
+  meeting_id: string
+  meeting_pass: string
+}
 
 // List of background colors (dark colors suitable for white text)
 const BACKGROUND_COLORS = [
@@ -73,7 +103,7 @@ const BACKGROUND_COLORS = [
   '#991b1b', // Red
 ]
 
-const formState = ref({
+const formState = ref<CreateClassroomFormState>({
   title: '',
   student_count: null as number | null,
   number_of_sessions: null as number | null,
@@ -83,8 +113,16 @@ const formState = ref({
   ],
   // Pricing fields
   price: null as number | null,
-  discount_price: null as number | null,
   background_color: BACKGROUND_COLORS[0], // Default to first color
+})
+
+const sessionFormState = ref<CreateSessionFormState>({
+  topic: '',
+  start_time: null,
+  end_time: null,
+  meeting_link: '',
+  meeting_id: '',
+  meeting_pass: '',
 })
 
 // Computed for dialog visibility
@@ -96,6 +134,46 @@ const dialogVisible = computed({
 })
 
 const effectiveCourseId = computed(() => props.courseId || selectedCourseId.value)
+
+function dayOfWeekValueFromDayjs(d: dayjs.Dayjs): string {
+  // dayjs: 0=Sunday ... 6=Saturday
+  const map = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+  return map[d.day()] || 'monday'
+}
+
+function applyPrefillFromRangeIfNeeded() {
+  if (prefillApplied.value)
+    return
+  if (!props.prefillRange)
+    return
+  if (!isCreateNew.value)
+    return
+
+  const start = dayjs(props.prefillRange.start)
+  const end = dayjs(props.prefillRange.end)
+
+  // Prefill start_date
+  formState.value.start_date = start
+
+  // Prefill number of sessions if empty (common when creating from a single dragged slot)
+  if (!formState.value.number_of_sessions) {
+    formState.value.number_of_sessions = 1
+  }
+
+  // Prefill first schedule slot: day + start/end time
+  const startTime = dayjs().hour(start.hour()).minute(start.minute()).second(0)
+  const endTime = dayjs().hour(end.hour()).minute(end.minute()).second(0)
+
+  formState.value.schedule = [
+    {
+      day: dayOfWeekValueFromDayjs(start),
+      start: startTime,
+      end: endTime,
+    },
+  ]
+
+  prefillApplied.value = true
+}
 
 async function fetchCourses() {
   try {
@@ -152,30 +230,30 @@ function formatTimeForApi(time: any): string {
 }
 
 // Validate price
-function validatePrice(rule: any, value: any, callback: any) {
-  if (!value || value <= 0) {
-    callback(new Error('Giá cả là bắt buộc và phải lớn hơn 0'))
-    return
-  }
-
-  callback()
+function validatePrice(_rule: any, value: any) {
+  return new Promise<void>((resolve, reject) => {
+    if (!value || value <= 0) {
+      reject(new Error('Giá cả là bắt buộc và phải lớn hơn 0'))
+      return
+    }
+    resolve()
+  })
 }
 
-// Validate discount price
-function validateDiscountPrice(rule: any, value: any, callback: any) {
-  if (!value) {
-    // Discount price is optional
-    callback()
+function applySessionPrefillFromRangeIfNeeded() {
+  if (!props.prefillRange)
     return
-  }
-
-  const price = formState.value.price || 0
-  if (value >= price) {
-    callback(new Error('Giá khuyến mãi phải nhỏ hơn giá gốc'))
+  if (isCreateNew.value)
     return
-  }
+  const start = dayjs(props.prefillRange.start)
+  const end = dayjs(props.prefillRange.end)
+  sessionFormState.value.start_time = start
+  sessionFormState.value.end_time = end
+}
 
-  callback()
+function formatDateTimeForApi(value: any): string {
+  // Keep local time, append Z (same convention used elsewhere in this project).
+  return dayjs(value).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]')
 }
 
 // Reset form
@@ -190,7 +268,6 @@ function resetForm() {
     ],
     // Reset pricing fields
     price: null,
-    discount_price: null,
     background_color: BACKGROUND_COLORS[0],
   }
   // Reset form fields if formRef exists
@@ -203,6 +280,15 @@ function resetForm() {
       console.warn('Form reset error:', err)
     }
   }
+
+  sessionFormState.value = {
+    topic: '',
+    start_time: null,
+    end_time: null,
+    meeting_link: '',
+    meeting_id: '',
+    meeting_pass: '',
+  }
 }
 
 // Handle OK button
@@ -211,7 +297,7 @@ async function handleOk() {
   if (props.mode === 'select_or_create' && !isCreateNew.value) {
     const courseId = effectiveCourseId.value
     const classroomId = selectedClassroomId.value
-    const classroomTitle = classrooms.value.find(c => c.id === classroomId)?.title
+    const _classroomTitle = classrooms.value.find(c => c.id === classroomId)?.title
 
     if (!courseId) {
       notification.error({
@@ -228,9 +314,27 @@ async function handleOk() {
       return
     }
 
-    if (!bulkNumberOfSessions.value || bulkNumberOfSessions.value <= 0) {
+    if (!sessionFormState.value.topic?.trim()) {
       notification.error({
-        message: 'Vui lòng nhập số buổi cần tạo',
+        message: 'Vui lòng nhập tiêu đề buổi học',
+        duration: 3,
+      })
+      return
+    }
+
+    if (!sessionFormState.value.start_time || !sessionFormState.value.end_time) {
+      notification.error({
+        message: 'Vui lòng chọn thời gian bắt đầu/kết thúc',
+        duration: 3,
+      })
+      return
+    }
+
+    const start = dayjs(sessionFormState.value.start_time)
+    const end = dayjs(sessionFormState.value.end_time)
+    if (!start.isValid() || !end.isValid() || !end.isAfter(start)) {
+      notification.error({
+        message: 'Thời gian kết thúc phải sau thời gian bắt đầu',
         duration: 3,
       })
       return
@@ -238,32 +342,34 @@ async function handleOk() {
 
     try {
       confirmLoading.value = true
-      const res = await bulkGenerateSessions({
-        course_id: courseId,
-        classroom_id: classroomId,
-        number_of_sessions: Number(bulkNumberOfSessions.value),
+      const created = await createClassroomSession(classroomId, {
+        classroom: classroomId,
+        topic: sessionFormState.value.topic,
+        start_time: formatDateTimeForApi(sessionFormState.value.start_time),
+        end_time: formatDateTimeForApi(sessionFormState.value.end_time),
+        meeting_link: sessionFormState.value.meeting_link,
+        meeting_id: sessionFormState.value.meeting_id,
+        meeting_pass: sessionFormState.value.meeting_pass,
       })
 
       notification.success({
-        message: `Đã tạo thêm ${res?.created_count ?? bulkNumberOfSessions.value} buổi học`,
+        message: 'Đã tạo buổi học',
         duration: 3,
       })
 
-      // Let parent reload if needed
+      emit('sessionCreated', { courseId, classroomId, session: created })
       emit('success')
 
       dialogVisible.value = false
       await nextTick()
       resetForm()
-      bulkNumberOfSessions.value = null
 
-      emit('selected', { courseId, classroomId, classroomTitle })
       return
     }
     catch (err: any) {
-      console.error('Error bulk generating sessions:', err)
+      console.error('Error creating session:', err)
       notification.error({
-        message: 'Không thể tạo thêm buổi học',
+        message: 'Không thể tạo buổi học',
         description: err?.message || err?.data?.detail || 'Vui lòng thử lại',
         duration: 5,
       })
@@ -308,7 +414,6 @@ async function handleOk() {
         }),
       // Pricing fields
       price: formState.value.price?.toString() || '0',
-      discount_price: formState.value.discount_price ? formState.value.discount_price.toString() : null,
       // Background color
       background_color: formState.value.background_color,
     }
@@ -326,7 +431,9 @@ async function handleOk() {
 
     // Emit success event
     emit('success')
-    if (created?.id) {
+    // Only emit 'selected' if not in select_or_create mode (to avoid triggering handlePickedClassroom)
+    // When creating new classroom in select_or_create mode, the parent handles it via 'success' event
+    if (created?.id && props.mode !== 'select_or_create') {
       emit('selected', { courseId, classroomId: created.id, classroomTitle: created?.title })
     }
 
@@ -364,7 +471,7 @@ watch(() => props.open, (newValue) => {
     // reset select-or-create state
     isCreateNew.value = true
     selectedClassroomId.value = null
-    bulkNumberOfSessions.value = null
+    prefillApplied.value = false
     classrooms.value = []
     if (!props.courseId) {
       selectedCourseId.value = null
@@ -372,10 +479,12 @@ watch(() => props.open, (newValue) => {
     }
     resetForm()
   }
-})
-
-watch(() => props.open, (newValue) => {
-  if (newValue) {
+  else {
+    // When dialog opens, apply initialCreateNew if provided
+    if (props.mode === 'select_or_create' && props.initialCreateNew !== undefined) {
+      isCreateNew.value = props.initialCreateNew
+    }
+    prefillApplied.value = false
     // Fetch courses if course is not fixed
     if (!props.courseId) {
       fetchCourses()
@@ -395,18 +504,30 @@ watch(effectiveCourseId, (cid) => {
     fetchClassroomsOfCourse(cid)
   }
 })
+
+watch(isCreateNew, () => {
+  // When toggling to "create new", apply prefill (if provided).
+  applyPrefillFromRangeIfNeeded()
+  applySessionPrefillFromRangeIfNeeded()
+})
+
+watch(() => props.prefillRange, () => {
+  // If range changes while dialog open, allow applying once.
+  prefillApplied.value = false
+  applyPrefillFromRangeIfNeeded()
+  applySessionPrefillFromRangeIfNeeded()
+})
 </script>
 
 <template>
   <a-modal
     v-model:open="dialogVisible"
-    :title="$t('admin.classroom.form.title')"
     :confirm-loading="confirmLoading"
-    :ok-text="props.mode === 'select_or_create' && !isCreateNew ? 'Tạo buổi' : undefined"
+    :ok-text="props.mode === 'select_or_create' && !isCreateNew ? 'Tạo buổi học' : undefined"
     @ok="handleOk"
     @cancel="handleCancel"
   >
-    <div v-if="props.mode === 'select_or_create'" class="w-full mb-4 mt-6 flex items-center justify-between">
+    <div v-if="props.mode === 'select_or_create' && props.initialCreateNew === undefined" class="w-fit mb-4 mt-6">
       <div class="text-sm font-medium text-gray-800">
         Tạo lớp mới
       </div>
@@ -452,24 +573,72 @@ watch(effectiveCourseId, (cid) => {
 
       <div class="mt-4">
         <div class="text-sm font-medium text-gray-700 mb-2">
-          Số buổi cần tạo
+          Tạo buổi học
         </div>
-        <a-input-number
-          v-model:value="bulkNumberOfSessions"
-          size="large"
-          class="w-full"
-          :min="1"
-          placeholder="Ví dụ: 10"
-        />
-        <div class="text-xs text-gray-500 mt-1">
-          Hệ thống sẽ tạo thêm số buổi này theo lịch (slot) của lớp.
+
+        <div class="space-y-3">
+          <div>
+            <div class="text-xs text-gray-600 mb-1">
+              Tiêu đề
+            </div>
+            <a-input v-model:value="sessionFormState.topic" placeholder="Nhập tiêu đề buổi học" />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <div class="text-xs text-gray-600 mb-1">
+                Bắt đầu
+              </div>
+              <a-date-picker
+                v-model:value="sessionFormState.start_time"
+                show-time
+                format="YYYY-MM-DD HH:mm"
+                class="w-full"
+                placeholder="Chọn thời gian bắt đầu"
+              />
+            </div>
+            <div>
+              <div class="text-xs text-gray-600 mb-1">
+                Kết thúc
+              </div>
+              <a-date-picker
+                v-model:value="sessionFormState.end_time"
+                show-time
+                format="YYYY-MM-DD HH:mm"
+                class="w-full"
+                placeholder="Chọn thời gian kết thúc"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <div class="text-xs text-gray-600 mb-1">
+                Meeting link
+              </div>
+              <a-input v-model:value="sessionFormState.meeting_link" placeholder="https://..." />
+            </div>
+            <div>
+              <div class="text-xs text-gray-600 mb-1">
+                Meeting ID
+              </div>
+              <a-input v-model:value="sessionFormState.meeting_id" placeholder="Meeting ID" />
+            </div>
+          </div>
+
+          <div>
+            <div class="text-xs text-gray-600 mb-1">
+              Meeting pass
+            </div>
+            <a-input v-model:value="sessionFormState.meeting_pass" placeholder="Meeting pass" />
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Create new classroom (legacy form) -->
     <a-form
-      v-else
+      v-if="props.mode === 'create' || (props.mode === 'select_or_create' && isCreateNew)"
       ref="formRef"
       :model="formState"
       name="basic"
@@ -618,69 +787,29 @@ watch(effectiveCourseId, (cid) => {
           Giá cả
         </h3>
 
-        <div class="grid grid-cols-2 gap-4">
-          <!-- Price -->
-          <a-form-item
-            label="Giá gốc"
-            name="price"
+        <a-form-item
+          label="Giá gốc"
+          name="price"
+          class="w-full"
+          :rules="[{ required: true, validator: validatePrice, trigger: 'change' }]"
+        >
+          <a-input-number
+            v-model:value="formState.price"
+            size="large"
+            placeholder="Nhập giá gốc"
+            :min="0"
+            :step="0.01"
+            :precision="2"
             class="w-full"
-            :rules="[{ required: true, validator: validatePrice, trigger: 'change' }]"
           >
-            <a-input-number
-              v-model:value="formState.price"
-              size="large"
-              placeholder="Nhập giá gốc"
-              :min="0"
-              :step="0.01"
-              :precision="2"
-              class="w-full"
-            >
-              <template #prefix>
-                <span class="text-gray-500">€</span>
-              </template>
-            </a-input-number>
-            <div class="text-xs text-gray-500 mt-1">
-              Giá gốc của lớp học (bắt buộc)
-            </div>
-          </a-form-item>
-
-          <!-- Discount Price -->
-          <a-form-item
-            label="Giá khuyến mãi"
-            name="discount_price"
-            class="w-full"
-            :rules="[{ validator: validateDiscountPrice, trigger: 'change' }]"
-          >
-            <a-input-number
-              v-model:value="formState.discount_price"
-              size="large"
-              placeholder="Nhập giá khuyến mãi (tùy chọn)"
-              :min="0"
-              :step="0.01"
-              :precision="2"
-              class="w-full"
-            >
-              <template #prefix>
-                <span class="text-gray-500">€</span>
-              </template>
-            </a-input-number>
-            <div class="text-xs text-gray-500 mt-1">
-              Giá khuyến mãi (nếu có). Phải nhỏ hơn giá gốc.
-            </div>
-          </a-form-item>
-        </div>
-
-        <!-- Effective Price Display (Read-only) -->
-        <div v-if="formState.price" class="mb-4 p-3 bg-gray-50 rounded-lg">
-          <div class="text-sm text-gray-600 mb-1">
-            Giá hiệu lực:
+            <template #prefix>
+              <span class="text-gray-500">€</span>
+            </template>
+          </a-input-number>
+          <div class="text-xs text-gray-500 mt-1">
+            Giá gốc của lớp học (bắt buộc)
           </div>
-          <div class="text-lg font-semibold text-green-600">
-            €{{ (formState.discount_price && formState.discount_price < formState.price
-              ? formState.discount_price
-              : formState.price).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
-          </div>
-        </div>
+        </a-form-item>
       </div>
 
       <!-- Background Color Section -->

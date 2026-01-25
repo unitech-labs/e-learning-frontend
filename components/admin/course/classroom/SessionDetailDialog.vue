@@ -549,6 +549,13 @@ async function handleClassroomUpdated() {
   }
 }
 
+function handleClassroomDeleted() {
+  // Close all dialogs when classroom is deleted
+  dialogVisible.value = false
+  showEditClassroomDialog.value = false
+  emit('classroomDeleted')
+}
+
 // Video upload functions
 function beforeUpload() {
   return false
@@ -1435,5 +1442,6 @@ function formatFileSize(bytes: number): string {
   <EditClassroomDialog
     v-model:open="showEditClassroomDialog" :classroom-id="sessionDetail?.classroom?.id || null"
     @success="handleClassroomUpdated"
+    @classroom-deleted="handleClassroomDeleted"
   />
 </template>

@@ -50,12 +50,9 @@ const { getSessions, getSessionDetail, rescheduleSession } = useGeneralSessionsA
 const { getCourses } = useCourseApi()
 const { createClassroomSession } = useClassroomApi()
 
-// Create classroom (needs course context)
-const openCoursePicker = ref(false)
-const createDialogOpen = ref(false)
+// Courses for drag-to-create event (used in validateCreation)
 const coursesLoading = ref(false)
 const courses = ref<Course[]>([])
-const selectedCourseIdForCreate = ref<string | null>(null)
 
 // VueCal editable events (create)
 const showCreationDialog = ref(false)
@@ -63,6 +60,8 @@ const createEventFn = ref<null | ((value: any) => void)>(null)
 const newEvent = ref<any>(null)
 const showPickClassroomDialog = ref(false)
 const pickedForNewEvent = ref<{ courseId: string, classroomId: string, classroomTitle?: string } | null>(null)
+const showChoiceDialog = ref(false)
+const choiceForNewEvent = ref<'new_classroom' | 'existing_classroom' | null>(null)
 const creationForm = ref({
   title: '',
   class: '',
@@ -108,34 +107,32 @@ async function fetchCourses() {
   }
 }
 
-function openCreateClassroomFlow() {
-  openCoursePicker.value = true
-}
-
-function confirmCourseAndOpenCreateDialog() {
-  if (!selectedCourseIdForCreate.value) {
-    notification.error({
-      message: 'Vui lòng chọn khóa học',
-      duration: 3,
-    })
-    return
-  }
-  openCoursePicker.value = false
-  createDialogOpen.value = true
-}
-
 function createEvent({ event, resolve }: any) {
-  openPickClassroomDialog({ event, resolve })
-}
-
-function openPickClassroomDialog({ event, resolve }: { event: any, resolve: (value: any) => void }) {
   newEvent.value = event
   createEventFn.value = resolve
+  choiceForNewEvent.value = null
+  showChoiceDialog.value = true
+}
+
+function handleChoiceSelected(choice: 'new_classroom' | 'existing_classroom') {
+  choiceForNewEvent.value = choice
+  showChoiceDialog.value = false
+  openPickClassroomDialog()
+}
+
+function openPickClassroomDialog() {
   pickedForNewEvent.value = null
   showPickClassroomDialog.value = true
 }
 
 function handlePickedClassroom(payload: { courseId: string, classroomId: string, classroomTitle?: string }) {
+  // Only handle when selecting existing classroom (not creating new one)
+  if (choiceForNewEvent.value === 'new_classroom') {
+    // Creating new classroom is handled by handleClassroomCreatedFromDialog
+    return
+  }
+
+  // This handler is only used when selecting existing classroom for creating session
   pickedForNewEvent.value = payload
   showPickClassroomDialog.value = false
 
@@ -148,18 +145,79 @@ function handlePickedClassroom(payload: { courseId: string, classroomId: string,
   showCreationDialog.value = true
 }
 
+function handleClassroomCreatedFromDialog() {
+  // When a new classroom is created from drag event, cancel the dragged event
+  // because sessions will be auto-generated and shown after reload
+  if (createEventFn.value) {
+    createEventFn.value(false) // Cancel the dragged event
+    createEventFn.value = null
+  }
+
+  // Clean up state - close all dialogs
+  showPickClassroomDialog.value = false
+  showCreationDialog.value = false
+  showChoiceDialog.value = false
+  newEvent.value = null
+  pickedForNewEvent.value = null
+  choiceForNewEvent.value = null
+
+  // Reload calendar to show auto-generated sessions
+  loadSessionsForCurrentView()
+}
+
+function handleSessionCreatedFromDialog(payload: { courseId: string, classroomId: string, session: any }) {
+  // If user created a session directly in CreateClassroomDialog, resolve the dragged vue-cal event immediately.
+  if (!createEventFn.value || !newEvent.value) {
+    // No pending create in vue-cal: just reload list.
+    loadSessionsForCurrentView()
+    return
+  }
+
+  const session = payload.session
+  const resolvedEvent: CalendarEvent = {
+    id: session?.id,
+    sessionId: session?.id,
+    classroomId: payload.classroomId,
+    title: session?.classroom_title || session?.topic || 'Buổi học',
+    courseTitle: session?.course_title,
+    start: new Date(session.start_time.replace('Z', '')),
+    end: new Date(session.end_time.replace('Z', '')),
+    backgroundColor: session?.background_color || DEFAULT_BACKGROUND_COLOR,
+    limit: session?.limit,
+    draggable: true,
+    resizable: true,
+    deletable: true,
+  }
+
+  createEventFn.value(resolvedEvent as any)
+  createEventFn.value = null
+  showPickClassroomDialog.value = false
+  showCreationDialog.value = false
+  newEvent.value = null
+  pickedForNewEvent.value = null
+}
+
 function cancelCreation() {
   createEventFn.value?.(false)
   createEventFn.value = null
   showCreationDialog.value = false
   showPickClassroomDialog.value = false
+  showChoiceDialog.value = false
   newEvent.value = null
   pickedForNewEvent.value = null
+  choiceForNewEvent.value = null
 }
 
 // If user closes the "pick classroom" dialog without selecting, cancel creation.
 watch(showPickClassroomDialog, (isOpen) => {
-  if (!isOpen && newEvent.value && !pickedForNewEvent.value && !showCreationDialog.value) {
+  if (!isOpen && newEvent.value && !pickedForNewEvent.value && !showCreationDialog.value && !showChoiceDialog.value) {
+    cancelCreation()
+  }
+})
+
+// If user closes the "choice" dialog without selecting, cancel creation.
+watch(showChoiceDialog, (isOpen) => {
+  if (!isOpen && newEvent.value && !choiceForNewEvent.value) {
     cancelCreation()
   }
 })
@@ -484,14 +542,6 @@ onMounted(() => {
             {{ $t('adminMenu.generalCalendar') }}
           </h2>
           <a-button
-            type="primary"
-            class="!px-6 !h-10 rounded-lg text-sm !font-semibold !flex !items-center !justify-center gap-1 !bg-[#548A1D]"
-            @click="openCreateClassroomFlow"
-          >
-            {{ $t('admin.classroom.addNewClassroom') }}
-            <Icon name="i-material-symbols-add-2-rounded" class="text-[16px] text-white" />
-          </a-button>
-          <a-button
             type="default"
             class="!px-4 !h-10 rounded-lg text-sm !font-semibold !flex !items-center !justify-center gap-1 !border-[#548A1D] !text-[#548A1D] hover:!bg-[#548A1D] hover:!text-white"
             :loading="isLoading"
@@ -612,44 +662,47 @@ onMounted(() => {
       @classroom-deleted="handleClassroomDeleted"
     />
 
-    <!-- Pick course before creating classroom -->
+    <!-- Choice dialog: new classroom or existing classroom -->
     <a-modal
-      v-model:open="openCoursePicker"
-      title="Chọn khóa học"
-      :ok-button-props="{ disabled: !selectedCourseIdForCreate }"
-      ok-text="Tiếp tục"
-      cancel-text="Hủy"
-      @ok="confirmCourseAndOpenCreateDialog"
-      @cancel="openCoursePicker = false"
+      v-model:open="showChoiceDialog"
+      title="Chọn loại tạo"
+      :footer="null"
+      @cancel="cancelCreation"
     >
-      <div class="space-y-2">
-        <div class="text-sm text-gray-600">
-          Vì đây là lịch tổng, hãy chọn khóa học bạn muốn tạo lớp.
+      <div class="space-y-4 py-4">
+        <div class="text-sm text-gray-600 mb-4">
+          Bạn muốn tạo lớp học mới hay tạo buổi học cho lớp có sẵn?
         </div>
-        <a-select
-          v-model:value="selectedCourseIdForCreate"
-          class="w-full"
-          size="large"
-          placeholder="Chọn khóa học"
-          show-search
-          :loading="coursesLoading"
-          :filter-option="(input: string, option: any) => (option?.label || '').toLowerCase().includes(input.toLowerCase())"
-          :options="courses.map(c => ({ value: c.id, label: c.title }))"
-        />
+        <div class="flex flex-col gap-3">
+          <a-button
+            type="primary"
+            size="large"
+            class="!h-12 !text-base !font-medium"
+            @click="handleChoiceSelected('new_classroom')"
+          >
+            Tạo lớp học mới
+          </a-button>
+          <a-button
+            type="default"
+            size="large"
+            class="!h-12 !text-base !font-medium"
+            @click="handleChoiceSelected('existing_classroom')"
+          >
+            Tạo buổi học cho lớp có sẵn
+          </a-button>
+        </div>
       </div>
     </a-modal>
-
-    <CreateClassroomDialog
-      v-model:open="createDialogOpen"
-      :course-id="selectedCourseIdForCreate || undefined"
-      @success="loadSessionsForCurrentView"
-    />
 
     <!-- Reuse CreateClassroomDialog for editable event: pick or create classroom -->
     <CreateClassroomDialog
       v-model:open="showPickClassroomDialog"
       mode="select_or_create"
+      :prefill-range="newEvent ? { start: newEvent.start, end: newEvent.end } : null"
+      :initial-create-new="choiceForNewEvent === 'new_classroom'"
       @selected="handlePickedClassroom"
+      @session-created="handleSessionCreatedFromDialog"
+      @success="handleClassroomCreatedFromDialog"
     />
 
     <!-- VueCal editable-event creation dialog -->
