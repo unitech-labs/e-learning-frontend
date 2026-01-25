@@ -162,24 +162,6 @@ const paginationConfig = computed(() => ({
   },
 }))
 
-// Statistics - Note: These are calculated from current page data only
-// For accurate statistics, you might want to add separate API endpoints
-const stats = computed(() => {
-  const totalOrders = totalCount.value // Use total count from API
-  const totalRevenue = orders.value
-    .filter(order => order.status === 'complete')
-    .reduce((sum, order) => sum + Number.parseFloat(order.price_amount), 0)
-  const pendingOrders = orders.value.filter(order => order.status === 'pending').length
-  const completedOrders = orders.value.filter(order => order.status === 'complete').length
-
-  return {
-    totalOrders,
-    totalRevenue,
-    pendingOrders,
-    completedOrders,
-  }
-})
-
 // Table columns
 const columns = computed((): TableColumnsType<Order> => [
   {
@@ -381,69 +363,6 @@ async function handleRefresh() {
             </template>
             {{ $t('admin.orders.table.refresh') }}
           </a-button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Statistics Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <!-- Total Orders -->
-      <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-        <div class="flex items-center justify-between mb-3">
-          <div class="p-3 bg-blue-50 rounded-lg size-12">
-            <Icon name="solar:cart-large-2-bold" size="24" class="text-blue-600" />
-          </div>
-        </div>
-        <div class="text-3xl font-bold text-gray-900 mb-1">
-          {{ stats.totalOrders }}
-        </div>
-        <div class="text-sm text-gray-600">
-          {{ $t('admin.orders.stats.totalOrders') }}
-        </div>
-      </div>
-
-      <!-- Total Revenue -->
-      <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-        <div class="flex items-center justify-between mb-3">
-          <div class="p-3 bg-green-50 rounded-lg size-12">
-            <Icon name="solar:dollar-bold" size="24" class="text-green-600" />
-          </div>
-        </div>
-        <div class="text-3xl font-bold text-gray-900 mb-1">
-          €{{ Number(stats.totalRevenue).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
-        </div>
-        <div class="text-sm text-gray-600">
-          {{ $t('admin.orders.stats.totalRevenue') }}
-        </div>
-      </div>
-
-      <!-- Pending Orders -->
-      <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-        <div class="flex items-center justify-between mb-3">
-          <div class="p-3 bg-orange-50 rounded-lg size-12">
-            <Icon name="solar:clock-circle-bold" size="24" class="text-orange-600" />
-          </div>
-        </div>
-        <div class="text-3xl font-bold text-gray-900 mb-1">
-          {{ stats.pendingOrders }}
-        </div>
-        <div class="text-sm text-gray-600">
-          {{ $t('admin.orders.stats.pendingOrders') }}
-        </div>
-      </div>
-
-      <!-- Completed Orders -->
-      <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-        <div class="flex items-center justify-between mb-3">
-          <div class="p-3 bg-purple-50 rounded-lg size-12">
-            <Icon name="solar:check-circle-bold" size="24" class="text-purple-600" />
-          </div>
-        </div>
-        <div class="text-3xl font-bold text-gray-900 mb-1">
-          {{ stats.completedOrders }}
-        </div>
-        <div class="text-sm text-gray-600">
-          {{ $t('admin.orders.stats.completedOrders') }}
         </div>
       </div>
     </div>
