@@ -120,8 +120,8 @@ importers:
         specifier: ^3.5.16
         version: 3.5.17(typescript@5.8.3)
       vue-cal:
-        specifier: 5.0.1-rc.34
-        version: 5.0.1-rc.34(vue@3.5.17(typescript@5.8.3))
+        specifier: 5.0.1-rc.28
+        version: 5.0.1-rc.28(vue@3.5.17(typescript@5.8.3))
       vue-countup-v3:
         specifier: ^1.4.2
         version: 1.4.2(vue@3.5.17(typescript@5.8.3))
@@ -6790,10 +6790,10 @@ packages:
   vue-bundle-renderer@2.1.1:
     resolution: {integrity: sha512-+qALLI5cQncuetYOXp4yScwYvqh8c6SMXee3B+M7oTZxOgtESP0l4j/fXdEJoZ+EdMxkGWIj+aSEyjXkOdmd7g==}
 
-  vue-cal@5.0.1-rc.34:
-    resolution: {integrity: sha512-ue9VX1la9sh1GzEMI7QiqP4DTchwlI7/8gTaZdkZHkMIgjh6wCtUDwlEMV3X+c/LXcxmCjKIg+DOS2sqHWzt4A==}
+  vue-cal@5.0.1-rc.28:
+    resolution: {integrity: sha512-rc4nGXdNFX1VbCqsdiVPeLR5oE9XLzJZ+lLBYfLZfnVjibZE2KYTQ7Ro7gx1s4ECqOMwG5U0frSMQpBpQpTFSQ==}
     peerDependencies:
-      vue: ^3.5.11
+      vue: ^3.5.0
 
   vue-countup-v3@1.4.2:
     resolution: {integrity: sha512-nRC65jBcdgwybxqztgd/WaK8ZN5T9ECPyiCFGYFMewCsvqdRVo1CtpT7JREcPNF837Fgu/izTSFiuzrIGD6w0A==}
@@ -14680,7 +14680,7 @@ snapshots:
     dependencies:
       ufo: 1.6.1
 
-  vue-cal@5.0.1-rc.34(vue@3.5.17(typescript@5.8.3)):
+  vue-cal@5.0.1-rc.28(vue@3.5.17(typescript@5.8.3)):
     dependencies:
       vue: 3.5.17(typescript@5.8.3)
 
