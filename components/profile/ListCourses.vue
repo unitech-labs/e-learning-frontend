@@ -2,7 +2,6 @@
 import type { Course } from '~/types/course.type'
 import { message } from 'ant-design-vue'
 import { computed, ref } from 'vue'
-import CustomPagination from '~/components/learning/CustomPagination.vue'
 import SearchFilter from '~/components/learning/SearchFilter.vue'
 import { useCourseApi } from '~/composables/api/useCourseApi'
 import {
@@ -16,10 +15,8 @@ definePageMeta({
   middleware: 'auth', // Yêu cầu đăng nhập
 })
 
-const router = useRouter()
 const courseApi = useCourseApi()
 const { user } = useAuth()
-const { t } = useI18n()
 
 // Reactive data
 const courses = ref<Course[]>([])
@@ -86,7 +83,7 @@ const filteredCourses = computed(() => {
 })
 
 const totalCourses = computed(() => filteredCourses.value.length)
-const totalPages = computed(() => calculateTotalPages(filteredCourses.value.length))
+const _totalPages = computed(() => calculateTotalPages(filteredCourses.value.length))
 const paginatedCourses = computed(() =>
   getPaginatedCourses(filteredCourses.value, currentPage.value),
 )

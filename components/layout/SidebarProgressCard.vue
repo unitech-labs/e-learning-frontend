@@ -4,7 +4,7 @@ import { useLearnStore } from '~/stores/learn.store'
 const learnStore = useLearnStore()
 
 // Computed properties for progress data
-const attendanceProgress = computed(() => learnStore.sidebarProgress.attendance)
+const _attendanceProgress = computed(() => learnStore.sidebarProgress.attendance)
 const courseCompletionProgress = computed(() => learnStore.sidebarProgress.courseCompletion)
 
 // Load progress data on mount

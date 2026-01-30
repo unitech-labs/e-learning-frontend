@@ -40,7 +40,7 @@ function handleAnswerSave(answerData: any) {
               : t('newQuiz.player.questionInstructions.typeEssayAnswerBelow')
         }}
       </p>
-      
+
       <!-- Explanation (shown after answer is saved) -->
       <div
         v-if="savedAnswer && question.explanation"
@@ -58,7 +58,7 @@ function handleAnswerSave(answerData: any) {
           </div>
         </div>
       </div>
-      
+
       <!-- Question Media (if any) -->
       <div v-if="question.media" class="mt-4 rounded-xl overflow-hidden border border-gray-200">
         <img :src="question.media" :alt="question.prompt" class="w-full h-auto">

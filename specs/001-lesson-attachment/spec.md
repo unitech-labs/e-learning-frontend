@@ -1,8 +1,8 @@
 # Feature Specification: Upload Attachments for Individual Lessons
 
-**Feature Branch**: `001-lesson-attachment`  
-**Created**: 2025-01-27  
-**Status**: Draft  
+**Feature Branch**: `001-lesson-attachment`
+**Created**: 2025-01-27
+**Status**: Draft
 **Input**: User description: "@docs/upload-attachment.md hiện tại chúng ta đã có apply upload tài liệu nhưng là upload cho toàn bộ course, giờ tôi cần upload cho từng lessons, kiểm tra docs tôi đính kèm xem có api nào support không"
 
 ## User Scenarios & Testing *(mandatory)*

@@ -1,13 +1,13 @@
 export default defineNuxtRouteMiddleware(() => {
   const { isLoggedIn, isInitializing, user } = useAuth()
 
-    if (isInitializing.value) {
-      return
-    }
+  if (isInitializing.value) {
+    return
+  }
 
-    if (!isLoggedIn.value) {
-      return navigateTo('/auth/login', { external: true })
-    }
+  if (!isLoggedIn.value) {
+    return navigateTo('/auth/login', { external: true })
+  }
 
   if (!user.value || !user.value.is_teacher) {
     throw createError({

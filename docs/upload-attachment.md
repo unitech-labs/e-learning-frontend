@@ -139,11 +139,11 @@ const response = await fetch('https://api.hoctiengycungphantam.com/api/v1/course
     file_name: 'lesson-material.pdf',
     content_type: 'application/pdf'
   }),
-});
+})
 
-const data = await response.json();
-console.log('Upload URL:', data.upload_url);
-console.log('Public URL:', data.public_url); // Dùng URL này cho LessonMaterial
+const data = await response.json()
+console.log('Upload URL:', data.upload_url)
+console.log('Public URL:', data.public_url) // Dùng URL này cho LessonMaterial
 ```
 
 ---
@@ -307,7 +307,7 @@ async function getLessonMaterialUploadUrl(
   chapterId: string,
   lessonId: string,
   file: File
-): Promise<{ upload_url: string; public_url: string }> {
+): Promise<{ upload_url: string, public_url: string }> {
   const response = await fetch(
     `/api/v1/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/upload-material-url/`,
     {
@@ -321,13 +321,13 @@ async function getLessonMaterialUploadUrl(
         content_type: file.type,
       }),
     }
-  );
-  
+  )
+
   if (!response.ok) {
-    throw new Error('Failed to get upload URL');
+    throw new Error('Failed to get upload URL')
   }
-  
-  return await response.json();
+
+  return await response.json()
 }
 
 // Step 2: Upload file to S3
@@ -337,31 +337,32 @@ async function uploadToS3(
   onProgress?: (progress: number) => void
 ): Promise<void> {
   return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    
+    const xhr = new XMLHttpRequest()
+
     xhr.upload.addEventListener('progress', (e) => {
       if (e.lengthComputable && onProgress) {
-        const progress = (e.loaded / e.total) * 100;
-        onProgress(progress);
+        const progress = (e.loaded / e.total) * 100
+        onProgress(progress)
       }
-    });
-    
+    })
+
     xhr.addEventListener('load', () => {
       if (xhr.status === 200 || xhr.status === 204) {
-        resolve();
-      } else {
-        reject(new Error(`Upload failed: ${xhr.statusText}`));
+        resolve()
       }
-    });
-    
+      else {
+        reject(new Error(`Upload failed: ${xhr.statusText}`))
+      }
+    })
+
     xhr.addEventListener('error', () => {
-      reject(new Error('Upload failed'));
-    });
-    
-    xhr.open('PUT', uploadUrl);
-    xhr.setRequestHeader('Content-Type', file.type);
-    xhr.send(file);
-  });
+      reject(new Error('Upload failed'))
+    })
+
+    xhr.open('PUT', uploadUrl)
+    xhr.setRequestHeader('Content-Type', file.type)
+    xhr.send(file)
+  })
 }
 
 // Step 3: Update lesson with materials
@@ -370,18 +371,18 @@ async function updateLessonWithMaterials(
   chapterId: string,
   lessonId: string,
   lessonData: {
-    title?: string;
-    description?: string;
-    video_url?: string;
+    title?: string
+    description?: string
+    video_url?: string
     materials?: Array<{
-      id?: string;  // Optional: có id = update, không có = create mới
-      title: string;
-      file_url: string;
-      file_type: string;
-      file_size: number;
-      order?: number;
-      is_downloadable?: boolean;
-    }>;
+      id?: string // Optional: có id = update, không có = create mới
+      title: string
+      file_url: string
+      file_type: string
+      file_size: number
+      order?: number
+      is_downloadable?: boolean
+    }>
   }
 ): Promise<any> {
   const response = await fetch(
@@ -397,14 +398,14 @@ async function updateLessonWithMaterials(
         chapter_id: chapterId,
       }),
     }
-  );
-  
+  )
+
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Failed to update lesson');
+    const error = await response.json()
+    throw new Error(error.message || 'Failed to update lesson')
   }
-  
-  return await response.json();
+
+  return await response.json()
 }
 
 // Complete workflow: Upload file and update lesson
@@ -423,31 +424,33 @@ async function uploadAndAddMaterialToLesson(
       chapterId,
       lessonId,
       file
-    );
-    
-    if (onProgress) onProgress(10);
-    
+    )
+
+    if (onProgress)
+      onProgress(10)
+
     // Step 2: Upload to S3
     await uploadToS3(upload_url, file, (progress) => {
       if (onProgress) {
-        onProgress(10 + (progress * 0.8));
+        onProgress(10 + (progress * 0.8))
       }
-    });
-    
-    if (onProgress) onProgress(90);
-    
+    })
+
+    if (onProgress)
+      onProgress(90)
+
     // Step 3: Get current lesson to preserve existing materials
     const currentLesson = await fetch(
       `/api/v1/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/`,
       {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
-    ).then(res => res.json());
-    
+    ).then(res => res.json())
+
     // Step 4: Add new material to existing materials
-    const existingMaterials = currentLesson.materials || [];
+    const existingMaterials = currentLesson.materials || []
     const newMaterial = {
       title: materialTitle,
       file_url: public_url,
@@ -455,10 +458,10 @@ async function uploadAndAddMaterialToLesson(
       file_size: file.size,
       order: existingMaterials.length,
       is_downloadable: true,
-    };
-    
-    const updatedMaterials = [...existingMaterials, newMaterial];
-    
+    }
+
+    const updatedMaterials = [...existingMaterials, newMaterial]
+
     // Step 5: Update lesson with all materials
     const updatedLesson = await updateLessonWithMaterials(
       courseId,
@@ -467,14 +470,16 @@ async function uploadAndAddMaterialToLesson(
       {
         materials: updatedMaterials,
       }
-    );
-    
-    if (onProgress) onProgress(100);
-    
-    return updatedLesson;
-  } catch (error) {
-    console.error('Upload failed:', error);
-    throw error;
+    )
+
+    if (onProgress)
+      onProgress(100)
+
+    return updatedLesson
+  }
+  catch (error) {
+    console.error('Upload failed:', error)
+    throw error
   }
 }
 ```
@@ -492,7 +497,7 @@ function useLessonMaterialUpload(
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  
+
   const uploadMaterial = async (
     file: File,
     materialTitle: string
@@ -500,7 +505,7 @@ function useLessonMaterialUpload(
     setUploading(true);
     setError(null);
     setProgress(0);
-    
+
     try {
       const lesson = await uploadAndAddMaterialToLesson(
         courseId,
@@ -510,7 +515,7 @@ function useLessonMaterialUpload(
         materialTitle,
         setProgress
       );
-      
+
       setUploading(false);
       return lesson;
     } catch (err) {
@@ -519,16 +524,16 @@ function useLessonMaterialUpload(
       throw err;
     }
   };
-  
+
   return { uploadMaterial, uploading, progress, error };
 }
 
 // Usage in component
-function LessonMaterialForm({ 
-  courseId, 
-  chapterId, 
-  lessonId 
-}: { 
+function LessonMaterialForm({
+  courseId,
+  chapterId,
+  lessonId
+}: {
   courseId: string;
   chapterId: string;
   lessonId: string;
@@ -540,12 +545,12 @@ function LessonMaterialForm({
   );
   const [file, setFile] = useState<File | null>(null);
   const [title, setTitle] = useState('');
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!file) return;
-    
+
     try {
       const lesson = await uploadMaterial(file, title);
       console.log('Lesson updated:', lesson);
@@ -556,7 +561,7 @@ function LessonMaterialForm({
       console.error('Upload failed:', err);
     }
   };
-  
+
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -671,7 +676,7 @@ DELETE /api/v1/courses/{course_pk}/chapters/{chapter_pk}/lessons/{lesson_pk}/mat
 2. **Progress Tracking:** Use XMLHttpRequest or fetch with progress events for better UX
 3. **Error Handling:** Always handle errors at each step (URL generation, upload, lesson update)
 4. **File Validation:** Validate file size and type on frontend before upload
-5. **Material Management:** 
+5. **Material Management:**
    - Use nested write trong Lesson update để quản lý materials cùng lúc
    - Hoặc dùng API riêng nếu chỉ cần CRUD materials
 6. **Preserve Existing Materials:** Khi update lesson, luôn include existing materials trong payload nếu không muốn xóa chúng

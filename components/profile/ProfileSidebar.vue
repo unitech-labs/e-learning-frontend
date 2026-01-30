@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { ShareAltOutlined } from '@ant-design/icons-vue'
 
-interface UserProfile {
-  name: string
-  avatar: string
-}
-
 interface NavigationTab {
   key: string
   label: string
@@ -19,12 +14,12 @@ const props = withDefaults(defineProps<Props>(), {
   activeTab: 'MY_COURSES',
 })
 
-const { user, profile } = useAuth()
-
 const emit = defineEmits<{
   tabChange: [tabKey: string]
   shareProfile: []
 }>()
+
+const { profile } = useAuth()
 
 const { t } = useI18n()
 

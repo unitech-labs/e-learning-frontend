@@ -1,5 +1,5 @@
+import type { Classroom, Course, ResourcePricePlan } from '~/types/course.type'
 import { defineStore } from 'pinia'
-import type { Course, Classroom, ResourcePricePlan } from '~/types/course.type'
 
 export interface CartItem {
   id: string
@@ -25,17 +25,17 @@ export const useCartStore = defineStore('cart', {
     totalItems: (state: CartState): number => {
       return state.items.length
     },
-    
+
     totalPrice: (state: CartState): number => {
       return state.items.reduce((total: number, item: CartItem) => total + item.price, 0)
     },
-    
+
     totalDiscount: (state: CartState): number => {
       return state.items.reduce((total: number, item: CartItem) => {
         // For course type - use classroom pricing
         if (item.selectedClassroom) {
-          const originalPrice = parseFloat(item.selectedClassroom.price || '0')
-          const discountPrice = parseFloat(item.selectedClassroom.discount_price || '0')
+          const originalPrice = Number.parseFloat(item.selectedClassroom.price || '0')
+          const discountPrice = Number.parseFloat(item.selectedClassroom.discount_price || '0')
           if (discountPrice > 0 && discountPrice < originalPrice) {
             return total + (originalPrice - discountPrice)
           }
@@ -44,15 +44,15 @@ export const useCartStore = defineStore('cart', {
         return total
       }, 0)
     },
-    
-    tax: (state: CartState): number => {
+
+    tax: (): number => {
       // Temporarily set tax to 0
       return 0
       // return Math.round(state.items.reduce((total: number, item: CartItem) => total + item.price, 0) * 0.1) // 10% tax
     },
-    
+
     finalTotal: (state: CartState): number => {
-      return state.totalPrice + state.tax
+      return state.items.reduce((total: number, item: CartItem) => total + item.price, 0)
     },
   },
 
@@ -65,7 +65,8 @@ export const useCartStore = defineStore('cart', {
           if (savedCart) {
             this.items = JSON.parse(savedCart)
           }
-        } catch (error) {
+        }
+        catch (error) {
           console.error('Error loading cart from localStorage:', error)
           this.items = []
         }
@@ -77,7 +78,8 @@ export const useCartStore = defineStore('cart', {
       if (typeof window !== 'undefined') {
         try {
           localStorage.setItem('elearning-cart', JSON.stringify(this.items))
-        } catch (error) {
+        }
+        catch (error) {
           console.error('Error saving cart to localStorage:', error)
         }
       }
@@ -86,7 +88,7 @@ export const useCartStore = defineStore('cart', {
     // Add item to cart (for course type with classroom)
     addToCart(course: Course, selectedClassroom: Classroom) {
       const existingItemIndex = this.items.findIndex(
-        item => item.course.id === course.id && item.selectedClassroom?.id === selectedClassroom.id
+        item => item.course.id === course.id && item.selectedClassroom?.id === selectedClassroom.id,
       )
 
       if (existingItemIndex !== -1) {
@@ -95,7 +97,8 @@ export const useCartStore = defineStore('cart', {
           ...this.items[existingItemIndex],
           addedAt: new Date().toISOString(),
         }
-      } else {
+      }
+      else {
         // Add new item - use classroom effective_price instead of course
         const newItem: CartItem = {
           id: `${course.id}-${selectedClassroom.id}`,
@@ -113,7 +116,7 @@ export const useCartStore = defineStore('cart', {
     // Add resource to cart (for resource type with price plan)
     addResourceToCart(course: Course, selectedPricePlan: ResourcePricePlan) {
       const existingItemIndex = this.items.findIndex(
-        item => item.course.id === course.id && item.selectedPricePlan?.id === selectedPricePlan.id
+        item => item.course.id === course.id && item.selectedPricePlan?.id === selectedPricePlan.id,
       )
 
       if (existingItemIndex !== -1) {
@@ -122,7 +125,8 @@ export const useCartStore = defineStore('cart', {
           ...this.items[existingItemIndex],
           addedAt: new Date().toISOString(),
         }
-      } else {
+      }
+      else {
         // Add new item - use price plan price
         const newItem: CartItem = {
           id: `${course.id}-plan-${selectedPricePlan.id}`,

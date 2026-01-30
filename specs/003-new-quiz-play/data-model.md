@@ -1,6 +1,6 @@
 # Data Model: New Quiz Play Flow
 
-**Feature**: 003-new-quiz-play  
+**Feature**: 003-new-quiz-play
 **Date**: 2025-01-20
 
 ## Entities
@@ -136,7 +136,7 @@ Represents the final outcome after quiz submission. Computed from attempt data, 
 ### Save Answer Flow
 
 1. **Request**: `POST /api/v1/new_quiz/attempts/{id}/save-answer/` with answer data
-2. **Backend**: 
+2. **Backend**:
    - Creates or updates SavedAnswer
    - Auto-grades if MCQ or text-input
    - Updates QuizAttempt `total_score` and `correct_answers`
@@ -194,4 +194,3 @@ Represents the final outcome after quiz submission. Computed from attempt data, 
 ```
 
 **Note**: `answers` in local state is for UI reactivity. Server is source of truth. On page load, restore from `attempt.answers` array.
-

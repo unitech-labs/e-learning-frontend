@@ -4,8 +4,9 @@
  * @returns A unique slug with timestamp
  */
 export function generateSlug(title: string): string {
-  if (!title) return ''
-  
+  if (!title)
+    return ''
+
   // Convert title to slug format
   const slug = title
     .toLowerCase()
@@ -14,9 +15,9 @@ export function generateSlug(title: string): string {
     .replace(/\s+/g, '-') // Replace spaces with hyphens
     .replace(/-+/g, '-') // Replace multiple hyphens with single
     .replace(/^-|-$/g, '') // Remove leading/trailing hyphens
-  
+
   // Add timestamp
   const timestamp = Date.now()
-  
+
   return `${slug}-${timestamp}`
 }

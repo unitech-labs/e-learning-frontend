@@ -1,6 +1,7 @@
 <script lang="ts" setup>
+import type { SessionAttendance } from '~/composables/api/useClassroomApi'
 import { notification } from 'ant-design-vue'
-import { useClassroomApi, type SessionAttendance } from '~/composables/api/useClassroomApi'
+import { useClassroomApi } from '~/composables/api/useClassroomApi'
 
 interface Props {
   visible: boolean
@@ -47,7 +48,7 @@ async function loadAttendance() {
   try {
     internalLoading.value = true
     error.value = null
-    
+
     const response = await getSessionAttendance(props.sessionId)
     attendance.value = response || []
   }
@@ -108,12 +109,12 @@ function getUserDisplayName(user: SessionAttendance['user_info']): string {
   if (user.full_name && user.full_name.trim()) {
     return user.full_name
   }
-  
+
   const fullName = `${user.first_name || ''} ${user.last_name || ''}`.trim()
   if (fullName) {
     return fullName
   }
-  
+
   return user.username || user.email || 'N/A'
 }
 </script>
@@ -143,7 +144,9 @@ function getUserDisplayName(user: SessionAttendance['user_info']): string {
       <!-- Error State -->
       <div v-else-if="error" class="text-center py-8">
         <Icon name="i-heroicons-exclamation-triangle" class="w-12 h-12 text-red-400 mx-auto mb-4" />
-        <p class="text-red-500 mb-4">{{ error }}</p>
+        <p class="text-red-500 mb-4">
+          {{ error }}
+        </p>
         <a-button @click="loadAttendance">
           {{ $t('common.tryAgain') }}
         </a-button>
@@ -158,18 +161,18 @@ function getUserDisplayName(user: SessionAttendance['user_info']): string {
       </div>
 
       <!-- Attendance List -->
-      <div v-else class="space-y-3" v-if="attendance?.length > 0">
+      <div v-else-if="attendance?.length > 0" class="space-y-3">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-lg font-medium text-gray-900">
             {{ $t('admin.classroom.detail.totalAttendance') }}: {{ attendance.length }}
           </h3>
           <div class="flex items-center gap-4 text-sm text-gray-600">
             <div class="flex items-center gap-2">
-              <div class="w-3 h-3 bg-green-100 rounded-full"></div>
+              <div class="w-3 h-3 bg-green-100 rounded-full" />
               <span>{{ attendance.filter(a => a.status === 'present').length }} {{ $t('admin.classroom.detail.present') }}</span>
             </div>
             <div class="flex items-center gap-2">
-              <div class="w-3 h-3 bg-orange-100 rounded-full"></div>
+              <div class="w-3 h-3 bg-orange-100 rounded-full" />
               <span>{{ attendance.filter(a => a.status === 'late').length }} {{ $t('admin.classroom.detail.late') }}</span>
             </div>
           </div>

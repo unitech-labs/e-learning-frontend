@@ -92,7 +92,7 @@ Các API fake này được tạo để test authentication trong khi chờ back
 - **Password**: `admin123`
 - **Role**: `admin`
 
-### Regular User  
+### Regular User
 - **Email**: `user@example.com`
 - **Password**: `user123`
 - **Role**: `user`
@@ -147,7 +147,7 @@ await login({ email: 'admin@example.com', password: 'admin123' })
 // Register
 await register({
   firstName: 'John',
-  lastName: 'Doe', 
+  lastName: 'Doe',
   email: 'john@example.com',
   userName: 'johndoe',
   password: 'password123',

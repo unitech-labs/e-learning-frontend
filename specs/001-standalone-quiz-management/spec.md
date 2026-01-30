@@ -1,8 +1,8 @@
 # Feature Specification: Standalone Quiz Management
 
-**Feature Branch**: `001-standalone-quiz-management`  
-**Created**: 2025-01-15  
-**Status**: Draft  
+**Feature Branch**: `001-standalone-quiz-management`
+**Created**: 2025-01-15
+**Status**: Draft
 **Input**: User description: "hiện giờ quiz đang đi theo course, tức là admin phải vào detail course để có thể CRUD quiz, nhưng giờ có 1 update mới nữa là quiz sẽ không cần đi theo course nữa, đây là docs mới @docs/new_quiz.md , không xoá feature cũ mà là thêm feature mới, trong sidebar admin thêm 1 tab quản lý quiz, ở trong này có thể CRUD quiz"
 
 ## User Scenarios & Testing *(mandatory)*

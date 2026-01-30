@@ -1,6 +1,6 @@
 # Quick Start: New Quiz Play Flow
 
-**Feature**: 003-new-quiz-play  
+**Feature**: 003-new-quiz-play
 **Date**: 2025-01-20
 
 ## Overview
@@ -90,7 +90,7 @@ For multiple-choice questions:
 async function handleMCQAnswer(questionId: string, optionId: string) {
   // Update local state immediately
   answers.value[questionId] = optionId
-  
+
   // Save to server
   if (attemptId.value) {
     try {
@@ -98,17 +98,19 @@ async function handleMCQAnswer(questionId: string, optionId: string) {
         question_id: questionId,
         selected_option_id: optionId
       })
-      
+
       // Show immediate feedback
       if (response.is_correct) {
         showSuccessFeedback(questionId)
-      } else {
+      }
+      else {
         showErrorFeedback(questionId, response.answer.correct_answer)
       }
-      
+
       // Update score
       updateScore(response.answer)
-    } catch (error) {
+    }
+    catch (error) {
       handleSaveError(questionId, error)
     }
   }
@@ -144,7 +146,8 @@ function startTimer() {
     timerInterval = setInterval(() => {
       if (timeRemaining.value && timeRemaining.value > 0) {
         timeRemaining.value--
-      } else {
+      }
+      else {
         handleTimeExpired()
       }
     }, 1000)
@@ -169,11 +172,12 @@ function formatTime(seconds: number): string {
 async function startOrResumeAttempt() {
   // Check if attempt ID exists in URL (from previous session)
   const urlAttemptId = route.query.attempt as string | undefined
-  
+
   if (urlAttemptId) {
     // Resume existing attempt
     await resumeAttempt(urlAttemptId)
-  } else {
+  }
+  else {
     // Start new attempt
     await startNewAttempt()
   }
@@ -184,25 +188,27 @@ async function resumeAttempt(attemptId: string) {
     const attemptData = await getAttempt(attemptId)
     attempt.value = attemptData
     attemptId.value = attemptId
-    
+
     // Restore answers
-    attemptData.answers.forEach(answer => {
+    attemptData.answers.forEach((answer) => {
       if (answer.question_type === 'multiple_choice') {
         answers.value[answer.question] = answer.selected_option
-      } else {
+      }
+      else {
         answers.value[answer.question] = answer.text_answer
       }
     })
-    
+
     // Restore timer
     if (attemptData.time_remaining_seconds) {
       timeRemaining.value = attemptData.time_remaining_seconds
       startTimer()
     }
-    
+
     // Restore question index (optional: could remember last question)
     // currentQuestionIndex.value = ...
-  } catch (error) {
+  }
+  catch (error) {
     // Handle error (attempt not found, expired, etc.)
     console.error('Failed to resume attempt:', error)
     await startNewAttempt()
@@ -214,17 +220,19 @@ async function resumeAttempt(attemptId: string) {
 
 ```typescript
 async function submitQuiz() {
-  if (!attemptId.value) return
-  
+  if (!attemptId.value)
+    return
+
   try {
     const response = await submitAttempt(attemptId.value)
-    
+
     // Show results
     showResults(response.results)
-    
+
     // Navigate to results page or show completion dialog
     navigateTo(`/quizz/${quizId}/results?attempt=${attemptId.value}`)
-  } catch (error) {
+  }
+  catch (error) {
     // Handle error
     console.error('Failed to submit quiz:', error)
   }
@@ -237,24 +245,25 @@ async function submitQuiz() {
 async function handleSaveError(questionId: string, error: any) {
   // Show error message to user
   showErrorToast('Failed to save answer. Retrying...')
-  
+
   // Retry with exponential backoff
   let retries = 0
   const maxRetries = 3
-  
+
   while (retries < maxRetries) {
-    await new Promise(resolve => setTimeout(resolve, Math.pow(2, retries) * 1000))
-    
+    await new Promise(resolve => setTimeout(resolve, 2 ** retries * 1000))
+
     try {
       // Retry save
       await saveAnswer(attemptId.value!, answers.value[questionId])
       showSuccessToast('Answer saved successfully')
       return
-    } catch (retryError) {
+    }
+    catch (retryError) {
       retries++
     }
   }
-  
+
   // If all retries failed, show error and allow manual retry
   showErrorToast('Failed to save answer. Please try again.')
   // Store failed answer for manual retry button
@@ -318,4 +327,3 @@ pages/quizz/[id].vue (Main page)
 3. Review API contracts in `contracts/new-quiz-attempt-api.yaml`
 4. Review research findings in `research.md`
 5. Start implementation following this quick start guide
-

@@ -10,10 +10,10 @@ interface Props {
   currentQuestionIndex?: number
 }
 
-const props = defineProps<Props>()
+const _props = defineProps<Props>()
 
 const emit = defineEmits<{
-  'go-to-question': [index: number]
+  goToQuestion: [index: number]
 }>()
 
 function getStatusClass(status: string) {
@@ -59,7 +59,7 @@ function getStatusIcon(status: string) {
             currentQuestionIndex === index ? 'border-green-500 ring-2 ring-green-200' : 'border',
             getQuestionStatus ? getStatusClass(getQuestionStatus(question.id)) : 'bg-gray-100 border-gray-300 text-gray-700',
           ]"
-          @click="emit('go-to-question', index)"
+          @click="emit('goToQuestion', index)"
         >
           <Icon
             v-if="getQuestionStatus && getStatusIcon(getQuestionStatus(question.id))"
@@ -95,4 +95,3 @@ function getStatusIcon(status: string) {
     </div>
   </div>
 </template>
-

@@ -249,13 +249,12 @@ async function onFinish() {
       </a-form-item>
     </div>
 
-
     <div class="text-right w-full">
-      <a-button 
-        :loading="isFetchingProfile || isUploading" 
+      <a-button
+        :loading="isFetchingProfile || isUploading"
         :disabled="isUploading"
-        type="primary" 
-        class="max-w-[148px] !h-[40px]" 
+        type="primary"
+        class="max-w-[148px] !h-[40px]"
         html-type="submit"
       >
         {{ isUploading ? `${$t('profileForm.avatar.uploading')} ${uploadProgress}%` : $t('profileForm.updateProfile') }}

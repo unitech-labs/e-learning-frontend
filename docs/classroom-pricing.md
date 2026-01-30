@@ -53,7 +53,7 @@ class Classroom(models.Model):
         default=False,
         help_text="Is this classroom free? (overrides price if True)"
     )
-    
+
     # Properties
     @property
     def effective_price(self):
@@ -61,7 +61,7 @@ class Classroom(models.Model):
         if self.is_free:
             return 0
         return self.discount_price if self.discount_price else self.price
-    
+
     @property
     def is_one_on_one(self):
         """Check if this is a 1-on-1 classroom (student_count == 1)."""
@@ -274,12 +274,12 @@ Khi student tạo Order, hệ thống **tự động lấy giá từ Classroom**
 def create(self, validated_data):
     course = validated_data.pop("course")
     classroom = validated_data.pop("classroom")
-    
+
     price_amount = validated_data.get("price_amount")
     if price_amount in (None, 0, 0.0):
         # Get price from classroom instead of course
         validated_data["price_amount"] = classroom.effective_price
-    
+
     order = Order.objects.create(
         student=student,
         course=course,
@@ -304,7 +304,7 @@ Migration `0008_add_classroom_pricing` tự động copy giá từ Course sang C
 def migrate_course_price_to_classroom(apps, schema_editor):
     """Copy price from course to classroom for existing classrooms."""
     Classroom = apps.get_model('classrooms', 'Classroom')
-    
+
     for classroom in Classroom.objects.select_related('course').all():
         course = classroom.course
         classroom.price = course.price

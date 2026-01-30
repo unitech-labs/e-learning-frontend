@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Rule } from 'ant-design-vue/es/form'
-import type { NewQuizLevel, NewQuizLevelCreate } from '~/composables/api/useNewQuizApi'
+import type { NewQuizLevelCreate } from '~/composables/api/useNewQuizApi'
 import { useNewQuizApi } from '~/composables/api/useNewQuizApi'
 
 interface Props {
@@ -20,8 +20,8 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   back: []
-  'create-level': [data: NewQuizLevelCreate]
-  'update-level': [data: Partial<NewQuizLevelCreate>]
+  createLevel: [data: NewQuizLevelCreate]
+  updateLevel: [data: Partial<NewQuizLevelCreate>]
 }>()
 
 const { t } = useI18n()
@@ -74,10 +74,10 @@ async function loadLevelData() {
 
 function onFinish() {
   if (props.mode === 'create') {
-    emit('create-level', { ...formData })
+    emit('createLevel', { ...formData })
   }
   else {
-    emit('update-level', { ...formData })
+    emit('updateLevel', { ...formData })
   }
 }
 

@@ -11,7 +11,7 @@ import { message, Modal } from 'ant-design-vue'
 const router = useRouter()
 const route = useRoute()
 
-function handleAddCourse() {
+function _handleAddCourse() {
 
 }
 
@@ -98,7 +98,7 @@ const columns = [
   },
 ]
 
-const dataMock = ref({
+const _dataMock = ref({
   name: 'Class for newbie T5 & CN',
   quantity: 20,
   schedule: [
@@ -166,7 +166,7 @@ function backToAttendance() {
   const { attendanceId } = route.query
   router.push({
     path: `/admin/courses/${route.params.id}`,
-    query: { attendanceId }
+    query: { attendanceId },
   })
 }
 </script>
@@ -177,7 +177,7 @@ function backToAttendance() {
       <div class="flex items-center gap-1 cursor-pointer" @click="backToAttendance">
         <Icon name="i-material-symbols-chevron-left-rounded" class="text-[24px]" />
         <h1 class="text-xl font-bold text-gray-900 !m-0">
-            Attendance for July 20
+          Attendance for July 20
         </h1>
       </div>
     </div>

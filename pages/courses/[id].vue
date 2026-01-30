@@ -22,7 +22,7 @@ const { data: currentCourse, pending: isLoading, error: fetchError, refresh: ret
   async () => {
     try {
       const response = await getDetailCourses(courseId.value)
-      console.log(response)
+      // Response logged for debugging
 
       if (!response) {
         throw createError({

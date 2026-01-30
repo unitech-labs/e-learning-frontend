@@ -32,4 +32,3 @@
 ## Notes
 
 - All clarifications resolved. User confirmed that lesson materials are managed through the lesson API (PATCH/PUT lesson with materials array), not through a separate materials endpoint.
-

@@ -1,7 +1,7 @@
 # Quickstart: Upload Attachments for Individual Lessons
 
-**Feature**: Upload Attachments for Individual Lessons  
-**Date**: 2025-01-27  
+**Feature**: Upload Attachments for Individual Lessons
+**Date**: 2025-01-27
 **Phase**: 1 - Design & Contracts
 
 ## Overview
@@ -51,26 +51,6 @@ This feature enables teachers to upload file attachments (PDFs, documents, image
 
 **Example Integration**:
 ```vue
-<template>
-  <!-- Existing lesson form fields -->
-  
-  <!-- New Materials Section -->
-  <div class="materials-section">
-    <h3>{{ t('admin.formLesson.materials.title') }}</h3>
-    <LessonMaterialUpload 
-      :lesson-id="lessonId"
-      @upload-complete="handleMaterialUpload"
-    />
-    <LessonMaterialList
-      v-if="formState.materials?.length"
-      :materials="formState.materials"
-      :lesson-id="lessonId"
-      @update="handleMaterialUpdate"
-      @delete="handleMaterialDelete"
-    />
-  </div>
-</template>
-
 <script setup lang="ts">
 // Add materials to formState
 const formState = ref<LessonPayload>({
@@ -105,6 +85,26 @@ function handleMaterialDelete(materialId: string) {
   }
 }
 </script>
+
+<template>
+  <!-- Existing lesson form fields -->
+
+  <!-- New Materials Section -->
+  <div class="materials-section">
+    <h3>{{ t('admin.formLesson.materials.title') }}</h3>
+    <LessonMaterialUpload
+      :lesson-id="lessonId"
+      @upload-complete="handleMaterialUpload"
+    />
+    <LessonMaterialList
+      v-if="formState.materials?.length"
+      :materials="formState.materials"
+      :lesson-id="lessonId"
+      @update="handleMaterialUpdate"
+      @delete="handleMaterialDelete"
+    />
+  </div>
+</template>
 ```
 
 ### Learning Page
@@ -119,7 +119,7 @@ function handleMaterialDelete(materialId: string) {
 ```vue
 <template>
   <!-- Existing lesson content -->
-  
+
   <!-- Materials Section -->
   <div v-if="activeLesson?.materials?.length && (activeLesson.has_access || activeLesson.is_preview)">
     <h3>{{ t('learning.lesson.materials.title') }}</h3>
@@ -287,4 +287,3 @@ await updateLesson(
 5. Integrate into learning page
 6. Test upload flow
 7. Test access control
-

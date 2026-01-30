@@ -31,12 +31,11 @@ onMounted(() => {
       </div>
     </div>
     <Transition name="fade-zoom">
-      <div class="order-1 lg:order-2 flex justify-center lg:justify-end">
+      <div v-show="isVisible" class="order-1 lg:order-2 flex justify-center lg:justify-end">
         <img
-          v-show="isVisible"
+          class="w-full h-auto max-w-[300px] sm:max-w-[400px] lg:max-w-[500px] mx-auto lg:mx-0 animate-fade-in"
           src="@/assets/images/home/hero-banner.webp"
           alt="Hero Image"
-          class="w-full h-auto max-w-[300px] sm:max-w-[400px] lg:max-w-[500px] mx-auto lg:mx-0 animate-fade-in"
         >
       </div>
     </Transition>

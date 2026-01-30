@@ -35,4 +35,3 @@
 - The feature implements the new quiz system with auto-save and immediate feedback, which is a significant improvement over the old submit-all-at-once approach.
 - The spec assumes the quiz listing page exists and properly links to the play page - this dependency is documented.
 - Backend API endpoints are documented in the provided docs, so implementation can proceed once the API composable is created.
-

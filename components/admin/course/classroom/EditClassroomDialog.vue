@@ -269,8 +269,8 @@ async function confirmDeleteClassroom() {
           placeholder="Nhập giá"
           :min="0"
           :precision="2"
-            size="large"
-            class="w-full"
+          size="large"
+          class="w-full"
         />
       </a-form-item>
 
@@ -283,8 +283,8 @@ async function confirmDeleteClassroom() {
           placeholder="Nhập giá khuyến mãi (tùy chọn)"
           :min="0"
           :precision="2"
-            size="large"
-            class="w-full"
+          size="large"
+          class="w-full"
         />
       </a-form-item>
 

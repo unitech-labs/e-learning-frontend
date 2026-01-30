@@ -318,4 +318,3 @@ Total: 33 tasks for MVP
 - Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence
 - All tasks include exact file paths for clarity
 - Follow existing patterns from `pages/learning/quiz/[id]/index.vue` but adapt for new quiz system
-

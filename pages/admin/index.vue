@@ -154,23 +154,24 @@ onMounted(async () => {
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
       <!-- Show loading skeleton when no data -->
-      <div
-        v-for="i in 5"
-        v-if="statsCards.length === 0 && isLoadingStats"
-        :key="`loading-${i}`"
-        class="group relative overflow-hidden rounded-2xl p-6 bg-gray-200 animate-pulse"
-      >
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <div class="w-10 h-10 bg-gray-300 rounded-xl" />
-            <div class="w-20 h-6 bg-gray-300 rounded-full" />
-          </div>
-          <div class="space-y-2">
-            <div class="w-24 h-4 bg-gray-300 rounded" />
-            <div class="w-16 h-8 bg-gray-300 rounded" />
+      <template v-if="statsCards.length === 0 && isLoadingStats">
+        <div
+          v-for="i in 5"
+          :key="`loading-${i}`"
+          class="group relative overflow-hidden rounded-2xl p-6 bg-gray-200 animate-pulse"
+        >
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="w-10 h-10 bg-gray-300 rounded-xl" />
+              <div class="w-20 h-6 bg-gray-300 rounded-full" />
+            </div>
+            <div class="space-y-2">
+              <div class="w-24 h-4 bg-gray-300 rounded" />
+              <div class="w-16 h-8 bg-gray-300 rounded" />
+            </div>
           </div>
         </div>
-      </div>
+      </template>
 
       <!-- Show actual stats cards -->
       <div

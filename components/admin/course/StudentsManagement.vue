@@ -61,10 +61,9 @@ const users = ref<User[]>([
   },
 ])
 
-
 // Table columns
 const columns = [
-    {
+  {
     title: 'Id student',
     dataIndex: 'id',
     key: 'id',
@@ -108,7 +107,6 @@ function formatDate(dateString: string | undefined) {
   return new Date(dateString).toLocaleDateString()
 }
 
-
 function editUser(user: User) {
   message.info(`Edit user: ${user.first_name} ${user.last_name}`)
 }
@@ -147,47 +145,49 @@ function handleTableChange(pagination: any) {
 </script>
 
 <template>
-    <div class="admin-users">
-      <a-card>
-        <a-table
-          :columns="columns"
-          :data-source="users"
-          :loading="loading"
-          :pagination="{
-            current: currentPage,
-            pageSize,
-            total,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            showTotal: (t: number, r: [number, number]) => `${r[0]}-${r[1]} of ${t} users`,
-          }"
-          row-key="id"
-          @change="handleTableChange"
-        >
+  <div class="admin-users">
+    <a-card>
+      <a-table
+        :columns="columns"
+        :data-source="users"
+        :loading="loading"
+        :pagination="{
+          current: currentPage,
+          pageSize,
+          total,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: (t: number, r: [number, number]) => `${r[0]}-${r[1]} of ${t} users`,
+        }"
+        row-key="id"
+        @change="handleTableChange"
+      >
         <template #bodyCell="{ column, record }">
-            <template v-if="column.key === 'name'">
-                <a-space>
+          <template v-if="column.key === 'name'">
+            <a-space>
               <a-avatar style="background-color:#87d068">
                 {{ record.first_name.charAt(0) }}
               </a-avatar>
               <span>{{ record.first_name }} {{ record.last_name }}</span>
             </a-space>
-            </template>
-            <template v-if="column.key === 'email'">
-                {{ record?.email }}
-            </template>
-            <template v-if="column.key === 'time'">
+          </template>
+          <template v-if="column.key === 'email'">
+            {{ record?.email }}
+          </template>
+          <template v-if="column.key === 'time'">
             <p>
-            {{ formatDate(record?.createdAt) }}
+              {{ formatDate(record?.createdAt) }}
             </p>
-            </template>
-            <template v-if="column.key === 'classroom'">
-                {{ record?.classroom }}
-            </template>
-            <template v-if="column.key === 'actions'">
-                <a-space>
-              <a-button type="link" size="small" @click="editUser(record)" class="!flex !items-center">
-                <template #icon><EditOutlined /></template>
+          </template>
+          <template v-if="column.key === 'classroom'">
+            {{ record?.classroom }}
+          </template>
+          <template v-if="column.key === 'actions'">
+            <a-space>
+              <a-button type="link" size="small" class="!flex !items-center" @click="editUser(record)">
+                <template #icon>
+                  <EditOutlined />
+                </template>
                 Edit
               </a-button>
               <a-button
@@ -197,17 +197,21 @@ function handleTableChange(pagination: any) {
                 class="!flex !items-center"
                 @click="toggleUserStatus(record)"
               >
-                <template #icon><UserSwitchOutlined /></template>
+                <template #icon>
+                  <UserSwitchOutlined />
+                </template>
                 {{ record.is_verified ? 'Suspend' : 'Activate' }}
               </a-button>
-              <a-button type="link" size="small" danger @click="deleteUser(record)" class="!flex !items-center">
-                <template #icon><DeleteOutlined /></template>
+              <a-button type="link" size="small" danger class="!flex !items-center" @click="deleteUser(record)">
+                <template #icon>
+                  <DeleteOutlined />
+                </template>
                 Delete
               </a-button>
             </a-space>
-            </template>
-      </template>
-        </a-table>
-      </a-card>
-    </div>
-  </template>
+          </template>
+        </template>
+      </a-table>
+    </a-card>
+  </div>
+</template>

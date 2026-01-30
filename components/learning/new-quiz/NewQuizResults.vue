@@ -97,4 +97,3 @@ function formatScore(score: number | string | null | undefined): string {
     </div>
   </div>
 </template>
-

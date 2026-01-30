@@ -14,7 +14,7 @@ Thư mục này chứa các avatar mặc định cho onboarding.
 
 ## Avatar hiện tại:
 - avatar-1.png: Avatar nam trẻ
-- avatar-2.png: Avatar nữ trẻ  
+- avatar-2.png: Avatar nữ trẻ
 - avatar-3.png: Avatar nam trung niên
 - avatar-4.png: Avatar nữ trung niên
 - avatar-5.png: Avatar nam cao tuổi

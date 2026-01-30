@@ -7,6 +7,12 @@ export default antfu({
   vue: true,
   jsonc: false,
   yml: false,
+  ignores: [
+    'docs/**',
+    'specs/**',
+    'server/README.md',
+    '**/*.md',
+  ],
 }, {
   files: ['nuxt.config.ts', 'nuxt.config.js'],
   rules: {

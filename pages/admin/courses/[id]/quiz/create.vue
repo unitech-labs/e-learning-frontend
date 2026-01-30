@@ -2,17 +2,16 @@
 import QuizEditor from '~/components/admin/course/quiz/QuizEditor.vue'
 import { useQuizApi } from '~/composables/api/useQuizApi'
 
+const route = useRoute()
+const router = useRouter()
 const courseId = computed(() => route.params.id as string)
 const loading = ref(false)
 const error = ref<string | null>(null)
 
 const { createQuiz } = useQuizApi()
 
-const router = useRouter()
-const route = useRoute()
-
-const handleBack = () => {
-    router.back()
+function handleBack() {
+  router.back()
 }
 
 // Handle quiz creation
@@ -22,10 +21,12 @@ async function handleCreateQuiz(quizData: any) {
     error.value = null
     await createQuiz(quizData)
     router.push(`/admin/courses/${courseId.value}/quiz/all-quiz`)
-  } catch (err: any) {
+  }
+  catch (err: any) {
     error.value = err.message || 'Failed to create quiz'
     console.error('Error creating quiz:', err)
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }
@@ -37,19 +38,18 @@ const { t } = useI18n()
 useHead({
   title: () => `${t('quiz.editor.createTitle')} - E-Learning Platform`,
   meta: [
-    { name: 'description', content: () => t('quiz.editor.createTitle') }
-  ]
+    { name: 'description', content: () => t('quiz.editor.createTitle') },
+  ],
 })
 </script>
 
 <template>
-
-<QuizEditor
-      mode="create"
-      :course-id="courseId"
-      :is-creating="loading"
-      :is-loading="false"
-      @back="handleBack"
-      @create-quiz="handleCreateQuiz"
-    />
+  <QuizEditor
+    mode="create"
+    :course-id="courseId"
+    :is-creating="loading"
+    :is-loading="false"
+    @back="handleBack"
+    @create-quiz="handleCreateQuiz"
+  />
 </template>

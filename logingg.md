@@ -200,7 +200,7 @@ npm install @react-oauth/google
 ```
 
 ```javascript
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 
 function App() {
   const handleGoogleSuccess = async (credentialResponse) => {
@@ -214,30 +214,33 @@ function App() {
         body: JSON.stringify({
           id_token: credentialResponse.credential
         })
-      });
+      })
 
-      const data = await response.json();
-      
+      const data = await response.json()
+
       if (data.success) {
         // Save JWT token
-        localStorage.setItem('access_token', data.data.access);
-        localStorage.setItem('user', JSON.stringify(data.data.user));
-        
+        localStorage.setItem('access_token', data.data.access)
+        localStorage.setItem('user', JSON.stringify(data.data.user))
+
         if (data.data.is_new_user) {
-          console.log('Welcome! Your account has been created.');
-        } else {
-          console.log('Welcome back!');
+          console.log('Welcome! Your account has been created.')
         }
-        
+        else {
+          console.log('Welcome back!')
+        }
+
         // Redirect to dashboard
-        window.location.href = '/dashboard';
-      } else {
-        console.error('Login failed:', data.message);
+        window.location.href = '/dashboard'
       }
-    } catch (error) {
-      console.error('Error:', error);
+      else {
+        console.error('Login failed:', data.message)
+      }
     }
-  };
+    catch (error) {
+      console.error('Error:', error)
+    }
+  }
 
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
@@ -250,7 +253,7 @@ function App() {
         />
       </div>
     </GoogleOAuthProvider>
-  );
+  )
 }
 ```
 
@@ -261,14 +264,10 @@ npm install vue3-google-login
 ```
 
 ```vue
-<template>
-  <GoogleLogin :callback="handleGoogleLogin" />
-</template>
-
 <script setup>
 import { googleTokenLogin } from 'vue3-google-login'
 
-const handleGoogleLogin = async (response) => {
+async function handleGoogleLogin(response) {
   try {
     const result = await fetch('https://api.hoctiengycungphantam.com/api/v1/auth/google/', {
       method: 'POST',
@@ -279,19 +278,24 @@ const handleGoogleLogin = async (response) => {
       body: JSON.stringify({
         id_token: response.credential
       })
-    });
+    })
 
-    const data = await result.json();
-    
+    const data = await result.json()
+
     if (data.success) {
-      localStorage.setItem('access_token', data.data.access);
+      localStorage.setItem('access_token', data.data.access)
       // Redirect or update UI
     }
-  } catch (error) {
-    console.error('Error:', error);
+  }
+  catch (error) {
+    console.error('Error:', error)
   }
 }
 </script>
+
+<template>
+  <GoogleLogin :callback="handleGoogleLogin" />
+</template>
 ```
 
 ## 🔒 Security Features
@@ -409,7 +413,7 @@ curl -X POST http://localhost:8000/api/v1/auth/google/ \
 **Solution:** User needs to verify their email with Google first
 
 ### Error: "This app is blocked"
-**Solution:** 
+**Solution:**
 1. Add user to Test users list in OAuth consent screen, OR
 2. Publish app to Production (requires Google review)
 

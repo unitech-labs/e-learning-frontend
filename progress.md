@@ -200,8 +200,8 @@ progress_percentage = (completed_lessons_count / total_lessons_count) * 100
 async function fetchProgress(courseId) {
   const res = await fetch(`/api/v1/courses/${courseId}/progress/`, {
     headers: { Authorization: `Bearer ${accessToken}` },
-  });
-  return await res.json();
+  })
+  return await res.json()
 }
 
 // Mark lesson complete
@@ -209,15 +209,15 @@ async function markLessonComplete(courseId, chapterId, lessonId) {
   const res = await fetch(
     `/api/v1/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/`,
     {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ is_completed: true }),
     }
-  );
-  return await res.json();
+  )
+  return await res.json()
 }
 ```
 

@@ -106,7 +106,7 @@ async function requestOTP() {
   }
   catch (error: any) {
     console.error('Request OTP error:', error)
-    
+
     if (error?.data?.code === 'validation_error' && error?.data?.details) {
       validationErrors.value = error.data.details
       generalError.value = error.data?.message || t('auth.forgotPassword.notifications.otpFailed')
@@ -191,7 +191,7 @@ async function resetPassword() {
       notification.success({
         message: t('auth.forgotPassword.notifications.resetSuccess') || 'Your password has been reset successfully.',
       })
-      
+
       // Redirect to login after 3 seconds
       setTimeout(async () => {
         await navigateTo('/auth/login')
@@ -219,7 +219,7 @@ async function resetPassword() {
   }
   catch (error: any) {
     console.error('Reset password error:', error)
-    
+
     if (error?.data?.code === 'otp_expired') {
       generalError.value = error.data?.message || t('auth.forgotPassword.notifications.otpExpired') || 'The OTP code has expired. Please request a new OTP code.'
     }
@@ -323,7 +323,7 @@ watch(() => formState.otp, (newValue) => {
               show-icon
               class="!rounded-xl"
             >
-              <template #description v-if="Object.keys(validationErrors).length > 0">
+              <template v-if="Object.keys(validationErrors).length > 0" #description>
                 <ul class="list-disc list-inside mt-2 space-y-1">
                   <li v-for="(errors, field) in validationErrors" :key="field">
                     <span class="font-semibold capitalize">{{ field }}:</span>
@@ -343,7 +343,7 @@ watch(() => formState.otp, (newValue) => {
               name="email"
               :rules="[
                 { required: true, message: t('auth.forgotPassword.form.emailRequired') },
-                { type: 'email', message: t('auth.forgotPassword.form.emailInvalid') }
+                { type: 'email', message: t('auth.forgotPassword.form.emailInvalid') },
               ]"
               :validate-status="validationErrors.email ? 'error' : ''"
               :help="validationErrors.email ? validationErrors.email.join(', ') : ''"
@@ -398,7 +398,7 @@ watch(() => formState.otp, (newValue) => {
               name="otp"
               :rules="[
                 { required: true, message: t('auth.forgotPassword.form.otpRequired') },
-                { len: 6, message: t('auth.forgotPassword.form.otpLength') }
+                { len: 6, message: t('auth.forgotPassword.form.otpLength') },
               ]"
               :validate-status="validationErrors.otp ? 'error' : ''"
               :help="validationErrors.otp ? validationErrors.otp.join(', ') : ''"
@@ -438,7 +438,7 @@ watch(() => formState.otp, (newValue) => {
               name="new_password"
               :rules="[
                 { required: true, message: t('auth.forgotPassword.form.newPasswordRequired') },
-                { min: 8, message: t('auth.forgotPassword.form.passwordMinLength') }
+                { min: 8, message: t('auth.forgotPassword.form.passwordMinLength') },
               ]"
               :validate-status="validationErrors.new_password ? 'error' : ''"
               :help="validationErrors.new_password ? validationErrors.new_password.join(', ') : ''"
@@ -462,7 +462,7 @@ watch(() => formState.otp, (newValue) => {
               name="new_password2"
               :rules="[
                 { required: true, message: t('auth.forgotPassword.form.confirmPasswordRequired') },
-                { min: 8, message: t('auth.forgotPassword.form.passwordMinLength') }
+                { min: 8, message: t('auth.forgotPassword.form.passwordMinLength') },
               ]"
               :validate-status="validationErrors.new_password2 ? 'error' : ''"
               :help="validationErrors.new_password2 ? validationErrors.new_password2.join(', ') : ''"
@@ -510,8 +510,12 @@ watch(() => formState.otp, (newValue) => {
             <div class="flex items-start gap-3">
               <Icon name="solar:info-circle-bold" size="20" class="text-blue-600 mt-0.5" />
               <div class="text-sm text-gray-700 text-left">
-                <p class="font-semibold mb-1">{{ t('auth.forgotPassword.form.helpTitle') }}</p>
-                <p class="text-gray-600">{{ t('auth.forgotPassword.form.helpText') }}</p>
+                <p class="font-semibold mb-1">
+                  {{ t('auth.forgotPassword.form.helpTitle') }}
+                </p>
+                <p class="text-gray-600">
+                  {{ t('auth.forgotPassword.form.helpText') }}
+                </p>
               </div>
             </div>
           </div>
@@ -521,8 +525,12 @@ watch(() => formState.otp, (newValue) => {
             <div class="flex items-start gap-3">
               <Icon name="solar:info-circle-bold" size="20" class="text-blue-600 mt-0.5" />
               <div class="text-sm text-gray-700 text-left">
-                <p class="font-semibold mb-1">{{ t('auth.forgotPassword.form.otpHelpTitle') || 'Check Your Email' }}</p>
-                <p class="text-gray-600">{{ t('auth.forgotPassword.form.otpHelpText') || 'We sent a 6-digit OTP code to your email. The code will expire in 10 minutes.' }}</p>
+                <p class="font-semibold mb-1">
+                  {{ t('auth.forgotPassword.form.otpHelpTitle') || 'Check Your Email' }}
+                </p>
+                <p class="text-gray-600">
+                  {{ t('auth.forgotPassword.form.otpHelpText') || 'We sent a 6-digit OTP code to your email. The code will expire in 10 minutes.' }}
+                </p>
               </div>
             </div>
           </div>
@@ -575,7 +583,9 @@ watch(() => formState.otp, (newValue) => {
           <div class="flex items-start gap-3">
             <Icon name="solar:question-circle-bold" size="24" class="text-white/90 mt-1" />
             <div>
-              <h3 class="font-semibold text-lg mb-2">{{ t('auth.forgotPassword.support.title') }}</h3>
+              <h3 class="font-semibold text-lg mb-2">
+                {{ t('auth.forgotPassword.support.title') }}
+              </h3>
               <p class="text-sm text-white/80 mb-3">
                 {{ t('auth.forgotPassword.support.description') }}
               </p>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { StudentAnswer, QuizQuestion, QuestionComment } from '~/composables/api/useQuizApi'
+import type { QuestionComment, QuizQuestion, StudentAnswer } from '~/composables/api/useQuizApi'
 import { useQuizApi } from '~/composables/api/useQuizApi'
 
 interface Props {
@@ -19,27 +19,30 @@ const comments = ref<QuestionComment[]>([])
 const loadingComments = ref(false)
 
 // Methods
-const loadComments = async () => {
-  if (!props.quizId || !props.question?.id) return
+async function loadComments() {
+  if (!props.quizId || !props.question?.id)
+    return
 
   try {
     loadingComments.value = true
     const response = await getQuestionComments(props.quizId, props.question.id)
     comments.value = response.results
-  } catch (err: any) {
+  }
+  catch (err: any) {
     console.error('Error loading comments:', err)
-  } finally {
+  }
+  finally {
     loadingComments.value = false
   }
 }
 
-const formatDate = (dateString: string) => {
+function formatDate(dateString: string) {
   return new Date(dateString).toLocaleDateString('vi-VN', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
   })
 }
 
@@ -74,12 +77,14 @@ onMounted(() => {
 
       <!-- User's Answer -->
       <div class="space-y-3">
-        <div class="text-sm font-medium text-gray-700">Your answer:</div>
-        <div 
+        <div class="text-sm font-medium text-gray-700">
+          Your answer:
+        </div>
+        <div
           class="p-4 rounded-xl border"
           :class="{
             'bg-green-100 border-green-300': answer.is_correct,
-            'bg-red-100 border-red-300': !answer.is_correct
+            'bg-red-100 border-red-300': !answer.is_correct,
           }"
         >
           <span class="text-gray-800">
@@ -89,7 +94,9 @@ onMounted(() => {
 
         <!-- Correct Answer (if incorrect) -->
         <div v-if="!answer.is_correct && answer.correct_answer" class="space-y-2">
-          <div class="text-sm font-medium text-gray-700">Correct answer:</div>
+          <div class="text-sm font-medium text-gray-700">
+            Correct answer:
+          </div>
           <div class="p-4 bg-green-100 border border-green-300 rounded-xl">
             <span class="text-gray-800">
               {{ answer.correct_answer.text }}
@@ -99,7 +106,9 @@ onMounted(() => {
 
         <!-- Teacher Comments -->
         <div v-if="comments.length > 0" class="mt-6 pt-4 border-t border-gray-200">
-          <h5 class="text-sm font-medium text-gray-700 mb-3">Nhận xét của giáo viên</h5>
+          <h5 class="text-sm font-medium text-gray-700 mb-3">
+            Nhận xét của giáo viên
+          </h5>
           <div class="space-y-3">
             <div
               v-for="comment in comments"
@@ -115,7 +124,9 @@ onMounted(() => {
                   {{ formatDate(comment.created_at) }}
                 </span>
               </div>
-              <p class="text-sm text-gray-700 whitespace-pre-wrap">{{ comment.content }}</p>
+              <p class="text-sm text-gray-700 whitespace-pre-wrap">
+                {{ comment.content }}
+              </p>
             </div>
           </div>
         </div>

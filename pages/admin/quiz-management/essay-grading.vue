@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { EssayGrading } from '~/composables/api/useQuizApi'
-import { useQuizApi } from '~/composables/api/useQuizApi'
-import { useClassroomApi } from '~/composables/api/useClassroomApi'
 import type { Classroom } from '~/types/course.type'
+import { useClassroomApi } from '~/composables/api/useClassroomApi'
+import { useQuizApi } from '~/composables/api/useQuizApi'
 
 definePageMeta({
   layout: 'admin',
@@ -37,10 +37,10 @@ const filteredEssays = computed(() => {
 
   if (searchQuery.value) {
     const query = searchQuery.value.toLowerCase()
-    filtered = filtered.filter(essay => 
-      essay.student_name.toLowerCase().includes(query) ||
-      essay.quiz_title.toLowerCase().includes(query) ||
-      essay.question_prompt.toLowerCase().includes(query)
+    filtered = filtered.filter(essay =>
+      essay.student_name.toLowerCase().includes(query)
+      || essay.quiz_title.toLowerCase().includes(query)
+      || essay.question_prompt.toLowerCase().includes(query),
     )
   }
 
@@ -48,54 +48,58 @@ const filteredEssays = computed(() => {
 })
 
 // Methods
-const loadEssayGradings = async () => {
+async function loadEssayGradings() {
   try {
     loading.value = true
     error.value = null
 
     const response = await getEssayGradingsNeedingGrading(selectedClassroom.value || undefined)
     essayGradings.value = response.results
-  } catch (err: any) {
+  }
+  catch (err: any) {
     error.value = err.message || 'Failed to load essay gradings'
     console.error('Error loading essay gradings:', err)
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }
 
-const loadClassrooms = async () => {
+async function loadClassrooms() {
   try {
     const response = await getClassrooms()
     classrooms.value = response.results || []
-  } catch (err: any) {
+  }
+  catch (err: any) {
     console.error('Error loading classrooms:', err)
   }
 }
 
-const handleClassroomChange = () => {
+function handleClassroomChange() {
   loadEssayGradings()
 }
 
-const formatDate = (dateString: string) => {
+function formatDate(dateString: string) {
   return new Date(dateString).toLocaleDateString('vi-VN', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
   })
 }
 
-const truncateText = (text: string, maxLength: number = 100) => {
-  if (text?.length <= maxLength) return text
-  return text.substring(0, maxLength) + '...'
+function _truncateText(text: string, maxLength: number = 100) {
+  if (text?.length <= maxLength)
+    return text
+  return `${text.substring(0, maxLength)}...`
 }
 
 // Lifecycle
 onMounted(async () => {
   await Promise.all([
     loadClassrooms(),
-    loadEssayGradings()
+    loadEssayGradings(),
   ])
 })
 </script>
@@ -112,8 +116,12 @@ onMounted(async () => {
           Quay lại
         </a-button>
         <div>
-          <h1 class="text-2xl font-bold text-gray-900">Chấm bài tự luận</h1>
-          <p class="text-gray-600">Chấm điểm và phản hồi cho các bài tự luận của học sinh</p>
+          <h1 class="text-2xl font-bold text-gray-900">
+            Chấm bài tự luận
+          </h1>
+          <p class="text-gray-600">
+            Chấm điểm và phản hồi cho các bài tự luận của học sinh
+          </p>
         </div>
       </div>
 
@@ -122,8 +130,12 @@ onMounted(async () => {
         <div class="flex items-center gap-3">
           <Icon name="tabler:file-text" class="text-yellow-600 text-xl" />
           <div>
-            <h3 class="text-yellow-800 font-medium">Bài cần chấm</h3>
-            <p class="text-yellow-700 text-sm">{{ filteredEssays.length }} bài tự luận đang chờ chấm điểm</p>
+            <h3 class="text-yellow-800 font-medium">
+              Bài cần chấm
+            </h3>
+            <p class="text-yellow-700 text-sm">
+              {{ filteredEssays.length }} bài tự luận đang chờ chấm điểm
+            </p>
           </div>
         </div>
       </div>
@@ -131,7 +143,9 @@ onMounted(async () => {
 
     <!-- Filters -->
     <div class="bg-white rounded-lg shadow-sm border p-6 mb-6">
-      <h3 class="text-lg font-semibold text-gray-900 mb-4">Bộ lọc</h3>
+      <h3 class="text-lg font-semibold text-gray-900 mb-4">
+        Bộ lọc
+      </h3>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">Lớp học</label>
@@ -141,7 +155,9 @@ onMounted(async () => {
             class="w-full"
             @change="handleClassroomChange"
           >
-            <a-select-option value="">Tất cả lớp học</a-select-option>
+            <a-select-option value="">
+              Tất cả lớp học
+            </a-select-option>
             <a-select-option
               v-for="classroom in classrooms"
               :key="classroom.id"
@@ -166,7 +182,7 @@ onMounted(async () => {
         </div>
 
         <div class="flex items-end">
-          <a-button type="primary" @click="loadEssayGradings" :loading="loading">
+          <a-button type="primary" :loading="loading" @click="loadEssayGradings">
             Làm mới
           </a-button>
         </div>
@@ -186,7 +202,7 @@ onMounted(async () => {
       <!-- Loading State -->
       <div v-if="loading" class="p-6">
         <div class="flex items-center justify-center py-8">
-          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
           <span class="ml-2 text-gray-600">Đang tải...</span>
         </div>
       </div>
@@ -195,8 +211,10 @@ onMounted(async () => {
       <div v-else-if="error" class="p-6">
         <div class="text-center py-8">
           <Icon name="tabler:alert-circle" class="text-red-500 text-4xl mx-auto mb-4" />
-          <p class="text-red-600">{{ error }}</p>
-          <a-button type="primary" @click="loadEssayGradings" class="mt-4">
+          <p class="text-red-600">
+            {{ error }}
+          </p>
+          <a-button type="primary" class="mt-4" @click="loadEssayGradings">
             Thử lại
           </a-button>
         </div>
@@ -212,7 +230,9 @@ onMounted(async () => {
           <div class="flex items-start justify-between">
             <div class="flex-1">
               <div class="flex items-center gap-3 mb-3">
-                <h4 class="text-lg font-medium text-gray-900">{{ essay.quiz_title }}</h4>
+                <h4 class="text-lg font-medium text-gray-900">
+                  {{ essay.quiz_title }}
+                </h4>
                 <span class="px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                   Cần chấm
                 </span>
@@ -235,14 +255,18 @@ onMounted(async () => {
               </div>
 
               <div class="mb-4">
-                <h5 class="text-sm font-medium text-gray-700 mb-2">Câu hỏi:</h5>
+                <h5 class="text-sm font-medium text-gray-700 mb-2">
+                  Câu hỏi:
+                </h5>
                 <p class="text-sm text-gray-900 bg-gray-50 p-3 rounded-lg">
                   {{ essay.question_prompt }}
                 </p>
               </div>
 
               <div class="mb-4">
-                <h5 class="text-sm font-medium text-gray-700 mb-2">Câu trả lời của học sinh:</h5>
+                <h5 class="text-sm font-medium text-gray-700 mb-2">
+                  Câu trả lời của học sinh:
+                </h5>
                 <div class="bg-blue-50 border border-blue-200 p-3 rounded-lg">
                   <p class="text-sm text-gray-900 whitespace-pre-wrap">
                     {{ essay.student_answer_text || essay.answer_text }}
@@ -252,14 +276,14 @@ onMounted(async () => {
             </div>
 
             <div class="ml-6 flex flex-col gap-2">
-              <NuxtLink :to="`/admin/quiz-management/essay-grading-teacher/${essay.id}`"> 
+              <NuxtLink :to="`/admin/quiz-management/essay-grading-teacher/${essay.id}`">
                 <a-button type="primary" class="w-full">
-                <template #icon>
-                  <Icon name="tabler:edit" />
-                </template>
-                Chấm điểm
-              </a-button> 
-            </NuxtLink>
+                  <template #icon>
+                    <Icon name="tabler:edit" />
+                  </template>
+                  Chấm điểm
+                </a-button>
+              </NuxtLink>
 
               <!-- <a-button type="default" size="small" class="w-full">
                 Xem chi tiết
@@ -273,8 +297,12 @@ onMounted(async () => {
       <div v-else class="p-6">
         <div class="text-center py-8">
           <Icon name="tabler:file-text" class="text-gray-400 text-4xl mx-auto mb-4" />
-          <h3 class="text-lg font-medium text-gray-900 mb-2">Không có bài cần chấm</h3>
-          <p class="text-gray-500">Tất cả bài tự luận đã được chấm điểm hoặc chưa có bài nào được nộp.</p>
+          <h3 class="text-lg font-medium text-gray-900 mb-2">
+            Không có bài cần chấm
+          </h3>
+          <p class="text-gray-500">
+            Tất cả bài tự luận đã được chấm điểm hoặc chưa có bài nào được nộp.
+          </p>
         </div>
       </div>
     </div>

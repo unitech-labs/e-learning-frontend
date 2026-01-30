@@ -93,4 +93,3 @@ Check health status:
 ```bash
 docker inspect --format='{{.State.Health.Status}}' elearning-app
 ```
-

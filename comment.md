@@ -62,7 +62,7 @@ Maximum depth = 1 (no nested replies)
 GET /courses/{course_id}/chapters/{chapter_id}/lessons/{lesson_id}/comments/
 ```
 
-**Permission:** 
+**Permission:**
 - Enrolled students
 - Course teacher
 - Admin/staff
@@ -535,42 +535,42 @@ LessonComment.objects.filter(
 
 ```typescript
 interface Comment {
-  id: string;
-  author: number;
-  author_name: string;
-  author_email: string;
-  role: 'student' | 'teacher';
-  content: string;
-  depth: number;
-  parent_id: string | null;
-  replies: Reply[];
-  created_at: string;
-  updated_at: string;
+  id: string
+  author: number
+  author_name: string
+  author_email: string
+  role: 'student' | 'teacher'
+  content: string
+  depth: number
+  parent_id: string | null
+  replies: Reply[]
+  created_at: string
+  updated_at: string
 }
 
 interface Reply {
-  id: string;
-  author: number;
-  author_name: string;
-  role: 'student' | 'teacher';
-  content: string;
-  depth: number;
-  created_at: string;
+  id: string
+  author: number
+  author_name: string
+  role: 'student' | 'teacher'
+  content: string
+  depth: number
+  created_at: string
 }
 
 // Fetch comments
-const fetchComments = async (courseId: string, chapterId: string, lessonId: string) => {
+async function fetchComments(courseId: string, chapterId: string, lessonId: string) {
   const response = await fetch(
     `/api/v1/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/comments/`,
     {
-      headers: { 'Authorization': `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` }
     }
-  );
-  return response.json();
-};
+  )
+  return response.json()
+}
 
 // Create root comment
-const createComment = async (courseId: string, chapterId: string, lessonId: string, content: string) => {
+async function createComment(courseId: string, chapterId: string, lessonId: string, content: string) {
   const response = await fetch(
     `/api/v1/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/comments/`,
     {
@@ -581,18 +581,12 @@ const createComment = async (courseId: string, chapterId: string, lessonId: stri
       },
       body: JSON.stringify({ content })
     }
-  );
-  return response.json();
-};
+  )
+  return response.json()
+}
 
 // Create reply
-const createReply = async (
-  courseId: string,
-  chapterId: string,
-  lessonId: string,
-  commentId: string,
-  content: string
-) => {
+async function createReply(courseId: string, chapterId: string, lessonId: string, commentId: string, content: string) {
   const response = await fetch(
     `/api/v1/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/comments/${commentId}/reply/`,
     {
@@ -603,27 +597,27 @@ const createReply = async (
       },
       body: JSON.stringify({ content })
     }
-  );
-  return response.json();
-};
+  )
+  return response.json()
+}
 
 // Delete comment
-const deleteComment = async (courseId: string, chapterId: string, lessonId: string, commentId: string) => {
+async function deleteComment(courseId: string, chapterId: string, lessonId: string, commentId: string) {
   const response = await fetch(
     `/api/v1/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/comments/${commentId}/`,
     {
       method: 'DELETE',
-      headers: { 'Authorization': `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` }
     }
-  );
-  return response.status === 204;
-};
+  )
+  return response.status === 204
+}
 ```
 
 ### Display Component
 
 ```tsx
-const CommentThread = ({ comment }: { comment: Comment }) => {
+function CommentThread({ comment }: { comment: Comment }) {
   return (
     <div className="comment-thread">
       {/* Root comment */}
@@ -634,11 +628,11 @@ const CommentThread = ({ comment }: { comment: Comment }) => {
           <span className="time">{formatTime(comment.created_at)}</span>
         </div>
         <p className="content">{comment.content}</p>
-        
+
         {/* Reply button */}
         <button onClick={() => showReplyForm(comment.id)}>Reply</button>
       </div>
-      
+
       {/* Replies */}
       {comment.replies.map(reply => (
         <div key={reply.id} className="comment reply">
@@ -651,8 +645,8 @@ const CommentThread = ({ comment }: { comment: Comment }) => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 ```
 
 ---
@@ -722,7 +716,7 @@ CREATE TABLE courses_lesson_comment (
     depth SMALLINT NOT NULL CHECK (depth >= 0),
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    
+
     CONSTRAINT lesson_comment_depth_valid CHECK (depth IN (0, 1))
 );
 

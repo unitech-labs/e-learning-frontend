@@ -5,7 +5,6 @@ export interface Schedule {
   text: string
 }
 
-
 export interface UserProfile {
   name: string
   avatar: string

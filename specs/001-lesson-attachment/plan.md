@@ -9,7 +9,7 @@
 
 **Primary Requirement**: Enable teachers to upload file attachments (PDFs, documents, images, audio) to individual lessons, allowing lesson-specific content organization instead of only course-level assets.
 
-**Technical Approach**: 
+**Technical Approach**:
 - Extend the existing lesson edit page to include a materials management section
 - Use existing upload infrastructure (`/api/v1/system/upload-attachment-url/` with `folder: "lesson-materials"`)
 - Manage materials through the lesson API (PATCH/PUT lesson with `materials` array in payload)
@@ -18,38 +18,38 @@
 
 ## Technical Context
 
-**Language/Version**: TypeScript 5.x, Vue 3.x, Nuxt 3.x  
-**Primary Dependencies**: 
+**Language/Version**: TypeScript 5.x, Vue 3.x, Nuxt 3.x
+**Primary Dependencies**:
 - Ant Design Vue (UI components)
 - Nuxt 3 (framework)
 - Pinia (state management)
 - Vue 3 Composition API
 - AWS S3 (file storage via presigned URLs)
 
-**Storage**: 
+**Storage**:
 - Backend: Database stores lesson materials metadata (file_url, title, description) via lesson API
 - File Storage: AWS S3 (files uploaded via presigned URLs to `lesson-materials/` folder)
 
-**Testing**: 
+**Testing**:
 - Manual testing for upload flows
 - TypeScript type checking for API contracts
 - Component prop/emit validation
 
-**Target Platform**: Web browser (desktop and mobile responsive)  
-**Project Type**: Web application (Nuxt 3 SPA/SSR)  
-**Performance Goals**: 
+**Target Platform**: Web browser (desktop and mobile responsive)
+**Project Type**: Web application (Nuxt 3 SPA/SSR)
+**Performance Goals**:
 - Material upload completes in under 2 minutes (SC-001)
 - Materials list loads within 1 second (SC-003)
 - Student access to materials within 2 seconds (SC-004)
 - 99% upload success rate (SC-002)
 
-**Constraints**: 
+**Constraints**:
 - Must use existing upload infrastructure (presigned URLs, S3)
 - Must integrate with existing lesson API (PATCH/PUT with materials array)
 - Must follow access control rules (enrollment-based for course-type, CourseAccess for resource-type)
 - Must support same file types as course assets (PDF, DOC, PPT, ZIP, images, audio)
 
-**Scale/Scope**: 
+**Scale/Scope**:
 - Feature affects 2 pages: lesson edit page (admin) and lesson view page (student)
 - Estimated 3-4 new components: LessonMaterialUpload, LessonMaterialList, LessonMaterialItem
 - 1 new composable: useLessonMaterial (optional, if logic is complex)

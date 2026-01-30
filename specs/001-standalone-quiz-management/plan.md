@@ -9,7 +9,7 @@
 
 **Primary Requirement**: Add a new admin sidebar tab for managing standalone quizzes that are independent of courses, organized by Levels (A1, A2, B1, etc.) instead of course structure. Enable full CRUD operations (create, read, update, delete) and publish/unpublish functionality for standalone quizzes.
 
-**Technical Approach**: 
+**Technical Approach**:
 - Add new "Standalone Quiz Management" tab to admin sidebar navigation
 - Create new pages for standalone quiz list, create, edit, and detail views
 - Integrate with existing new quiz API endpoints (`/api/v1/new_quiz/`)
@@ -20,8 +20,8 @@
 
 ## Technical Context
 
-**Language/Version**: TypeScript 5.x, Vue 3.x, Nuxt 3.x  
-**Primary Dependencies**: 
+**Language/Version**: TypeScript 5.x, Vue 3.x, Nuxt 3.x
+**Primary Dependencies**:
 - Nuxt 3 (framework, SSR/SPA)
 - Vue 3 Composition API
 - Ant Design Vue (UI components)
@@ -29,33 +29,33 @@
 - Pinia (state management)
 - @nuxtjs/i18n (internationalization)
 
-**Storage**: 
+**Storage**:
 - Backend: Database stores standalone quiz data via `/api/v1/new_quiz/` API endpoints
 - File Storage: Media attachments handled via existing upload infrastructure (AWS S3 via presigned URLs)
 
-**Testing**: 
+**Testing**:
 - Manual testing for CRUD operations
 - TypeScript type checking for API contracts
 - Component prop/emit validation
 - Integration testing with backend API
 
-**Target Platform**: Web browser (desktop and mobile responsive)  
-**Project Type**: Web application (Nuxt 3 SPA/SSR)  
-**Performance Goals**: 
+**Target Platform**: Web browser (desktop and mobile responsive)
+**Project Type**: Web application (Nuxt 3 SPA/SSR)
+**Performance Goals**:
 - Quiz list page loads within 2 seconds (SC-001)
 - Quiz creation completes in under 5 minutes (SC-002)
 - Filter/search operations complete within 10 seconds (SC-003)
 - CRUD operations complete within 3 seconds (SC-007)
 - 95% success rate for quiz creation (SC-004)
 
-**Constraints**: 
+**Constraints**:
 - Must use existing API client patterns (`useApiClient` from `~/api/apiClient`)
 - Must follow existing composable structure patterns
 - Must maintain backward compatibility with course-based quiz management
 - Must integrate with existing i18n system
 - Must follow existing UI/UX patterns from course-based quiz management
 
-**Scale/Scope**: 
+**Scale/Scope**:
 - Admin users managing standalone quizzes
 - Support for 100+ quizzes with efficient filtering (SC-003)
 - Support for quizzes with up to 50 questions (SC-007)
@@ -67,7 +67,7 @@
 
 **Status**: ✅ PASSED
 
-**Analysis**: 
+**Analysis**:
 - No constitution violations identified
 - Feature follows existing architectural patterns
 - Uses established composable and API client patterns

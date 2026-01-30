@@ -573,7 +573,7 @@ function handleClassroomDeleted() {
   // Close all dialogs when classroom is deleted
   dialogVisible.value = false
   showEditClassroomDialog.value = false
-  
+
   // Reset state immediately
   sessionDetail.value = null
   students.value = []
@@ -582,7 +582,7 @@ function handleClassroomDeleted() {
   isEditMode.value = false
   videoFileList.value = []
   attendance.value = []
-  
+
   emit('classroomDeleted')
 }
 

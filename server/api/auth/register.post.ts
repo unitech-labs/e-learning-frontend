@@ -8,18 +8,18 @@ const users = [
     lastName: 'User',
     userName: 'admin',
     avatar: 'https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light',
-    role: 'admin'
+    role: 'admin',
   },
   {
-    id: '2', 
+    id: '2',
     email: 'user@example.com',
     password: 'user123',
     firstName: 'John',
-    lastName: 'Doe', 
+    lastName: 'Doe',
     userName: 'johndoe',
     avatar: 'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light',
-    role: 'user'
-  }
+    role: 'user',
+  },
 ]
 
 export default defineEventHandler(async (event) => {
@@ -31,14 +31,14 @@ export default defineEventHandler(async (event) => {
     if (!firstName || !lastName || !email || !userName || !password) {
       throw createError({
         statusCode: 400,
-        statusMessage: 'All fields are required'
+        statusMessage: 'All fields are required',
       })
     }
 
     if (password !== confirmPassword) {
       throw createError({
         statusCode: 400,
-        statusMessage: 'Passwords do not match'
+        statusMessage: 'Passwords do not match',
       })
     }
 
@@ -47,7 +47,7 @@ export default defineEventHandler(async (event) => {
     if (existingUser) {
       throw createError({
         statusCode: 409,
-        statusMessage: 'User with this email or username already exists'
+        statusMessage: 'User with this email or username already exists',
       })
     }
 
@@ -62,7 +62,7 @@ export default defineEventHandler(async (event) => {
       avatar: `https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Blank&hairColor=Brown&facialHairType=Blank&clotheType=GraphicShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light`,
       role: 'user',
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     }
 
     // Add to fake database
@@ -75,14 +75,14 @@ export default defineEventHandler(async (event) => {
         email: newUser.email,
         firstName: newUser.firstName,
         lastName: newUser.lastName,
-        userName: newUser.userName
-      }
+        userName: newUser.userName,
+      },
     }
-
-  } catch (error: any) {
+  }
+  catch (error: any) {
     throw createError({
       statusCode: error.statusCode || 500,
-      statusMessage: error.statusMessage || 'Registration failed'
+      statusMessage: error.statusMessage || 'Registration failed',
     })
   }
 })

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { QuestionComment, QuizAttempt, StudentAnswer } from '~/composables/api/useQuizApi'
+import type { QuestionComment, QuizAttempt } from '~/composables/api/useQuizApi'
 import QuestionCommentComponent from '~/components/admin/quiz/QuestionComment.vue'
 import { useQuizApi } from '~/composables/api/useQuizApi'
 

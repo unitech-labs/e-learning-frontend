@@ -1,4 +1,4 @@
-export default defineNuxtRouteMiddleware(( ) => {
+export default defineNuxtRouteMiddleware(() => {
   // const { isLoggedIn, isInitializing, isTeacher } = useAuth()
 
   // // Don't redirect if still initializing (loading)
@@ -12,5 +12,5 @@ export default defineNuxtRouteMiddleware(( ) => {
   //   }
   //   return navigateTo('/learning')
   // }
-  
+
 })

@@ -148,7 +148,7 @@ function formatDate(dateString: string): string {
         <span class="text-sm font-medium text-gray-700">{{ t('admin.classroom.card.schedule') }}</span>
       </div>
       <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-        <div class="text-sm font-semibold text-blue-800" v-for="item in classRoomData?.schedule_summary.split(';')" :key="item">
+        <div v-for="item in classRoomData?.schedule_summary.split(';')" :key="item" class="text-sm font-semibold text-blue-800">
           {{ item }}
         </div>
       </div>
@@ -166,7 +166,7 @@ function formatDate(dateString: string): string {
           {{ t('admin.classroom.card.viewSchedule') }}
         </a-button>
       </NuxtLink> -->
-      
+
       <!-- Xem chi tiết lớp học (View Classroom Details) -->
       <NuxtLink :to="`${classRoomData?.id}`" class="w-full">
         <a-button
@@ -177,7 +177,7 @@ function formatDate(dateString: string): string {
           {{ t('admin.classroom.card.viewDetails') }}
         </a-button>
       </NuxtLink>
-      
+
       <!-- Điểm danh (Attendance) -->
       <!-- <NuxtLink :to="`${classRoomData?.id}/all-attendance`" class="w-full">
         <a-button

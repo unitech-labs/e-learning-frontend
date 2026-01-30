@@ -478,28 +478,28 @@ Authorization: Bearer <token>
 
 ## Notes
 
-1. **Video URL Support**: 
+1. **Video URL Support**:
    - YouTube: `https://www.youtube.com/watch?v=VIDEO_ID` hoặc `https://youtu.be/VIDEO_ID`
    - Vimeo: `https://vimeo.com/VIDEO_ID`
    - Direct video URLs: `https://example.com/video.mp4`
 
-2. **Thumbnail**: 
+2. **Thumbnail**:
    - Nếu không cung cấp thumbnail, backend có thể tự động extract từ YouTube/Vimeo URL
    - YouTube thumbnail format: `https://img.youtube.com/vi/{VIDEO_ID}/maxresdefault.jpg`
 
-3. **Content**: 
+3. **Content**:
    - Content được lưu dưới dạng HTML
    - Nên sanitize HTML để tránh XSS attacks
 
-4. **Tags**: 
+4. **Tags**:
    - Tags nên được normalize (lowercase, remove spaces)
    - Có thể dùng để tìm related posts
 
-5. **View Count**: 
+5. **View Count**:
    - Tự động tăng khi get detail
    - Có thể cache để tránh spam
 
-6. **Published At**: 
+6. **Published At**:
    - Tự động set khi `is_published` chuyển từ `false` sang `true` lần đầu
    - Không thay đổi khi unpublish/publish lại
 
@@ -524,7 +524,7 @@ CREATE TABLE video_blog_posts (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     view_count INTEGER DEFAULT 0,
     tags TEXT[] DEFAULT '{}',
-    
+
     CONSTRAINT video_url_valid CHECK (video_url ~ '^https?://'),
     CONSTRAINT title_not_empty CHECK (char_length(trim(title)) > 0),
     CONSTRAINT content_not_empty CHECK (char_length(trim(content)) > 0)
@@ -540,23 +540,23 @@ CREATE INDEX idx_video_posts_search ON video_blog_posts USING GIN(to_tsvector('e
 
 ## Frontend Integration Notes
 
-1. **List Posts**: 
+1. **List Posts**:
    - Chỉ hiển thị posts có `is_published=true` cho public users
    - Admin/Teacher có thể xem tất cả posts
 
-2. **Video Embed**: 
+2. **Video Embed**:
    - Frontend cần parse video URL để tạo embed URL
    - YouTube: `https://www.youtube.com/embed/{VIDEO_ID}`
    - Vimeo: `https://player.vimeo.com/video/{VIDEO_ID}`
 
-3. **Pagination**: 
+3. **Pagination**:
    - Sử dụng `next` và `previous` URLs từ response
    - Hoặc dùng `page` và `page_size` parameters
 
-4. **Search**: 
+4. **Search**:
    - Debounce search input (500ms)
    - Search trong title, content, author
 
-5. **Related Posts**: 
+5. **Related Posts**:
    - Hiển thị ở detail page
    - Dựa trên tags hoặc cùng author

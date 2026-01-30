@@ -1,3 +1,5 @@
+import type { ListApiResponse } from '~/api/apiClient'
+
 // Course API service
 import type {
   AllStudentsResponse,
@@ -16,8 +18,6 @@ import type {
   ResourcePricePlan,
   ResourcePricePlanPayload,
 } from '~/types/course.type'
-
-import type { ListApiResponse } from '~/api/apiClient'
 import { useApiClient } from '~/api/apiClient'
 import { createApiService } from '~/composables/api/useApiService'
 
@@ -348,7 +348,6 @@ export function useCourseApi() {
     // Get course students
     getCourseStudents: (courseId: string) =>
       apiClient.get<CourseStudentsResponse>(`/courses/${courseId}/students/`),
-
 
     // Get course classmates
     getCourseClassmates: (courseId: string) =>

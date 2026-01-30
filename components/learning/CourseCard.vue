@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ClockCircleOutlined } from '@ant-design/icons-vue'
 import type { Course } from '~/composables/api'
-
+import { ClockCircleOutlined } from '@ant-design/icons-vue'
 
 interface Props {
   course: Course

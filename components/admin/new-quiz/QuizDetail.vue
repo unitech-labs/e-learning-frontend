@@ -6,7 +6,7 @@ interface Props {
   loading?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const _props = withDefaults(defineProps<Props>(), {
   loading: false,
 })
 
@@ -97,7 +97,9 @@ const questionTypes = {
                 </span>
               </div>
             </div>
-            <p class="text-gray-800 mb-2">{{ question.prompt }}</p>
+            <p class="text-gray-800 mb-2">
+              {{ question.prompt }}
+            </p>
             <div v-if="question.explanation" class="text-sm text-gray-600 italic mt-2">
               <span class="font-semibold">Giải thích:</span> {{ question.explanation }}
             </div>
@@ -124,7 +126,9 @@ const questionTypes = {
             <div v-if="question.question_type === 'text_input' && question.sample_answer" class="mt-3">
               <div class="bg-blue-50 border border-blue-200 rounded p-3">
                 <span class="text-sm font-semibold text-blue-800">Đáp án mẫu:</span>
-                <p class="text-blue-900 mt-1">{{ question.sample_answer.text }}</p>
+                <p class="text-blue-900 mt-1">
+                  {{ question.sample_answer.text }}
+                </p>
               </div>
             </div>
           </div>

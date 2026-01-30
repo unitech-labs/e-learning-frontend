@@ -159,7 +159,7 @@ function getChapterDuration(lessons: Lesson[]): string {
                 Close
               </a-button>
             </div>
-            <div @click.stop class="w-full aspect-video bg-black/90 rounded-md overflow-hidden flex items-center justify-center">
+            <div class="w-full aspect-video bg-black/90 rounded-md overflow-hidden flex items-center justify-center" @click.stop>
               <video
                 :src="lesson.video_url"
                 controls

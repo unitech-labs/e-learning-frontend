@@ -23,4 +23,3 @@ export function getFileExtension(material: any): string {
 
   return ''
 }
-

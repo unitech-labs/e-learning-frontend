@@ -1,4 +1,4 @@
-import type { Category, Chapter, ChapterPayload, Course, CoursePayload, Lesson, LessonPayload, Teacher } from '~/types/course.type'
+import type { Category, Chapter, ChapterPayload, Course, CoursePayload, Lesson, LessonPayload } from '~/types/course.type'
 import { useCourseApi } from '~/composables/api/useCourseApi'
 
 export function useCourse() {
@@ -51,7 +51,7 @@ export function useCourse() {
     || isCreatingCourse.value
     || isCreatingChapter.value
     || isFetchingChapters.value
-    || isCreatingLesson.value
+    || isCreatingLesson.value,
   )
 
   async function createCourse(payload: CoursePayload): Promise<{ success: boolean, error?: string }> {
@@ -349,7 +349,7 @@ export function useCourse() {
 
     try {
       const response = await courseApi.createLesson(courseId, chapterId, payload)
-      
+
       return { success: true, data: response }
     }
     catch (error: any) {

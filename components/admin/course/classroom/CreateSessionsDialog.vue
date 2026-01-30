@@ -2,13 +2,17 @@
 import { notification } from 'ant-design-vue'
 import { useClassroomApi } from '~/composables/api/useClassroomApi'
 
-const { t } = useI18n()
+const props = withDefaults(defineProps<Props>(), {
+  loading: false,
+  classrooms: () => [],
+})
+const emit = defineEmits<Emits>()
 const { createBulkSessions } = useClassroomApi()
 
 interface Props {
   open: boolean
   courseId: string
-  classrooms: Array<{ id: string; title: string }>
+  classrooms?: Array<{ id: string, title: string }>
   loading?: boolean
 }
 
@@ -16,13 +20,6 @@ interface Emits {
   (e: 'update:open', value: boolean): void
   (e: 'success'): void
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  loading: false,
-  classrooms: () => [],
-})
-
-const emit = defineEmits<Emits>()
 
 const confirmLoading = ref(false)
 const formRef = ref()
@@ -421,4 +418,3 @@ watch(() => props.open, (newValue) => {
     </a-form>
   </a-modal>
 </template>
-

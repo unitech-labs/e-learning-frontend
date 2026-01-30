@@ -1,6 +1,6 @@
 # Quickstart: Standalone Quiz Management
 
-**Feature**: Standalone Quiz Management  
+**Feature**: Standalone Quiz Management
 **Date**: 2025-01-15
 
 ## Overview
@@ -62,7 +62,7 @@ export function useNewQuizApi() {
 
   return {
     // Level management
-    getLevels: (params?: { is_active?: boolean; search?: string; ordering?: string }) => {
+    getLevels: (params?: { is_active?: boolean, search?: string, ordering?: string }) => {
       const queryParams = new URLSearchParams()
       if (params?.is_active !== undefined)
         queryParams.append('is_active', params.is_active.toString())
@@ -183,11 +183,14 @@ async function loadQuizzes() {
   loading.value = true
   try {
     const params: any = {}
-    if (selectedLevel.value) params.level = selectedLevel.value
-    if (searchQuery.value) params.search = searchQuery.value
+    if (selectedLevel.value)
+      params.level = selectedLevel.value
+    if (searchQuery.value)
+      params.search = searchQuery.value
     const response = await getQuizzes(params)
     quizzes.value = response.results
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }
@@ -269,9 +272,12 @@ async function handleCreate(quizData: any) {
 ### Fetching with Filters
 ```typescript
 const params: any = {}
-if (levelFilter.value) params.level = levelFilter.value
-if (publishFilter.value !== undefined) params.is_published = publishFilter.value
-if (searchQuery.value) params.search = searchQuery.value
+if (levelFilter.value)
+  params.level = levelFilter.value
+if (publishFilter.value !== undefined)
+  params.is_published = publishFilter.value
+if (searchQuery.value)
+  params.search = searchQuery.value
 const response = await getQuizzes(params)
 ```
 
@@ -282,10 +288,11 @@ import { notification } from 'ant-design-vue'
 try {
   await createQuiz(data)
   notification.success({ message: 'Quiz created successfully' })
-} catch (error: any) {
-  notification.error({ 
-    message: 'Error', 
-    description: error.data?.detail || 'Failed to create quiz' 
+}
+catch (error: any) {
+  notification.error({
+    message: 'Error',
+    description: error.data?.detail || 'Failed to create quiz'
   })
 }
 ```

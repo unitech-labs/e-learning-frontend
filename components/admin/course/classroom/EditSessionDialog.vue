@@ -17,8 +17,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>()
 
-const { t } = useI18n()
-
 // Form state
 const formState = ref({
   topic: '',
@@ -35,7 +33,7 @@ const formState = ref({
 // Handle dialog visibility
 const isVisible = computed({
   get: () => props.visible,
-  set: (value) => emit('update:visible', value),
+  set: value => emit('update:visible', value),
 })
 
 // Watch for session changes to populate form
@@ -43,7 +41,8 @@ watch(() => props.session, (newSession) => {
   if (newSession) {
     // Format datetime for input[type="datetime-local"] (YYYY-MM-DDTHH:mm)
     const formatDateTimeForInput = (dateTimeString: string) => {
-      if (!dateTimeString) return ''
+      if (!dateTimeString)
+        return ''
       const date = new Date(dateTimeString)
       // Convert to local timezone and format for datetime-local input
       const year = date.getFullYear()
@@ -72,7 +71,8 @@ watch(() => props.session, (newSession) => {
 async function handleSave() {
   // Convert datetime-local input to ISO string
   const formatDateTimeForAPI = (dateTimeString: string) => {
-    if (!dateTimeString) return ''
+    if (!dateTimeString)
+      return ''
     // datetime-local input gives us YYYY-MM-DDTHH:mm in local timezone
     // We need to create a Date object and convert to ISO string
     const date = new Date(dateTimeString)
@@ -223,7 +223,6 @@ function handleCancel() {
             class="w-full"
           />
         </div>
-
       </div>
     </div>
 

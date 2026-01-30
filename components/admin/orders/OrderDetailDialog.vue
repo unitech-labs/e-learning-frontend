@@ -12,7 +12,6 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
-const { t } = useI18n()
 
 const modalVisible = computed({
   get: () => props.visible,
@@ -20,7 +19,7 @@ const modalVisible = computed({
     if (!value) {
       emit('close')
     }
-  }
+  },
 })
 
 // Format date
@@ -45,7 +44,7 @@ function getStatusBadgeClass(status: string) {
   return classes[status as keyof typeof classes] || 'bg-gray-50 text-gray-600 border-gray-200'
 }
 
-const handleClose = () => {
+function handleClose() {
   emit('close')
 }
 </script>
@@ -84,8 +83,12 @@ const handleClose = () => {
                   {{ order.student.full_name.charAt(0) }}
                 </a-avatar>
                 <div>
-                  <div class="font-medium text-gray-900">{{ order.student.full_name }}</div>
-                  <div class="text-sm text-gray-500">{{ order.student.email }}</div>
+                  <div class="font-medium text-gray-900">
+                    {{ order.student.full_name }}
+                  </div>
+                  <div class="text-sm text-gray-500">
+                    {{ order.student.email }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -102,8 +105,12 @@ const handleClose = () => {
                   <Icon name="solar:play-circle-bold" class="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
-                  <div class="font-medium text-gray-900">{{ order.course.title }}</div>
-                  <div class="text-sm text-gray-500">by {{ order.course.teacher_name }}</div>
+                  <div class="font-medium text-gray-900">
+                    {{ order.course.title }}
+                  </div>
+                  <div class="text-sm text-gray-500">
+                    by {{ order.course.teacher_name }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -114,10 +121,16 @@ const handleClose = () => {
             <label class="text-sm font-medium text-gray-700 mb-1">
               {{ $t('admin.orders.detailDialog.classroom') }}
             </label>
-            <div class="p-3 bg-gray-50 rounded-lg" v-if="order.classroom">
-              <div class="font-medium text-gray-900">{{ order.classroom.title }}</div>
-              <div class="text-sm text-gray-500">{{ order.classroom.schedule_summary }}</div>
-              <div class="text-sm text-gray-500">{{ order.classroom.student_count }} students</div>
+            <div v-if="order.classroom" class="p-3 bg-gray-50 rounded-lg">
+              <div class="font-medium text-gray-900">
+                {{ order.classroom.title }}
+              </div>
+              <div class="text-sm text-gray-500">
+                {{ order.classroom.schedule_summary }}
+              </div>
+              <div class="text-sm text-gray-500">
+                {{ order.classroom.student_count }} students
+              </div>
             </div>
           </div>
         </div>
@@ -177,7 +190,9 @@ const handleClose = () => {
             {{ $t('admin.orders.detailDialog.notes') }}
           </label>
           <div class="p-3 bg-gray-50 rounded-lg">
-            <p class="text-sm text-gray-900">{{ order.notes }}</p>
+            <p class="text-sm text-gray-900">
+              {{ order.notes }}
+            </p>
           </div>
         </div>
 
@@ -187,7 +202,9 @@ const handleClose = () => {
             {{ $t('admin.orders.detailDialog.adminNote') }}
           </label>
           <div class="p-3 bg-gray-50 rounded-lg">
-            <p class="text-sm text-gray-900">{{ order.admin_note }}</p>
+            <p class="text-sm text-gray-900">
+              {{ order.admin_note }}
+            </p>
           </div>
         </div>
 
@@ -197,7 +214,9 @@ const handleClose = () => {
             {{ $t('admin.orders.detailDialog.canceledReason') }}
           </label>
           <div class="p-3 bg-red-50 rounded-lg border border-red-200">
-            <p class="text-sm text-red-800">{{ order.canceled_reason }}</p>
+            <p class="text-sm text-red-800">
+              {{ order.canceled_reason }}
+            </p>
           </div>
         </div>
 
@@ -224,7 +243,7 @@ const handleClose = () => {
 
       <!-- Action Buttons -->
       <div class="flex justify-end mt-6 pt-4 border-t border-gray-200">
-        <a-button @click="handleClose" type="primary">
+        <a-button type="primary" @click="handleClose">
           {{ $t('admin.orders.detailDialog.close') }}
         </a-button>
       </div>

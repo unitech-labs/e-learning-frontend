@@ -24,16 +24,16 @@ paths:
                 file_name:
                   type: string
                   description: Original filename with extension
-                  example: "lesson-notes.pdf"
+                  example: lesson-notes.pdf
                 content_type:
                   type: string
                   description: MIME type of the file
-                  example: "application/pdf"
+                  example: application/pdf
                 folder:
                   type: string
                   description: Folder for organizing files
-                  default: "lesson-materials"
-                  example: "lesson-materials"
+                  default: lesson-materials
+                  example: lesson-materials
       responses:
         '200':
           description: Presigned URL generated successfully
@@ -185,7 +185,7 @@ components:
         file_type:
           type: string
           description: MIME type of the file
-          example: "application/pdf"
+          example: application/pdf
         file_size:
           type: integer
           description: File size in bytes
@@ -228,4 +228,3 @@ components:
       required:
         - id
         - title
-
