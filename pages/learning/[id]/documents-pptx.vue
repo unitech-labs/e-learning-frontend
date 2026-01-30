@@ -24,7 +24,6 @@ const document = ref<any>(null)
 // PPTX viewer state
 const pptxError = ref<string | null>(null)
 const pptxLoading = ref(true)
-const showPptxViewer = ref(false)
 
 // Load document from query parameters
 function loadDocumentFromQuery() {
@@ -86,8 +85,8 @@ async function loadPptxPreview() {
     await nextTick()
 
     // Show the viewer component
-    showPptxViewer.value = true
-    pptxLoading.value = false
+    // showPptxViewer.value = true
+    // pptxLoading.value = false
   }
   catch (err: any) {
     console.error('PPTX loading error:', err)
@@ -196,7 +195,7 @@ useHead({
       @contextmenu.prevent="preventDownload"
     >
       <!-- PPTX Viewer -->
-      <div v-if="pptxLoading" class="flex items-center justify-center py-20">
+      <div v-if="pptxLoading" class="absolute top-0 left-0 w-full h-full flex items-center justify-center py-20">
         <a-spin size="large" />
         <span class="ml-3 text-gray-600">Loading PowerPoint...</span>
       </div>
@@ -204,8 +203,10 @@ useHead({
       <a-alert v-if="pptxError" type="error" :message="pptxError" show-icon class="m-4" />
 
       <!-- PPTX Preview Container -->
-      <ClientOnly v-if="!pptxError && showPptxViewer">
-        <VueOfficePptx :src="documentUrl" style="width: 100%; min-height: 600px; height: 100%; flex: 1;" />
+      <ClientOnly v-if="!pptxError">
+        <VueOfficePptx 
+          @rendered="pptxLoading = false"
+         :src="documentUrl" style="width: 100%; min-height: 600px; height: 100%; flex: 1;" />
       </ClientOnly>
     </div>
 
@@ -261,5 +262,6 @@ useHead({
 }
 :deep(.pptx-preview-wrapper) {
   height: 100% !important;
+  /* width: 100% !important; */
 }
 </style>
