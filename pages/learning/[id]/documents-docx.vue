@@ -8,7 +8,6 @@ definePageMeta({
 
 const route = useRoute()
 const router = useRouter()
-const courseApi = useCourseApi()
 
 const courseId = computed(() => route.params.id as string)
 const fileUrlQuery = computed(() => route.query.file_url as string | undefined)
