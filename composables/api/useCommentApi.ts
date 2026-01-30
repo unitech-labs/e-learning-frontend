@@ -1,12 +1,11 @@
+import type {
+  Comment,
+  CommentCreateRequest,
+  CommentCreateResponse,
+  CommentListResponse,
+} from '~/types/comment.type'
 // Comment API service
 import { useApiClient } from '~/api/apiClient'
-import type { 
-  Comment, 
-  CommentCreateRequest, 
-  CommentCreateResponse, 
-  CommentListResponse,
-  CommentError 
-} from '~/types/comment.type'
 
 export function useCommentApi() {
   const apiClient = useApiClient()
@@ -19,9 +18,9 @@ export function useCommentApi() {
         params.append('page', page.toString())
       }
       const queryString = params.toString()
-      
+
       return apiClient.get<CommentListResponse>(
-        `/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/comments/${queryString ? `?${queryString}` : ''}`
+        `/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/comments/${queryString ? `?${queryString}` : ''}`,
       )
     },
 
@@ -29,26 +28,26 @@ export function useCommentApi() {
     createComment: (courseId: string, chapterId: string, lessonId: string, data: CommentCreateRequest) =>
       apiClient.post<CommentCreateResponse>(
         `/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/comments/`,
-        data
+        data,
       ),
 
     // Create a reply to a comment
     createReply: (courseId: string, chapterId: string, lessonId: string, commentId: string, data: CommentCreateRequest) =>
       apiClient.post<CommentCreateResponse>(
         `/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/comments/${commentId}/reply/`,
-        data
+        data,
       ),
 
     // Delete a comment
     deleteComment: (courseId: string, chapterId: string, lessonId: string, commentId: string) =>
       apiClient.delete<{ message: string }>(
-        `/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/comments/${commentId}/`
+        `/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/comments/${commentId}/`,
       ),
 
     // Get a single comment by ID
     getComment: (courseId: string, chapterId: string, lessonId: string, commentId: string) =>
       apiClient.get<Comment>(
-        `/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/comments/${commentId}/`
+        `/courses/${courseId}/chapters/${chapterId}/lessons/${lessonId}/comments/${commentId}/`,
       ),
   }
 }
@@ -56,7 +55,7 @@ export function useCommentApi() {
 // Comment management composable with state
 export function useCommentManagement(courseId: string, chapterId: string, lessonId: string) {
   const commentApi = useCommentApi()
-  
+
   // State
   const comments = ref<Comment[]>([])
   const isLoading = ref(false)
@@ -69,21 +68,24 @@ export function useCommentManagement(courseId: string, chapterId: string, lesson
     try {
       isLoading.value = true
       error.value = null
-      
+
       const response = await commentApi.getComments(courseId, chapterId, lessonId, page)
-      
+
       if (append) {
         comments.value = [...comments.value, ...response.results]
-      } else {
+      }
+      else {
         comments.value = response.results
       }
-      
+
       hasMore.value = !!response.next
       currentPage.value = page
-    } catch (err: any) {
+    }
+    catch (err: any) {
       console.error('Error loading comments:', err)
       error.value = err.message || 'Failed to load comments'
-    } finally {
+    }
+    finally {
       isLoading.value = false
     }
   }
@@ -92,12 +94,13 @@ export function useCommentManagement(courseId: string, chapterId: string, lesson
   const createComment = async (content: string) => {
     try {
       const response = await commentApi.createComment(courseId, chapterId, lessonId, { content })
-      
+
       // Add the new comment to the beginning of the list
       comments.value = [response, ...comments.value]
-      
+
       return response
-    } catch (err: any) {
+    }
+    catch (err: any) {
       console.error('Error creating comment:', err)
       throw err
     }
@@ -107,15 +110,16 @@ export function useCommentManagement(courseId: string, chapterId: string, lesson
   const createReply = async (commentId: string, content: string) => {
     try {
       const response = await commentApi.createReply(courseId, chapterId, lessonId, commentId, { content })
-      
+
       // Find the parent comment and add the reply
       const parentComment = comments.value.find(c => c.id === commentId)
       if (parentComment) {
         parentComment.replies.push(response)
       }
-      
+
       return response
-    } catch (err: any) {
+    }
+    catch (err: any) {
       console.error('Error creating reply:', err)
       throw err
     }
@@ -125,7 +129,7 @@ export function useCommentManagement(courseId: string, chapterId: string, lesson
   const deleteComment = async (commentId: string) => {
     try {
       await commentApi.deleteComment(courseId, chapterId, lessonId, commentId)
-      
+
       // Remove comment or reply from list
       const rootIndex = comments.value.findIndex(c => c.id === commentId)
       if (rootIndex !== -1) {
@@ -133,12 +137,14 @@ export function useCommentManagement(courseId: string, chapterId: string, lesson
         return
       }
 
-      comments.value = comments.value.map(comment => {
+      comments.value = comments.value.map((comment) => {
         const replies = comment.replies.filter(reply => reply.id !== commentId)
-        if (replies.length === comment.replies.length) return comment
+        if (replies.length === comment.replies.length)
+          return comment
         return { ...comment, replies }
       })
-    } catch (err: any) {
+    }
+    catch (err: any) {
       console.error('Error deleting comment:', err)
       throw err
     }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { StudentAnswer, QuizQuestion, QuestionComment } from '~/composables/api/useQuizApi'
+import type { QuestionComment, QuizQuestion, StudentAnswer } from '~/composables/api/useQuizApi'
 import { useQuizApi } from '~/composables/api/useQuizApi'
 
 interface Props {
@@ -19,27 +19,30 @@ const comments = ref<QuestionComment[]>([])
 const loadingComments = ref(false)
 
 // Methods
-const loadComments = async () => {
-  if (!props.quizId || !props.question?.id) return
+async function loadComments() {
+  if (!props.quizId || !props.question?.id)
+    return
 
   try {
     loadingComments.value = true
     const response = await getQuestionComments(props.quizId, props.question.id)
     comments.value = response.results
-  } catch (err: any) {
+  }
+  catch (err: any) {
     console.error('Error loading comments:', err)
-  } finally {
+  }
+  finally {
     loadingComments.value = false
   }
 }
 
-const formatDate = (dateString: string) => {
+function formatDate(dateString: string) {
   return new Date(dateString).toLocaleDateString('vi-VN', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
   })
 }
 
@@ -88,7 +91,7 @@ const scoreDisplay = computed(() => {
           <span class="bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-0.5 rounded-full">
             Essay Question
           </span>
-          <span 
+          <span
             :class="isGraded ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'"
             class="text-xs font-medium px-2.5 py-0.5 rounded-full"
           >
@@ -103,9 +106,13 @@ const scoreDisplay = computed(() => {
 
     <!-- Student's Answer -->
     <div class="mb-4">
-      <h4 class="text-sm font-medium text-gray-700 mb-2">Câu trả lời của bạn:</h4>
+      <h4 class="text-sm font-medium text-gray-700 mb-2">
+        Câu trả lời của bạn:
+      </h4>
       <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-        <p class="text-gray-800 whitespace-pre-wrap">{{ answer.text_answer || 'Chưa có câu trả lời' }}</p>
+        <p class="text-gray-800 whitespace-pre-wrap">
+          {{ answer.text_answer || 'Chưa có câu trả lời' }}
+        </p>
       </div>
     </div>
 
@@ -114,8 +121,12 @@ const scoreDisplay = computed(() => {
       <div class="flex items-center gap-2">
         <Icon name="tabler:clock" class="text-yellow-600" />
         <div>
-          <h4 class="text-yellow-800 font-medium text-sm">Đang chờ chấm điểm</h4>
-          <p class="text-yellow-700 text-sm">Giáo viên đang xem xét bài làm của bạn. Bạn sẽ nhận được điểm và nhận xét khi hoàn thành chấm bài.</p>
+          <h4 class="text-yellow-800 font-medium text-sm">
+            Đang chờ chấm điểm
+          </h4>
+          <p class="text-yellow-700 text-sm">
+            Giáo viên đang xem xét bài làm của bạn. Bạn sẽ nhận được điểm và nhận xét khi hoàn thành chấm bài.
+          </p>
         </div>
       </div>
     </div>
@@ -126,26 +137,40 @@ const scoreDisplay = computed(() => {
       <div class="bg-green-50 border border-green-200 rounded-lg p-4">
         <div class="flex items-center gap-2">
           <Icon name="solar:check-circle-bold-duotone" class="text-green-600" />
-          <h4 class="text-green-800 font-medium text-sm">Đã chấm điểm</h4>
+          <h4 class="text-green-800 font-medium text-sm">
+            Đã chấm điểm
+          </h4>
         </div>
-        <p class="text-green-700 text-sm mt-1">Bài làm của bạn đã được chấm điểm: <span class="font-semibold">{{ scoreDisplay }}</span></p>
+        <p class="text-green-700 text-sm mt-1">
+          Bài làm của bạn đã được chấm điểm: <span class="font-semibold">{{ scoreDisplay }}</span>
+        </p>
       </div>
 
       <!-- Teacher Feedback (if available) -->
       <div v-if="answer.essay_feedback" class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <h4 class="text-blue-800 font-medium text-sm mb-2">Nhận xét của giáo viên:</h4>
-        <p class="text-blue-700 text-sm whitespace-pre-wrap">{{ answer.essay_feedback }}</p>
+        <h4 class="text-blue-800 font-medium text-sm mb-2">
+          Nhận xét của giáo viên:
+        </h4>
+        <p class="text-blue-700 text-sm whitespace-pre-wrap">
+          {{ answer.essay_feedback }}
+        </p>
       </div>
 
       <!-- Corrected Answer (if available) -->
       <div v-if="answer.essay_corrected_answer" class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-        <h4 class="text-gray-800 font-medium text-sm mb-2">Phiên bản đã sửa:</h4>
-        <p class="text-gray-700 text-sm whitespace-pre-wrap">{{ answer.essay_corrected_answer }}</p>
+        <h4 class="text-gray-800 font-medium text-sm mb-2">
+          Phiên bản đã sửa:
+        </h4>
+        <p class="text-gray-700 text-sm whitespace-pre-wrap">
+          {{ answer.essay_corrected_answer }}
+        </p>
       </div>
 
       <!-- Teacher Comments -->
       <div v-if="comments.length > 0" class="mt-6 pt-4 border-t border-gray-200">
-        <h5 class="text-sm font-medium text-gray-700 mb-3">Nhận xét của giáo viên</h5>
+        <h5 class="text-sm font-medium text-gray-700 mb-3">
+          Nhận xét của giáo viên
+        </h5>
         <div class="space-y-3">
           <div
             v-for="comment in comments"
@@ -161,7 +186,9 @@ const scoreDisplay = computed(() => {
                 {{ formatDate(comment.created_at) }}
               </span>
             </div>
-            <p class="text-sm text-gray-700 whitespace-pre-wrap">{{ comment.content }}</p>
+            <p class="text-sm text-gray-700 whitespace-pre-wrap">
+              {{ comment.content }}
+            </p>
           </div>
         </div>
       </div>

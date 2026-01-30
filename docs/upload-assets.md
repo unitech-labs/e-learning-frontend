@@ -182,7 +182,7 @@ models.UniqueConstraint(
 if self.course.course_type == 'resource':
     from src.courses.models import CourseAccess
     from src.accounts.tasks import send_resource_access_granted_email_task
-    
+
     # Create or activate CourseAccess
     course_access, created = CourseAccess.objects.update_or_create(
         user=self.student,
@@ -192,7 +192,7 @@ if self.course.course_type == 'resource':
             'purchased_at': now,
         }
     )
-    
+
     # Send resource access email (no generated account credentials)
     send_resource_access_granted_email_task.delay(...)
 ```
@@ -254,7 +254,7 @@ if self.course.course_type == 'resource':
 
 - **Staff:** Thấy tất cả assets + full `file_url`
 - **Teacher (owner):** Thấy tất cả assets + full `file_url`
-- **Student (course-type):** 
+- **Student (course-type):**
   - Chỉ thấy assets mà `visible_classrooms` chứa classroom mà user đang enrolled
   - Nếu không có enrollment → rỗng hoặc metadata không có `file_url`
 - **Student (resource-type):**
@@ -494,11 +494,11 @@ async function uploadAsset(
   assetType: 'video' | 'pdf' | 'doc' | 'ppt' | 'zip' | 'image' | 'audio'
 ): Promise<string> {
   // Choose endpoint based on asset type
-  const isVideo = assetType === 'video';
+  const isVideo = assetType === 'video'
   const endpoint = isVideo
     ? `/api/v1/courses/${courseId}/upload-video-url/`
-    : `/api/v1/common/upload-attachment-url/`;
-  
+    : `/api/v1/common/upload-attachment-url/`
+
   // Step 1: Request presigned URL
   const uploadResponse = await fetch(endpoint, {
     method: 'POST',
@@ -511,14 +511,14 @@ async function uploadAsset(
       content_type: file.type,
       ...(isVideo ? {} : { folder: 'attachments' }),
     }),
-  });
-  
+  })
+
   if (!uploadResponse.ok) {
-    throw new Error('Failed to get upload URL');
+    throw new Error('Failed to get upload URL')
   }
-  
-  const { upload_url, public_url } = await uploadResponse.json();
-  
+
+  const { upload_url, public_url } = await uploadResponse.json()
+
   // Step 2: Upload file directly to S3
   const uploadResult = await fetch(upload_url, {
     method: 'PUT',
@@ -526,14 +526,14 @@ async function uploadAsset(
       'Content-Type': file.type,
     },
     body: file,
-  });
-  
+  })
+
   if (!uploadResult.ok) {
-    throw new Error('Failed to upload file to S3');
+    throw new Error('Failed to upload file to S3')
   }
-  
+
   // Step 3: Return public_url to use in asset creation
-  return public_url;
+  return public_url
 }
 
 // Step 4: Create CourseAsset
@@ -541,12 +541,12 @@ async function createAsset(
   courseId: string,
   publicUrl: string,
   metadata: {
-    asset_type: string;
-    title: string;
-    description?: string;
-    duration?: number;
-    file_size: number;
-    visible_classroom_ids?: string[];
+    asset_type: string
+    title: string
+    description?: string
+    duration?: number
+    file_size: number
+    visible_classroom_ids?: string[]
   }
 ) {
   const response = await fetch(`/api/v1/courses/${courseId}/assets/`, {
@@ -559,9 +559,9 @@ async function createAsset(
       ...metadata,
       file_url: publicUrl,
     }),
-  });
-  
-  return response.json();
+  })
+
+  return response.json()
 }
 
 // Complete workflow
@@ -569,87 +569,88 @@ async function uploadAndCreateAsset(
   courseId: string,
   file: File,
   assetData: {
-    asset_type: string;
-    title: string;
-    description?: string;
-    visible_classroom_ids?: string[];
+    asset_type: string
+    title: string
+    description?: string
+    visible_classroom_ids?: string[]
   }
 ) {
   try {
     // Get file metadata
-    const fileSize = file.size;
-    const assetType = getAssetTypeFromFile(file);
-    
+    const fileSize = file.size
+    const assetType = getAssetTypeFromFile(file)
+
     // Upload to S3
-    const publicUrl = await uploadAsset(courseId, file, assetType);
-    
+    const publicUrl = await uploadAsset(courseId, file, assetType)
+
     // Create asset record
     const asset = await createAsset(courseId, publicUrl, {
       ...assetData,
       asset_type: assetType,
       file_size: fileSize,
       // duration can be extracted from video metadata if needed
-    });
-    
-    return asset;
-  } catch (error) {
-    console.error('Upload failed:', error);
-    throw error;
+    })
+
+    return asset
+  }
+  catch (error) {
+    console.error('Upload failed:', error)
+    throw error
   }
 }
 
 function getAssetTypeFromFile(file: File): string {
-  const ext = file.name.split('.').pop()?.toLowerCase();
+  const ext = file.name.split('.').pop()?.toLowerCase()
   const typeMap: Record<string, string> = {
-    'mp4': 'video',
-    'avi': 'video',
-    'mov': 'video',
-    'pdf': 'pdf',
-    'doc': 'doc',
-    'docx': 'doc',
-    'ppt': 'ppt',
-    'pptx': 'ppt',
-    'zip': 'zip',
-    'jpg': 'image',
-    'jpeg': 'image',
-    'png': 'image',
-    'mp3': 'audio',
-    'wav': 'audio',
-  };
-  return typeMap[ext || ''] || 'other';
+    mp4: 'video',
+    avi: 'video',
+    mov: 'video',
+    pdf: 'pdf',
+    doc: 'doc',
+    docx: 'doc',
+    ppt: 'ppt',
+    pptx: 'ppt',
+    zip: 'zip',
+    jpg: 'image',
+    jpeg: 'image',
+    png: 'image',
+    mp3: 'audio',
+    wav: 'audio',
+  }
+  return typeMap[ext || ''] || 'other'
 }
 ```
 
 #### React Hook Example
 
 ```typescript
-import { useState } from 'react';
+import { useState } from 'react'
 
 function useAssetUpload(courseId: string) {
-  const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [error, setError] = useState<string | null>(null);
-  
+  const [uploading, setUploading] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [error, setError] = useState<string | null>(null)
+
   const uploadAsset = async (
     file: File,
     assetData: {
-      asset_type: string;
-      title: string;
-      description?: string;
-      visible_classroom_ids?: string[];
+      asset_type: string
+      title: string
+      description?: string
+      visible_classroom_ids?: string[]
     }
   ) => {
-    setUploading(true);
-    setError(null);
-    setProgress(0);
-    
+    setUploading(true)
+    setError(null)
+    setProgress(0)
+
     try {
       // Step 1: Get presigned URL
-      const isVideo = assetData.asset_type === 'video';
+      const isVideo = assetData.asset_type === 'video'
       const endpoint = isVideo
         ? `/api/v1/courses/${courseId}/upload-video-url/`
-        : `/api/v1/common/upload-attachment-url/`;
-      
+        : `/api/v1/common/upload-attachment-url/`
+
       const uploadUrlResponse = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -661,30 +662,30 @@ function useAssetUpload(courseId: string) {
           content_type: file.type,
           ...(isVideo ? {} : { folder: 'attachments' }),
         }),
-      });
-      
+      })
+
       if (!uploadUrlResponse.ok) {
-        throw new Error('Failed to get upload URL');
+        throw new Error('Failed to get upload URL')
       }
-      
-      const { upload_url, public_url } = await uploadUrlResponse.json();
-      setProgress(30);
-      
+
+      const { upload_url, public_url } = await uploadUrlResponse.json()
+      setProgress(30)
+
       // Step 2: Upload to S3 with progress tracking
       return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        
+        const xhr = new XMLHttpRequest()
+
         xhr.upload.addEventListener('progress', (e) => {
           if (e.lengthComputable) {
-            const percentComplete = (e.loaded / e.total) * 100;
-            setProgress(30 + (percentComplete * 0.7)); // 30-100%
+            const percentComplete = (e.loaded / e.total) * 100
+            setProgress(30 + (percentComplete * 0.7)) // 30-100%
           }
-        });
-        
+        })
+
         xhr.addEventListener('load', async () => {
           if (xhr.status === 200) {
-            setProgress(100);
-            
+            setProgress(100)
+
             // Step 3: Create asset record
             try {
               const assetResponse = await fetch(
@@ -701,39 +702,43 @@ function useAssetUpload(courseId: string) {
                     file_size: file.size,
                   }),
                 }
-              );
-              
+              )
+
               if (!assetResponse.ok) {
-                throw new Error('Failed to create asset');
+                throw new Error('Failed to create asset')
               }
-              
-              const asset = await assetResponse.json();
-              resolve(asset);
-            } catch (err) {
-              reject(err);
+
+              const asset = await assetResponse.json()
+              resolve(asset)
             }
-          } else {
-            reject(new Error('Upload failed'));
+            catch (err) {
+              reject(err)
+            }
           }
-        });
-        
+          else {
+            reject(new Error('Upload failed'))
+          }
+        })
+
         xhr.addEventListener('error', () => {
-          reject(new Error('Upload error'));
-        });
-        
-        xhr.open('PUT', upload_url);
-        xhr.setRequestHeader('Content-Type', file.type);
-        xhr.send(file);
-      });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Upload failed');
-      throw err;
-    } finally {
-      setUploading(false);
+          reject(new Error('Upload error'))
+        })
+
+        xhr.open('PUT', upload_url)
+        xhr.setRequestHeader('Content-Type', file.type)
+        xhr.send(file)
+      })
     }
-  };
-  
-  return { uploadAsset, uploading, progress, error };
+    catch (err) {
+      setError(err instanceof Error ? err.message : 'Upload failed')
+      throw err
+    }
+    finally {
+      setUploading(false)
+    }
+  }
+
+  return { uploadAsset, uploading, progress, error }
 }
 ```
 
@@ -780,15 +785,15 @@ function useAssetUpload(courseId: string) {
 2. **Validate file trước khi request presigned URL:**
    ```typescript
    // Check file size
-   const MAX_SIZE = 1024 * 1024 * 1024; // 1GB
+   const MAX_SIZE = 1024 * 1024 * 1024 // 1GB
    if (file.size > MAX_SIZE) {
-     throw new Error('File too large');
+     throw new Error('File too large')
    }
-   
+
    // Check file type
-   const allowedTypes = ['video/mp4', 'application/pdf'];
+   const allowedTypes = ['video/mp4', 'application/pdf']
    if (!allowedTypes.includes(file.type)) {
-     throw new Error('File type not allowed');
+     throw new Error('File type not allowed')
    }
    ```
 
@@ -834,9 +839,9 @@ async function uploadVideoAsset(
 ) {
   // 1. Validate file
   if (!videoFile.type.startsWith('video/')) {
-    throw new Error('File must be a video');
+    throw new Error('File must be a video')
   }
-  
+
   // 2. Get presigned URL
   const uploadUrlResponse = await fetch(
     `/api/v1/courses/${courseId}/upload-video-url/`,
@@ -851,15 +856,15 @@ async function uploadVideoAsset(
         content_type: videoFile.type,
       }),
     }
-  );
-  
+  )
+
   if (!uploadUrlResponse.ok) {
-    const error = await uploadUrlResponse.json();
-    throw new Error(error.details?.file_name?.[0] || 'Failed to get upload URL');
+    const error = await uploadUrlResponse.json()
+    throw new Error(error.details?.file_name?.[0] || 'Failed to get upload URL')
   }
-  
-  const { upload_url, public_url } = await uploadUrlResponse.json();
-  
+
+  const { upload_url, public_url } = await uploadUrlResponse.json()
+
   // 3. Upload to S3
   const uploadResult = await fetch(upload_url, {
     method: 'PUT',
@@ -867,15 +872,15 @@ async function uploadVideoAsset(
       'Content-Type': videoFile.type,
     },
     body: videoFile,
-  });
-  
+  })
+
   if (!uploadResult.ok) {
-    throw new Error('Failed to upload video to S3');
+    throw new Error('Failed to upload video to S3')
   }
-  
+
   // 4. Extract duration (optional - can use video metadata library)
-  const duration = await getVideoDuration(videoFile); // e.g., using ffmpeg.js
-  
+  const duration = await getVideoDuration(videoFile) // e.g., using ffmpeg.js
+
   // 5. Create asset record
   const assetResponse = await fetch(
     `/api/v1/courses/${courseId}/assets/`,
@@ -890,20 +895,20 @@ async function uploadVideoAsset(
         title,
         description,
         file_url: public_url,
-        duration: duration, // in seconds
+        duration, // in seconds
         file_size: videoFile.size,
         is_downloadable: true,
         visible_classroom_ids: visibleClassroomIds,
       }),
     }
-  );
-  
+  )
+
   if (!assetResponse.ok) {
-    const error = await assetResponse.json();
-    throw new Error(error.message || 'Failed to create asset');
+    const error = await assetResponse.json()
+    throw new Error(error.message || 'Failed to create asset')
   }
-  
-  return await assetResponse.json();
+
+  return await assetResponse.json()
 }
 ```
 
@@ -921,15 +926,15 @@ async function uploadVideoAsset(
 def get_has_access(self, obj):
     user = request.user
     course = obj.chapter.course
-    
+
     # Staff/teacher always have access
     if user.is_staff or (user.is_teacher and course.teacher == user):
         return True
-    
+
     # Preview lessons are always accessible
     if obj.is_preview:
         return True
-    
+
     # For course-type: check enrollment
     if course.course_type == 'course':
         return Enrollment.objects.filter(
@@ -937,7 +942,7 @@ def get_has_access(self, obj):
             classroom__course=course,
             is_active=True
         ).exists()
-    
+
     # For resource-type: check CourseAccess
     elif course.course_type == 'resource':
         return CourseAccess.objects.filter(
@@ -945,7 +950,7 @@ def get_has_access(self, obj):
             course=course,
             is_active=True
         ).exists()
-    
+
     return False
 ```
 
@@ -1197,12 +1202,12 @@ CREATE INDEX ON courses_course_access(expires_at, is_active);
 ### Order Table Changes
 
 ```sql
-ALTER TABLE orders_order 
+ALTER TABLE orders_order
     ALTER COLUMN classroom_id DROP NOT NULL;
 
 -- Constraint chỉ áp dụng khi classroom không null
-CREATE UNIQUE INDEX unique_active_order_per_classroom 
-    ON orders_order(student_id, classroom_id) 
+CREATE UNIQUE INDEX unique_active_order_per_classroom
+    ON orders_order(student_id, classroom_id)
     WHERE status = 'pending' AND classroom_id IS NOT NULL;
 ```
 

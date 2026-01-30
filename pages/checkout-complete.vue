@@ -4,7 +4,6 @@ definePageMeta({
 })
 
 const router = useRouter()
-const { t } = useI18n()
 
 // Auto redirect to learning page after 5 seconds
 onMounted(() => {
@@ -51,7 +50,7 @@ function goToCourses() {
         >
           {{ $t('checkoutComplete.buttons.goToMyCourses') }}
         </button>
-        
+
         <button
           class="w-full border border-gray-300 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
           @click="goToCourses"

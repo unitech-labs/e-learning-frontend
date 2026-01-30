@@ -1,7 +1,7 @@
 # Data Model: Upload Attachments for Individual Lessons
 
-**Feature**: Upload Attachments for Individual Lessons  
-**Date**: 2025-01-27  
+**Feature**: Upload Attachments for Individual Lessons
+**Date**: 2025-01-27
 **Phase**: 1 - Design & Contracts
 
 ## Entities
@@ -118,15 +118,15 @@ Response: {
 // types/course.type.ts
 
 export interface LessonMaterial {
-  id?: string  // Optional for create, required for update
+  id?: string // Optional for create, required for update
   title: string
   description?: string
   file_url: string
   file_type: string
   file_size: number
-  uploaded_at?: string  // Read-only from API
-  uploaded_by?: number  // Read-only from API
-  has_access?: boolean  // Read-only from API
+  uploaded_at?: string // Read-only from API
+  uploaded_by?: number // Read-only from API
+  has_access?: boolean // Read-only from API
 }
 
 // Update existing interfaces
@@ -196,4 +196,3 @@ CREATE INDEX idx_lesson_material_lesson ON courses_lesson_material(lesson_id);
 5. **Invalid File Types**: Frontend validation prevents upload, error message displayed
 6. **Network Errors**: Retry mechanism or clear error message to user
 7. **Lesson Deletion**: Backend cascade deletes associated materials (handled by backend)
-

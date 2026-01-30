@@ -1,8 +1,8 @@
 # Feature Specification: New Quiz Play Flow for Students
 
-**Feature Branch**: `003-new-quiz-play`  
-**Created**: 2025-01-20  
-**Status**: Draft  
+**Feature Branch**: `003-new-quiz-play`
+**Created**: 2025-01-20
+**Status**: Draft
 **Input**: User description: "phân tích flow play quiz mới cho student và implement, đây là docs backend gửi tôi @docs/quiz_auto_save.md @docs/new_quiz.md , bấm bắt đầu ở đây để play quiz @pages/quizz.vue"
 
 ## User Scenarios & Testing *(mandatory)*

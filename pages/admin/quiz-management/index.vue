@@ -39,7 +39,7 @@ const filteredSubmissions = computed(() => {
   return filtered
 })
 
-const pendingEssaysCount = computed(() => pendingEssays.value.length)
+const _pendingEssaysCount = computed(() => pendingEssays.value.length)
 
 // Check if submission needs grading
 function needsGrading(submission: RecentSubmission): boolean {
@@ -48,16 +48,17 @@ function needsGrading(submission: RecentSubmission): boolean {
 
 // Get grading link for a submission
 function getGradingLink(submission: RecentSubmission): string | null {
-  if (!needsGrading(submission)) return null
-  
+  if (!needsGrading(submission))
+    return null
+
   // Find the essay grading ID from pendingEssays by matching attempt_id
   // RecentSubmission.id should be the attempt_id
-  const essayGrading = pendingEssays.value.find(e => 
-    e.attempt_id === submission.id ||
-    (e.quiz_title === submission.quiz_title && 
-     e.student_name === submission.student_name)
+  const essayGrading = pendingEssays.value.find(e =>
+    e.attempt_id === submission.id
+    || (e.quiz_title === submission.quiz_title
+      && e.student_name === submission.student_name),
   )
-  
+
   return essayGrading ? `/admin/quiz-management/essay-grading-teacher/${essayGrading.id}` : null
 }
 
@@ -136,7 +137,7 @@ function formatDate(dateString: string) {
 }
 
 function getStatusBadge(status: string) {
-  const statusMap: Record<string, { label: string; color: string }> = {
+  const statusMap: Record<string, { label: string, color: string }> = {
     completed: { label: 'Hoàn thành', color: 'bg-green-100 text-green-800' },
     in_progress: { label: 'Đang làm', color: 'bg-blue-100 text-blue-800' },
     expired: { label: 'Hết hạn', color: 'bg-gray-100 text-gray-800' },

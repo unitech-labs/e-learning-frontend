@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { categoriesData, coursesData, heroData, instructorsData, reviewsData, statsData } from '@/resources/home'
+import { coursesData } from '@/resources/home'
 
 const isPaid = ref<boolean>(false)
 

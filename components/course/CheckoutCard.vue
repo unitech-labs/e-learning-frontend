@@ -92,8 +92,8 @@ const classroomIsFree = computed(() => {
 const hasClassroomDiscount = computed(() => {
   if (!selectedClassroomForPricing.value)
     return props.courseData.has_discount || false
-  const discountPrice = parseFloat(selectedClassroomForPricing.value.discount_price || '0')
-  return discountPrice > 0 && discountPrice < parseFloat(selectedClassroomForPricing.value.price || '0')
+  const discountPrice = Number.parseFloat(selectedClassroomForPricing.value.discount_price || '0')
+  return discountPrice > 0 && discountPrice < Number.parseFloat(selectedClassroomForPricing.value.price || '0')
 })
 
 function handleAddToCard() {

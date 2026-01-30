@@ -67,12 +67,12 @@ function handleClick() {
     class="group bg-card border rounded-2xl p-5 sm:p-6 shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden relative"
     :class="[
       clickable ? 'cursor-pointer' : '',
-      currentColor.hover
+      currentColor.hover,
     ]"
     @click="handleClick"
   >
     <div class="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-300" :class="currentColor.gradient" />
-    
+
     <!-- Status Badge -->
     <div v-if="showStatusBadge" class="absolute top-4 right-4 z-20">
       <span class="shadow-lg inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium" :class="[currentColor.bg, currentColor.text]">
@@ -80,7 +80,7 @@ function handleClick() {
         {{ statusText }}
       </span>
     </div>
-    
+
     <div class="relative z-10">
       <!-- Thumbnail -->
       <div class="w-full h-32 sm:h-40 mb-4 relative overflow-hidden rounded-xl">
@@ -97,7 +97,7 @@ function handleClick() {
         <h3 class="text-lg sm:text-xl font-bold text-shade-9 group-hover:text-blue transition-colors line-clamp-2">
           {{ course.title }}
         </h3>
-        
+
         <p v-if="course.teacher" class="text-sm text-shade-6 flex items-center gap-2">
           <Icon name="solar:user-circle-bold" size="16" />
           {{ course.teacher?.first_name }} {{ course.teacher?.last_name }}

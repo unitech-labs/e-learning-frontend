@@ -91,7 +91,7 @@ let isMonitoringActive = false
 let monitoringIntervalId: NodeJS.Timeout | null = null
 
 // Start continuous DevTools monitoring
-function startDevToolsMonitoring() {
+function _startDevToolsMonitoring() {
   // Prevent multiple monitoring instances
   if (isMonitoringActive) {
     return

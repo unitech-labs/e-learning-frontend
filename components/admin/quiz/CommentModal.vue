@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { QuestionComment, CreateCommentRequest, UpdateCommentRequest } from '~/composables/api/useQuizApi'
-import { useQuizApi } from '~/composables/api/useQuizApi'
+import type { CreateCommentRequest, QuestionComment, UpdateCommentRequest } from '~/composables/api/useQuizApi'
 import { notification } from 'ant-design-vue'
+import { useQuizApi } from '~/composables/api/useQuizApi'
 
 interface Props {
   visible: boolean
@@ -30,7 +30,7 @@ const formRef = ref()
 const loading = ref(false)
 const formData = reactive<CreateCommentRequest>({
   answer: props.answerId,
-  content: ''
+  content: '',
 })
 
 // Form validation
@@ -38,18 +38,18 @@ const rules = {
   content: [
     { required: true, message: 'Vui lòng nhập nội dung nhận xét!', trigger: 'blur' },
     { min: 5, message: 'Nhận xét phải có ít nhất 5 ký tự!', trigger: 'blur' },
-    { max: 500, message: 'Nhận xét không được quá 500 ký tự!', trigger: 'blur' }
-  ]
+    { max: 500, message: 'Nhận xét không được quá 500 ký tự!', trigger: 'blur' },
+  ],
 }
 
 // Computed
 const isEditing = computed(() => !!props.existingComment)
-const modalTitle = computed(() => 
-  isEditing.value ? 'Chỉnh sửa nhận xét' : 'Thêm nhận xét'
+const modalTitle = computed(() =>
+  isEditing.value ? 'Chỉnh sửa nhận xét' : 'Thêm nhận xét',
 )
 
 // Methods
-const handleSubmit = async () => {
+async function handleSubmit() {
   try {
     await formRef.value.validate()
     loading.value = true
@@ -58,20 +58,21 @@ const handleSubmit = async () => {
     if (isEditing.value && props.existingComment) {
       // Update existing comment
       const updateData: UpdateCommentRequest = {
-        content: formData.content
+        content: formData.content,
       }
       response = await updateQuestionComment(
-        props.quizId, 
-        props.questionId, 
-        props.existingComment.id, 
-        updateData
+        props.quizId,
+        props.questionId,
+        props.existingComment.id,
+        updateData,
       )
-    } else {
+    }
+    else {
       // Create new comment
       response = await createQuestionComment(
-        props.quizId, 
-        props.questionId, 
-        formData
+        props.quizId,
+        props.questionId,
+        formData,
       )
     }
 
@@ -83,30 +84,32 @@ const handleSubmit = async () => {
 
     emit('success', response)
     handleClose()
-  } catch (err: any) {
+  }
+  catch (err: any) {
     notification.error({
       message: 'Lỗi',
       description: err.message || 'Failed to save comment',
       duration: 4,
     })
     console.error('Error saving comment:', err)
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }
 
-const handleClose = () => {
+function handleClose() {
   formData.content = ''
   emit('close')
 }
 
-const formatDate = (dateString: string) => {
+function formatDate(dateString: string) {
   return new Date(dateString).toLocaleDateString('vi-VN', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
   })
 }
 
@@ -114,7 +117,8 @@ const formatDate = (dateString: string) => {
 watch(() => props.existingComment, (newComment) => {
   if (newComment) {
     formData.content = newComment.content
-  } else {
+  }
+  else {
     formData.content = ''
   }
 }, { immediate: true })
@@ -123,7 +127,8 @@ watch(() => props.existingComment, (newComment) => {
 watch(() => props.visible, (visible) => {
   if (visible && props.existingComment) {
     formData.content = props.existingComment.content
-  } else if (visible && !props.existingComment) {
+  }
+  else if (visible && !props.existingComment) {
     formData.content = ''
   }
 })
@@ -140,8 +145,12 @@ watch(() => props.visible, (visible) => {
     <div class="space-y-6">
       <!-- Question Info -->
       <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg">
-        <h4 class="text-sm font-medium text-gray-700 mb-2">Câu hỏi:</h4>
-        <p class="text-sm text-gray-900">{{ questionPrompt }}</p>
+        <h4 class="text-sm font-medium text-gray-700 mb-2">
+          Câu hỏi:
+        </h4>
+        <p class="text-sm text-gray-900">
+          {{ questionPrompt }}
+        </p>
       </div>
 
       <!-- Student Answer -->
@@ -149,13 +158,19 @@ watch(() => props.visible, (visible) => {
         <h4 class="text-sm font-medium text-gray-700 mb-2">
           Câu trả lời của {{ studentName }}:
         </h4>
-        <p class="text-sm text-gray-900 whitespace-pre-wrap">{{ studentAnswer }}</p>
+        <p class="text-sm text-gray-900 whitespace-pre-wrap">
+          {{ studentAnswer }}
+        </p>
       </div>
 
       <!-- Existing Comment (if editing) -->
       <div v-if="isEditing && existingComment" class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-        <h4 class="text-sm font-medium text-gray-700 mb-2">Nhận xét hiện tại:</h4>
-        <p class="text-sm text-gray-900">{{ existingComment.content }}</p>
+        <h4 class="text-sm font-medium text-gray-700 mb-2">
+          Nhận xét hiện tại:
+        </h4>
+        <p class="text-sm text-gray-900">
+          {{ existingComment.content }}
+        </p>
         <p class="text-xs text-gray-500 mt-2">
           Tạo bởi {{ existingComment.author_name }} - {{ formatDate(existingComment.created_at) }}
         </p>
@@ -185,8 +200,8 @@ watch(() => props.visible, (visible) => {
           <a-button @click="handleClose">
             Hủy
           </a-button>
-          <a-button 
-            type="primary" 
+          <a-button
+            type="primary"
             html-type="submit"
             :loading="loading"
           >

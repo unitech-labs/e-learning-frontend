@@ -1,7 +1,7 @@
 # Research: Upload Attachments for Individual Lessons
 
-**Feature**: Upload Attachments for Individual Lessons  
-**Date**: 2025-01-27  
+**Feature**: Upload Attachments for Individual Lessons
+**Date**: 2025-01-27
 **Phase**: 0 - Outline & Research
 
 ## Research Tasks
@@ -10,7 +10,7 @@
 
 **Question**: What is the exact structure of the `materials` array in the lesson API payload?
 
-**Research Method**: 
+**Research Method**:
 - Review existing lesson API usage in codebase
 - Check lesson edit page implementation
 - Review API documentation
@@ -21,13 +21,13 @@
 - Current `LessonPayload` does not include `materials` field
 - Backend API supports materials array (confirmed via user clarification: Option C)
 
-**Decision**: 
+**Decision**:
 - Add `materials?: LessonMaterial[]` to `LessonPayload` interface
 - Materials array structure: `{ id?: string, title: string, description?: string, file_url: string, file_type: string, file_size: number }`
 - When creating new materials, omit `id` (backend generates)
 - When updating existing materials, include `id` to identify which material to update
 
-**Rationale**: 
+**Rationale**:
 - Follows existing pattern of lesson API managing lesson data
 - Materials are lesson-specific, so including them in lesson payload is logical
 - Backend confirmed to support this approach
@@ -174,4 +174,3 @@ All research tasks completed. No NEEDS CLARIFICATION markers remain. Key decisio
 3. Access control follows lesson access rules
 4. Component-first structure with separate admin/student components
 5. File type validation matches course assets
-

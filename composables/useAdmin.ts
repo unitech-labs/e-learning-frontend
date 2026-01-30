@@ -127,13 +127,10 @@ export function useAdmin() {
       isLoadingStats.value = true
       statsError.value = null
       const response = await apiClient.get('/system/dashboard/summary/')
-      
+
       // Handle response - check if it's wrapped in 'data' property
       const data = (response as any)?.data || response
-      
-      console.log('Dashboard stats response:', response)
-      console.log('Dashboard stats data:', data)
-      
+
       // Ensure response structure matches DashboardStats
       if (data && typeof data === 'object') {
         dashboardStats.value = {

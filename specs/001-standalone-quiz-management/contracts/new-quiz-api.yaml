@@ -403,11 +403,11 @@ components:
         code:
           type: string
           maxLength: 20
-          example: "A1"
+          example: A1
         name:
           type: string
           maxLength: 100
-          example: "Beginner A1"
+          example: Beginner A1
         order:
           type: integer
           minimum: 1
@@ -483,7 +483,7 @@ components:
         label:
           type: string
           maxLength: 10
-          example: "A"
+          example: A
         text:
           type: string
         is_correct:
@@ -553,10 +553,10 @@ components:
           format: uuid
         level_code:
           type: string
-          example: "A1"
+          example: A1
         level_name:
           type: string
-          example: "Beginner A1"
+          example: Beginner A1
         time_type:
           type: string
           enum: [limit, none]
@@ -570,7 +570,7 @@ components:
           nullable: true
         time_limit_display:
           type: string
-          example: "30 minutes"
+          example: 30 minutes
         is_published:
           type: boolean
           default: false

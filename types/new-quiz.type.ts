@@ -79,4 +79,3 @@ export interface SubmitAttemptResponse {
   attempt: QuizAttempt
   results: QuizResults
 }
-

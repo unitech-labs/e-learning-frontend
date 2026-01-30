@@ -1138,7 +1138,6 @@ function cancelPayment() {
   margin-left: 3px;
 }
 
-
 :deep(.vuecal__event .vuecal__event-title),
 :deep(.calendar .vuecal__event-time) {
   font-size: 14px;

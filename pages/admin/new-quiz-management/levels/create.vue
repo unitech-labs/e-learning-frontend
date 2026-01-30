@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { NewQuizLevelCreate } from '~/composables/api/useNewQuizApi'
 import { notification } from 'ant-design-vue'
 import LevelEditor from '~/components/admin/new-quiz/LevelEditor.vue'
-import type { NewQuizLevelCreate } from '~/composables/api/useNewQuizApi'
 import { useNewQuizApi } from '~/composables/api/useNewQuizApi'
 
 definePageMeta({

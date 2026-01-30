@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { UploadChangeParam, UploadProps } from 'ant-design-vue'
+import type { UploadChangeParam } from 'ant-design-vue'
 import type { Rule } from 'ant-design-vue/es/form'
 import { message, Upload } from 'ant-design-vue'
 import { reactive, watch } from 'vue'
@@ -14,12 +14,12 @@ const props = withDefaults(defineProps<Props>(), {
   questionNumber: 1,
 })
 
-const { t } = useI18n()
-
 const emit = defineEmits<{
   delete: []
   update: [data: TextInputQuestionData]
 }>()
+
+const { t } = useI18n()
 
 interface TextInputQuestionData {
   question: string
@@ -43,10 +43,10 @@ const rules: Record<string, Rule[]> = {
   ],
   score: [
     { required: true, message: t('quiz.question.scoreRequired'), trigger: 'blur' },
-    { 
-      pattern: /^\d+(\.\d+)?$/, 
-      message: t('quiz.question.scoreMustBePositive'), 
-      trigger: 'blur' 
+    {
+      pattern: /^\d+(\.\d+)?$/,
+      message: t('quiz.question.scoreMustBePositive'),
+      trigger: 'blur',
     },
   ],
   answer: [
@@ -68,7 +68,7 @@ const previewVisible = ref(false)
 const previewImage = ref('')
 const previewTitle = ref('')
 
-async function handleChange(info: UploadChangeParam) {
+async function _handleChange(info: UploadChangeParam) {
   if (info.file.status === 'uploading') {
     loading.value = true
     return
@@ -83,7 +83,7 @@ async function handleChange(info: UploadChangeParam) {
   }
 }
 
-function beforeUpload(file: File) {
+function _beforeUpload(file: File) {
   const isValidType = file.type.startsWith('image/')
   if (!isValidType) {
     message.error('You can only upload JPG file!')
@@ -97,7 +97,7 @@ function beforeUpload(file: File) {
   return true
 }
 
-async function handlePreview(file: any) {
+async function _handlePreview(file: any) {
   if (!file.url && !file.preview) {
     file.preview = (await getBase64(file.originFileObj as File)) as string
   }
@@ -105,7 +105,7 @@ async function handlePreview(file: any) {
   previewVisible.value = true
   previewTitle.value = file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
 }
-function handleCancel() {
+function _handleCancel() {
   previewVisible.value = false
   previewTitle.value = ''
 }

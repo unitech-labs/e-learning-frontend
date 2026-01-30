@@ -1,13 +1,14 @@
 <script lang="ts" setup>
+import type { ClassroomSession } from '~/composables/api/useClassroomApi'
 import type { ClassroomDetail, CourseStudent } from '~/types/course.type'
 import { notification } from 'ant-design-vue'
 import AddSessionDialog from '~/components/admin/course/classroom/AddSessionDialog.vue'
 import DeleteSessionDialog from '~/components/admin/course/classroom/DeleteSessionDialog.vue'
 import EditClassroomDialog from '~/components/admin/course/classroom/EditClassroomDialog.vue'
 import EditSessionDialog from '~/components/admin/course/classroom/EditSessionDialog.vue'
-import StudentListDialog from '~/components/admin/course/classroom/StudentListDialog.vue'
 import SessionAttendanceDialog from '~/components/admin/course/classroom/SessionAttendanceDialog.vue'
-import { useClassroomApi, type ClassroomSession } from '~/composables/api/useClassroomApi'
+import StudentListDialog from '~/components/admin/course/classroom/StudentListDialog.vue'
+import { useClassroomApi } from '~/composables/api/useClassroomApi'
 import { useCourseApi } from '~/composables/api/useCourseApi'
 
 const { t } = useI18n()
@@ -95,15 +96,16 @@ async function loadClassroomSessions() {
 
 // Load and filter students
 async function loadClassroomStudents() {
-  if (!classroom.value?.course?.id) return
-  
+  if (!classroom.value?.course?.id)
+    return
+
   try {
     studentsLoading.value = true
-    
+
     // Get all course students
     const response = await getCourseStudents(classroom.value.course.id)
     const allStudents = (response as any).results || []
-    
+
     // Filter students by classroom enrollment
     const classroomStudents = allStudents.filter((student: any) => {
       // Check if student has enrollment with classroom_id matching current classroom
@@ -112,7 +114,7 @@ async function loadClassroomStudents() {
       }
       return false
     })
-    
+
     students.value = classroomStudents
   }
   catch (err: any) {

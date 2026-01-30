@@ -55,7 +55,7 @@ API này cho phép tạo hàng loạt (bulk generate) một số lượng buổi
 
 ## Error Handling
 
-- **400 Bad Request**: 
+- **400 Bad Request**:
   - `number_of_sessions` <= 0.
   - Classroom chưa được cấu hình `schedules_data` (không có lịch để generate).
 - **404 Not Found**: `classroom_id` hoặc `course_id` không tồn tại.

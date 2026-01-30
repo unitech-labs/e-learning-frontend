@@ -84,4 +84,3 @@ const isCriticalTime = computed(() => {
     </div>
   </div>
 </template>
-

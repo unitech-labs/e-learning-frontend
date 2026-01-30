@@ -9,7 +9,7 @@
 
 **Primary Requirement**: Implement a quiz play page for students to take new quizzes (standalone quizzes organized by Level) with auto-save functionality, immediate feedback for auto-gradable questions, session resume capability, and real-time progress tracking.
 
-**Technical Approach**: 
+**Technical Approach**:
 - Create new quiz play page at `/quizz/[id]` route (matching the link from quiz listing page)
 - Extend `useNewQuizApi` composable to add attempt management methods (start, save-answer, retrieve, submit)
 - Implement auto-save with debouncing for text inputs
@@ -22,8 +22,8 @@
 
 ## Technical Context
 
-**Language/Version**: TypeScript 5.x, Vue 3.x, Nuxt 3.x  
-**Primary Dependencies**: 
+**Language/Version**: TypeScript 5.x, Vue 3.x, Nuxt 3.x
+**Primary Dependencies**:
 - Nuxt 3 (framework, SSR/SPA)
 - Vue 3 Composition API
 - Ant Design Vue (UI components)
@@ -32,11 +32,11 @@
 - @nuxtjs/i18n (internationalization)
 - Existing API client (`~/api/apiClient`)
 
-**Storage**: 
+**Storage**:
 - Backend: Quiz attempt data stored via `/api/v1/new_quiz/attempts/` API endpoints
 - Client-side: Browser localStorage for temporary answer caching during network issues (optional, for resilience)
 
-**Testing**: 
+**Testing**:
 - Manual testing for quiz flow (start, answer, save, submit)
 - TypeScript type checking for API contracts
 - Component prop/emit validation
@@ -44,9 +44,9 @@
 - Timer accuracy testing
 - Session resume testing (page refresh scenarios)
 
-**Target Platform**: Web browser (desktop and mobile responsive)  
-**Project Type**: Web application (Nuxt 3 SPA/SSR)  
-**Performance Goals**: 
+**Target Platform**: Web browser (desktop and mobile responsive)
+**Project Type**: Web application (Nuxt 3 SPA/SSR)
+**Performance Goals**:
 - Quiz start completes within 3 seconds (SC-001)
 - Answer auto-save completes within 2 seconds for 95% of operations (SC-002)
 - Immediate feedback displayed within 1 second (SC-005)
@@ -54,7 +54,7 @@
 - Timer accuracy maintained within 1 second (SC-007)
 - Navigation and progress updates under 500ms (SC-008)
 
-**Constraints**: 
+**Constraints**:
 - Must use existing API client patterns (`useApiClient` from `~/api/apiClient`)
 - Must extend existing `useNewQuizApi` composable (not create new one)
 - Must follow existing composable structure patterns
@@ -63,7 +63,7 @@
 - Must handle network errors gracefully (retry, show error, preserve locally)
 - Must prevent unauthorized access to quiz attempts
 
-**Scale/Scope**: 
+**Scale/Scope**:
 - Students taking standalone quizzes
 - Support for quizzes with up to 50 questions (SC-006)
 - Multiple question types: multiple choice, text input, essay
@@ -77,7 +77,7 @@
 
 **Status**: ✅ PASSED
 
-**Analysis**: 
+**Analysis**:
 - No constitution violations identified
 - Feature follows existing architectural patterns
 - Uses established composable and API client patterns
@@ -130,7 +130,7 @@ types/
 └── quiz.type.ts                  # Extend with new quiz attempt types if needed
 ```
 
-**Structure Decision**: 
+**Structure Decision**:
 - Extend existing `useNewQuizApi` composable rather than creating a new one (maintains consistency)
 - Create new page at `/quizz/[id]` to match the link from quiz listing page (`pages/quizz.vue`)
 - Create new components in `components/learning/new-quiz/` to distinguish from old quiz system components

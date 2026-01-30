@@ -282,25 +282,30 @@ export function useQuizApi() {
       needs_grading?: boolean
     }) => {
       const queryParams = new URLSearchParams()
-      if (params?.status) queryParams.append('status', params.status)
-      if (params?.classroom_id) queryParams.append('classroom_id', params.classroom_id)
-      if (params?.needs_grading) queryParams.append('needs_grading', 'true')
-      
+      if (params?.status)
+        queryParams.append('status', params.status)
+      if (params?.classroom_id)
+        queryParams.append('classroom_id', params.classroom_id)
+      if (params?.needs_grading)
+        queryParams.append('needs_grading', 'true')
+
       return apiClient.get<RecentSubmissionsResponse>(`/new_quiz/attempts/recent_submissions/?${queryParams.toString()}`)
     },
 
     getSubmissionsByClassroom: (classroomId: string, quizId?: string) => {
       const queryParams = new URLSearchParams()
       queryParams.append('classroom_id', classroomId)
-      if (quizId) queryParams.append('quiz_id', quizId)
-      
+      if (quizId)
+        queryParams.append('quiz_id', quizId)
+
       return apiClient.get<RecentSubmissionsResponse>(`/new_quiz/attempts/by_classroom/?${queryParams.toString()}`)
     },
 
     getEssayGradingsNeedingGrading: (classroomId?: string) => {
       const queryParams = new URLSearchParams()
-      if (classroomId) queryParams.append('classroom_id', classroomId)
-      
+      if (classroomId)
+        queryParams.append('classroom_id', classroomId)
+
       return apiClient.get<EssayGradingListResponse>(`/new_quiz/essay-gradings/needs_grading/?${queryParams.toString()}`)
     },
 

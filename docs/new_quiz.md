@@ -336,7 +336,7 @@ GET /api/v1/new_quiz/quizzes/by_level/?level_id={uuid}
 GET /api/v1/new_quiz/quizzes/{quiz_id}/attempts/?status=completed&student_id={uuid}
 ```
 
-**Permission**: 
+**Permission**:
 - Quiz owner (teacher) or Admin: view all attempts
 - Students: automatically limited to their own attempts
 

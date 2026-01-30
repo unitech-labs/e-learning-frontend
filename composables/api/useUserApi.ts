@@ -13,7 +13,6 @@ export function useUserApi() {
     updateProfile: (data: Partial<User>) =>
       apiClient.patch<User>('/users/profile/', data),
 
-
     // Change password
     changePassword: (data: { old_password: string, new_password: string, new_password2: string }) =>
       apiClient.post('/auth/password/change/', data),

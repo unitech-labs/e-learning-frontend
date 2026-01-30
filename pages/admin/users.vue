@@ -1,14 +1,8 @@
 <script setup lang="ts">
-import type { User } from '~/types/auth.type'
 import type { StudentWithStats } from '~/types/course.type'
-import { useCourseApi } from '~/composables/api/useCourseApi'
-import {
-  DeleteOutlined,
-  EditOutlined,
-  ReloadOutlined,
-  UserSwitchOutlined,
-} from '@ant-design/icons-vue'
+
 import { message, Modal } from 'ant-design-vue'
+import { useCourseApi } from '~/composables/api/useCourseApi'
 
 // Define page meta
 definePageMeta({
@@ -39,24 +33,26 @@ const error = ref<string | null>(null)
 const users = ref<StudentWithStats[]>([])
 
 // Load all students
-const loadStudents = async () => {
+async function loadStudents() {
   try {
     loading.value = true
     error.value = null
     const response = await courseApi.getAllStudents()
     users.value = response.results
     total.value = response.count
-  } catch (err: any) {
+  }
+  catch (err: any) {
     console.error('Error loading students:', err)
     error.value = err.message || 'Failed to load students'
     message.error('Failed to load students')
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }
 
 // Mock data for demonstration (keeping for reference)
-const mockUsers = ref([
+const _mockUsers = ref([
   {
     id: 1,
     email: 'student1@elearning.com',
@@ -72,29 +68,29 @@ const mockUsers = ref([
         course: {
           id: '1',
           title: 'Italian for Beginners',
-          teacher_name: 'Maria Rossi'
+          teacher_name: 'Maria Rossi',
         },
         classroom: {
           id: '1',
           title: 'Lớp A1 - Sáng thứ 2,4,6',
-          schedule_summary: 'Mon, Wed, Fri 9:00-11:00'
+          schedule_summary: 'Mon, Wed, Fri 9:00-11:00',
         },
-        enrolled_at: '2024-02-12T00:00:00Z'
+        enrolled_at: '2024-02-12T00:00:00Z',
       },
       {
         course: {
           id: '2',
           title: 'Advanced Italian Grammar',
-          teacher_name: 'Giuseppe Verdi'
+          teacher_name: 'Giuseppe Verdi',
         },
         classroom: {
           id: '2',
           title: 'Lớp B2 - Chiều thứ 3,5',
-          schedule_summary: 'Tue, Thu 14:00-16:00'
+          schedule_summary: 'Tue, Thu 14:00-16:00',
         },
-        enrolled_at: '2024-03-01T00:00:00Z'
-      }
-    ]
+        enrolled_at: '2024-03-01T00:00:00Z',
+      },
+    ],
   },
   {
     id: 2,
@@ -111,16 +107,16 @@ const mockUsers = ref([
         course: {
           id: '1',
           title: 'Italian for Beginners',
-          teacher_name: 'Maria Rossi'
+          teacher_name: 'Maria Rossi',
         },
         classroom: {
           id: '1',
           title: 'Lớp A1 - Sáng thứ 2,4,6',
-          schedule_summary: 'Mon, Wed, Fri 9:00-11:00'
+          schedule_summary: 'Mon, Wed, Fri 9:00-11:00',
         },
-        enrolled_at: '2024-02-16T00:00:00Z'
-      }
-    ]
+        enrolled_at: '2024-02-16T00:00:00Z',
+      },
+    ],
   },
   {
     id: 3,
@@ -132,7 +128,7 @@ const mockUsers = ref([
     is_verified: false,
     role: 'user',
     createdAt: '2024-02-20T00:00:00Z',
-    enrolled_courses: []
+    enrolled_courses: [],
   },
   {
     id: 4,
@@ -149,16 +145,16 @@ const mockUsers = ref([
         course: {
           id: '3',
           title: 'Italian Conversation Practice',
-          teacher_name: 'Anna Bianchi'
+          teacher_name: 'Anna Bianchi',
         },
         classroom: {
           id: '3',
           title: 'Lớp C1 - Tối thứ 2,4',
-          schedule_summary: 'Mon, Wed 19:00-21:00'
+          schedule_summary: 'Mon, Wed 19:00-21:00',
         },
-        enrolled_at: '2024-02-28T00:00:00Z'
-      }
-    ]
+        enrolled_at: '2024-02-28T00:00:00Z',
+      },
+    ],
   },
   {
     id: 5,
@@ -175,42 +171,42 @@ const mockUsers = ref([
         course: {
           id: '1',
           title: 'Italian for Beginners',
-          teacher_name: 'Maria Rossi'
+          teacher_name: 'Maria Rossi',
         },
         classroom: {
           id: '1',
           title: 'Lớp A1 - Sáng thứ 2,4,6',
-          schedule_summary: 'Mon, Wed, Fri 9:00-11:00'
+          schedule_summary: 'Mon, Wed, Fri 9:00-11:00',
         },
-        enrolled_at: '2024-03-02T00:00:00Z'
+        enrolled_at: '2024-03-02T00:00:00Z',
       },
       {
         course: {
           id: '2',
           title: 'Advanced Italian Grammar',
-          teacher_name: 'Giuseppe Verdi'
+          teacher_name: 'Giuseppe Verdi',
         },
         classroom: {
           id: '2',
           title: 'Lớp B2 - Chiều thứ 3,5',
-          schedule_summary: 'Tue, Thu 14:00-16:00'
+          schedule_summary: 'Tue, Thu 14:00-16:00',
         },
-        enrolled_at: '2024-03-05T00:00:00Z'
+        enrolled_at: '2024-03-05T00:00:00Z',
       },
       {
         course: {
           id: '3',
           title: 'Italian Conversation Practice',
-          teacher_name: 'Anna Bianchi'
+          teacher_name: 'Anna Bianchi',
         },
         classroom: {
           id: '3',
           title: 'Lớp C1 - Tối thứ 2,4',
-          schedule_summary: 'Mon, Wed 19:00-21:00'
+          schedule_summary: 'Mon, Wed 19:00-21:00',
         },
-        enrolled_at: '2024-03-08T00:00:00Z'
-      }
-    ]
+        enrolled_at: '2024-03-08T00:00:00Z',
+      },
+    ],
   },
   {
     id: 6,
@@ -227,16 +223,16 @@ const mockUsers = ref([
         course: {
           id: '2',
           title: 'Advanced Italian Grammar',
-          teacher_name: 'Giuseppe Verdi'
+          teacher_name: 'Giuseppe Verdi',
         },
         classroom: {
           id: '2',
           title: 'Lớp B2 - Chiều thứ 3,5',
-          schedule_summary: 'Tue, Thu 14:00-16:00'
+          schedule_summary: 'Tue, Thu 14:00-16:00',
         },
-        enrolled_at: '2024-03-06T00:00:00Z'
-      }
-    ]
+        enrolled_at: '2024-03-06T00:00:00Z',
+      },
+    ],
   },
   {
     id: 7,
@@ -253,16 +249,16 @@ const mockUsers = ref([
         course: {
           id: '3',
           title: 'Italian Conversation Practice',
-          teacher_name: 'Anna Bianchi'
+          teacher_name: 'Anna Bianchi',
         },
         classroom: {
           id: '3',
           title: 'Lớp C1 - Tối thứ 2,4',
-          schedule_summary: 'Mon, Wed 19:00-21:00'
+          schedule_summary: 'Mon, Wed 19:00-21:00',
         },
-        enrolled_at: '2024-03-12T00:00:00Z'
-      }
-    ]
+        enrolled_at: '2024-03-12T00:00:00Z',
+      },
+    ],
   },
   {
     id: 8,
@@ -274,7 +270,7 @@ const mockUsers = ref([
     is_verified: true,
     role: 'user',
     createdAt: '2024-03-15T00:00:00Z',
-    enrolled_courses: []
+    enrolled_courses: [],
   },
 ])
 
@@ -331,7 +327,7 @@ const columns = [
 ]
 
 // Methods
-function getRoleTagColor(role: string | undefined) {
+function _getRoleTagColor(role: string | undefined) {
   switch (role) {
     case 'admin':
       return 'red'
@@ -343,11 +339,11 @@ function getRoleTagColor(role: string | undefined) {
   }
 }
 
-function getStatusTagColor(isVerified: boolean) {
+function _getStatusTagColor(isVerified: boolean) {
   return isVerified ? 'green' : 'orange'
 }
 
-function getRoleBadgeClass(role: string | undefined) {
+function _getRoleBadgeClass(role: string | undefined) {
   const classes = {
     admin: 'bg-red-50 text-red-600 border-red-200',
     teacher: 'bg-blue-50 text-blue-600 border-blue-200',
@@ -356,13 +352,13 @@ function getRoleBadgeClass(role: string | undefined) {
   return classes[role as keyof typeof classes] || 'bg-gray-50 text-gray-600 border-gray-200'
 }
 
-function getStatusBadgeClass(isVerified: boolean) {
-  return isVerified 
+function _getStatusBadgeClass(isVerified: boolean) {
+  return isVerified
     ? 'bg-green-50 text-green-600 border-green-200'
     : 'bg-orange-50 text-orange-600 border-orange-200'
 }
 
-function formatDate(dateString: string | undefined) {
+function _formatDate(dateString: string | undefined) {
   if (!dateString)
     return 'N/A'
   return new Date(dateString).toLocaleDateString()
@@ -404,7 +400,7 @@ function deleteUser(user: StudentWithStats) {
   })
 }
 
-function handleTableChange(pagination: any) {
+function _handleTableChange(pagination: any) {
   currentPage.value = pagination.current
   pageSize.value = pagination.pageSize
 }
@@ -432,38 +428,50 @@ onMounted(() => {
           </p>
         </div>
       </div>
-      
+
       <!-- Stats Cards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-600 mb-1">{{ t('admin.users.stats.totalStudents') }}</p>
-              <p class="text-2xl font-bold text-gray-900">{{ totalStudents }}</p>
+              <p class="text-sm text-gray-600 mb-1">
+                {{ t('admin.users.stats.totalStudents') }}
+              </p>
+              <p class="text-2xl font-bold text-gray-900">
+                {{ totalStudents }}
+              </p>
             </div>
             <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
               <Icon name="solar:users-group-rounded-bold-duotone" size="20" class="text-blue-600" />
             </div>
           </div>
         </div>
-        
+
         <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-600 mb-1">{{ t('admin.users.stats.activeStudents') }}</p>
-              <p class="text-2xl font-bold text-green-600">{{ activeStudents }}</p>
+              <p class="text-sm text-gray-600 mb-1">
+                {{ t('admin.users.stats.activeStudents') }}
+              </p>
+              <p class="text-2xl font-bold text-green-600">
+                {{ activeStudents }}
+              </p>
             </div>
             <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
               <Icon name="solar:check-circle-bold-duotone" size="20" class="text-green-600" />
             </div>
           </div>
         </div>
-        
+
         <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-600 mb-1">{{ t('admin.users.stats.completedStudents') }}</p>
-              <p class="text-2xl font-bold text-blue-600">{{ completedStudents }}</p>
+              <p class="text-sm text-gray-600 mb-1">
+                {{ t('admin.users.stats.completedStudents') }}
+              </p>
+              <p class="text-2xl font-bold text-blue-600">
+                {{ completedStudents }}
+              </p>
             </div>
             <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
               <Icon name="solar:shield-check-bold-duotone" size="20" class="text-blue-600" />
@@ -487,7 +495,7 @@ onMounted(() => {
             />
           </div>
         </div>
-        
+
         <div class="w-full lg:w-auto">
           <a-button
             type="primary"
@@ -526,7 +534,9 @@ onMounted(() => {
       <div class="p-6 border-b border-gray-200">
         <div class="flex items-center justify-between">
           <div>
-            <h3 class="text-lg font-semibold text-gray-900">{{ t('admin.users.table.title') }}</h3>
+            <h3 class="text-lg font-semibold text-gray-900">
+              {{ t('admin.users.table.title') }}
+            </h3>
             <p class="text-sm text-gray-600 mt-1">
               {{ t('admin.users.table.showing', { current: filteredUsers.length, total: totalStudents }) }}
             </p>
@@ -546,7 +556,7 @@ onMounted(() => {
           </div> -->
         </div>
       </div>
-      
+
       <a-table
         :columns="columns"
         :data-source="filteredUsers"
@@ -574,7 +584,7 @@ onMounted(() => {
             <p class="text-gray-500 mb-4">
               {{ t('admin.users.empty.subtitle') }}
             </p>
-            <a-button @click="searchQuery = ''" class="rounded-lg">
+            <a-button class="rounded-lg" @click="searchQuery = ''">
               {{ t('admin.users.empty.clearSearch') }}
             </a-button>
           </div>
@@ -585,7 +595,7 @@ onMounted(() => {
           <!-- User Column -->
           <template v-if="column.key === 'user'">
             <div class="flex items-center gap-3">
-              <a-avatar 
+              <a-avatar
                 :size="48"
                 class="!bg-gradient-to-br  !text-white !font-bold"
               >
@@ -637,7 +647,7 @@ onMounted(() => {
                 {{ record.stats.active_courses > 0 ? t('admin.users.status.active') : t('admin.users.status.inactive') }}
               </span>
               <div class="text-xs">
-                <span 
+                <span
                   :class="record.stats.completed_courses > 0 ? 'text-green-600' : 'text-blue-600'"
                   class="font-medium"
                 >
@@ -682,9 +692,9 @@ onMounted(() => {
                     @click="toggleUserStatus(record)"
                   >
                     <div class="flex items-center gap-2">
-                      <Icon 
-                        :name="record.stats.active_courses > 0 ? 'solar:pause-circle-bold' : 'solar:play-circle-bold'" 
-                        size="16" 
+                      <Icon
+                        :name="record.stats.active_courses > 0 ? 'solar:pause-circle-bold' : 'solar:play-circle-bold'"
+                        size="16"
                       />
                       {{ record.stats.active_courses > 0 ? t('admin.users.actions.suspend') : t('admin.users.actions.activate') }}
                     </div>
@@ -713,7 +723,7 @@ onMounted(() => {
 /* Custom table styles */
 :deep(.custom-table) {
   .ant-pagination {
-    display: flex; 
+    display: flex;
     align-items: center;
     padding: 0 20px;
   }

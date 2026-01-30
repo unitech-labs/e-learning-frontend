@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile.dev
     container_name: elearning-app-dev
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - .:/app
       - /app/node_modules
@@ -27,4 +27,3 @@ services:
 networks:
   elearning-network:
     driver: bridge
-

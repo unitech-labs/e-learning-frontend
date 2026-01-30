@@ -13,8 +13,6 @@ defineProps({
   },
 })
 
-const { t } = useI18n()
-
 // Swiper modules
 const modules = [Navigation, Pagination, Autoplay]
 

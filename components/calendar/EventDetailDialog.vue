@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { CalendarEvent } from '~/pages/calendars/index.vue'
 
-
 interface Props {
   visible: boolean
   event: CalendarEvent | null
@@ -26,27 +25,29 @@ const dialogVisible = computed({
     if (!value) {
       emit('close')
     }
-  }
+  },
 })
 
 // Format date and time
 function formatDateTime(dateString: string): string {
-  if (!dateString) return ''
+  if (!dateString)
+    return ''
   const date = new Date(dateString)
   return date.toLocaleDateString('vi-VN', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   })
 }
 
 function formatTime(dateString: string): string {
-  if (!dateString) return ''
+  if (!dateString)
+    return ''
   const date = new Date(dateString)
   return date.toLocaleTimeString('vi-VN', {
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
   })
 }
 
@@ -60,7 +61,8 @@ function handleMeetingLinkClick() {
 
 // Check if event is ended
 function isEventEnded(): boolean {
-  if (!props.event?.end) return false
+  if (!props.event?.end)
+    return false
   const now = new Date()
   const eventEndTime = new Date(props.event.end)
   return eventEndTime < now
@@ -149,7 +151,6 @@ function isEventEnded(): boolean {
           </div>
         </div>
 
-       
         <div
           v-if="!isEventEnded() && (event.meeting_link || event.classroom?.sessions?.[0]?.meeting_link)"
           type="primary"
@@ -157,9 +158,9 @@ function isEventEnded(): boolean {
           class="w-full !h-12 !flex !items-center !justify-center gap-2 !rounded-lg !text-sm !font-semibold"
           @click="handleMeetingLinkClick"
         >
-        <p class="text-sm text-green-600 underline cursor-pointer">
+          <p class="text-sm text-green-600 underline cursor-pointer">
             {{ event.meeting_link || event.classroom?.sessions?.[0]?.meeting_link }}
-        </p>
+          </p>
           <Icon name="solar:video-camera-bold" size="18" />
         </div>
 

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { CourseStudent } from '~/types/course.type'
 
-
 interface Props {
   visible: boolean
   students: CourseStudent[]
@@ -21,14 +20,11 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>()
 
-const { t } = useI18n()
-
 // Handle dialog visibility
 const isVisible = computed({
   get: () => props.visible,
   set: value => emit('update:visible', value),
 })
-
 
 // Handle cancel
 function handleCancel() {

@@ -1000,9 +1000,9 @@ Tất cả error responses đều có format:
 
 ```javascript
 // 1. Generate Device ID (lưu trong localStorage)
-const deviceId = localStorage.getItem('deviceId') || 
-  `device-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-localStorage.setItem('deviceId', deviceId);
+const deviceId = localStorage.getItem('deviceId')
+  || `device-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+localStorage.setItem('deviceId', deviceId)
 
 // 2. Register
 const registerResponse = await fetch('http://api.example.com/api/v1/auth/register/', {
@@ -1020,7 +1020,7 @@ const registerResponse = await fetch('http://api.example.com/api/v1/auth/registe
     first_name: 'First',
     last_name: 'Last'
   })
-});
+})
 
 // 3. Login
 const loginResponse = await fetch('http://api.example.com/api/v1/auth/login/', {
@@ -1034,16 +1034,16 @@ const loginResponse = await fetch('http://api.example.com/api/v1/auth/login/', {
     email: 'user@example.com',
     password: 'password123'
   })
-});
+})
 
-const { access, user } = await loginResponse.json();
-localStorage.setItem('accessToken', access);
+const { access, user } = await loginResponse.json()
+localStorage.setItem('accessToken', access)
 ```
 
 ### 7.2 Create Course (Teacher)
 
 ```javascript
-const createCourse = async (courseData) => {
+async function createCourse(courseData) {
   const response = await fetch('http://api.example.com/api/v1/courses/', {
     method: 'POST',
     headers: {
@@ -1064,81 +1064,81 @@ const createCourse = async (courseData) => {
       price: 1000000,
       is_published: true
     })
-  });
-  
-  return await response.json();
-};
+  })
+
+  return await response.json()
+}
 ```
 
 ### 7.3 Get Courses Hierarchical
 
 ```javascript
-const getCoursesHierarchical = async () => {
+async function getCoursesHierarchical() {
   const response = await fetch('http://api.example.com/api/v1/courses/hierarchical/', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
       // Không cần Authorization - public endpoint
     }
-  });
-  
-  const data = await response.json();
-  
+  })
+
+  const data = await response.json()
+
   // Data structure:
   // {
   //   "basic": [...],
   //   "intermediate": [...],
   //   "advanced": [...]
   // }
-  
-  return data;
-};
+
+  return data
+}
 
 // Example usage: Render hierarchical course list
-const renderCoursesHierarchical = async () => {
-  const courses = await getCoursesHierarchical();
-  
+async function renderCoursesHierarchical() {
+  const courses = await getCoursesHierarchical()
+
   // Render Basic level
   if (courses.basic && courses.basic.length > 0) {
-    console.log('=== Cơ bản ===');
-    courses.basic.forEach(course => {
-      console.log(`--- ${course.title} (${course.course_sub_level})`);
-      course.classrooms.forEach(classroom => {
-        console.log(`  |-- ${classroom.title} (${classroom.enrollment_count}/${classroom.student_count} học viên, còn ${classroom.available_slots} chỗ)`);
-      });
-    });
+    console.log('=== Cơ bản ===')
+    courses.basic.forEach((course) => {
+      console.log(`--- ${course.title} (${course.course_sub_level})`)
+      course.classrooms.forEach((classroom) => {
+        console.log(`  |-- ${classroom.title} (${classroom.enrollment_count}/${classroom.student_count} học viên, còn ${classroom.available_slots} chỗ)`)
+      })
+    })
   }
-  
+
   // Render Intermediate level
   if (courses.intermediate && courses.intermediate.length > 0) {
-    console.log('=== Trung cấp ===');
-    courses.intermediate.forEach(course => {
-      console.log(`--- ${course.title} (${course.course_sub_level})`);
-      course.classrooms.forEach(classroom => {
-        console.log(`  |-- ${classroom.title} (${classroom.enrollment_count}/${classroom.student_count} học viên, còn ${classroom.available_slots} chỗ)`);
-      });
-    });
+    console.log('=== Trung cấp ===')
+    courses.intermediate.forEach((course) => {
+      console.log(`--- ${course.title} (${course.course_sub_level})`)
+      course.classrooms.forEach((classroom) => {
+        console.log(`  |-- ${classroom.title} (${classroom.enrollment_count}/${classroom.student_count} học viên, còn ${classroom.available_slots} chỗ)`)
+      })
+    })
   }
-  
+
   // Render Advanced level
   if (courses.advanced && courses.advanced.length > 0) {
-    console.log('=== Nâng cao ===');
-    courses.advanced.forEach(course => {
-      console.log(`--- ${course.title} (${course.course_sub_level})`);
-      course.classrooms.forEach(classroom => {
-        console.log(`  |-- ${classroom.title} (${classroom.enrollment_count}/${classroom.student_count} học viên, còn ${classroom.available_slots} chỗ)`);
-      });
-    });
+    console.log('=== Nâng cao ===')
+    courses.advanced.forEach((course) => {
+      console.log(`--- ${course.title} (${course.course_sub_level})`)
+      course.classrooms.forEach((classroom) => {
+        console.log(`  |-- ${classroom.title} (${classroom.enrollment_count}/${classroom.student_count} học viên, còn ${classroom.available_slots} chỗ)`)
+      })
+    })
   }
-  
-  return courses;
-};
+
+  return courses
+}
 ```
 
 ### 7.4 Create Order (Student)
 
 ```javascript
-const createOrder = async (courseId, classroomId) => {
+async function createOrder(courseId, classroomId) {
   const response = await fetch('http://api.example.com/api/v1/orders/', {
     method: 'POST',
     headers: {
@@ -1154,16 +1154,16 @@ const createOrder = async (courseId, classroomId) => {
       payment_reference: 'BANK001',
       notes: 'Muốn học lớp sáng'
     })
-  });
-  
-  return await response.json();
-};
+  })
+
+  return await response.json()
+}
 ```
 
 ### 7.5 Approve Order (Admin)
 
 ```javascript
-const approveOrder = async (orderId, adminNote, paymentReference) => {
+async function approveOrder(orderId, adminNote, paymentReference) {
   const response = await fetch(`http://api.example.com/api/v1/orders/${orderId}/`, {
     method: 'PATCH',
     headers: {
@@ -1175,23 +1175,23 @@ const approveOrder = async (orderId, adminNote, paymentReference) => {
     body: JSON.stringify({
       status: 'complete',
       admin_note: adminNote,
-      payment_reference: paymentReference  // Optional
+      payment_reference: paymentReference // Optional
     })
-  });
-  
-  const order = await response.json();
-  
-  // Check if generated account was created
-  if (order.course.course_type === 'course' && 
-      order.student.account_type === 'self_registered') {
-    // Show notification: "Generated account created. Email sent to student."
-    showNotification('Đã tạo tài khoản và gửi email cho học viên');
-  }
-  
-  return order;
-};
+  })
 
-const cancelOrder = async (orderId, canceledReason, adminNote) => {
+  const order = await response.json()
+
+  // Check if generated account was created
+  if (order.course.course_type === 'course'
+    && order.student.account_type === 'self_registered') {
+    // Show notification: "Generated account created. Email sent to student."
+    showNotification('Đã tạo tài khoản và gửi email cho học viên')
+  }
+
+  return order
+}
+
+async function cancelOrder(orderId, canceledReason, adminNote) {
   const response = await fetch(`http://api.example.com/api/v1/orders/${orderId}/`, {
     method: 'PATCH',
     headers: {
@@ -1205,10 +1205,10 @@ const cancelOrder = async (orderId, canceledReason, adminNote) => {
       canceled_reason: canceledReason,
       admin_note: adminNote
     })
-  });
-  
-  return await response.json();
-};
+  })
+
+  return await response.json()
+}
 ```
 
 ### 7.6 Device Management
@@ -1216,7 +1216,7 @@ const cancelOrder = async (orderId, canceledReason, adminNote) => {
 #### List Devices
 
 ```javascript
-const getMyDevices = async () => {
+async function getMyDevices() {
   const response = await fetch('http://api.example.com/api/v1/devices/', {
     method: 'GET',
     headers: {
@@ -1224,17 +1224,17 @@ const getMyDevices = async () => {
       'X-Device-ID': localStorage.getItem('deviceId'),
       'X-Device-Type': 'laptop'
     }
-  });
-  
-  const data = await response.json();
-  return data.data; // Array of devices
-};
+  })
+
+  const data = await response.json()
+  return data.data // Array of devices
+}
 ```
 
 #### Revoke Device (Deactivate)
 
 ```javascript
-const revokeDevice = async (deviceId) => {
+async function revokeDevice(deviceId) {
   const response = await fetch('http://api.example.com/api/v1/devices/revoke/', {
     method: 'POST',
     headers: {
@@ -1247,16 +1247,16 @@ const revokeDevice = async (deviceId) => {
       device_id: deviceId
       // delete: false (default) - chỉ deactivate
     })
-  });
-  
-  return await response.json();
-};
+  })
+
+  return await response.json()
+}
 ```
 
 #### Delete Device (Permanently Remove)
 
 ```javascript
-const deleteDevice = async (deviceId) => {
+async function deleteDevice(deviceId) {
   const response = await fetch('http://api.example.com/api/v1/devices/revoke/', {
     method: 'POST',
     headers: {
@@ -1267,18 +1267,18 @@ const deleteDevice = async (deviceId) => {
     },
     body: JSON.stringify({
       device_id: deviceId,
-      delete: true  // Xóa hẳn - cho phép đăng ký device mới cùng type
+      delete: true // Xóa hẳn - cho phép đăng ký device mới cùng type
     })
-  });
-  
-  return await response.json();
-};
+  })
+
+  return await response.json()
+}
 ```
 
 ### 7.7 Handle Device Limit Error
 
 ```javascript
-const handleLogin = async (email, password) => {
+async function handleLogin(email, password) {
   try {
     const response = await fetch('http://api.example.com/api/v1/auth/login/', {
       method: 'POST',
@@ -1288,137 +1288,148 @@ const handleLogin = async (email, password) => {
         'X-Device-Type': 'laptop'
       },
       body: JSON.stringify({ email, password })
-    });
-    
-    const data = await response.json();
-    
+    })
+
+    const data = await response.json()
+
     if (data.code === 'device_type_limit_exceeded') {
       // Lấy danh sách devices để hiển thị
-      const devices = await getMyDevices();
-      const oldDevice = devices.find(d => d.device_type === 'laptop' && d.device_id !== localStorage.getItem('deviceId'));
-      
+      const devices = await getMyDevices()
+      const oldDevice = devices.find(d => d.device_type === 'laptop' && d.device_id !== localStorage.getItem('deviceId'))
+
       if (oldDevice) {
         // Show dialog với thông tin device cũ
         const confirm = await showConfirmDialog(
           'Thiết bị đã đăng nhập',
           `Bạn đã đăng nhập trên thiết bị khác: ${oldDevice.device_name || oldDevice.device_id}. Bạn có muốn xóa thiết bị cũ để đăng nhập thiết bị mới không?`
-        );
-        
+        )
+
         if (confirm) {
           // Xóa device cũ (delete: true) để cho phép đăng ký device mới
-          await deleteDevice(oldDevice.device_id);
-          
+          await deleteDevice(oldDevice.device_id)
+
           // Login lại
-          return handleLogin(email, password);
+          return handleLogin(email, password)
         }
       }
-      
-      return { error: 'Device limit exceeded' };
+
+      return { error: 'Device limit exceeded' }
     }
-    
+
     if (response.ok) {
-      localStorage.setItem('accessToken', data.data.access);
-      return data.data;
+      localStorage.setItem('accessToken', data.data.access)
+      return data.data
     }
-  } catch (error) {
-    console.error('Login error:', error);
   }
-};
+  catch (error) {
+    console.error('Login error:', error)
+  }
+}
 ```
 
 #### Example: Device Management UI
 
 ```javascript
 // Component để quản lý devices
-const DeviceManagement = () => {
-  const [devices, setDevices] = useState([]);
-  
+function DeviceManagement() {
+  const [devices, setDevices] = useState([])
+
   useEffect(() => {
-    loadDevices();
-  }, []);
-  
+    loadDevices()
+  }, [])
+
   const loadDevices = async () => {
-    const deviceList = await getMyDevices();
-    setDevices(deviceList);
-  };
-  
+    const deviceList = await getMyDevices()
+    setDevices(deviceList)
+  }
+
   const handleRevokeDevice = async (deviceId) => {
     const confirm = await showConfirmDialog(
       'Xác nhận',
       'Bạn có chắc muốn đăng xuất thiết bị này? Bạn vẫn có thể đăng nhập lại với thiết bị này sau.'
-    );
-    
+    )
+
     if (confirm) {
-      await revokeDevice(deviceId);
-      loadDevices();
+      await revokeDevice(deviceId)
+      loadDevices()
     }
-  };
-  
+  }
+
   const handleDeleteDevice = async (deviceId) => {
     const confirm = await showConfirmDialog(
       'Xác nhận xóa',
       'Bạn có chắc muốn xóa vĩnh viễn thiết bị này? Sau khi xóa, bạn có thể đăng ký thiết bị mới cùng loại.'
-    );
-    
+    )
+
     if (confirm) {
-      await deleteDevice(deviceId);
-      loadDevices();
+      await deleteDevice(deviceId)
+      loadDevices()
     }
-  };
-  
+  }
+
   return (
     <div>
       <h2>Quản lý thiết bị</h2>
       {devices.map(device => (
         <div key={device.device_id}>
           <p>{device.device_name || device.device_id}</p>
-          <p>Loại: {device.device_type}</p>
-          <p>Trạng thái: {device.is_active ? 'Đang hoạt động' : 'Đã đăng xuất'}</p>
-          <p>Đăng nhập lần cuối: {new Date(device.last_login_at).toLocaleString()}</p>
-          
+          <p>
+            Loại:
+            {device.device_type}
+          </p>
+          <p>
+            Trạng thái:
+            {device.is_active ? 'Đang hoạt động' : 'Đã đăng xuất'}
+          </p>
+          <p>
+            Đăng nhập lần cuối:
+            {new Date(device.last_login_at).toLocaleString()}
+          </p>
+
           {device.is_active && (
             <button onClick={() => handleRevokeDevice(device.device_id)}>
               Đăng xuất
             </button>
           )}
-          
+
           <button onClick={() => handleDeleteDevice(device.device_id)}>
             Xóa vĩnh viễn
           </button>
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 ```
 
 ### 7.8 Check Enrolled Courses
 
 ```javascript
-const getEnrolledCourses = async () => {
+async function getEnrolledCourses() {
   const response = await fetch('http://api.example.com/api/v1/courses/enrolled/', {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
       'X-Device-ID': localStorage.getItem('deviceId'),
       'X-Device-Type': 'laptop'
     }
-  });
-  
-  const data = await response.json();
-  
+  })
+
+  const data = await response.json()
+
   // Filter by account type
-  const user = await getCurrentUser();
-  
+  const user = await getCurrentUser()
+
   if (user.account_type === 'self_registered') {
     // Chỉ hiển thị resource courses
-    return data.results.filter(c => c.course_type === 'resource');
-  } else if (user.account_type === 'generated') {
-    // Hiển thị tất cả courses (chỉ course_type='course')
-    return data.results;
+    return data.results.filter(c => c.course_type === 'resource')
   }
-  
-  return data.results;
-};
+  else if (user.account_type === 'generated') {
+    // Hiển thị tất cả courses (chỉ course_type='course')
+    return data.results
+  }
+
+  return data.results
+}
 ```
 
 ---

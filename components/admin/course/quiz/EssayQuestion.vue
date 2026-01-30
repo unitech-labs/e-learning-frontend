@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, reactive, watch } from 'vue'
 import { DeleteOutlined, InfoCircleOutlined } from '@ant-design/icons-vue'
+import { computed, reactive, watch } from 'vue'
 
 interface Props {
   initialData: {
@@ -43,10 +43,10 @@ const rules = computed(() => ({
   ],
   score: [
     { required: true, message: t('quiz.question.scoreRequired'), trigger: 'blur' },
-    { 
-      pattern: /^\d+(\.\d+)?$/, 
-      message: t('quiz.question.scoreMustBePositive'), 
-      trigger: 'blur' 
+    {
+      pattern: /^\d+(\.\d+)?$/,
+      message: t('quiz.question.scoreMustBePositive'),
+      trigger: 'blur',
     },
   ],
 }))
@@ -80,7 +80,7 @@ const rules = computed(() => ({
     <a-form :model="formData" :rules="rules" layout="vertical" class="space-y-4">
       <!-- Question Text -->
       <a-form-item :label="t('quiz.question.question')" name="question" class="mb-4">
-        <a-textarea 
+        <a-textarea
           v-model:value="formData.question"
           :placeholder="t('quiz.question.essayQuestionPlaceholder')"
           :rows="3"
@@ -90,7 +90,7 @@ const rules = computed(() => ({
 
       <!-- Explanation -->
       <a-form-item :label="t('quiz.question.explanationOptional')" name="explanation" class="mb-4">
-        <a-textarea 
+        <a-textarea
           v-model:value="formData.explanation"
           :placeholder="t('quiz.question.explanationHintPlaceholder')"
           :rows="2"
@@ -101,7 +101,7 @@ const rules = computed(() => ({
       <!-- Score -->
       <div class="flex gap-4 items-end">
         <a-form-item :label="t('quiz.question.score')" name="score" class="flex-1">
-          <a-input-number 
+          <a-input-number
             v-model:value="formData.score"
             placeholder="1.0"
             :min="0.1"
@@ -117,7 +117,9 @@ const rules = computed(() => ({
         <div class="flex items-start gap-2">
           <InfoCircleOutlined class="text-blue-500 mt-0.5" />
           <div class="text-sm text-blue-700">
-            <p class="font-medium mb-1">{{ t('quiz.question.essayQuestion') }}</p>
+            <p class="font-medium mb-1">
+              {{ t('quiz.question.essayQuestion') }}
+            </p>
             <p>{{ t('quiz.question.essayQuestionInfo') }}</p>
           </div>
         </div>

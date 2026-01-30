@@ -1,9 +1,9 @@
 <script setup lang="ts">
-// @ts-ignore - vue-cal doesn't have type definitions
-import { addDays, formatDate, VueCal } from 'vue-cal'
-import 'vue-cal/style'
 import type { ClassroomSession } from '~/composables/api/useClassroomApi'
+// @ts-expect-error - vue-cal doesn't have type definitions
+import { formatDate, VueCal } from 'vue-cal'
 import { useClassroomApi } from '~/composables/api/useClassroomApi'
+import 'vue-cal/style'
 // import '@/assets/css/custom.css'
 
 interface CalendarEvent {
@@ -54,10 +54,10 @@ function extractTimeFromDateString(dateString: string | undefined): string {
 }
 
 // Convert session data to calendar events
-const convertSessionToEvent = (session: ClassroomSession): CalendarEvent => {
+function convertSessionToEvent(session: ClassroomSession): CalendarEvent {
   const startDate = new Date(session.start_time)
   const endDate = new Date(session.end_time)
-  
+
   return {
     id: session.id,
     start: `${formatDate(startDate)} ${startDate.toTimeString().slice(0, 5)}`,
@@ -71,28 +71,31 @@ const convertSessionToEvent = (session: ClassroomSession): CalendarEvent => {
 }
 
 // Fetch classroom sessions
-const fetchSessions = async () => {
-  if (!classroomId) return
-  
+async function fetchSessions() {
+  if (!classroomId)
+    return
+
   try {
     loading.value = true
     const response = await getClassroomSessions(classroomId)
-    
+
     // Convert sessions to calendar events
     data.value.events = response.results.map(convertSessionToEvent)
-    
+
     // Find the next upcoming event
     const now = new Date()
     const upcomingEvents = response.results
       .filter((session: ClassroomSession) => new Date(session.start_time) > now)
       .sort((a: ClassroomSession, b: ClassroomSession) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime())
-    
+
     if (upcomingEvents.length > 0) {
       upcomingEvent.value = convertSessionToEvent(upcomingEvents[0])
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Error fetching classroom sessions:', error)
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }
@@ -139,8 +142,10 @@ onMounted(async () => {
     <!-- Main calendar -->
     <div v-if="loading" class="flex items-center justify-center h-full min-h-[500px]">
       <div class="text-center">
-        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#DC2626] mx-auto mb-2"></div>
-        <p class="text-sm text-gray-500">Loading calendar events...</p>
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#DC2626] mx-auto mb-2" />
+        <p class="text-sm text-gray-500">
+          Loading calendar events...
+        </p>
       </div>
     </div>
     <VueCal

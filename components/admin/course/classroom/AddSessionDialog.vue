@@ -149,7 +149,8 @@ async function handleSave() {
 
     // Convert datetime-local input to ISO string
     const formatDateTimeForAPI = (dateTimeString: string) => {
-      if (!dateTimeString) return ''
+      if (!dateTimeString)
+        return ''
       // datetime-local input gives us YYYY-MM-DDTHH:mm in local timezone
       // We need to create a Date object and convert to ISO string
       const date = new Date(dateTimeString)
@@ -326,7 +327,6 @@ function handleCancel() {
             class="w-full"
           />
         </div>
-
       </div>
     </div>
 

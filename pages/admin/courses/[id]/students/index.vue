@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { User } from '~/types/auth.type'
 import type { CourseStudent } from '~/types/course.type'
 import { message } from 'ant-design-vue'
 import { useCourseApi } from '~/composables/api/useCourseApi'
@@ -158,7 +157,7 @@ function getStatusBadge(status: string, isActive: boolean) {
   }
 }
 
-function formatDate(dateString: string) {
+function _formatDate(dateString: string) {
   if (!dateString)
     return 'N/A'
   return new Date(dateString).toLocaleDateString('vi-VN', {

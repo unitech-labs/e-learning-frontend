@@ -240,16 +240,16 @@ curl -X POST http://localhost:8000/api/v1/auth/password/reset/otp/ \
 # OTP expired
 if not stored_otp:
     return error_response(
-        'otp_expired', 
-        'The OTP code has expired or is invalid. Please request a new OTP code.', 
+        'otp_expired',
+        'The OTP code has expired or is invalid. Please request a new OTP code.',
         status_code=400
     )
 
 # Invalid OTP
 if stored_otp != otp:
     return error_response(
-        'invalid_otp', 
-        'The OTP code is incorrect. Please check and try again.', 
+        'invalid_otp',
+        'The OTP code is incorrect. Please check and try again.',
         status_code=400
     )
 ```
@@ -448,21 +448,21 @@ send_password_reset_otp_email_task.delay(
 
 ```javascript
 // 1. Request OTP
-const requestOTP = async (email) => {
+async function requestOTP(email) {
   const response = await fetch('/api/v1/auth/password/forgot/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email }),
-  });
-  
-  const data = await response.json();
-  return data;
-};
+  })
+
+  const data = await response.json()
+  return data
+}
 
 // 2. Verify OTP and Reset Password
-const resetPassword = async (email, otp, newPassword, newPassword2) => {
+async function resetPassword(email, otp, newPassword, newPassword2) {
   const response = await fetch('/api/v1/auth/password/reset/otp/', {
     method: 'POST',
     headers: {
@@ -474,11 +474,11 @@ const resetPassword = async (email, otp, newPassword, newPassword2) => {
       new_password: newPassword,
       new_password2: newPassword2,
     }),
-  });
-  
-  const data = await response.json();
-  return data;
-};
+  })
+
+  const data = await response.json()
+  return data
+}
 ```
 
 ### Example: Vue.js

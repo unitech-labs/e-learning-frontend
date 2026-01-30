@@ -6,7 +6,7 @@ interface Props {
 
 withDefaults(defineProps<Props>(), {
   show: false,
-  message: 'Loading...'
+  message: 'Loading...',
 })
 </script>
 
@@ -24,8 +24,8 @@ withDefaults(defineProps<Props>(), {
       >
         <div class="text-center">
           <!-- Loading spinner -->
-          <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent mb-4"></div>
-          
+          <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent mb-4" />
+
           <!-- Loading message -->
           <p class="text-lg font-medium text-gray-700">
             {{ message }}

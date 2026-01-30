@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import type { NewQuizLevel } from '~/composables/api/useNewQuizApi'
-import { useNewQuizApi } from '~/composables/api/useNewQuizApi'
 import { Modal, notification } from 'ant-design-vue'
+import { useNewQuizApi } from '~/composables/api/useNewQuizApi'
 
 interface Props {
   levels: NewQuizLevel[]
   loading?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const _props = withDefaults(defineProps<Props>(), {
   loading: false,
 })
 

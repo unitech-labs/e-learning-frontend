@@ -27,7 +27,7 @@ export interface CourseCardProps {
 defineProps<CourseCardProps>()
 const { t } = useI18n()
 
-// Computed properties for better performance 
+// Computed properties for better performance
 </script>
 
 <template>

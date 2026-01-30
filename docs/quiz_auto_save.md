@@ -25,15 +25,15 @@ New Quiz system hỗ trợ **auto-save** và **auto-check** (hiển thị kết 
 ```
 1. Start Quiz Attempt
    POST /api/v1/new_quiz/attempts/start/
-   
+
 2. Save Answer (Làm câu nào lưu câu đó)
    POST /api/v1/new_quiz/attempts/{id}/save-answer/
    → Auto-check và trả về is_correct ngay
-   
+
 3. (Optional) Refresh Page (F5)
    GET /api/v1/new_quiz/attempts/{id}/
    → Load lại các answers đã lưu
-   
+
 4. Submit Quiz
    POST /api/v1/new_quiz/attempts/{id}/submit/
    → Complete attempt, tính điểm cuối cùng
@@ -359,29 +359,31 @@ async function saveAnswer(attemptId, questionId, selectedOptionId) {
           selected_option_id: selectedOptionId,
         }),
       }
-    );
-    
-    const data = await response.json();
-    
+    )
+
+    const data = await response.json()
+
     if (response.ok) {
       // Show immediate feedback
       if (data.is_correct) {
-        showSuccess('✓ Correct!');
-      } else {
-        showError('✗ Incorrect');
-        // Show correct answer
-        showCorrectAnswer(data.answer.correct_answer);
+        showSuccess('✓ Correct!')
       }
-      
+      else {
+        showError('✗ Incorrect')
+        // Show correct answer
+        showCorrectAnswer(data.answer.correct_answer)
+      }
+
       // Update UI
       updateQuestionStatus(questionId, {
         answered: true,
         is_correct: data.is_correct,
         correct_answer: data.answer.correct_answer,
-      });
+      })
     }
-  } catch (error) {
-    console.error('Failed to save answer:', error);
+  }
+  catch (error) {
+    console.error('Failed to save answer:', error)
   }
 }
 ```
@@ -396,27 +398,28 @@ async function resumeQuiz(attemptId) {
       `/api/v1/new_quiz/attempts/${attemptId}/`,
       {
         headers: {
-          'Authorization': `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       }
-    );
-    
-    const attempt = await response.json();
-    
+    )
+
+    const attempt = await response.json()
+
     // Restore saved answers
-    attempt.answers.forEach(answer => {
-      restoreAnswer(answer);
-    });
-    
+    attempt.answers.forEach((answer) => {
+      restoreAnswer(answer)
+    })
+
     // Update progress indicator
-    updateProgress(attempt.correct_answers, attempt.total_questions);
-    
+    updateProgress(attempt.correct_answers, attempt.total_questions)
+
     // Update timer
     if (attempt.time_remaining_seconds) {
-      startTimer(attempt.time_remaining_seconds);
+      startTimer(attempt.time_remaining_seconds)
     }
-  } catch (error) {
-    console.error('Failed to resume quiz:', error);
+  }
+  catch (error) {
+    console.error('Failed to resume quiz:', error)
   }
 }
 ```
@@ -437,18 +440,19 @@ async function submitQuiz(attemptId) {
         },
         body: JSON.stringify({}), // Empty body
       }
-    );
-    
-    const data = await response.json();
-    
+    )
+
+    const data = await response.json()
+
     if (response.ok) {
       // Show results
-      showResults(data.results);
+      showResults(data.results)
       // Redirect to results page
-      window.location.href = `/quiz-results/${attemptId}/`;
+      window.location.href = `/quiz-results/${attemptId}/`
     }
-  } catch (error) {
-    console.error('Failed to submit quiz:', error);
+  }
+  catch (error) {
+    console.error('Failed to submit quiz:', error)
   }
 }
 ```
@@ -460,17 +464,17 @@ async function submitQuiz(attemptId) {
 function setupAutoSave(attemptId, questionId) {
   const selectElement = document.querySelector(
     `[data-question-id="${questionId}"]`
-  );
-  
+  )
+
   selectElement.addEventListener('change', (e) => {
-    const selectedOptionId = e.target.value;
-    
+    const selectedOptionId = e.target.value
+
     // Debounce: Wait 500ms after user stops typing/clicking
-    clearTimeout(autoSaveTimeout);
+    clearTimeout(autoSaveTimeout)
     autoSaveTimeout = setTimeout(() => {
-      saveAnswer(attemptId, questionId, selectedOptionId);
-    }, 500);
-  });
+      saveAnswer(attemptId, questionId, selectedOptionId)
+    }, 500)
+  })
 }
 ```
 
@@ -530,7 +534,7 @@ curl -X POST "http://localhost:8000/api/v1/new_quiz/attempts/attempt-uuid/submit
 
 ```javascript
 // User selects wrong answer
-await saveAnswer(attemptId, questionId, wrongOptionId);
+await saveAnswer(attemptId, questionId, wrongOptionId)
 
 // Response: { "is_correct": false, ... }
 
@@ -540,7 +544,7 @@ await saveAnswer(attemptId, questionId, wrongOptionId);
 // - User can change answer and save again
 
 // User changes to correct answer
-await saveAnswer(attemptId, questionId, correctOptionId);
+await saveAnswer(attemptId, questionId, correctOptionId)
 
 // Response: { "is_correct": true, ... }
 
@@ -553,12 +557,12 @@ await saveAnswer(attemptId, questionId, correctOptionId);
 
 ```javascript
 // User only answers 3 out of 5 questions
-await saveAnswer(attemptId, q1Id, optionId1); // ✓
-await saveAnswer(attemptId, q2Id, optionId2); // ✓
-await saveAnswer(attemptId, q3Id, optionId3); // ✗
+await saveAnswer(attemptId, q1Id, optionId1) // ✓
+await saveAnswer(attemptId, q2Id, optionId2) // ✓
+await saveAnswer(attemptId, q3Id, optionId3) // ✗
 
 // User submits without answering q4 and q5
-await submitQuiz(attemptId);
+await submitQuiz(attemptId)
 
 // Response:
 // {
@@ -582,17 +586,17 @@ await submitQuiz(attemptId);
 ```
 Start → Do all questions → Submit all answers → Get results
 ```
-❌ Risk: Lose all progress if page refreshed  
-❌ No immediate feedback  
+❌ Risk: Lose all progress if page refreshed
+❌ No immediate feedback
 ❌ Must complete all questions before submit
 
 ### New Flow (Auto-Save per Question)
 ```
 Start → Save question 1 → See result → Save question 2 → See result → ... → Submit
 ```
-✅ Auto-save: Progress preserved  
-✅ Immediate feedback: Know right/wrong instantly  
-✅ Can submit anytime: Even if not all questions answered  
+✅ Auto-save: Progress preserved
+✅ Immediate feedback: Know right/wrong instantly
+✅ Can submit anytime: Even if not all questions answered
 ✅ Resume session: Refresh page without losing data
 
 ---

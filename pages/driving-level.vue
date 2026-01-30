@@ -530,4 +530,3 @@ const faqItems = [
     </section>
   </div>
 </template>
-

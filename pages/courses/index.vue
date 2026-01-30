@@ -38,7 +38,7 @@ const { data: coursesData, pending: loadingCourses, refresh } = useLazyAsyncData
         filters.level = selectedLevel.value
       if (selectedPrice.value === 'free')
         filters.is_free = true
-    
+
       filters.type = 'resource'
 
       const response = await getCourses(filters)
@@ -69,10 +69,10 @@ const stats = computed(() => [
 
 // Filter options
 const levels = computed(() => [
-  t('common.levels.beginner'), 
-  t('common.levels.intermediate'), 
-  t('common.levels.advanced'), 
-  t('coursesIndex.filters.allLevels')
+  t('common.levels.beginner'),
+  t('common.levels.intermediate'),
+  t('common.levels.advanced'),
+  t('coursesIndex.filters.allLevels'),
 ])
 const priceOptions = computed(() => [
   { label: t('coursesIndex.filters.allPrices'), value: '' },

@@ -62,8 +62,6 @@ function switchLanguage(languageCode: string) {
   $i18n.locale.value = languageCode
 }
 
-
-
 // Methods
 function saveSettings() {
   // Save language setting to cookie

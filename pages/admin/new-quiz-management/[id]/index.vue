@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import QuizDetail from '~/components/admin/new-quiz/QuizDetail.vue'
-import { useNewQuizApi } from '~/composables/api/useNewQuizApi'
 import type { NewQuizDetail } from '~/composables/api/useNewQuizApi'
 import { Modal, notification } from 'ant-design-vue'
+import QuizDetail from '~/components/admin/new-quiz/QuizDetail.vue'
+import { useNewQuizApi } from '~/composables/api/useNewQuizApi'
 
 definePageMeta({
   layout: 'admin',
@@ -70,7 +70,8 @@ function handleDelete() {
 
 // Handle publish
 async function handlePublish() {
-  if (!quiz.value) return
+  if (!quiz.value)
+    return
 
   if (quiz.value.total_questions === 0) {
     notification.error({

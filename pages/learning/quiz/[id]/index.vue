@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { QuizApiResponse, QuizAttempt, QuizOption, QuizQuestion } from '~/composables/api/useQuizApi'
+import type { QuizApiResponse, QuizAttempt } from '~/composables/api/useQuizApi'
 import QuizCompletionDialog from '~/components/learning/quiz/QuizCompletionDialog.vue'
 import { useQuizApi } from '~/composables/api/useQuizApi'
 

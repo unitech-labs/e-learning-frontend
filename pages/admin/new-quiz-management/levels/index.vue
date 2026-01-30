@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { NewQuizLevel } from '~/composables/api/useNewQuizApi'
+import { useDebounceFn } from '@vueuse/core'
 import LevelList from '~/components/admin/new-quiz/LevelList.vue'
 import { useNewQuizApi } from '~/composables/api/useNewQuizApi'
-import { useDebounceFn } from '@vueuse/core'
 
 definePageMeta({
   layout: 'admin',

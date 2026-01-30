@@ -50,7 +50,6 @@ const formState = ref({
   visible_classrooms: [] as string[],
 })
 
-
 // Watch for resource changes
 watch(() => props.resource, (newResource) => {
   if (newResource) {
@@ -228,4 +227,3 @@ function handleCancel() {
     </a-form>
   </a-modal>
 </template>
-

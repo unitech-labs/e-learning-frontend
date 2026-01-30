@@ -198,7 +198,7 @@ const questionsValidation = computed(() => {
   }
 })
 
-function addTextInputQuestion() {
+function _addTextInputQuestion() {
   const newQuestion: Question = {
     id: `question-${Date.now()}`,
     type: 'text-input',

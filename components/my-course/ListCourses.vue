@@ -155,7 +155,6 @@ onMounted(() => {
                 </div>
               </div>
 
-
               <!-- Continue Learning Button -->
               <a-button
                 type="primary"

@@ -107,7 +107,7 @@ export default defineNuxtConfig({
     },
   },
 
-  // @ts-ignore - nuxt-gtag module configuration
+  // @ts-expect-error - nuxt-gtag module configuration
   gtag: {
     id: 'G-PBKR19PGSP',
   },

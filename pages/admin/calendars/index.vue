@@ -532,7 +532,7 @@ async function handleClassroomDeleted() {
   selectedSessionId.value = null
   selectedCourseId.value = null
   selectedClassroomId.value = null
-  
+
   // Then reload sessions
   await loadSessionsForCurrentView()
 }

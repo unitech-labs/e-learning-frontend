@@ -1,7 +1,7 @@
 # Research: Standalone Quiz Management
 
-**Feature**: Standalone Quiz Management  
-**Date**: 2025-01-15  
+**Feature**: Standalone Quiz Management
+**Date**: 2025-01-15
 **Purpose**: Resolve technical unknowns and establish implementation patterns
 
 ## API Integration Patterns
@@ -23,11 +23,11 @@
 ```typescript
 export function useNewQuizApi() {
   const apiClient = useApiClient()
-  
+
   return {
     // Level management
     getLevels: (params?) => apiClient.get('/new_quiz/levels/', params),
-    createLevel: (data) => apiClient.post('/new_quiz/levels/', data),
+    createLevel: data => apiClient.post('/new_quiz/levels/', data),
     // ... etc
   }
 }

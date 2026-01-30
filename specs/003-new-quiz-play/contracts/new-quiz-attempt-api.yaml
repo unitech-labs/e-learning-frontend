@@ -49,7 +49,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "Quiz attempt started"
+                    example: Quiz attempt started
                   attempt:
                     $ref: '#/components/schemas/QuizAttempt'
         '400':
@@ -131,7 +131,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "Answer saved successfully"
+                    example: Answer saved successfully
                   answer:
                     $ref: '#/components/schemas/SavedAnswer'
                   is_correct:
@@ -189,7 +189,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "Quiz submitted successfully"
+                    example: Quiz submitted successfully
                   attempt:
                     $ref: '#/components/schemas/QuizAttempt'
                   results:
@@ -414,7 +414,7 @@ components:
           type: integer
         formatted:
           type: string
-          example: "25.0/30.0 (83.3%)"
+          example: '25.0/30.0 (83.3%)'
           description: Human-readable score format
 
     ErrorResponse:
@@ -430,4 +430,3 @@ components:
             type: array
             items:
               type: string
-

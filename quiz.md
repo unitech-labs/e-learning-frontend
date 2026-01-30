@@ -322,7 +322,7 @@ PUT /api/v1/quiz/quizzes/{id}/
 PATCH /api/v1/quiz/quizzes/{id}/
 ```
 
-**Permission**: Quiz owner or Admin only  
+**Permission**: Quiz owner or Admin only
 When a quiz is already published, only the owner or an admin may edit it (other teachers are rejected).
 
 **Key Rules**
@@ -474,8 +474,8 @@ GET /api/v1/quiz/quizzes/by_lesson/?lesson_id={uuid}
 GET /api/v1/quiz/quizzes/{quiz_id}/attempts/?status=completed&student_id={uuid}
 ```
 
-**Permission**  
-- Quiz owner (teacher) or Admin: view every attempt, filter via query params.  
+**Permission**
+- Quiz owner (teacher) or Admin: view every attempt, filter via query params.
 - Students: automatically limited to their own attempts.
 
 **Response (truncated)**
@@ -521,7 +521,7 @@ GET /api/v1/quiz/quizzes/{quiz_id}/attempts/?status=completed&student_id={uuid}
 GET /api/v1/quiz/quizzes/{quiz_id}/leaderboard/
 ```
 
-**Permission**: Any authenticated user (students and teachers).  
+**Permission**: Any authenticated user (students and teachers).
 Entries include completed attempts only, ranked by score, then time spent, then completion timestamp.
 
 ```json
@@ -1518,7 +1518,7 @@ Result: 6/9 points = 66.67%
 
 **Matching Rules:**
 1. **Case-sensitive**: "Python" ≠ "python"
-2. **Space normalization**: 
+2. **Space normalization**:
    - Trim leading/trailing spaces
    - Collapse multiple spaces to single space
    - `"  Python   web  "` → `"Python web"`
@@ -1857,7 +1857,6 @@ For issues or questions:
 
 This module is part of the E-Learning Backend project.
 
-
 Tất cả các yêu cầu của bạn đã được implement đầy đủ:
 
 ### ✅ **1. Get list quiz học sinh đã làm gần đây**
@@ -1917,7 +1916,7 @@ POST /api/v1/quiz/essay-gradings/{id}/grade/
 ### 🎯 **Workflow hoàn chỉnh:**
 
 1. **Dashboard admin** → `recent_submissions?needs_grading=true`
-2. **Chọn lớp** → `by_classroom?classroom_id=xxx`  
+2. **Chọn lớp** → `by_classroom?classroom_id=xxx`
 3. **Xem pending essays** → `needs_grading?classroom_id=xxx`
 4. **Click vào essay** → `GET essay-gradings/{id}/` (xem chi tiết)
 5. **Nhập điểm + sửa** → `POST essay-gradings/{id}/grade/`

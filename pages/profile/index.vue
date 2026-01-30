@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useAuth } from '#imports'
-import { useUserApi } from '~/composables/api/useUserApi'
 import { message } from 'ant-design-vue'
 import dayjs from 'dayjs'
+import { useUserApi } from '~/composables/api/useUserApi'
 // Page meta
 definePageMeta({
   layout: 'default',
@@ -18,7 +18,7 @@ const { fetchProfile, profile } = useAuth()
 const { updateProfile } = useUserApi()
 const { uploadWithPresignedUrl, uploadProgress, isUploading } = useFileUpload()
 const { t } = useI18n()
-const isFetchingProfile = ref(false)
+const _isFetchingProfile = ref(false)
 const isEditing = ref(false)
 const loading = ref(false)
 
@@ -98,7 +98,7 @@ function initializeEditForm() {
       last_name: profile.value.last_name || '',
       phone_number: profile.value.phone_number || '',
       gender: profile.value.gender || '',
-      date_of_birth: "",
+      date_of_birth: '',
       contact_address: profile.value.contact_address || '',
       headline: profile.value.headline || '',
       bio: profile.value.bio || '',
@@ -135,7 +135,7 @@ function handleEdit() {
 async function handleSave() {
   try {
     loading.value = true
-    
+
     // Prepare update data
     const updateData: any = {
       first_name: editForm.value.first_name,
@@ -167,10 +167,12 @@ async function handleSave() {
     await fetchProfile()
     isEditing.value = false
     message.success(t('profile.edit.success'))
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Error updating profile:', error)
     message.error(t('profile.edit.error'))
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }
@@ -221,52 +223,16 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
-/* Responsive tabs for mobile */
-@media (max-width: 640px) {
-  :deep(.ant-tabs) {
-    overflow-x: auto;
-  }
-  
-  :deep(.ant-tabs-nav) {
-    margin-bottom: 0;
-  }
-  
-  :deep(.ant-tabs-tab) {
-    padding: 12px 16px;
-    font-size: 14px;
-  }
-  
-  :deep(.ant-tabs-content-holder) {
-    padding-top: 16px;
-  }
-}
-
-/* Ensure proper spacing on mobile */
-@media (max-width: 640px) {
-  :deep(.ant-card-body) {
-    padding: 12px;
-  }
-}
-
-/* Better text wrapping on mobile */
-@media (max-width: 640px) {
-  .profile-info-item {
-    word-break: break-word;
-  }
-}
-</style>
-
 <template>
   <div class="min-h-screen bg-gray-50 pb-20 lg:pb-8">
     <!-- Enhanced Header -->
     <div class="bg-white shadow-sm border-b border-gray-200">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-          <a-avatar 
-            v-if="profile?.avatar" 
-            :src="profile?.avatar" 
-            :size="80" 
+          <a-avatar
+            v-if="profile?.avatar"
+            :src="profile?.avatar"
+            :size="80"
             class="bg-green-500 shadow-lg flex-shrink-0"
           >
             <span class="text-2xl font-semibold text-white">
@@ -275,7 +241,7 @@ onMounted(() => {
           </a-avatar>
           <div class="flex-1 min-w-0 w-full sm:w-auto">
             <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 truncate">
-              {{ profile?.last_name }} {{ profile?.first_name }} 
+              {{ profile?.last_name }} {{ profile?.first_name }}
             </h1>
             <p class="text-sm sm:text-base lg:text-lg text-gray-600 mb-2 sm:mb-3 truncate">
               {{ profile?.email }}
@@ -292,10 +258,10 @@ onMounted(() => {
             </div>
           </div>
           <div class="flex flex-col sm:flex-row gap-2 sm:space-x-3 w-full sm:w-auto">
-            <a-button 
-              v-if="!isEditing" 
-              class="!flex items-center justify-center gap-1 w-full sm:w-auto" 
-              type="primary" 
+            <a-button
+              v-if="!isEditing"
+              class="!flex items-center justify-center gap-1 w-full sm:w-auto"
+              type="primary"
               @click="handleEdit"
             >
               <template #icon>
@@ -305,10 +271,10 @@ onMounted(() => {
               <span class="sm:hidden">{{ t('profile.editButton') }}</span>
             </a-button>
             <template v-else>
-              <a-button 
-                class="!flex items-center justify-center gap-1 w-full sm:w-auto" 
-                type="primary" 
-                :loading="loading" 
+              <a-button
+                class="!flex items-center justify-center gap-1 w-full sm:w-auto"
+                type="primary"
+                :loading="loading"
                 @click="handleSave"
               >
                 <template #icon>
@@ -317,8 +283,8 @@ onMounted(() => {
                 <span class="hidden sm:inline">{{ t('profile.edit.save') }}</span>
                 <span class="sm:hidden">{{ t('profile.edit.save') }}</span>
               </a-button>
-              <a-button 
-                class="!flex items-center justify-center gap-1 w-full sm:w-auto" 
+              <a-button
+                class="!flex items-center justify-center gap-1 w-full sm:w-auto"
                 @click="handleCancel"
               >
                 <template #icon>
@@ -340,7 +306,7 @@ onMounted(() => {
         <a-tabs
           v-model:active-key="activeTab"
           size="large"
-          :tab-position="'top'"
+          tab-position="top"
           class="profile-tabs"
           @change="handleTabChange"
         >
@@ -361,12 +327,16 @@ onMounted(() => {
 
                 <!-- Edit Form -->
                 <div v-if="isEditing" class="bg-gray-50 rounded-lg p-4 sm:p-6">
-                  <h4 class="text-md font-semibold text-gray-900 mb-4">{{ t('profile.edit.title') }}</h4>
-                  
+                  <h4 class="text-md font-semibold text-gray-900 mb-4">
+                    {{ t('profile.edit.title') }}
+                  </h4>
+
                   <!-- Avatar Section -->
                   <div class="mb-4 sm:mb-6">
-                    <h5 class="text-sm font-medium text-gray-700 mb-3">{{ t('profile.avatar.title') }}</h5>
-                    
+                    <h5 class="text-sm font-medium text-gray-700 mb-3">
+                      {{ t('profile.avatar.title') }}
+                    </h5>
+
                     <!-- Upload Progress -->
                     <div v-if="isUploading" class="mb-4">
                       <div class="flex items-center justify-between text-xs sm:text-sm text-gray-600 mb-2">
@@ -381,7 +351,7 @@ onMounted(() => {
                         class="!h-2"
                       />
                     </div>
-                    
+
                     <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
                       <!-- Current Avatar -->
                       <div class="relative">
@@ -400,24 +370,24 @@ onMounted(() => {
                             type="text"
                             size="small"
                             danger
-                            @click="handleAvatarRemove"
                             class="!p-1 !min-w-0 !h-6 !w-6 rounded-full bg-red-500 hover:bg-red-600"
+                            @click="handleAvatarRemove"
                           >
                             <Icon name="i-heroicons-x-mark" size="12" class="text-white" />
                           </a-button>
                         </div>
                       </div>
-                      
+
                       <!-- Upload Controls -->
                       <div class="flex-1 w-full sm:w-auto">
                         <div class="space-y-2">
-                          <label 
+                          <label
                             class="inline-flex items-center justify-center sm:justify-start px-4 py-2 rounded-lg cursor-pointer transition-colors w-full sm:w-auto"
                             :class="isUploading ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-blue-50 hover:bg-blue-100'"
                           >
-                            <Icon 
-                              :name="isUploading ? 'i-heroicons-arrow-path' : 'i-heroicons-photo'" 
-                              size="16" 
+                            <Icon
+                              :name="isUploading ? 'i-heroicons-arrow-path' : 'i-heroicons-photo'"
+                              size="16"
                               class="mr-2 flex-shrink-0"
                               :class="isUploading ? 'text-gray-400 animate-spin' : 'text-blue-600'"
                             />
@@ -437,7 +407,7 @@ onMounted(() => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <!-- Basic Information -->
                     <div class="space-y-3 sm:space-y-4">
@@ -464,7 +434,9 @@ onMounted(() => {
                           disabled
                           class="bg-gray-100"
                         />
-                        <p class="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+                        <p class="text-xs text-gray-500 mt-1">
+                          Email cannot be changed
+                        </p>
                       </div>
 
                       <div>
@@ -482,25 +454,31 @@ onMounted(() => {
                           :placeholder="t('profile.info.gender')"
                           class="w-full"
                         >
-                          <a-select-option value="male">{{ t('profile.genders.male') }}</a-select-option>
-                          <a-select-option value="female">{{ t('profile.genders.female') }}</a-select-option>
-                          <a-select-option value="other">{{ t('profile.genders.other') }}</a-select-option>
+                          <a-select-option value="male">
+                            {{ t('profile.genders.male') }}
+                          </a-select-option>
+                          <a-select-option value="female">
+                            {{ t('profile.genders.female') }}
+                          </a-select-option>
+                          <a-select-option value="other">
+                            {{ t('profile.genders.other') }}
+                          </a-select-option>
                         </a-select>
                       </div>
 
                       <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">{{ t('profile.info.dateOfBirth') }}</label>
                         <a-date-picker
-                        :value="dayjs(editForm.date_of_birth, 'YYYY-MM-DD')"
-                        size="large"
-                        class="w-full"
-                        format="YYYY-MM-DD"
-                        @change="(date: any) => editForm.date_of_birth = dayjs(date).format('YYYY-MM-DD')"
-                      >
-                        <template #prefix>
-                          <Icon name="solar:calendar-bold" size="16" class="text-gray-400" />
-                        </template>
-                      </a-date-picker>
+                          :value="dayjs(editForm.date_of_birth, 'YYYY-MM-DD')"
+                          size="large"
+                          class="w-full"
+                          format="YYYY-MM-DD"
+                          @change="(date: any) => editForm.date_of_birth = dayjs(date).format('YYYY-MM-DD')"
+                        >
+                          <template #prefix>
+                            <Icon name="solar:calendar-bold" size="16" class="text-gray-400" />
+                          </template>
+                        </a-date-picker>
                       </div>
                     </div>
 
@@ -600,12 +578,46 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-
             </div>
           </a-tab-pane>
-
         </a-tabs>
       </a-card>
     </div>
   </div>
 </template>
+
+<style scoped>
+/* Responsive tabs for mobile */
+@media (max-width: 640px) {
+  :deep(.ant-tabs) {
+    overflow-x: auto;
+  }
+
+  :deep(.ant-tabs-nav) {
+    margin-bottom: 0;
+  }
+
+  :deep(.ant-tabs-tab) {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  :deep(.ant-tabs-content-holder) {
+    padding-top: 16px;
+  }
+}
+
+/* Ensure proper spacing on mobile */
+@media (max-width: 640px) {
+  :deep(.ant-card-body) {
+    padding: 12px;
+  }
+}
+
+/* Better text wrapping on mobile */
+@media (max-width: 640px) {
+  .profile-info-item {
+    word-break: break-word;
+  }
+}
+</style>

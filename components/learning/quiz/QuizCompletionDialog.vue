@@ -6,19 +6,19 @@ interface Props {
 
 interface Emits {
   (e: 'close'): void
-  (e: 'view-answers'): void
-  (e: 'go-home'): void
+  (e: 'viewAnswers'): void
+  (e: 'goHome'): void
 }
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
-const handleViewAnswers = () => {
-  emit('view-answers')
+function handleViewAnswers() {
+  emit('viewAnswers')
 }
 
-const handleGoHome = () => {
-  emit('go-home')
+function handleGoHome() {
+  emit('goHome')
 }
 
 // Computed property for modal visibility
@@ -28,10 +28,10 @@ const modalVisible = computed({
     if (!value) {
       emit('close')
     }
-  }
+  },
 })
 
-const handleClose = () => {
+function handleClose() {
   emit('close')
 }
 </script>
@@ -42,23 +42,25 @@ const handleClose = () => {
     :footer="null"
     width="400px"
     centered
-    @cancel="handleClose"
     :mask-style="{ background: 'linear-gradient(to top, #EBFFDF, white)' }"
+    @cancel="handleClose"
   >
     <!-- Confetti Background -->
     <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute top-4 left-4 w-3 h-3 bg-yellow-400 rounded-full animate-bounce"></div>
-      <div class="absolute top-8 right-8 w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-      <div class="absolute top-12 left-12 w-2 h-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
-      <div class="absolute top-6 right-12 w-3 h-3 bg-green-400 rounded-full animate-bounce" style="animation-delay: 0.6s"></div>
-      <div class="absolute top-16 left-8 w-2 h-2 bg-red-400 rounded-full animate-bounce" style="animation-delay: 0.8s"></div>
+      <div class="absolute top-4 left-4 w-3 h-3 bg-yellow-400 rounded-full animate-bounce" />
+      <div class="absolute top-8 right-8 w-2 h-2 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.2s" />
+      <div class="absolute top-12 left-12 w-2 h-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.4s" />
+      <div class="absolute top-6 right-12 w-3 h-3 bg-green-400 rounded-full animate-bounce" style="animation-delay: 0.6s" />
+      <div class="absolute top-16 left-8 w-2 h-2 bg-red-400 rounded-full animate-bounce" style="animation-delay: 0.8s" />
     </div>
 
     <!-- Content -->
     <div class="text-center relative z-10">
       <!-- Icon -->
       <div class="w-20 h-20 mx-auto mb-6 bg-green-100 rounded-full flex items-center justify-center border-4 border-green-200">
-        <div class="text-4xl">🎉</div>
+        <div class="text-4xl">
+          🎉
+        </div>
       </div>
 
       <!-- Title -->
@@ -74,17 +76,17 @@ const handleClose = () => {
       <!-- Buttons -->
       <div class="flex gap-3">
         <a-button
-          @click="handleGoHome"
           class="flex-1"
           size="large"
+          @click="handleGoHome"
         >
           Go back home
         </a-button>
         <a-button
-          @click="handleViewAnswers"
           type="primary"
           class="flex-1"
           size="large"
+          @click="handleViewAnswers"
         >
           View answers
         </a-button>

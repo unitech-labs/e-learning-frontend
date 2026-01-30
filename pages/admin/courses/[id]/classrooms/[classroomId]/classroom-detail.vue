@@ -99,25 +99,25 @@ const columns = [
 ]
 
 const dataMock = ref({
-    name: 'Class for newbie T5 & CN',
-    quantity: 20,
-    schedule: [
+  name: 'Class for newbie T5 & CN',
+  quantity: 20,
+  schedule: [
     {
-        day: 'Thurday',
-        start: '8:40',
-        end: '9:50',
+      day: 'Thurday',
+      start: '8:40',
+      end: '9:50',
     },
     {
-        day: 'Friday',
-        start: '8:40',
-        end: '9:50',
+      day: 'Friday',
+      start: '8:40',
+      end: '9:50',
     },
     {
-        day: 'Monday',
-        start: '8:40',
-        end: '9:50',
+      day: 'Monday',
+      start: '8:40',
+      end: '9:50',
     },
-    ]
+  ],
 })
 
 function formatDate(dateString: string | undefined) {
@@ -184,15 +184,23 @@ function handleTableChange(pagination: any) {
       </div>
     </div>
     <a-card>
-        <div class="flex items-center gap-3 mb-8">
-            <p class="!m-0 text-[#1E293B] font-semibold text-base">{{ dataMock.name }}</p>
-            <div class="line text-gray-300 h-full">|</div>
-            <p class="!m-0 text-[#1E293B] font-semibold text-base">{{ dataMock.quantity }} students</p>
-            <div class="line text-gray-300 h-full">|</div>
-            <div v-for="item in dataMock.schedule" :key="item.day" class="border border-gray-300 rounded-lg px-3 py-2 text-base font-semibold">
-                {{ item.day }}: {{ item.start }} - {{ item.end }}
-            </div>
+      <div class="flex items-center gap-3 mb-8">
+        <p class="!m-0 text-[#1E293B] font-semibold text-base">
+          {{ dataMock.name }}
+        </p>
+        <div class="line text-gray-300 h-full">
+          |
         </div>
+        <p class="!m-0 text-[#1E293B] font-semibold text-base">
+          {{ dataMock.quantity }} students
+        </p>
+        <div class="line text-gray-300 h-full">
+          |
+        </div>
+        <div v-for="item in dataMock.schedule" :key="item.day" class="border border-gray-300 rounded-lg px-3 py-2 text-base font-semibold">
+          {{ item.day }}: {{ item.start }} - {{ item.end }}
+        </div>
+      </div>
       <a-table
         :columns="columns"
         :data-source="users"
@@ -249,7 +257,7 @@ function handleTableChange(pagination: any) {
                 {{ record.is_verified ? 'Suspend' : 'Activate' }}
               </a-button>
               <a-button type="link" size="small" class="!flex !items-center" danger @click="deleteUser(record)">
-                  <DeleteOutlined />
+                <DeleteOutlined />
                 Delete
               </a-button>
             </a-space>

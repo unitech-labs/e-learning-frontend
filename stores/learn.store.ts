@@ -1,4 +1,4 @@
-import type { Chapter, Course, Lesson, LessonPayload } from '~/types/course.type'
+import type { Chapter, Course, Lesson } from '~/types/course.type'
 import { defineStore } from 'pinia'
 import { useCourseApi } from '~/composables/api/useCourseApi'
 
@@ -61,13 +61,13 @@ export const useLearnStore = defineStore('learn', {
       attendance: {
         percentage: 0,
         value: '0/0',
-        label: 'Attendance'
+        label: 'Attendance',
       },
       courseCompletion: {
         percentage: 0,
         value: '0/0',
-        label: 'Course Completion'
-      }
+        label: 'Course Completion',
+      },
     },
   }),
 
@@ -95,12 +95,12 @@ export const useLearnStore = defineStore('learn', {
       const totalLessons = state.courseChapters.reduce((acc: number, chapter: CourseChapterStore) => acc + chapter.lessons.length, 0)
       if (totalLessons === 0)
         return 0
-      
+
       // Calculate completed lessons from chapters
       const completedCount = state.courseChapters.reduce((acc: number, chapter: CourseChapterStore) => {
         return acc + chapter.lessons.filter((lesson: CourseLesson) => lesson.is_completed).length
       }, 0)
-      
+
       return Math.round((completedCount / totalLessons) * 100)
     },
 
@@ -294,7 +294,7 @@ export const useLearnStore = defineStore('learn', {
       // Find lesson in all chapters to get chapterId
       let chapterId: string | null = null
       let lesson: CourseLesson | null = null
-      
+
       for (const chapter of this.courseChapters) {
         const foundLesson = chapter.lessons.find((l: CourseLesson) => l.id === lessonId)
         if (foundLesson) {
@@ -313,7 +313,7 @@ export const useLearnStore = defineStore('learn', {
         // Call API to update lesson completion
         const { patchLesson } = useCourseApi()
         await patchLesson(this.course.id, chapterId, lessonId, {
-          is_completed: completed
+          is_completed: completed,
         })
 
         // Update local state only after successful API call
@@ -321,7 +321,8 @@ export const useLearnStore = defineStore('learn', {
 
         // Refresh sidebar progress after lesson completion change
         await this.loadSidebarProgress()
-      } catch (error) {
+      }
+      catch (error) {
         console.error('Error updating lesson completion:', error)
         // Optionally show error notification to user
         throw error
@@ -364,33 +365,31 @@ export const useLearnStore = defineStore('learn', {
       try {
         // This would typically call APIs to get attendance and course completion data
         // For now, we'll use mock data or calculate from existing data
-        
+
         // Calculate course completion from completed lessons
         const totalLessons = this.courseChapters.reduce((total, chapter) => total + chapter.lessons.length, 0)
         const completedCount = this.completedLessons.size
         const completionPercentage = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0
-        
-        console.log('completionPercentage', completionPercentage)
-        console.log('completedCount', completedCount)
-        console.log('totalLessons', totalLessons)
+
         this.updateSidebarProgress({
           courseCompletion: {
             percentage: completionPercentage,
             value: `${completedCount}/${totalLessons}`,
-            label: 'Course Completion'
-          }
+            label: 'Course Completion',
+          },
         })
-        
+
         // For attendance, we would need to call a separate API
         // This is a placeholder - you would implement based on your attendance API
         this.updateSidebarProgress({
           attendance: {
             percentage: 80, // This should come from API
             value: '4/5', // This should come from API
-            label: 'Attendance'
-          }
+            label: 'Attendance',
+          },
         })
-      } catch (error) {
+      }
+      catch (error) {
         console.error('Error loading sidebar progress:', error)
       }
     },

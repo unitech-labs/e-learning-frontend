@@ -204,9 +204,10 @@ useHead({
 
       <!-- PPTX Preview Container -->
       <ClientOnly v-if="!pptxError">
-        <VueOfficePptx 
-          @rendered="pptxLoading = false"
-         :src="documentUrl" style="width: 100%; min-height: 600px; height: 100%; flex: 1;" />
+        <VueOfficePptx
+          :src="documentUrl"
+          style="width: 100%; min-height: 600px; height: 100%; flex: 1;" @rendered="pptxLoading = false"
+        />
       </ClientOnly>
     </div>
 
