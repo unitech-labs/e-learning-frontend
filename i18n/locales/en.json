@@ -1699,6 +1699,7 @@
     "switchAccount": "Switch Learning Account",
     "switchAccountSuccess": "Login successful",
     "switchAccountFailed": "Login failed",
+    "invalidCredentials": "Invalid account or password",
     "noOtherAccounts": "No other accounts to switch to",
     "clickToLogin": "Click to login",
     "switching": "Logging in...",

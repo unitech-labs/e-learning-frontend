@@ -114,8 +114,13 @@ async function switchToAccount(account: { email: string, password: string }) {
       loginFormError.value = ''
     }
     else {
+      // Check if it's invalid credentials error (errorData is the full response: { code, message, details })
+      const isInvalidCredentials = result.errorData?.code === 'validation_error'
+        || result.errorData?.details?.non_field_errors?.some((err: string) => err.toLowerCase().includes('invalid credentials'))
       notification.error({
-        message: result.error || t('profile.switchAccountFailed') || 'Đăng nhập thất bại',
+        message: isInvalidCredentials
+          ? t('profile.invalidCredentials')
+          : (result.error || t('profile.switchAccountFailed')),
       })
     }
   }
@@ -133,16 +138,15 @@ async function switchToAccount(account: { email: string, password: string }) {
 // Get available accounts (exclude current account)
 const availableAccounts = computed(() => {
   const currentEmail = (user.value?.email || profile.value?.email || '').toLowerCase().trim()
-  const currentUsername = (user.value?.username || profile.value?.username || '').toLowerCase().trim()
-  if (!currentEmail) {
+  const currentUsername = (user.value?.username || '').toLowerCase().trim()
+  if (!currentEmail && !currentUsername) {
     return savedAccountsCookie.value
   }
   return savedAccountsCookie.value.filter(
-    account =>
-      account.email.toLowerCase().trim() !== currentEmail
-      && account?.username?.toLowerCase().trim() !== currentUsername
-      && account?.email?.toLowerCase().trim() !== currentUsername
-      && account?.username?.toLowerCase().trim() !== currentEmail,
+    (account) => {
+      const accountEmail = account.email.toLowerCase().trim()
+      return accountEmail !== currentEmail && accountEmail !== currentUsername
+    },
   )
 })
 
@@ -206,7 +210,12 @@ async function handleLoginForm() {
       loginFormError.value = ''
     }
     else {
-      loginFormError.value = result.error || t('profile.switchAccountFailed') || 'Đăng nhập thất bại'
+      // Check if it's invalid credentials error (errorData is the full response: { code, message, details })
+      const isInvalidCredentials = result.errorData?.code === 'validation_error'
+        || result.errorData?.details?.non_field_errors?.some((err: string) => err.toLowerCase().includes('invalid credentials'))
+      loginFormError.value = isInvalidCredentials
+        ? t('profile.invalidCredentials')
+        : (result.error || t('profile.switchAccountFailed'))
     }
   }
   catch (error: any) {
