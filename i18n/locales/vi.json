@@ -1697,6 +1697,7 @@
     "switchAccount": "Đăng nhập tài khoản học",
     "switchAccountSuccess": "Đăng nhập thành công",
     "switchAccountFailed": "Đăng nhập thất bại",
+    "invalidCredentials": "Sai tài khoản hoặc mật khẩu",
     "noOtherAccounts": "Không có tài khoản khác để chuyển đổi",
     "clickToLogin": "Nhấn để đăng nhập",
     "switching": "Đang đăng nhập...",

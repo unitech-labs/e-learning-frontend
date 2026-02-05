@@ -1364,6 +1364,7 @@
     "switchAccount": "Cambia Account di Apprendimento",
     "switchAccountSuccess": "Accesso riuscito",
     "switchAccountFailed": "Accesso fallito",
+    "invalidCredentials": "Account o password non validi",
     "noOtherAccounts": "Nessun altro account disponibile",
     "clickToLogin": "Clicca per accedere",
     "switching": "Accesso in corso...",
