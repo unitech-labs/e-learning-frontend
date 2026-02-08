@@ -2,9 +2,9 @@
 import { notification } from 'ant-design-vue'
 import { getFileExtension } from '~/utils/fileExtension'
 
-// Dynamically import VuePdfEmbed component (client-side only)
-// @ts-expect-error - Dynamic import for vue-pdf-embed
-const VuePdfEmbed = defineAsyncComponent(() => import('vue-pdf-embed').then(m => m.default))
+// Dynamically import VueOfficePdf component (client-side only)
+// @ts-expect-error - Dynamic import for @vue-office/pdf
+const VueOfficePdf = defineAsyncComponent(() => import('@vue-office/pdf').then(m => m.default))
 
 definePageMeta({
   layout: 'default',
@@ -308,19 +308,17 @@ useHead({
             class="m-4"
           />
 
-          <!-- PDF Embed Component -->
+          <!-- PDF Viewer: @vue-office/pdf -->
           <div
-            v-if="!pdfError && VuePdfEmbed"
+            v-if="!pdfError && VueOfficePdf"
             ref="pdfWrapperRef"
             class="pdf-embed-wrapper overflow-auto"
+            :style="pdfWidth != null ? { width: `${pdfWidth}px` } : undefined"
           >
-            <VuePdfEmbed
-              :source="documentUrl"
-              :page="undefined"
-              :width="pdfWidth ?? undefined"
-              class="pdf-embed w-full justify-center flex flex-col items-center border-0"
-              @loaded="handlePdfLoaded"
-              @rendered="pdfLoading = false"
+            <VueOfficePdf
+              :src="documentUrl"
+              style="width: 100%; min-height: 600px; height: 100%;"
+              @rendered="handlePdfLoaded"
               @error="handlePdfError"
             />
           </div>

@@ -13,6 +13,7 @@ import type {
   CourseProgress,
   CourseStudentsResponse,
   EnrolledCourse,
+  EnrollmentStatus,
   Lesson,
   LessonPayload,
   ResourcePricePlan,
@@ -242,6 +243,10 @@ export function useCourseApi() {
     // Get course progress
     getCourseProgress: (courseId: string) =>
       apiClient.get<CourseProgress>(`/courses/${courseId}/progress/`),
+
+    // Get enrollment status for current user and course (has_access, is_expired, course_type, etc.)
+    getEnrollmentStatus: (courseId: string) =>
+      apiClient.get<EnrollmentStatus>(`/courses/${courseId}/enrollment-status/`),
 
     // Get course lessons
     getLessons: (courseId: string, chapterId: string) =>
