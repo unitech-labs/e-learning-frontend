@@ -83,6 +83,13 @@ const videoProgress = ref(0)
 const hasCompletedLesson = ref(false)
 const isCompletingLesson = ref(false)
 
+// Enrollment status & expired dialog
+const enrollmentStatus = ref<{
+  course_type: 'course' | 'resource'
+  is_expired: boolean
+} | null>(null)
+const showExpiredDialog = ref(false)
+
 // Video player protection
 const playerInstance = ref<any>(null)
 const drmContainer = ref<HTMLElement | null>(null)
@@ -686,8 +693,34 @@ watch(course, (newCourse) => {
   }
 }, { immediate: true })
 
+// Check enrollment status (is_expired) and show dialog if expired
+async function checkEnrollmentStatus() {
+  try {
+    const status = await courseApi.getEnrollmentStatus(courseId)
+    if (status?.is_expired) {
+      enrollmentStatus.value = {
+        course_type: status.course_type,
+        is_expired: true,
+      }
+      showExpiredDialog.value = true
+    }
+  }
+  catch {
+    // Ignore: user may not have access or API may not return status
+  }
+}
+
+function handleExpiredDialogBack() {
+  showExpiredDialog.value = false
+  enrollmentStatus.value = null
+  router.push('/learning')
+}
+
 onMounted(async () => {
   await learnStore.loadCourse(courseId)
+
+  // Check enrollment status for expired access
+  await checkEnrollmentStatus()
 
   drmContainer.value = document.querySelector('.drm-protected')
   document.addEventListener('contextmenu', preventContextMenu)
@@ -1222,6 +1255,49 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </a-drawer>
+
+    <!-- Expired enrollment dialog: cannot close, only Quay lại -->
+    <a-modal
+      v-model:open="showExpiredDialog"
+      title="Gói học tập đã Hết hạn, vui lòng đăng ký lại"
+      :closable="false"
+      :mask-closable="false"
+      centered
+      :width="440"
+      class="expired-dialog"
+    >
+      <div class="py-2 space-y-3 text-gray-700 leading-relaxed">
+        <!-- Course type: enrollment via classroom (tài khoản được cấp) -->
+        <template v-if="enrollmentStatus?.course_type === 'course'">
+          <p>
+            Gói học của bạn với khoá học này đã <strong>hết hạn</strong>. Thời gian truy cập nội dung khoá đã kết thúc nên bạn không thể xem tiếp tại đây.
+          </p>
+          <p>
+            Đây là tài khoản học được cấp qua lớp (classroom), nên <strong>không thể tự mua lại khoá</strong> trực tiếp trên tài khoản này. Để tiếp tục học khoá này, bạn có thể:
+          </p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Đăng nhập bằng <strong>tài khoản khác</strong> (tài khoản cá nhân) để đăng ký hoặc mua lại khoá học.</li>
+            <li>Nếu không rõ cách làm hoặc cần hỗ trợ, hãy nhắn tin cho <strong>Phiên dịch viên Phan Tâm</strong> để được hướng dẫn.</li>
+          </ul>
+        </template>
+        <!-- Resource type: direct purchase -->
+        <template v-else-if="enrollmentStatus?.course_type === 'resource'">
+          <p>
+            Thời gian sử dụng <strong>tài nguyên này đã hết hạn</strong>. Bạn không còn quyền truy cập nội dung tại đây.
+          </p>
+          <p>
+            Để tiếp tục học, vui lòng <strong>mua lại gói tài nguyên</strong> trên trang khoá học / tài nguyên. Sau khi thanh toán, bạn sẽ được cấp quyền truy cập mới và có thể vào lại khoá này để học.
+          </p>
+        </template>
+      </div>
+      <template #footer>
+        <div class="flex justify-end">
+          <a-button type="primary" @click="handleExpiredDialogBack">
+            Quay lại
+          </a-button>
+        </div>
+      </template>
+    </a-modal>
   </div>
 </template>
 

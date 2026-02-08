@@ -35,6 +35,18 @@ export interface Course {
   course_type: 'course' | 'resource'
 }
 
+/** Response from GET /api/v1/courses/{course_id}/enrollment-status/ */
+export interface EnrollmentStatus {
+  course_type: 'course' | 'resource'
+  has_access: boolean
+  is_active: boolean
+  is_expired: boolean
+  expires_at: string | null
+  purchased_at: string | null
+  classroom_id: string | null
+  classroom_title: string | null
+}
+
 export interface ClassroomSchedule {
   day_of_week: string
   start_time: string
