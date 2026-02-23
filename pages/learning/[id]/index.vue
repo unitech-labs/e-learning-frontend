@@ -74,6 +74,14 @@ const resourcePageSize = ref(10)
 const lessonMaterials = ref<any[]>([])
 const isLoadingLessonMaterials = ref(false)
 
+// Audio accordion state
+const AUDIO_EXTENSIONS = ['mp3', 'wav', 'm4a', 'ogg', 'aac', 'flac', 'wma']
+function isAudioFile(item: any): boolean {
+  return AUDIO_EXTENSIONS.includes(getFileExtension(item))
+}
+const expandedAudioMaterialId = ref<string | null>(null)
+const expandedAudioResourceId = ref<string | null>(null)
+
 // Session videos data
 const sessionVideos = ref<any[]>([])
 const isLoadingSessionVideos = ref(false)
@@ -444,7 +452,7 @@ function getMaterialIcon(material: any): string {
 
   // Audio
   if (['mp3', 'wav', 'm4a', 'ogg', 'aac', 'flac', 'wma'].includes(extLower)) {
-    return 'solar:file-music-bold-duotone'
+    return 'solar:music-note-bold'
   }
 
   // Video
@@ -522,6 +530,12 @@ function handleMaterialClick(material: any) {
     return
   }
 
+  // Audio files: toggle inline accordion instead of navigating
+  if (isAudioFile(material)) {
+    expandedAudioMaterialId.value = expandedAudioMaterialId.value === material.id ? null : material.id
+    return
+  }
+
   // Encode file_url for URL
   const encodedFileUrl = encodeURIComponent(fileUrl)
 
@@ -566,6 +580,12 @@ function handleMaterialClick(material: any) {
 // Handle resource click - encode file_url and push to query
 function handleResourceClick(resource: CourseAsset) {
   if (!resource.id || !resource.file_url) {
+    return
+  }
+
+  // Audio files: toggle inline accordion instead of navigating
+  if (isAudioFile(resource)) {
+    expandedAudioResourceId.value = expandedAudioResourceId.value === resource.id ? null : resource.id
     return
   }
 
@@ -884,29 +904,51 @@ onBeforeUnmount(() => {
                 <div
                   v-for="material in lessonMaterials"
                   :key="material.id"
-                  class="flex items-center gap-4 p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all duration-200 group cursor-pointer"
-                  @click="handleMaterialClick(material)"
                 >
-                  <div class="flex-shrink-0">
-                    <div class="p-3 rounded-lg bg-gray-50 group-hover:bg-blue-50 transition-colors">
-                      <Icon :name="getMaterialIcon(material)" size="24" :class="getMaterialIconColor(material)" />
+                  <div
+                    class="flex items-center gap-4 p-4 border border-gray-200 hover:border-blue-300 hover:shadow-sm transition-all duration-200 group cursor-pointer"
+                    :class="isAudioFile(material) && expandedAudioMaterialId === material.id ? 'rounded-t-lg border-b-0' : 'rounded-lg'"
+                    @click="handleMaterialClick(material)"
+                  >
+                    <div class="flex-shrink-0">
+                      <div class="p-3 rounded-lg bg-gray-50 group-hover:bg-blue-50 transition-colors">
+                        <Icon :name="getMaterialIcon(material)" size="24" :class="getMaterialIconColor(material)" />
+                      </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1">
+                        {{ material.title }}
+                      </h3>
+                      <p v-if="material.description" class="text-sm text-gray-500 line-clamp-1 mt-1">
+                        {{ material.description }}
+                      </p>
+                      <div class="flex items-center gap-3 mt-2 text-xs text-gray-400">
+                        <span>{{ formatFileSize(material.file_size) }}</span>
+                        <span>•</span>
+                        <span>{{ material.file_type }}</span>
+                      </div>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <Icon
+                        v-if="isAudioFile(material)"
+                        :name="expandedAudioMaterialId === material.id ? 'solar:alt-arrow-up-bold' : 'solar:alt-arrow-down-bold'"
+                        size="20"
+                        class="text-indigo-400 group-hover:text-indigo-600 transition-colors"
+                      />
+                      <Icon v-else name="solar:external-link-bold" size="20" class="text-gray-400 group-hover:text-blue-600 transition-colors" />
                     </div>
                   </div>
-                  <div class="flex-1 min-w-0">
-                    <h3 class="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1">
-                      {{ material.title }}
-                    </h3>
-                    <p v-if="material.description" class="text-sm text-gray-500 line-clamp-1 mt-1">
-                      {{ material.description }}
-                    </p>
-                    <div class="flex items-center gap-3 mt-2 text-xs text-gray-400">
-                      <span>{{ formatFileSize(material.file_size) }}</span>
-                      <span>•</span>
-                      <span>{{ material.file_type }}</span>
-                    </div>
-                  </div>
-                  <div class="flex-shrink-0">
-                    <Icon name="solar:external-link-bold" size="20" class="text-gray-400 group-hover:text-blue-600 transition-colors" />
+                  <!-- Audio accordion player -->
+                  <div
+                    v-if="isAudioFile(material) && expandedAudioMaterialId === material.id"
+                    class="border border-t-0 border-gray-200 rounded-b-lg bg-gray-50 px-4 pb-4 pt-3"
+                  >
+                    <audio
+                      controls
+                      controlslist="nodownload"
+                      class="w-full"
+                      :src="material.file_url || material.file_path"
+                    />
                   </div>
                 </div>
               </div>
@@ -1038,29 +1080,51 @@ onBeforeUnmount(() => {
                     <div
                       v-for="resource in resources"
                       :key="resource.id"
-                      class="flex items-center gap-4 p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all duration-200 group cursor-pointer"
-                      @click="handleResourceClick(resource)"
                     >
-                      <div class="flex-shrink-0">
-                        <div class="p-3 rounded-lg bg-gray-50 group-hover:bg-blue-50 transition-colors">
-                          <Icon :name="getMaterialIcon(resource)" size="24" :class="getMaterialIconColor(resource)" />
+                      <div
+                        class="flex items-center gap-4 p-4 border border-gray-200 hover:border-blue-300 hover:shadow-sm transition-all duration-200 group cursor-pointer"
+                        :class="isAudioFile(resource) && expandedAudioResourceId === resource.id ? 'rounded-t-lg border-b-0' : 'rounded-lg'"
+                        @click="handleResourceClick(resource)"
+                      >
+                        <div class="flex-shrink-0">
+                          <div class="p-3 rounded-lg bg-gray-50 group-hover:bg-blue-50 transition-colors">
+                            <Icon :name="getMaterialIcon(resource)" size="24" :class="getMaterialIconColor(resource)" />
+                          </div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                          <h3 class="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1">
+                            {{ resource.title }}
+                          </h3>
+                          <p v-if="resource.description" class="text-sm text-gray-500 line-clamp-1 mt-1">
+                            {{ resource.description }}
+                          </p>
+                          <div class="flex items-center gap-3 mt-2 text-xs text-gray-400">
+                            <span>{{ formatFileSize(resource.file_size) }}</span>
+                            <span>•</span>
+                            <span class="uppercase">{{ resource.asset_type }}</span>
+                          </div>
+                        </div>
+                        <div class="flex-shrink-0">
+                          <Icon
+                            v-if="isAudioFile(resource)"
+                            :name="expandedAudioResourceId === resource.id ? 'solar:alt-arrow-up-bold' : 'solar:alt-arrow-down-bold'"
+                            size="20"
+                            class="text-indigo-400 group-hover:text-indigo-600 transition-colors"
+                          />
+                          <Icon v-else name="solar:external-link-bold" size="20" class="text-gray-400 group-hover:text-blue-600 transition-colors" />
                         </div>
                       </div>
-                      <div class="flex-1 min-w-0">
-                        <h3 class="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1">
-                          {{ resource.title }}
-                        </h3>
-                        <p v-if="resource.description" class="text-sm text-gray-500 line-clamp-1 mt-1">
-                          {{ resource.description }}
-                        </p>
-                        <div class="flex items-center gap-3 mt-2 text-xs text-gray-400">
-                          <span>{{ formatFileSize(resource.file_size) }}</span>
-                          <span>•</span>
-                          <span class="uppercase">{{ resource.asset_type }}</span>
-                        </div>
-                      </div>
-                      <div class="flex-shrink-0">
-                        <Icon name="solar:external-link-bold" size="20" class="text-gray-400 group-hover:text-blue-600 transition-colors" />
+                      <!-- Audio accordion player -->
+                      <div
+                        v-if="isAudioFile(resource) && expandedAudioResourceId === resource.id"
+                        class="border border-t-0 border-gray-200 rounded-b-lg bg-gray-50 px-4 pb-4 pt-3"
+                      >
+                        <audio
+                          controls
+                          controlslist="nodownload"
+                          class="w-full"
+                          :src="resource.file_url"
+                        />
                       </div>
                     </div>
 
