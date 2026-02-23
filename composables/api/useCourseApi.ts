@@ -55,8 +55,10 @@ export function useCourseApi() {
       )
     },
 
-    getMyCourses: () =>
-      apiClient.get<CourseListResponse>('/courses/mine/'),
+    getMyCourses: (params?: { course_type?: 'course' | 'resource' }) => {
+      const query = params?.course_type ? `?course_type=${params.course_type}` : ''
+      return apiClient.get<CourseListResponse>(`/courses/mine/${query}`)
+    },
 
     // Get courses hierarchical (grouped by level)
     getCoursesHierarchical: () =>

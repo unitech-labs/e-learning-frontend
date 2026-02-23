@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import NotificationBell from './NotificationBell.vue'
+
 const props = defineProps<{ showHamburger?: boolean }>()
 const emit = defineEmits<{
   (e: 'hamburgerClick'): void
@@ -133,6 +135,9 @@ function handleScroll(): void {
             </a-menu>
           </template>
         </a-dropdown>
+
+        <!-- Notifications -->
+        <NotificationBell />
 
         <!-- Shopping Cart -->
         <NuxtLink

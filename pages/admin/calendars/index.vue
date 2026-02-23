@@ -39,6 +39,8 @@ interface CalendarEvent {
   limit?: number
   draggable?: boolean
   resizable?: boolean
+  backgroundColor?: string
+  deletable?: boolean
 }
 
 const DEFAULT_BACKGROUND_COLOR = '#268100'

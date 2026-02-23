@@ -1014,6 +1014,11 @@
       "title": "Quản lý khóa học",
       "createCourse": "Tạo khóa học",
       "courseNotFound": "Không tìm thấy khóa học",
+      "coursesSection": "Khoá học",
+      "noCourses": "Chưa có khoá học nào",
+      "resourcesSection": "Tài nguyên",
+      "noResources": "Chưa có tài nguyên nào",
+      "createResource": "Tạo tài nguyên",
       "tabs": {
         "classroom": "Lớp học",
         "quiz": "Bài kiểm tra",
@@ -2851,6 +2856,25 @@
       "contactAdmin": "Liên hệ quản trị viên",
       "errorCode": "Lỗi 403"
     }
+  },
+  "notificationBell": {
+    "title": "Thông báo",
+    "ariaLabel": "Thông báo",
+    "newCount": "{count} mới",
+    "markAllRead": "Đọc tất cả",
+    "empty": "Chưa có thông báo nào",
+    "unknownSender": "Ai đó",
+    "invoiceCode": "Mã HĐ:",
+    "statusPending": "● Chờ xử lý",
+    "statusComplete": "● Hoàn thành",
+    "statusCancel": "● Đã huỷ",
+    "orderRegistered": "vừa đăng ký khoá học",
+    "commented": "đã bình luận trong khoá học",
+    "replied": "đã trả lời bình luận của bạn",
+    "justNow": "Vừa xong",
+    "minutesAgo": "{n} phút trước",
+    "hoursAgo": "{n} giờ trước",
+    "daysAgo": "{n} ngày trước"
   },
   "common": {
     "tryAgain": "Thử lại",

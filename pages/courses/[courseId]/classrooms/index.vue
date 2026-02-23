@@ -212,8 +212,8 @@ watch(fetchError, (error) => {
 
 // Calendar section for registration schedule
 interface CalendarEvent {
-  start: string
-  end: string
+  start: Date
+  end: Date
   title: string
   id?: string
   class?: string
@@ -310,13 +310,11 @@ function generateCalendarEventsFromSessions(sessions: ClassroomSession[]): Calen
   sessions.forEach((session) => {
     // Parse date strings - backend can return UTC (2026-01-05T18:00:00.000Z) or timezone (2026-01-12T03:00:00+07:00)
     // dayjs will automatically parse the timezone from the string
-    const startDate = dayjs(session.start_time)
-    const endDate = dayjs(session.end_time)
 
     events.push({
       id: session.id,
-      start: startDate.format('YYYY-MM-DD HH:mm'),
-      end: endDate.format('YYYY-MM-DD HH:mm'),
+      start: new Date(session.start_time.replace('Z', '')),
+      end: new Date(session.end_time.replace('Z', '')),
       title: session.classroom_title,
       sessionId: session.id,
       classroomId: session.classroom,
@@ -754,7 +752,7 @@ function cancelPayment() {
                   v-model:view="currentView"
                   :views-bar="false"
                   class="custom-theme calendar w-full !h-auto"
-                  :time-from="7 * 60"
+                  :time-from="1 * 60"
                   :time-step="60"
                   :time-to="24 * 60"
                   :time-cell-height="72"

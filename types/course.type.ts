@@ -12,6 +12,7 @@ export interface Course {
   thumbnail: string | null
   video_preview: string
   level: string
+  course_sub_level?: string
   language: string
   duration_hours: string
   price: string
@@ -276,6 +277,8 @@ export interface CourseSummary {
   teacher: Pick<Teacher, 'id' | 'full_name'>
   thumbnail: string | null
   level: string
+  course_type?: 'course' | 'resource'
+  course_sub_level?: string
   duration_hours: string
   price: string
   effective_price: number
