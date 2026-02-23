@@ -1,6 +1,6 @@
-import en from './locales/en.json'
-// import it from './locales/it.json'
-import vi from './locales/vi.json'
+import en from './locales/en/index'
+import it from './locales/it/index'
+import vi from './locales/vi/index'
 
 export default defineI18nConfig(() => {
   const currentLocale = useCookie('locale', {
@@ -12,7 +12,7 @@ export default defineI18nConfig(() => {
     messages: {
       en,
       vi,
-      // it,
+      it,
     },
   }
 })

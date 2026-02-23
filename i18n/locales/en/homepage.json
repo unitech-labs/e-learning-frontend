@@ -1,0 +1,148 @@
+{
+  "homepage": {
+    "hero": {
+      "badge": "Learn with professional guidance",
+      "title": "Learn Italian with Phan Tam",
+      "description": "Every language is a doorway to a new world. \n Let Phan Tam accompany you on your journey to mastering Italian",
+      "exploreCourses": "Explore Courses",
+      "signUpNow": "Sign Up Now",
+      "stats": {
+        "activeStudents": "Active Students",
+        "averageRating": "Average Rating",
+        "completionRate": "Completion Rate"
+      }
+    },
+    "courses": {
+      "title": "Featured Courses",
+      "description": "Courses carefully designed to take you from a beginner to a fluent speaker",
+      "badges": {
+        "bestseller": "Bestseller",
+        "popular": "Popular",
+        "new": "New"
+      },
+      "levels": {
+        "beginner": "Beginner",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced"
+      },
+      "course1": {
+        "title": "Italian for Beginners",
+        "description": "Start your Italian journey with essential vocabulary, grammar foundations, and communication skills for everyday situations.",
+        "duration": "12 weeks"
+      },
+      "course2": {
+        "title": "Intermediate Italian Mastery",
+        "description": "Advance your Italian with complex grammar, idiomatic expressions, and cultural insights for confident communication.",
+        "duration": "16 weeks"
+      },
+      "course3": {
+        "title": "Advanced Conversation",
+        "description": "Perfect your fluency with advanced topics, professional Italian, and nuanced communication for work and travel.",
+        "duration": "20 weeks"
+      }
+    },
+    "quiz": {
+      "badge": "Interactive Quiz",
+      "title": "Practice Italian with a smart quiz system",
+      "description": "Reinforce knowledge after each lesson with adaptive tests, instant feedback, and gamified challenges to keep you engaged.",
+      "metrics": {
+        "questions": {
+          "value": "1,200+",
+          "label": "Practice Questions"
+        },
+        "passRate": {
+          "value": "94%",
+          "label": "Average Pass Rate"
+        },
+        "time": {
+          "value": "10 min",
+          "label": "Session Duration"
+        }
+      },
+      "highlights": {
+        "adaptive": {
+          "title": "Adaptive Path",
+          "description": "The system automatically adjusts difficulty based on progress so you are always challenged at the right level."
+        },
+        "feedback": {
+          "title": "Instant Feedback",
+          "description": "Every answer comes with explanations, examples, and mnemonics to help you understand deeply and remember longer."
+        },
+        "certification": {
+          "title": "Certification Ready",
+          "description": "Complete quiz milestones to unlock badges and certifications recognizing your efforts."
+        }
+      },
+      "cta": "Experience Quiz Now",
+      "summary": {
+        "title": "Live Performance",
+        "value": "92% Accuracy",
+        "caption": "Keep it up! You are progressing very fast towards mastering intermediate vocabulary."
+      },
+      "preview": {
+        "title": "Italian Vocabulary Quiz",
+        "subtitle": "Question 3 - 12 remaining",
+        "badge": "Adaptive Mode",
+        "topic": "Vocabulary Focus",
+        "question": "What is the correct translation of \"Buongiorno\"?",
+        "options": {
+          "a": "Good evening",
+          "b": "Good morning",
+          "c": "See you again"
+        },
+        "correct": "Correct Answer"
+      },
+      "progress": {
+        "label": "Progress",
+        "value": "80% Complete"
+      }
+    },
+    "instructor": {
+      "badge": "Meet your instructor",
+      "title": "Learn with Phan Tam",
+      "description": "With nearly a decade of experience teaching Italian to international students, Phan Tam brings a unique blend of linguistic expertise and cultural passion to every lesson.",
+      "experience": "Nearly 10 Years",
+      "experienceText": "Teaching Italian",
+      "features": {
+        "certified": {
+          "title": "Translation and Interpretation Expert",
+          "description": "Interpreting in many industries: politics, economics, medicine, banking, dentistry, forestry, agriculture, and for Italian-Vietnamese joint ventures, 100% Italian capital companies in production and export."
+        },
+        "cultural": {
+          "title": "Cultural Immersion",
+          "description": "10 years living in and 8 years teaching Italian"
+        },
+        "method": {
+          "title": "Translation and Interpretation Experience",
+          "description": "6 years of translation and interpretation experience from 2022 after COVID"
+        }
+      },
+      "button": "Contact for Consultation"
+    },
+    "testimonials": {
+      "title": "Student Testimonials",
+      "description": "Join thousands of satisfied learners who have achieved their Italian language goals",
+      "testimonial1": {
+        "text": "Ms. Tam teaches very well and clearly! From knowing nothing about Italian, I can now confidently order at an Italian restaurant. After only 3 months!",
+        "author": "Nguyen Minh Anh",
+        "course": "Beginner Course"
+      },
+      "testimonial2": {
+        "text": "The intermediate course was much better than I expected! Ms. Tam doesn't just teach grammar but also shares many interesting things about Italian culture. Learning feels like traveling!",
+        "author": "Tran Quoc Huy",
+        "course": "Intermediate Course"
+      },
+      "testimonial3": {
+        "text": "Investing in learning Italian with Ms. Tam was the best decision! Thanks to the advanced course, I got a job in Milan. Ms. Tam is truly the #1 Italian teacher!",
+        "author": "Le Thu Trang",
+        "course": "Advanced Course"
+      }
+    },
+    "cta": {
+      "title": "Ready to start your Italian journey?",
+      "description": "Join a community of passionate learners and discover the beauty of the Italian language",
+      "browseCourses": "Explore all courses",
+      "signUpNow": "Sign Up Now"
+    }
+  }
+}

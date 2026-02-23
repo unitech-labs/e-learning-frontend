@@ -1,0 +1,8 @@
+{
+  "error": {
+    "pageNotFound": "Trang không tìm thấy",
+    "pageNotFoundDescription": "Trang bạn đang tìm kiếm có thể đã bị xóa, đổi tên hoặc tạm thời không khả dụng.",
+    "needHelp": "Cần hỗ trợ?",
+    "popularLinks": "Liên kết phổ biến"
+  }
+}

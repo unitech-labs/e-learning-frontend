@@ -1,0 +1,87 @@
+{
+  "profile": {
+    "learning": "Learning",
+    "title": "Profile",
+    "editButton": "Edit",
+    "joinDate": "Joined since",
+    "coursesCount": "courses",
+    "tabs": {
+      "personalInfo": "Personal Info",
+      "myCourses": "My Courses"
+    },
+    "info": {
+      "email": "Email",
+      "phone": "Phone Number",
+      "address": "Address",
+      "profession": "Profession",
+      "gender": "Gender",
+      "dateOfBirth": "Date of Birth",
+      "bio": "Introduction",
+      "notAvailable": "Not updated"
+    },
+    "genders": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other"
+    },
+    "edit": {
+      "title": "Edit Profile",
+      "save": "Save Changes",
+      "cancel": "Cancel",
+      "success": "Profile updated successfully!",
+      "error": "Failed to update profile"
+    },
+    "avatar": {
+      "title": "Profile Picture",
+      "upload": "Upload new photo",
+      "remove": "Remove photo",
+      "change": "Change photo",
+      "uploading": "Uploading...",
+      "maxSize": "Max 5MB",
+      "formats": "JPG, PNG, GIF"
+    },
+    "profile": "Profile",
+    "myCourses": "My Courses",
+    "settings": "Settings",
+    "dashboard": "Dashboard",
+    "actions": "Actions",
+    "logout": "Logout",
+    "switchAccount": "Log in to study account",
+    "switchAccountSuccess": "Logged in successfully",
+    "switchAccountFailed": "Login failed",
+    "invalidCredentials": "Incorrect account or password",
+    "noOtherAccounts": "No other accounts to switch to",
+    "clickToLogin": "Click to log in",
+    "switching": "Logging in...",
+    "savedAccounts": "Saved accounts",
+    "or": "Or",
+    "loginNewAccount": "Log in to new account",
+    "loginFormRequired": "Please enter email and password",
+    "accountDeleted": "Account deleted",
+    "courses": {
+      "title": "My Courses",
+      "loading": "Loading enrolled courses...",
+      "schedule": "Schedule",
+      "progress": "Progress",
+      "classroom": "Classroom",
+      "course": "course",
+      "courses": "courses",
+      "continueLearning": "Continue Learning",
+      "moreSchedules": "other schedules",
+      "teacher": {
+        "title": "You are a teacher",
+        "message": "Please view the course list in the admin dashboard to manage your courses.",
+        "goToDashboard": "Go to Dashboard"
+      },
+      "error": {
+        "title": "Error loading courses",
+        "tryAgain": "Try Again"
+      },
+      "empty": {
+        "title": "No courses yet",
+        "message": "You haven't enrolled in any courses.",
+        "browseCourses": "Browse Courses"
+      }
+    }
+  }
+}

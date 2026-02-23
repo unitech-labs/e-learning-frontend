@@ -1,0 +1,13 @@
+{
+  "courseCard": {
+    "featured": "Featured",
+    "by": "By",
+    "unknownTeacher": "Unknown Instructor",
+    "unknownCategory": "Unknown Category",
+    "ratings": "Ratings",
+    "totalHours": "Total Hours",
+    "lectures": "Lectures",
+    "studentsEnrolled": "students enrolled",
+    "free": "Free"
+  }
+}

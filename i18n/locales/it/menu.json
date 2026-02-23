@@ -1,0 +1,13 @@
+{
+  "menu": {
+    "home": "Home",
+    "myCourses": "I miei corsi",
+    "calendars": "Calendario",
+    "settings": "Impostazioni",
+    "editProfile": "Modifica profilo",
+    "language": "Lingua",
+    "notifications": "Notifiche",
+    "password": "Password",
+    "devices": "Dispositivi"
+  }
+}

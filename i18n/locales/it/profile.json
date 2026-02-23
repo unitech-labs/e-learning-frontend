@@ -1,0 +1,87 @@
+{
+  "profile": {
+    "learning": "Apprendimento",
+    "title": "Profilo",
+    "editButton": "Modifica",
+    "joinDate": "Iscritto dal",
+    "coursesCount": "corsi",
+    "tabs": {
+      "personalInfo": "Informazioni personali",
+      "myCourses": "I miei corsi"
+    },
+    "info": {
+      "email": "Email",
+      "phone": "Telefono",
+      "address": "Indirizzo",
+      "profession": "Professione",
+      "gender": "Genere",
+      "dateOfBirth": "Data di nascita",
+      "bio": "Bio",
+      "notAvailable": "Non aggiornato"
+    },
+    "genders": {
+      "male": "Maschio",
+      "female": "Femmina",
+      "other": "Altro"
+    },
+    "edit": {
+      "title": "Modifica profilo",
+      "save": "Salva modifiche",
+      "cancel": "Annulla",
+      "success": "Profilo aggiornato con successo!",
+      "error": "Aggiornamento profilo fallito"
+    },
+    "avatar": {
+      "title": "Foto del profilo",
+      "upload": "Carica nuova foto",
+      "remove": "Rimuovi foto",
+      "change": "Cambia foto",
+      "uploading": "Caricamento in corso...",
+      "maxSize": "Massimo 5MB",
+      "formats": "JPG, PNG, GIF"
+    },
+    "profile": "Profilo",
+    "myCourses": "I miei corsi",
+    "settings": "Impostazioni",
+    "dashboard": "Dashboard",
+    "actions": "Azioni",
+    "logout": "Disconnetti",
+    "switchAccount": "Accedi a un account di studio",
+    "switchAccountSuccess": "Accesso completato con successo",
+    "switchAccountFailed": "Accesso fallito",
+    "invalidCredentials": "Username o password errati",
+    "noOtherAccounts": "Nessun altro account per lo switch",
+    "clickToLogin": "Clicca per accedere",
+    "switching": "Accesso in corso...",
+    "savedAccounts": "Account salvati",
+    "or": "O",
+    "loginNewAccount": "Accedi con nuovo account",
+    "loginFormRequired": "Inserisci email e password",
+    "accountDeleted": "Account eliminato",
+    "courses": {
+      "title": "I miei corsi",
+      "loading": "Caricamento corsi iscritti...",
+      "schedule": "Programma",
+      "progress": "Progresso",
+      "classroom": "Classe",
+      "course": "corso",
+      "courses": "corsi",
+      "continueLearning": "Continua a studiare",
+      "moreSchedules": "altri programmi",
+      "teacher": {
+        "title": "Sei un insegnante",
+        "message": "Visualizza la lista dei corsi nella dashboard di amministrazione per gestire i tuoi corsi.",
+        "goToDashboard": "Vai alla dashboard"
+      },
+      "error": {
+        "title": "Errore caricamento corsi",
+        "tryAgain": "Riprova"
+      },
+      "empty": {
+        "title": "Nessun corso presente",
+        "message": "Non sei ancora iscritto ad alcun corso.",
+        "browseCourses": "Sfoglia i corsi"
+      }
+    }
+  }
+}

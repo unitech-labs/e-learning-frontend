@@ -1,0 +1,19 @@
+{
+  "descriptionCourse": {
+    "about": "Informazioni su questo corso",
+    "whatYouWillLearn": "Cosa imparerai",
+    "requirements": "Requisiti",
+    "description": "Descrizione",
+    "curriculum": "Programma",
+    "instructor": "Interprete",
+    "reviews": "Recensioni",
+    "students": "studenti",
+    "lessons": "lezioni",
+    "hours": "ore",
+    "level": "Livello",
+    "language": "Lingua",
+    "lastUpdated": "Ultimo aggiornamento",
+    "enrolled": "iscritto",
+    "rating": "valutazione"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "error": {
+    "pageNotFound": "Pagina non trovata",
+    "pageNotFoundDescription": "La pagina che stai cercando potrebbe essere stata rimossa, rinominata o temporaneamente non disponibile.",
+    "needHelp": "Hai bisogno di aiuto?",
+    "popularLinks": "Link popolari"
+  }
+}

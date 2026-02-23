@@ -1,0 +1,580 @@
+{
+  "levels": {
+    "basic": {
+      "hero": {
+        "badge": "Livello A1 · A2 · Allineato al QCER",
+        "title": "Corso base di italiano per principianti",
+        "description": "Impara l'italiano da zero con un percorso di 12 settimane: pronuncia corretta, grammatica fondamentale, pratica della conversazione col metodo shadowing con un interprete madrelingua.",
+        "ctaCourse": "Scegli il corso adatto",
+        "ctaConsult": "Consulenza sul percorso",
+        "youWillAchieve": "Cosa otterrai"
+      },
+      "highlights": [
+        "Apprendimento online flessibile",
+        "Materiale didattico esclusivo da interpreti madrelingua",
+        "Impegno sui risultati secondo il quadro QCER"
+      ],
+      "stats": [
+        {
+          "label": "Studenti che hanno completato",
+          "value": "2.350+"
+        },
+        {
+          "label": "Grado di soddisfazione medio",
+          "value": "4.9/5"
+        },
+        {
+          "label": "Lezioni dal vivo",
+          "value": "40+"
+        },
+        {
+          "label": "Esercitazioni pratiche",
+          "value": "60+"
+        }
+      ],
+      "overview": {
+        "badge": "Panoramica del percorso",
+        "title": "Perché iniziare da un corso base?",
+        "intro": "Il corso A1-A2 è un passo fondamentale per gettare basi solide in italiano prima di passare ai livelli superiori. Il programma combina insegnamento dal vivo, esercizi interattivi e tecnologia di correzione della pronuncia tramite AI.",
+        "bullet1": "Costruisci un vocabolario di oltre 600 parole e 60 strutture grammaticali di base",
+        "bullet2": "Inizia a parlare con una pronuncia corretta grazie al coaching 1:1 in ogni lezione",
+        "bullet3": "Applicazione immediata attraverso mini-progetti: prenotazioni, scrivere email, telefonare",
+        "roadmapBadge": "Percorso di 12 settimane",
+        "roadmapTitle": "70% del tempo dedicato al parlato e ai riflessi",
+        "roadmapDesc": "Ogni lezione consiste in 3 parti: Warm-up speaking · Grammatica applicata · Simulazioni di situazioni reali. Nel fine settimana è prevista una sessione di coaching 1:1 per correggere la pronuncia.",
+        "scheduleTitle": "Orario flessibile",
+        "evening": "Sera",
+        "weekend": "Fine settimana",
+        "format": "Modalità",
+        "onlineLive": "Online dal vivo",
+        "viaZoom": "Via Zoom + LMS",
+        "homework": "Compiti",
+        "homeworkDesc": "30 minuti al giorno",
+        "appPractice": "App di pratica",
+        "monWedFri": "Lun - Mer - Ven",
+        "satSun": "Sabato - Domenica"
+      },
+      "journey": [
+        {
+          "title": "Partenza · Settimana 1-2",
+          "description": "Introduzione all'alfabeto, fonetica italiana, 50 parole fondamentali. Test di parlato iniziale per controllare l'impostazione vocale."
+        },
+        {
+          "title": "Basi grammaticali · Settimana 3-6",
+          "description": "Padronanza delle strutture della frase, presente indicativo e passato prossimo. Pratica di conversazione con scenari reali."
+        },
+        {
+          "title": "Applicazione pratica · Settimana 7-10",
+          "description": "Mini-progetti: prenotazione voli, hotel, scrittura email. Feedback 1:1 in ogni sessione."
+        },
+        {
+          "title": "Accelerazione e test · Settimana 11-12",
+          "description": "Simulazione d'esame QCER, valutazione della pronuncia tramite AI, consulenza per il passaggio ad A2/B1."
+        }
+      ],
+      "courses": {
+        "badge": "Programmi A1 · A2",
+        "sectionTitle": "Scegli il corso base più adatto ai tuoi obiettivi",
+        "sectionDesc": "Distinguiamo chiaramente tra A1 (fondamenta) e A2 (applicato) per aiutarti a orientare meglio il tuo percorso di studio futuro.",
+        "youWillAchieve": "Cosa otterrai",
+        "chooseFormat": "Scegli la modalità",
+        "A1": {
+          "title": "Italiano Fondamentale A1",
+          "description": "Impara pronuncia, vocabolario e strutture grammaticali di base per comunicare con fiducia nella vita quotidiana.",
+          "duration": "10 settimane · 30 lezioni",
+          "outcome1": "Presentare se stessi, la famiglia, i propri interessi",
+          "outcome2": "Comprendere e porre domande semplici (Cosa, Dove, Chi...)",
+          "outcome3": "Leggere cartelli, menu, brevi email",
+          "class1": "Classe A1 · 1 studente",
+          "class2": "Classe A1 · 3 studenti",
+          "type11": "Coaching 1:1",
+          "typeMicro": "Micro classe"
+        },
+        "A2": {
+          "title": "Italiano Applicato A2",
+          "description": "Accelera le abilità comunicative, comprendi contenuti più lunghi e sviluppa riflessi naturali in diverse situazioni.",
+          "duration": "12 settimane · 36 lezioni",
+          "outcome1": "Descrivere esperienze, raccontare ricordi",
+          "outcome2": "Comunicare con sicurezza in viaggio e nel lavoro di base",
+          "outcome3": "Scrivere email e brevi paragrafi con grammatica corretta",
+          "class1": "Classe A2 · 1 studente",
+          "class2": "Classe A2 · 3 studenti"
+        }
+      },
+      "benefits": {
+        "badge": "Il nostro valore aggiunto",
+        "title": "Ti accompagniamo in ogni momento",
+        "item1Title": "Interpreti madrelingua e bilingue",
+        "item1Desc": "Tutti i tutor hanno almeno il livello C2 e certificazione d'insegnamento, con supporto bilingue Vietnamita - Italiano.",
+        "item2Title": "Piattaforma di apprendimento intelligente",
+        "item2Desc": "Impara ovunque con l'app: flashcard, esercizi di ascolto, correzione pronuncia AI con standard IPA.",
+        "item3Title": "Garanzia sui risultati",
+        "item3Desc": "Simulazioni d'esame gratuite, possibilità di ripetere il corso gratis se non si raggiunge l'obiettivo concordato.",
+        "item4Title": "Community h24",
+        "item4Desc": "Partecipa al club di conversazione settimanale e ricevi supporto costante da un mentore."
+      },
+      "testimonials": {
+        "badge": "Feedback reali",
+        "title": "Cosa dicono gli studenti del corso base?",
+        "desc": "Il 98% degli studenti che completano il livello A1/A2 raggiunge l'obiettivo prefissato. Si sentono più sicuri nel parlare con gli italiani e proseguono verso livelli superiori.",
+        "viewMore": "Vedi altre recensioni",
+        "name1": "Nguyễn Thuỳ Linh · Studente in Italia",
+        "quote1": "Dopo 8 settimane di A1 posso affrontare con fiducia l'intervista per il visto in italiano. Gli insegnanti correggono la pronuncia in modo meticoloso.",
+        "name2": "Trần Đức Nam · Food blogger",
+        "quote2": "Andare in Italia per recensire cibo senza conoscere la lingua toglie emozione. Grazie alla classe A2 ora comunico in modo naturale con i locali."
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Domande frequenti sull'italiano base",
+        "subtitle": "Se hai dubbi, lascia i tuoi contatti per ricevere una consulenza dettagliata da un mentore.",
+        "q1": "Posso imparare anche se non so nulla di italiano?",
+        "a1": "Certamente! Il corso base è per chi parte da zero. Imparerai la pronuncia dall'inizio con il supporto di un mentore.",
+        "q2": "Sono previsti materiali cartacei?",
+        "a2": "Gli studenti ricevono materiale in PDF + quaderno degli esercizi + flashcard online. Per le lezioni 1:1 viene fornito un calendario personalizzato.",
+        "q3": "Posso sospendere il corso se sono impegnato?",
+        "a3": "Puoi sospendere per un massimo di 3 mesi, mantenendo l'accesso ai materiali e all'app durante questo periodo.",
+        "q4": "Qual è la differenza tra la classe per 1 studente e quella per 3?",
+        "a4": "La lezione 1:1 è totalmente personalizzata e flessibile negli orari, mentre la classe per 3 favorisce l'interazione di gruppo e ottimizza i costi."
+      },
+      "cta": {
+        "title": "Pronto per iniziare il tuo viaggio in italiano?",
+        "desc": "Iscriviti subito per assicurarti un posto nella prossima classe. Riceverai un test d'ingresso gratuito e un percorso personalizzato dal nostro team.",
+        "consult": "Prenota consulenza 1:1",
+        "schedule": "Vedi calendari lezioni"
+      }
+    },
+    "middle": {
+      "hero": {
+        "badge": "Livelli B1 · B2 · Allineato al QCER",
+        "title": "Corso intermedio per padroneggiare l'italiano accademico e professionale",
+        "description": "Esercita parlato, ascolto e scrittura di livello avanzato. Gestisci presentazioni, dibattiti e preparati agli esami B1/B2 con un sistema di esercizi pratici e supporto di un mentore.",
+        "ctaProgram": "Vedi programma livelli B",
+        "ctaMentor": "Incontra il mentore",
+        "youWillExperience": "Cosa vivrai"
+      },
+      "highlights": [
+        "Standardizzazione grammatica livelli B",
+        "Workshop di riflessi pratici",
+        "Interpreti madrelingua + mentore vietnamita"
+      ],
+      "stats": [
+        {
+          "label": "Studenti con livello B1+",
+          "value": "1.250+"
+        },
+        {
+          "label": "Tasso di superamento esami",
+          "value": "93%"
+        },
+        {
+          "label": "Ore di coaching privato",
+          "value": "24h+"
+        },
+        {
+          "label": "Progetti reali",
+          "value": "08 progetti"
+        }
+      ],
+      "overview": {
+        "badge": "Percorso intensivo",
+        "title": "Dalle basi A2 alla sicurezza del B1/B2 in 12 settimane",
+        "intro": "Il corso intermedio si concentra sullo sviluppo del pensiero in italiano, aiutandoti a presentare idee in modo logico e ad argomentare da più punti di vista, preparandoti contemporaneamente per le certificazioni internazionali.",
+        "bullet1": "Oltre 600 collocazioni ed idiomi comuni in ambito accademico e business",
+        "bullet2": "8 simulazioni di meeting reali con feedback video",
+        "bullet3": "2 simulazioni d'esame complete CELI/CILS con punteggi dettagliati",
+        "workshopBadge": "Workshop tematici",
+        "workshopTitle": "Debate Lab · Business Pitch · Academic Writing",
+        "workshopDesc": "Ogni mese sono previsti 3 workshop su invito con esperti italiani. Gli studenti perfezionano linguaggio del corpo, ritmo parlato, gestione delle domande difficili e storytelling in italiano.",
+        "scheduleTitle": "Orario flessibile",
+        "evening": "Sera",
+        "weekend": "Fine settimana",
+        "format": "Modalità",
+        "hybrid": "Ibrido",
+        "zoomOffline": "Zoom + Meet-up dal vivo",
+        "coaching": "Coaching",
+        "coachingDesc": "1 volta a settimana",
+        "feedback11": "Feedback 1:1",
+        "monWedFri": "Lun - Mer - Ven",
+        "satSun": "Sabato - Domenica"
+      },
+      "journey": [
+        {
+          "title": "Analisi delle lacune · Settimana 1-2",
+          "description": "Mock test QCER, analisi delle debolezze in pronuncia, grammatica e scrittura. Definizione dei KPI personali."
+        },
+        {
+          "title": "Accelerazione abilità · Settimana 3-6",
+          "description": "Shadowing con audio madrelingua, workshop di scrittura accademica, pratica di dibattito in situazioni reali."
+        },
+        {
+          "title": "Progetti pratici · Settimana 7-10",
+          "description": "Gestione casi studio: presentazione progetti, interviste. Correzione video da parte dei mentori."
+        },
+        {
+          "title": "Revisione e certificazione · Settimana 11-12",
+          "description": "Due simulazioni d'esame, coaching individuale per ogni abilità, assistenza per l'iscrizione agli esami CELI/CILS."
+        }
+      ],
+      "courses": {
+        "badge": "Programmi B1 · B2",
+        "sectionTitle": "Percorsi intermedi per ogni obiettivo",
+        "sectionDesc": "Dall'accademia alla carriera passando per la preparazione agli studi all'estero – ogni corso ha mentori dedicati ed esercizi intensivi.",
+        "youWillAchieve": "Cosa otterrai",
+        "chooseFormat": "Scegli la modalità",
+        "B1": {
+          "title": "Italiano Professionale B1",
+          "description": "Sviluppa abilità comunicative in ambito accademico e lavorativo, impara a esporre opinioni e a scrivere email professionali.",
+          "duration": "12 settimane · 36 lezioni",
+          "outcome1": "Descrivere attivamente esperienze, sogni e obiettivi",
+          "outcome2": "Presentare opinioni chiaramente con struttura logica",
+          "outcome3": "Scrivere email/saggi di 250 parole con grammatica corretta",
+          "class1": "Classe B1 · 1 studente",
+          "class2": "Classe B1 · 4 studenti",
+          "typeExec": "Executive coaching",
+          "typeElite": "Elite micro classe"
+        },
+        "B2": {
+          "title": "Impact Italian B2",
+          "description": "Perfeziona la capacità di dibattere, gestire situazioni complesse e comprendere contenuti tecnici di livello B2.",
+          "duration": "14 settimane · 40 lezioni",
+          "outcome1": "Argomentare e controbattere con struttura chiara",
+          "outcome2": "Comprendere podcast e talk show a velocità naturale",
+          "outcome3": "Scrivere report e proposte lunghe con termini tecnici",
+          "class1": "Classe B2 · 1 studente",
+          "class2": "Classe B2 · 6 studenti",
+          "typeMentor": "Mentore 1:1",
+          "typeSmall": "Piccolo gruppo"
+        }
+      },
+      "benefits": {
+        "badge": "Il nostro valore aggiunto",
+        "title": "Siamo sempre al tuo fianco",
+        "item1Title": "Curriculum standard livelli B",
+        "item1Desc": "Materiale esclusivo integrato con testi CELI, CILS e prove d'esame degli ultimi 3 anni.",
+        "item2Title": "Coaching comunicativo specialistico",
+        "item2Desc": "Moduli opzionali per Ospitalità, Marketing o Business per allenarsi su obiettivi specifici.",
+        "item3Title": "AI Performance Tracker",
+        "item3Desc": "Monitoraggio dei progressi e suggerimenti di studio intelligenti ogni giorno.",
+        "item4Title": "Mentore dedicato h24",
+        "item4Desc": "Supporto per chiarimenti, correzione compiti e promemoria lezioni via Discord/Telegram."
+      },
+      "testimonials": {
+        "badge": "Feedback reali",
+        "title": "Cosa dicono dei livelli intermedi?",
+        "desc": "9 studenti su 10 proseguono verso il B2 dopo il B1 grazie all'esperienza personalizzata e al supporto della community.",
+        "viewMore": "Vedi altre recensioni",
+        "name1": "Phạm Minh Thư · Marketing Manager",
+        "quote1": "Il percorso B1 mi ha aiutato a esporre le mie idee ai partner italiani con molta più sicurezza. Fantastici i workshop di dibattito.",
+        "name2": "Hoàng Tùng Lâm · Studente in Italia",
+        "quote2": "Ho superato l'esame CILS B2 oltre le aspettative grazie ai mock test e ai feedback. Correzioni su tutto, anche sul body language."
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Risposte sui corsi intermedi",
+        "subtitle": "Inviaci le tue domande per consigli su certificazioni, visti o carriera.",
+        "q1": "Posso partecipare senza certificato A2?",
+        "a1": "Se hai studiato almeno 200 ore o hai capacità comunicative di base, organizzeremo un test di posizionamento per inserirti nella classe giusta.",
+        "q2": "Il corso include la preparazione B1/B2?",
+        "a2": "Sì. Nelle ultime 4 settimane si praticano esami completi con correzioni secondo i parametri ufficiali.",
+        "q3": "C'è supporto per trovare lavoro o studiare all'estero?",
+        "a3": "Per chi completa il B2 con ottimi risultati nel parlato, abbiamo una rete di mentori per preparare interviste e documenti.",
+        "q4": "Cosa succede se perdo una lezione?",
+        "a4": "Le classi 1:1 permettono fino a 4 recuperi. Per le classi di gruppo sono disponibili le registrazioni e il supporto del mentore."
+      },
+      "cta": {
+        "title": "Raggiungi il traguardo B1/B2 più velocemente con un mentore",
+        "desc": "Iscriviti per una consulenza gratuita, fai il test di posizionamento e ricevi il tuo piano di studi entro 24 ore.",
+        "consult": "Prenota consulenza 1:1",
+        "explore": "Esplora i corsi intermedi"
+      }
+    },
+    "high": {
+      "hero": {
+        "badge": "Livelli C1 · C2 · Mastery Program",
+        "title": "Corso avanzato per chi vuole padroneggiare la lingua italiana",
+        "description": "Perfeziona la lingua a livello madrelingua per ricerca, negoziazioni o insegnamento. Impara con mentori internazionali.",
+        "ctaExplore": "Esplora il percorso livelli C",
+        "ctaConsult": "Prenota consulenza privata",
+        "journeyTitle": "Percorso personalizzato in 4 fasi"
+      },
+      "highlights": [
+        "Masterclass C1/C2 standard QCER",
+        "Interpreti madrelingua con oltre 15 anni di esperienza",
+        "Coaching per presentazioni e ricerca"
+      ],
+      "stats": [
+        {
+          "label": "Tasso di successo C1/C2",
+          "value": "88%"
+        },
+        {
+          "label": "Ore di seminari",
+          "value": "60h+"
+        },
+        {
+          "label": "Casi studio approfonditi",
+          "value": "10+"
+        },
+        {
+          "label": "Mentori internazionali",
+          "value": "12 mentori"
+        }
+      ],
+      "overview": {
+        "badge": "Signature Program",
+        "title": "Quando l'italiano diventa il tuo secondo istinto",
+        "intro": "Il programma avanzato si concentra sullo stile personale e sulla capacità di pensare in italiano riguardo argomenti complessi.",
+        "bullet1": "Seminari su testi accademici, filosofici e politici",
+        "bullet2": "Coaching per presentazioni in stile TED",
+        "bullet3": "Revisione da parte di due mentori per ogni compito",
+        "capstoneBadge": "Capstone studio",
+        "capstoneTitle": "Trasforma le idee in keynote, podcast o paper di ricerca",
+        "capstoneDesc": "Forniamo template, librerie di risorse e supporto tecnico per creare materiali professionali in italiano.",
+        "scheduleTitle": "Orario & coaching",
+        "intensive": "Intensivo",
+        "intensiveDesc": "2-4 volte a settimana",
+        "minutes": "120-150 minuti",
+        "coaching": "Coaching",
+        "coachingDesc": "Mentore 1:1",
+        "feedbackMulti": "Feedback multi-prospettiva",
+        "format": "Modalità",
+        "hybridStudio": "Hybrid studio",
+        "onlineWorkshop": "Online + workshop",
+        "materials": "Documentazione",
+        "resources": "Oltre 500 risorse",
+        "academicBusiness": "Accademico + Business"
+      },
+      "journey": [
+        {
+          "title": "Diagnostica e Obiettivi",
+          "description": "Valutazione a 360°, intervista su obiettivi professionali e definizione dei KPI personalizzati."
+        },
+        {
+          "title": "Deep Dive Seminar",
+          "description": "Analisi di testi complessi e dibattito approfondito con interpreti madrelingua."
+        },
+        {
+          "title": "Capstone Project",
+          "description": "Realizzazione del progetto finale: whitepaper, podcast o keynote con supporto 1:1."
+        },
+        {
+          "title": "Sprint verso la Certificazione",
+          "description": "Strategie d'esame, gestione del tempo e simulazioni nelle condizioni reali della prova."
+        }
+      ],
+      "courses": {
+        "badge": "Programmi C1 · C2",
+        "sectionTitle": "Scegli il percorso avanzato per l'eccellenza",
+        "sectionDesc": "Ogni corso include un capstone pratico, mentori internazionali e valutazione standard QCER massimi.",
+        "youWillAchieve": "Cosa otterrai",
+        "chooseFormat": "Scegli la modalità",
+        "C1": {
+          "title": "Italiano Strategico C1",
+          "description": "Padroneggia il linguaggio accademico e professionale, gestisci documenti complessi e presentazioni di alto livello.",
+          "duration": "14 settimane · 42 lezioni",
+          "outcome1": "Scrivere saggi di ricerca di oltre 800 parole",
+          "outcome2": "Comprendere appieno podcast e notizie a velocità reale",
+          "outcome3": "Coordinare meeting multiculturali con risposte rapide",
+          "class1": "Classe C1 · 1 studente",
+          "class2": "Classe C1 · 5 studenti",
+          "typePremier": "Premier coaching",
+          "typeMaster": "Master cohort"
+        },
+        "C2": {
+          "title": "Signature Italian C2",
+          "description": "Raggiungi la raffinatezza di un madrelingua: gestisci ricerche specialistiche e negoziazioni ad alto livello.",
+          "duration": "16 settimane · 48 lezioni",
+          "outcome1": "Revisionare documenti professionali e contratti",
+          "outcome2": "Negoziare in contesti complessi con partner italiani",
+          "outcome3": "Ottenere il livello C2 negli esami CELI 5 / CILS C2",
+          "class1": "Classe C2 · 1 studente",
+          "class2": "C2 Research Lab",
+          "typeAdvisor": "Advisor 1:1",
+          "typeProject": "Project-based"
+        }
+      },
+      "benefits": {
+        "badge": "Il nostro valore aggiunto",
+        "title": "Esperienza di studio di classe mondiale",
+        "item1Title": "Rete di mentori internazionali",
+        "item1Desc": "Interpreti C2 con esperienza universitaria in Italia e mentori vietnamiti per l'orientamento di carriera.",
+        "item2Title": "Laboratorio audio e video",
+        "item2Desc": "Registra discorsi e podcast con attrezzatura professionale per analisi fonetica e gestuale.",
+        "item3Title": "Feedback basato sui dati",
+        "item3Desc": "AI Speech Lab valuta 30 criteri e produce report dettagliati dopo ogni sessione.",
+        "item4Title": "Network di esperti",
+        "item4Desc": "Unisciti alla community alumni in Italia e Vietnam per far crescere collaborazioni e carriera."
+      },
+      "testimonials": {
+        "badge": "Feedback reali",
+        "title": "Storie di successo dai livelli avanzati",
+        "desc": "I nostri studenti C1/C2 lavorano ora in grandi aziende italiane o insegnano nelle università.",
+        "viewMore": "Vedi altre recensioni",
+        "name1": "Lê Hồng Nhung · Dottoranda",
+        "quote1": "Il corso C1 mi ha permesso di scrivere la mia ricerca in italiano fluidamente. Feedback preziosi sui testi.",
+        "name2": "Đặng Quang Huy · Business Director",
+        "quote2": "Dopo 4 mesi di C2, gestisco trattative con partner italiani con sicurezza. Le simulazioni sono utilissime."
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Domande sui programmi avanzati",
+        "subtitle": "Siamo pronti ad assisterti per esami, visti di studio o orientamento professionale.",
+        "q1": "Quali sono i requisiti per C1/C2?",
+        "a1": "È necessario aver completato il B2 o superare un test di posizionamento per garantire la preparazione adeguata.",
+        "q2": "È previsto supporto per tesi o documenti accademici?",
+        "a2": "Sì. Il mentore assiste nella revisione stilistica e strutturale dei documenti secondo i requisiti richiesti.",
+        "q3": "Posso partecipare se non voglio sostenere l'esame?",
+        "a3": "Certamente. Puoi scegliere un percorso tematico (business, diplomatico) e completare solo il capstone project.",
+        "q4": "Ci sono programmi di studio in Italia?",
+        "a4": "Gli studenti dal livello C1 possono fare brevi viaggi di studio di 2 settimane in Italia per praticare con i locali (costi a parte)."
+      },
+      "cta": {
+        "title": "Pronto a raggiungere la vetta della lingua italiana?",
+        "desc": "Prenota un colloquio con il Direttore Accademico per un'analisi di competenza e un piano personalizzato.",
+        "consult": "Consulenza approfondita",
+        "viewCourses": "Vedi corsi C1/C2"
+      }
+    },
+    "driving": {
+      "hero": {
+        "badge": "Corso di guida · Sicurezza e Professionalità",
+        "title": "Corso di guida sicura per tutti",
+        "description": "Impara a guidare dai livelli base agli avanzati con interpreti professionisti e supporto per l'esame della patente.",
+        "ctaProgram": "Vedi programma",
+        "ctaRegister": "Prenota consulenza",
+        "youWillExperience": "Cosa vivrai"
+      },
+      "highlights": [
+        "Pratica di guida sicura",
+        "Interpreti con oltre 10 anni di esperienza",
+        "Supporto per l'esame della patente"
+      ],
+      "stats": [
+        {
+          "label": "Studenti diplomati",
+          "value": "2.500+"
+        },
+        {
+          "label": "Tasso di successo esami",
+          "value": "95%"
+        },
+        {
+          "label": "Ore di pratica",
+          "value": "30h+"
+        },
+        {
+          "label": "Auto disponibili",
+          "value": "15+ auto"
+        }
+      ],
+      "overview": {
+        "badge": "Percorso professionale",
+        "title": "Dall'inizio alla fiducia alla guida in 8 settimane",
+        "intro": "Corso strutturato per padroneggiare teoria e pratica, guidando con sicurezza e superando l'esame ufficiale.",
+        "bullet1": "Teoria con manuali standard aggiornati",
+        "bullet2": "Pratica con auto moderne e manutenzionate",
+        "bullet3": "Assistenza per iscrizione agli esami e documenti",
+        "highlightsBadge": "Vantaggi principali",
+        "highlightsTitle": "Interpreti dedicati · Auto moderne · Supporto h24",
+        "highlightsDesc": "Team di interpreti esperti, pazienti e dedicati. Veicoli sicuri e supporto costante per ogni studente.",
+        "scheduleTitle": "Orario flessibile",
+        "morning": "Mattina",
+        "afternoon": "Pomeriggio",
+        "evening": "Sera",
+        "weekend": "Fine settimana",
+        "monFri": "Lun - Ven",
+        "satSun": "Sab - Dom"
+      },
+      "journey": [
+        {
+          "title": "Teoria e Codice della strada · Settimana 1-2",
+          "description": "Apprendimento delle regole del traffico, segnaletica e norme di sicurezza."
+        },
+        {
+          "title": "Pratica di base · Settimana 3-5",
+          "description": "Familiarizzazione con il veicolo e manovre fondamentali: avvio, sosta, parcheggio."
+        },
+        {
+          "title": "Guida su strada · Settimana 6-7",
+          "description": "Gestione del traffico reale e situazioni stradali complesse."
+        },
+        {
+          "title": "Revisione ed Esame · Settimana 8",
+          "description": "Consolidamento delle conoscenze, simulazioni d'esame e prova finale."
+        }
+      ],
+      "courses": {
+        "badge": "Corsi di guida",
+        "sectionTitle": "Scegli il corso adatto alle tue esigenze",
+        "sectionDesc": "Dai principianti a chi vuole migliorare le proprie abilità, ogni corso è personalizzato.",
+        "youWillAchieve": "Cosa otterrai",
+        "chooseFormat": "Scegli la modalità",
+        "basic": {
+          "level": "Base",
+          "title": "Corso di guida base",
+          "description": "Impara i fondamentali, il codice della strada e la sicurezza stradale.",
+          "duration": "8 settimane · 20 lezioni",
+          "outcome1": "Padronanza del codice della strada",
+          "outcome2": "Abilità di guida fondamentali",
+          "outcome3": "Sicurezza nelle manovre ordinarie",
+          "class1": "Classe base · 1 studente",
+          "class2": "Classe base · 4 studenti",
+          "typePrivate": "Lezione privata",
+          "typeGroup": "Lezione di gruppo"
+        },
+        "advanced": {
+          "level": "Avanzato",
+          "title": "Corso di guida avanzato",
+          "description": "Migliora le tue capacità per situazioni complesse e preparati per patenti superiori.",
+          "duration": "10 settimane · 25 lezioni",
+          "outcome1": "Gestione di manovre difficili",
+          "outcome2": "Guida sicura in autostrada",
+          "outcome3": "Successo nell'esame della patente",
+          "class1": "Classe avanzata · 1 studente",
+          "class2": "Classe avanzata · 6 studenti"
+        }
+      },
+      "benefits": {
+        "badge": "Il nostro valore aggiunto",
+        "title": "Perché sceglierci?",
+        "item1Title": "Programma ufficiale standard",
+        "item1Desc": "Insegnamento basato sugli standard ufficiali del codice della strada aggiornato.",
+        "item2Title": "Veicoli moderni",
+        "item2Desc": "Flotta di auto moderne e sicure per la pratica degli studenti.",
+        "item3Title": "Interpreti professionisti",
+        "item3Desc": "Team esperto e paziente che ti accompagna passo dopo passo.",
+        "item4Title": "Supporto esami",
+        "item4Desc": "Assistenza completa nella preparazione dei documenti e durante le prove d'esame."
+      },
+      "testimonials": {
+        "badge": "Feedback reali",
+        "title": "Cosa dicono gli studenti del corso?",
+        "desc": "Il 95% supera l'esame al primo tentativo grazie al nostro metodo scientifico.",
+        "viewMore": "Vedi altre recensioni",
+        "name1": "Nguyễn Văn An · Studente",
+        "quote1": "Il corso mi ha reso sicuro alla guida in 8 settimane. Gli interpreti spiegano ogni dettaglio. Esame passato subito!",
+        "name2": "Trần Thị Bình · Impiegata",
+        "quote2": "Avevo paura di guidare, ma grazie alla pazienza degli esperti ho superato il timore e ora guido con serenità."
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Domande sul corso di guida",
+        "subtitle": "Contattaci per informazioni su orari o procedure burocratiche.",
+        "q1": "Posso imparare se non so nulla di guida?",
+        "a1": "Certamente. Inizieremo dalle basi più elementari guidandoti gradualmente.",
+        "q2": "Gli orari sono flessibili?",
+        "a2": "Sì, offriamo diverse fasce orarie durante il giorno, la sera e nel fine settimana.",
+        "q3": "Il costo include la tassa dell'esame?",
+        "a3": "Il corso copre l'istruzione. Ti aiuteremo comunque con tutta la burocrazia per l'iscrizione all'esame.",
+        "q4": "Cosa succede se vengo bocciato?",
+        "a4": "Ti supporteremo con lezioni di ripasso gratuite sulle parti carenti prima del prossimo tentativo."
+      },
+      "cta": {
+        "title": "Pronto a iniziare a guidare in sicurezza?",
+        "desc": "Richiedi una consulenza e ricevi il tuo piano di formazione personalizzato entro 24 ore.",
+        "consult": "Prenota consulenza 1:1",
+        "explore": "Esplora il corso"
+      }
+    }
+  }
+}

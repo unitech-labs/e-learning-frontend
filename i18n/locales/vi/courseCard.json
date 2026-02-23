@@ -1,0 +1,13 @@
+{
+  "courseCard": {
+    "featured": "Nổi bật",
+    "by": "Bởi",
+    "unknownTeacher": "Giáo viên không xác định",
+    "unknownCategory": "Danh mục không xác định",
+    "ratings": "Đánh giá",
+    "totalHours": "Tổng số giờ",
+    "lectures": "Bài giảng",
+    "studentsEnrolled": "học viên đã đăng ký",
+    "free": "Miễn phí"
+  }
+}

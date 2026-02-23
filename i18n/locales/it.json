@@ -228,152 +228,158 @@
       "deleteFailed": "Impossibile eliminare il dispositivo."
     }
   },
-  "homepage": {
-    "hero": {
-      "badge": "Học với sự hướng dẫn chuyên nghiệp",
-      "title": "Học tiếng Ý cùng Phan Tâm",
-      "description": "Mỗi ngôn ngữ là một cánh cửa đến thế giới mới. \n Hãy để Phan Tâm đồng hành cùng bạn trên hành trình chinh phục tiếng Ý",
-      "exploreCourses": "Khám phá khóa học",
-      "signUpNow": "Đăng ký ngay",
-      "stats": {
-        "activeStudents": "Học viên hoạt động",
-        "averageRating": "Đánh giá trung bình",
-        "completionRate": "Tỷ lệ hoàn thành"
-      }
-    },
-    "courses": {
-      "title": "Khóa học nổi bật",
-      "description": "Các khóa học được thiết kế cẩn thận để đưa bạn từ người mới bắt đầu đến người nói thành thạo",
-      "badges": {
-        "bestseller": "Bán chạy nhất",
-        "popular": "Phổ biến",
-        "new": "Mới"
-      },
-      "levels": {
-        "beginner": "Người mới bắt đầu",
-        "intermediate": "Trung cấp",
-        "advanced": "Nâng cao"
-      },
-      "course1": {
-        "title": "Tiếng Ý cho người mới bắt đầu",
-        "description": "Bắt đầu hành trình tiếng Ý của bạn với từ vựng cần thiết, nền tảng ngữ pháp và kỹ năng giao tiếp cho các tình huống hàng ngày.",
-        "duration": "12 tuần"
-      },
-      "course2": {
-        "title": "Thành thạo tiếng Ý trung cấp",
-        "description": "Nâng cao tiếng Ý của bạn với ngữ pháp phức tạp, cách diễn đạt thành ngữ và hiểu biết văn hóa để giao tiếp tự tin.",
-        "duration": "16 tuần"
-      },
-      "course3": {
-        "title": "Hội thoại nâng cao",
-        "description": "Hoàn thiện sự lưu loát của bạn với các chủ đề nâng cao, tiếng Ý chuyên nghiệp và giao tiếp tinh tế cho công việc và du lịch.",
-        "duration": "20 tuần"
-      }
-    },
-    "quiz": {
-      "badge": "Quiz tương tác",
-      "title": "Luyện tập tiếng Ý với hệ thống quiz thông minh",
-      "description": "Củng cố kiến thức sau mỗi bài học với bài kiểm tra thích ứng, phản hồi tức thì và thử thách gamify giúp bạn luôn hứng thú.",
-      "metrics": {
-        "questions": {
-          "value": "1.200+",
-          "label": "Câu hỏi luyện tập"
-        },
-        "passRate": {
-          "value": "94%",
-          "label": "Tỷ lệ vượt qua trung bình"
-        },
-        "time": {
-          "value": "10 phút",
-          "label": "Thời lượng mỗi phiên"
+
+
+
+    "homepage": {
+      "hero": {
+        "badge": "Impara con una guida professionale",
+        "title": "Impara l’italiano con Phan Tâm",
+        "description": "Ogni lingua è una porta verso un nuovo mondo.\nLascia che Phan Tâm ti accompagni nel tuo viaggio alla scoperta dell’italiano.",
+        "exploreCourses": "Scopri i corsi",
+        "signUpNow": "Iscriviti ora",
+        "stats": {
+          "activeStudents": "Studenti attivi",
+          "averageRating": "Valutazione media",
+          "completionRate": "Tasso di completamento"
         }
       },
-      "highlights": {
-        "adaptive": {
-          "title": "Lộ trình thích ứng",
-          "description": "Hệ thống tự điều chỉnh độ khó dựa trên tiến độ để bạn luôn được thử thách vừa sức."
+      "courses": {
+        "title": "Corsi in evidenza",
+        "description": "Corsi progettati con cura per accompagnarti dal livello principiante alla piena padronanza della lingua.",
+        "badges": {
+          "bestseller": "Più venduto",
+          "popular": "Popolare",
+          "new": "Nuovo"
         },
-        "feedback": {
-          "title": "Phản hồi tức thì",
-          "description": "Mỗi đáp án đều có giải thích, ví dụ và ghi nhớ để bạn hiểu sâu và nhớ lâu."
+        "levels": {
+          "beginner": "Principiante",
+          "intermediate": "Intermedio",
+          "advanced": "Avanzato"
         },
-        "certification": {
-          "title": "Sẵn sàng nhận chứng nhận",
-          "description": "Hoàn thành các mốc quiz để mở khóa huy hiệu và chứng nhận ghi nhận nỗ lực của bạn."
+        "course1": {
+          "title": "Italiano per principianti",
+          "description": "Inizia il tuo percorso con il vocabolario essenziale, le basi grammaticali e le competenze comunicative per le situazioni quotidiane.",
+          "duration": "12 settimane"
+        },
+        "course2": {
+          "title": "Italiano intermedio avanzato",
+          "description": "Migliora il tuo italiano con grammatica più complessa, espressioni idiomatiche e approfondimenti culturali per comunicare con sicurezza.",
+          "duration": "16 settimane"
+        },
+        "course3": {
+          "title": "Conversazione avanzata",
+          "description": "Perfeziona la tua fluidità con argomenti avanzati, italiano professionale e comunicazione efficace per lavoro e viaggi.",
+          "duration": "20 settimane"
         }
       },
-      "cta": "Trải nghiệm quiz ngay",
-      "summary": {
-        "title": "Hiệu suất trực tiếp",
-        "value": "92% Chính xác",
-        "caption": "Tiếp tục nhé! Bạn đang tiến rất nhanh để làm chủ vốn từ vựng trình độ trung cấp."
-      },
-      "preview": {
-        "title": "Quiz Từ vựng tiếng Ý",
-        "subtitle": "Câu hỏi 3 - Còn 12 câu",
-        "badge": "Chế độ thích ứng",
-        "topic": "Trọng tâm từ vựng",
-        "question": "Từ \"Buongiorno\" được dịch chính xác là gì?",
-        "options": {
-          "a": "Chào buổi tối",
-          "b": "Chào buổi sáng",
-          "c": "Hẹn gặp lại"
+      "quiz": {
+        "badge": "Quiz interattivo",
+        "title": "Esercitati con il nostro sistema di quiz intelligente",
+        "description": "Rafforza le tue conoscenze dopo ogni lezione con test adattivi, feedback immediato e sfide gamificate per mantenere alta la motivazione.",
+        "metrics": {
+          "questions": {
+            "value": "1.200+",
+            "label": "Domande di pratica"
+          },
+          "passRate": {
+            "value": "94%",
+            "label": "Percentuale media di superamento"
+          },
+          "time": {
+            "value": "10 minuti",
+            "label": "Durata media per sessione"
+          }
         },
-        "correct": "Đáp án đúng"
-      },
-      "progress": {
-        "label": "Tiến độ",
-        "value": "Hoàn thành 80%"
-      }
-    },
-    "instructor": {
-      "badge": "Gặp gỡ phiên dịch viên của bạn",
-      "title": "Học cùng Phan Tâm",
-      "description": "Với gần một thập kỷ kinh nghiệm giảng dạy tiếng Ý cho sinh viên quốc tế,Phan Tâm mang đến sự kết hợp độc đáo giữa chuyên môn ngôn ngữ và niềm đam mê văn hóa trong mỗi bài học.",
-      "experience": "Gần 10 Năm",
-      "experienceText": "Giảng dạy tiếng Ý",
-      "features": {
-        "certified": {
-          "title": "Chuyên gia dịch thuật và phiên dịch",
-          "description": "Phiên dịch ở rất nhiều ngành: chính trị, kinh tế, y học, ngân hàng, y học răng hàm mặt, lâm nghiệm, nông nghiệm, và cho các công ty liên doanh Ý-Việt, các công ty vốn 100% Ý về sản xuất, xuất khẩu."
+        "highlights": {
+          "adaptive": {
+            "title": "Percorso adattivo",
+            "description": "Il sistema regola automaticamente il livello di difficoltà in base ai tuoi progressi."
+          },
+          "feedback": {
+            "title": "Feedback immediato",
+            "description": "Ogni risposta include spiegazioni ed esempi per aiutarti a comprendere meglio e ricordare più a lungo."
+          },
+          "certification": {
+            "title": "Pronto per la certificazione",
+            "description": "Completa i traguardi dei quiz per sbloccare badge e certificati che valorizzano i tuoi risultati."
+          }
         },
-        "cultural": {
-          "title": "Đắm mình trong văn hóa",
-          "description": "10 năm sinh sống và 8 năm giảng dạy tiếng Ý"
+        "cta": "Prova il quiz ora",
+        "summary": {
+          "title": "Prestazione in tempo reale",
+          "value": "92% di accuratezza",
+          "caption": "Continua così! Stai progredendo rapidamente nel vocabolario di livello intermedio."
         },
-        "method": {
-          "title": "Kinh nghiệm dịch thuật và phiên dịch",
-          "description": "6 năm kinh nghiệm dịch thuật và phiên dịch từ 2022 sau COVID"
+        "preview": {
+          "title": "Quiz di vocabolario italiano",
+          "subtitle": "Domanda 3 - 12 rimanenti",
+          "badge": "Modalità adattiva",
+          "topic": "Focus sul vocabolario",
+          "question": "Qual è la traduzione corretta di \"Buongiorno\"?",
+          "options": {
+            "a": "Buona sera",
+            "b": "Buongiorno",
+            "c": "Arrivederci"
+          },
+          "correct": "Risposta corretta"
+        },
+        "progress": {
+          "label": "Progresso",
+          "value": "80% completato"
         }
       },
-      "button": "Liên hệ tư vấn"
-    },
-    "testimonials": {
-      "title": "Học viên nói gì",
-      "description": "Tham gia cùng hàng nghìn người học hài lòng đã đạt được mục tiêu ngôn ngữ Ý của họ",
-      "testimonial1": {
-        "text": "Cô Tâm dạy rất hay và dễ hiểu! Từ chỗ không biết gì về tiếng Ý, giờ mình đã có thể tự tin gọi món ở nhà hàng Ý rồi. Chỉ sau 3 tháng thôi!",
-        "author": "Nguyễn Minh Anh",
-        "course": "Khóa học người mới bắt đầu"
+      "instructor": {
+        "badge": "Incontra il tuo insegnante",
+        "title": "Impara con Phan Tâm",
+        "description": "Con quasi un decennio di esperienza nell’insegnamento dell’italiano a studenti internazionali, Phan Tâm combina competenza linguistica e passione culturale in ogni lezione.",
+        "experience": "Quasi 10 anni",
+        "experienceText": "di insegnamento dell’italiano",
+        "features": {
+          "certified": {
+            "title": "Esperta in traduzione e interpretariato",
+            "description": "Esperienza in diversi settori: politica, economia, medicina, banca, odontoiatria, ricerca clinica, agricoltura e aziende italo-vietnamite."
+          },
+          "cultural": {
+            "title": "Immersione culturale",
+            "description": "10 anni di vita in Italia e 8 anni di insegnamento."
+          },
+          "method": {
+            "title": "Esperienza professionale",
+            "description": "6 anni di esperienza in traduzione e interpretariato dal 2022 dopo il periodo COVID."
+          }
+        },
+        "button": "Richiedi consulenza"
       },
-      "testimonial2": {
-        "text": "Khóa học trung cấp hay hơn mình tưởng nhiều! Cô Tâm không chỉ dạy ngữ pháp mà còn chia sẻ nhiều điều thú vị về văn hóa Ý. Học mà như được đi du lịch vậy!",
-        "author": "Trần Quốc Huy",
-        "course": "Khóa học trung cấp"
+      "testimonials": {
+        "title": "Cosa dicono gli studenti",
+        "description": "Unisciti a migliaia di studenti soddisfatti che hanno raggiunto i loro obiettivi nella lingua italiana.",
+        "testimonial1": {
+          "text": "La professoressa Tâm insegna in modo chiaro e coinvolgente! In soli 3 mesi sono riuscita a ordinare con sicurezza in un ristorante italiano.",
+          "author": "Nguyễn Minh Anh",
+          "course": "Corso per principianti"
+        },
+        "testimonial2": {
+          "text": "Il corso intermedio è stato sorprendentemente interessante! Non solo grammatica, ma anche cultura italiana. È stato come viaggiare imparando.",
+          "author": "Trần Quốc Huy",
+          "course": "Corso intermedio"
+        },
+        "testimonial3": {
+          "text": "Investire nell’italiano con la professoressa Tâm è stata la scelta migliore! Grazie al corso avanzato ho trovato lavoro a Milano.",
+          "author": "Lê Thu Trang",
+          "course": "Corso avanzato"
+        }
       },
-      "testimonial3": {
-        "text": "Đầu tư học tiếng Ý với cô Tâm là quyết định đúng đắn nhất! Nhờ khóa học nâng cao mà mình đã xin được việc ở Milan. Cô Tâm thực sự là cô giáo tiếng Ý số 1!",
-        "author": "Lê Thu Trang",
-        "course": "Khóa học nâng cao"
+      "cta": {
+        "title": "Pronto a iniziare il tuo viaggio con l’italiano?",
+        "description": "Unisciti alla nostra comunità di studenti appassionati e scopri la bellezza della lingua italiana.",
+        "browseCourses": "Scopri tutti i corsi",
+        "signUpNow": "Iscriviti ora"
       }
     },
-    "cta": {
-      "title": "Sẵn sàng bắt đầu hành trình tiếng Ý của bạn?",
-      "description": "Tham gia cộng đồng người học đam mê và khám phá vẻ đẹp của ngôn ngữ Ý",
-      "browseCourses": "Khám phá tất cả khóa học",
-      "signUpNow": "Đăng ký ngay"
-    }
-  },
+
+
+
   "admin": {
     "dashboard": {
       "title": "Tổng quan Dashboard",
@@ -980,7 +986,6 @@
         "checkInTooEarly": "Bạn đang cố gắng vào học quá sớm. Vui lòng đợi đến khi buổi học bắt đầu.",
         "checkInNotYetAvailable": "Chưa thể điểm danh. Có thể điểm danh từ {time}",
         "checkInNotYetAvailableFrom": "Chưa thể điểm danh. Có thể điểm danh từ {time}",
-        "Check-in not yet available. Available from 2025-10-13T01:15:00+00:00": "Chưa thể điểm danh. Có thể điểm danh từ 2025-10-13T01:15:00+00:00"
       },
       "edit": {
         "title": "Chỉnh sửa lớp học",
@@ -1789,6 +1794,9 @@
       "author": "Phan Tâm"
     }
   },
+
+
+
   "sidebar": {
     "search": "Tìm kiếm",
     "studyNow": "Học ngay",
@@ -1798,6 +1806,8 @@
     "completeCourse": "Hoàn thành khóa học",
     "checkVideo": "Xem video 1 phút và bắt đầu sử dụng các thành phần như một chuyên gia"
   },
+
+
   "menu": {
     "home": "Trang chủ",
     "myCourses": "Khóa học của tôi",
@@ -1809,6 +1819,8 @@
     "password": "Mật khẩu",
     "devices": "Thiết bị"
   },
+
+
   "adminMenu": {
     "overview": "Tổng quan",
     "generalCalendar": "Lịch tổng",
@@ -1821,6 +1833,8 @@
     "videoPosts": "Video Posts",
     "settings": "Cài đặt"
   },
+
+
   "profile": {
     "learning": "Học tập",
     "title": "Hồ sơ",
@@ -1906,6 +1920,8 @@
       }
     }
   },
+
+
   "learning": {
     "learning": "Học tập",
     "welcome": "Chào mừng trở lại, {name}! 👋",
@@ -1986,9 +2002,13 @@
       }
     }
   },
+
+
   "profilePage": {
     "shareProfileSuccess": "Đã sao chép liên kết hồ sơ vào clipboard!"
   },
+
+
   "profileSidebar": {
     "profile": "Hồ sơ",
     "myCourses": "Khóa học của tôi",
@@ -1996,6 +2016,8 @@
     "message": "Tin nhắn",
     "myReviews": "Đánh giá của tôi"
   },
+
+
   "profileForm": {
     "firstName": "Tên",
     "lastName": "Họ",
@@ -2027,6 +2049,8 @@
       "updateFailed": "Cập nhật hồ sơ thất bại"
     }
   },
+
+
   "classroomDetail": {
     "loading": "Đang tải thông tin lớp học...",
     "maxStudents": "học viên tối đa",
@@ -2112,6 +2136,8 @@
       "confirmPaid": "Tôi đã chuyển tiền"
     }
   },
+
+
   "courseDetail": {
     "loading": "Đang tải chi tiết khóa học...",
     "error": {
@@ -2138,6 +2164,8 @@
       "loadMoreFailedDescription": "Đã xảy ra lỗi khi tải thêm tài liệu. Vui lòng thử lại."
     }
   },
+
+
   "descriptionCourse": {
     "about": "Về khóa học này",
     "whatYouWillLearn": "Bạn sẽ học được gì",
@@ -2155,6 +2183,8 @@
     "enrolled": "đã đăng ký",
     "rating": "đánh giá"
   },
+
+
   "courseCard": {
     "featured": "Nổi bật",
     "by": "Bởi",
@@ -2166,6 +2196,8 @@
     "studentsEnrolled": "học viên đã đăng ký",
     "free": "Miễn phí"
   },
+
+
   "checkoutCard": {
     "enrollNow": "Đăng ký ngay",
     "buyNow": "Mua ngay",

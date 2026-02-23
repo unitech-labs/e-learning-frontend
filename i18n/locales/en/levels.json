@@ -1,0 +1,580 @@
+{
+  "levels": {
+    "basic": {
+      "hero": {
+        "badge": "Level A1 · A2 · CEFR aligned",
+        "title": "Basic Italian Course for Beginners",
+        "description": "Learn Italian from scratch with a 12-week roadmap: standard pronunciation, foundational grammar, and speaking reflex practice using the shadowing method with native instructors.",
+        "ctaCourse": "Choose a suitable course",
+        "ctaConsult": "Get roadmap consultation",
+        "youWillAchieve": "You will achieve"
+      },
+      "highlights": [
+        "Flexible online learning",
+        "Exclusive curriculum from native instructors",
+        "Committed output according to CEFR framework"
+      ],
+      "stats": [
+        {
+          "label": "Students completed",
+          "value": "2,350+"
+        },
+        {
+          "label": "Average satisfaction score",
+          "value": "4.9/5"
+        },
+        {
+          "label": "Live sessions",
+          "value": "40+"
+        },
+        {
+          "label": "Practical assignments",
+          "value": "60+"
+        }
+      ],
+      "overview": {
+        "badge": "Roadmap Overview",
+        "title": "Why start with a basic course?",
+        "intro": "The A1-A2 course is an important stepping stone to help you grasp the Italian foundation before moving to higher levels. The program combines direct teaching, interactive exercises, and AI pronunciation scoring technology.",
+        "bullet1": "Build a vocabulary of 600+ words and 60 basic sentence structures",
+        "bullet2": "Master standard native pronunciation with 1:1 coaching per session",
+        "bullet3": "Apply immediately through real projects: booking tickets, rooms, writing emails, making calls",
+        "roadmapBadge": "12-week roadmap",
+        "roadmapTitle": "70% of time spent on speaking and reflexes",
+        "roadmapDesc": "Each session consists of 3 parts: Warm-up speaking · Applied grammar · Real-life scenario simulation. Weekend 1:1 coaching sessions to correct pronunciation errors.",
+        "scheduleTitle": "Flexible schedule",
+        "evening": "Evening",
+        "weekend": "Weekend",
+        "format": "Format",
+        "onlineLive": "Online live",
+        "viaZoom": "Via Zoom + LMS",
+        "homework": "Homework",
+        "homeworkDesc": "30 mins/day",
+        "appPractice": "Practice App",
+        "monWedFri": "Mon - Wed - Fri",
+        "satSun": "Sat - Sun"
+      },
+      "journey": [
+        {
+          "title": "Kick-off · Weeks 1-2",
+          "description": "Get familiar with the alphabet, Italian phonemes, and 50 foundational words. Demo speaking test to check mouth positioning."
+        },
+        {
+          "title": "Foundation Building · Weeks 3-6",
+          "description": "Master sentence structures, present tense, and near past. Practice conversations with real-life scenarios."
+        },
+        {
+          "title": "Real-life Application · Weeks 7-10",
+          "description": "Small projects: booking flights, hotel rooms, writing emails. 1:1 feedback every session."
+        },
+        {
+          "title": "Acceleration & Testing · Weeks 11-12",
+          "description": "CEFR mock tests, AI pronunciation assessment, roadmap consultation for A2/B1 levels."
+        }
+      ],
+      "courses": {
+        "badge": "A1 · A2 Programs",
+        "sectionTitle": "Choose a basic course suitable for your goals",
+        "sectionDesc": "We clearly distinguish between A1 (foundation) and A2 (applied) to help you easily orient your next learning path.",
+        "youWillAchieve": "You will achieve",
+        "chooseFormat": "Choose learning format",
+        "A1": {
+          "title": "Foundational Italian A1",
+          "description": "Learn pronunciation, vocabulary, and basic sentence structures to communicate confidently in daily life.",
+          "duration": "10 weeks · 30 sessions",
+          "outcome1": "Introduce yourself, family, hobbies",
+          "outcome2": "Understand and ask simple questions (What, Where, Who...)",
+          "outcome3": "Read signs, menus, short emails",
+          "class1": "A1 Class · 1 student",
+          "class2": "A1 Class · 3 students",
+          "type11": "1:1 coaching",
+          "typeMicro": "Micro class"
+        },
+        "A2": {
+          "title": "Applied Italian A2",
+          "description": "Accelerate communication skills, understand longer content, and react naturally in many situations.",
+          "duration": "12 weeks · 36 sessions",
+          "outcome1": "Describe experiences, recount memories",
+          "outcome2": "Communicate confidently in travel and basic work",
+          "outcome3": "Write emails, short paragraphs with correct grammar",
+          "class1": "A2 Class · 1 student",
+          "class2": "A2 Class · 3 students"
+        }
+      },
+      "benefits": {
+        "badge": "Distinctive Value",
+        "title": "We are with you every step of the way",
+        "item1Title": "Native & Bilingual Instructors",
+        "item1Desc": "100% of tutors achieve at least C2 level and have teaching certificates, supporting both Vietnamese and Italian.",
+        "item2Title": "Smart Learning Platform",
+        "item2Desc": "Learn anytime with an app: flashcards, listening exercises, AI pronunciation scoring with IPA standards.",
+        "item3Title": "Guaranteed Output",
+        "item3Desc": "Free mock tests, free retakes if the committed target is not reached.",
+        "item4Title": "24/7 Community",
+        "item4Desc": "Join weekly Italian speaking clubs and receive a mentor to accompany you."
+      },
+      "testimonials": {
+        "badge": "Real Feedback",
+        "title": "What students say about the basic level?",
+        "desc": "98% of students who complete the A1/A2 course reach their initially set output goals. They feel more confident talking to Italians and continue learning at higher levels.",
+        "viewMore": "View more reviews",
+        "name1": "Nguyen Thuy Linh · International student in Italy",
+        "quote1": "After 8 weeks of A1, I can confidently interview for a visa in Italian. The teacher corrected my pronunciation in great detail, and the listening exercises are very realistic.",
+        "name2": "Tran Duc Nam · Food blogger",
+        "quote2": "Reviewing food in Italy without knowing the local language lacks emotion. Thanks to the A2 class, I communicate very naturally with locals."
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Frequently Asked Questions for Basic Italian",
+        "subtitle": "If you have any further questions, leave your information for more detailed mentor consultation.",
+        "q1": "I don't know anything about Italian, can I study?",
+        "a1": "Absolutely! The basic course is for those with no foundation. You will learn pronunciation from scratch and have mentor support when self-studying at home.",
+        "q2": "Is there a printed curriculum?",
+        "a2": "Students receive a PDF curriculum + workbook + online flashcards. 1:1 classes also receive a personalized study schedule.",
+        "q3": "Can I postpone my studies if I'm busy?",
+        "a3": "You can postpone for up to 03 months and still maintain access to materials and the practice app during this time.",
+        "q4": "Difference between 1-student and 3-student classes?",
+        "a4": "1:1 classes are fully personalized with flexible schedules, while 3-student classes increase group interaction and optimize costs."
+      },
+      "cta": {
+        "title": "Ready to start your Italian journey?",
+        "desc": "Register now to save your spot in the nearest opening class. You will receive a free entry test and a personalized roadmap from our instructor team.",
+        "consult": "Book a 1:1 consultation",
+        "schedule": "View class schedule"
+      }
+    },
+    "middle": {
+      "hero": {
+        "badge": "Level B1 · B2 · CEFR aligned",
+        "title": "Intermediate Course to Conquer Academic & Professional Italian",
+        "description": "Practice advanced speaking-listening-writing, handle presentations, debates, and B1/B2 certification exams with a real-world exercise system and an accompanying mentor.",
+        "ctaProgram": "View B-level programs",
+        "ctaMentor": "Meet roadmap mentor",
+        "youWillExperience": "You will experience"
+      },
+      "highlights": [
+        "Standardize B-level grammar",
+        "Practical reaction workshops",
+        "Native instructor + Vietnamese mentor"
+      ],
+      "stats": [
+        {
+          "label": "Students achieved B1+",
+          "value": "1,250+"
+        },
+        {
+          "label": "Exam pass rate",
+          "value": "93%"
+        },
+        {
+          "label": "Private coaching hours",
+          "value": "24h+"
+        },
+        {
+          "label": "Real projects",
+          "value": "08 projects"
+        }
+      ],
+      "overview": {
+        "badge": "Intensive Roadmap",
+        "title": "From A2 foundation to confident B1/B2 in 12 weeks",
+        "intro": "The intermediate course focuses on developing critical thinking in Italian, helping you present ideas logically and debate from multiple perspectives, while preparing for international certification exams.",
+        "bullet1": "600+ academic and business collocations & idioms",
+        "bullet2": "8 projects simulating real meetings with video feedback",
+        "bullet3": "2 full CELI/CILS format mock tests with detailed scoring",
+        "workshopBadge": "Topic Workshops",
+        "workshopTitle": "Debate Lab · Business Pitch · Academic Writing",
+        "workshopDesc": "Every month there are 3 invite-only workshops with Italian experts. Students improve body language, rhythm, handling difficult questions, and storytelling in Italian.",
+        "scheduleTitle": "Flexible schedule",
+        "evening": "Evening",
+        "weekend": "Weekend",
+        "format": "Format",
+        "hybrid": "Hybrid",
+        "zoomOffline": "Zoom + Offline meet-up",
+        "coaching": "Coaching",
+        "coachingDesc": "1 session/week",
+        "feedback11": "1:1 Feedback",
+        "monWedFri": "Mon - Wed - Fri",
+        "satSun": "Sat - Sun"
+      },
+      "journey": [
+        {
+          "title": "Gap Analysis · Weeks 1-2",
+          "description": "CEFR mock test, analyzing weaknesses in pronunciation, grammar, and writing. Designing individual KPIs."
+        },
+        {
+          "title": "Skill Acceleration · Weeks 3-6",
+          "description": "Shadowing with native audio, academic writing workshops, practicing debate reflexes in real situations."
+        },
+        {
+          "title": "Practical Projects · Weeks 7-10",
+          "description": "Handling case studies: project pitching, interviews, presentations. Mentor corrects recorded assignments."
+        },
+        {
+          "title": "Exam Prep & Certification · Weeks 11-12",
+          "description": "2 mock tests, private coaching for each skill, guidance on CELI/CILS registration."
+        }
+      ],
+      "courses": {
+        "badge": "B1 · B2 Programs",
+        "sectionTitle": "Intermediate roadmaps for every goal",
+        "sectionDesc": "From academic and professional goals to study abroad preparation – each course has its own mentor and intensive exercise system.",
+        "youWillAchieve": "You will achieve",
+        "chooseFormat": "Choose learning format",
+        "B1": {
+          "title": "Professional Italian B1",
+          "description": "Develop communication skills in academic and professional environments, learn how to present viewpoints and write professional emails.",
+          "duration": "12 weeks · 36 sessions",
+          "outcome1": "Actively describe experience, dreams, and goals",
+          "outcome2": "Present opinions clearly with logical structure",
+          "outcome3": "Write emails/essays of 250 words with accurate grammar",
+          "class1": "B1 Class · 1 student",
+          "class2": "B1 Class · 4 students",
+          "typeExec": "Executive coaching",
+          "typeElite": "Elite micro class"
+        },
+        "B2": {
+          "title": "Impact Italian B2",
+          "description": "Perfect debate skills, handle complex situations, and understand CEFR B2 level academic content.",
+          "duration": "14 weeks · 40 sessions",
+          "outcome1": "Debate and critique with clear structure",
+          "outcome2": "Understand podcasts and talk shows at natural speed",
+          "outcome3": "Write reports and long proposals with specialized vocabulary",
+          "class1": "B2 Class · 1 student",
+          "class2": "B2 Class · 6 students",
+          "typeMentor": "1:1 Mentor",
+          "typeSmall": "Small cohort"
+        }
+      },
+      "benefits": {
+        "badge": "Distinctive Value",
+        "title": "A support team is always behind you",
+        "item1Title": "CEFR B-level Curriculum",
+        "item1Desc": "Exclusive curriculum combining CELI, CILS materials and real exam papers from the last 3 years.",
+        "item2Title": "Specialized Communication Coaching",
+        "item2Desc": "Optional Hospitality, Marketing, or Business modules to practice according to career goals.",
+        "item3Title": "AI Performance Tracker",
+        "item3Desc": "Track progress in each skill and receive intelligent self-study exercise suggestions daily.",
+        "item4Title": "24/7 Accompanying Mentor",
+        "item4Desc": "Vietnamese mentors help answer questions, correct writing, and remind you of study schedules via Discord/Telegram."
+      },
+      "testimonials": {
+        "badge": "Real Feedback",
+        "title": "What students say about the intermediate level?",
+        "desc": "9/10 students continue to B2 after completing B1 at the center thanks to personalized learning experiences and a supportive community.",
+        "viewMore": "View more reviews",
+        "name1": "Pham Minh Thu · Marketing Manager",
+        "quote1": "The B1 roadmap helped me present ideas to Italian partners much more confidently. I especially love the debate workshops with mentors.",
+        "name2": "Hoang Tung Lam · International student in Italy",
+        "quote2": "Exceeded my CILS B2 target thanks to mock tests and detailed feedback. Teachers corrected every word and body language during presentations."
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Solving questions about the intermediate course",
+        "subtitle": "Send us your questions if you need more detailed advice on certification, visas, or career orientation.",
+        "q1": "Can I study without an A2 certificate?",
+        "a1": "If you have studied at least 200 hours of Italian or have evidence of basic communication ability, we will organize a placement test to assign a suitable class.",
+        "q2": "Does the course include B1/B2 exam prep?",
+        "a2": "Yes. In the last 4 weeks, students practice complete exam papers, scored according to the official rubric, and receive registration guidance.",
+        "q3": "Is there support for job searching or studying abroad?",
+        "a3": "For students who complete B2 with a speaking score > 80, we have a network of mentors to help with interview preparation and study abroad profiles.",
+        "q4": "What if I miss a class?",
+        "a4": "1:1 classes can make up for up to 4 sessions per course. Group classes will have recordings and mentors will recap important content."
+      },
+      "cta": {
+        "title": "Reach B1/B2 milestones faster with an accompanying mentor",
+        "desc": "Register for free consultation, take a placement test, and receive a personalized study plan within 24h.",
+        "consult": "Book a 1:1 consultation",
+        "explore": "Explore intermediate courses"
+      }
+    },
+    "high": {
+      "hero": {
+        "badge": "Level C1 · C2 · Mastery Program",
+        "title": "Advanced Course for Those Who Want to Master Italian",
+        "description": "Perfect your language at a native level for research, high-level negotiation, or teaching. Learn with international mentors and a breakthrough exercise system.",
+        "ctaExplore": "Explore C-level roadmap",
+        "ctaConsult": "Book a private consultation",
+        "journeyTitle": "Personalized 4-stage roadmap"
+      },
+      "highlights": [
+        "CEFR C1/C2 standard Masterclass",
+        "Native instructor with 15+ years of experience",
+        "Coaching for presentations & research"
+      ],
+      "stats": [
+        {
+          "label": "C1/C2 pass rate",
+          "value": "88%"
+        },
+        {
+          "label": "Seminar duration",
+          "value": "60h+"
+        },
+        {
+          "label": "In-depth case studies",
+          "value": "10+"
+        },
+        {
+          "label": "International mentors",
+          "value": "12 mentors"
+        }
+      ],
+      "overview": {
+        "badge": "Signature Program",
+        "title": "When Italian becomes your second nature",
+        "intro": "The advanced program focuses on developing personal style and the ability to think in Italian about complex topics.",
+        "bullet1": "Seminars on reading academic, philosophical, and political texts",
+        "bullet2": "TED-style presentation coaching with professional image directors",
+        "bullet3": "Critiqued by 2 mentors (native + Vietnamese) after each assignment",
+        "capstoneBadge": "Capstone studio",
+        "capstoneTitle": "Turn ideas into keynotes, podcasts, or research papers",
+        "capstoneDesc": "Students are provided templates, resource libraries, and technical teams to help build slides and record audio to turn Italian projects into real products.",
+        "scheduleTitle": "Schedule & coaching",
+        "intensive": "Intensive",
+        "intensiveDesc": "2-4 sessions/week",
+        "minutes": "120-150 minutes",
+        "coaching": "Coaching",
+        "coachingDesc": "1-1 mentor",
+        "feedbackMulti": "Multi-angle feedback",
+        "format": "Format",
+        "hybridStudio": "Hybrid studio",
+        "onlineWorkshop": "Online + workshop",
+        "materials": "Materials",
+        "resources": "500+ resources",
+        "academicBusiness": "Academic + business"
+      },
+      "journey": [
+        {
+          "title": "Diagnostics & Goal Design",
+          "description": "360° evaluation of each skill, career/personal goal interviews, personalized KPI by exam or project."
+        },
+        {
+          "title": "Deep Dive Seminar",
+          "description": "Seminars analyzing philosophical, political, and economic texts; in-depth debate with native instructors."
+        },
+        {
+          "title": "Capstone Project",
+          "description": "Executing individual projects: whitepaper, podcast, keynote. 1:1 mentor correction for each part."
+        },
+        {
+          "title": "Certification Sprint",
+          "description": "Strategic practice, exam time management, psychological coaching, and rehearsal under real exam conditions."
+        }
+      ],
+      "courses": {
+        "badge": "C1 · C2 Programs",
+        "sectionTitle": "Choose an advanced roadmap suitable for your top goals",
+        "sectionDesc": "Each course features a real capstone, international mentors, and the highest CEFR standard evaluation system.",
+        "youWillAchieve": "You will achieve",
+        "chooseFormat": "Choose learning format",
+        "C1": {
+          "title": "Strategic Italian C1",
+          "description": "Master academic and professional language, handle complex documents, and present in-depth in Italian.",
+          "duration": "14 weeks · 42 sessions",
+          "outcome1": "Write 800+ word research essays with solid reasoning",
+          "outcome2": "Understand 100% of podcasts and news at native speed",
+          "outcome3": "Coordinate multicultural meetings and respond quickly",
+          "class1": "C1 Class · 1 student",
+          "class2": "C1 Class · 5 students",
+          "typePremier": "Premier coaching",
+          "typeMaster": "Master cohort"
+        },
+        "C2": {
+          "title": "Signature Italian C2",
+          "description": "Reach the subtlety of a native: handle specialized research, high-level negotiation, and write strategic reports.",
+          "duration": "16 weeks · 48 sessions",
+          "outcome1": "Edit professional documents, policies, contracts",
+          "outcome2": "Negotiate and trade from multiple perspectives with Italian partners",
+          "outcome3": "Achieve C2 band in CELI 5 / CILS C2 exams",
+          "class1": "C2 Class · 1 student",
+          "class2": "C2 Research Lab",
+          "typeAdvisor": "Advisor 1:1",
+          "typeProject": "Project-based"
+        }
+      },
+      "benefits": {
+        "badge": "Distinctive Value",
+        "title": "International standard learning experience",
+        "item1Title": "International Mentor System",
+        "item1Desc": "C2 instructors who have taught at Italian universities, plus Vietnamese mentors for career orientation.",
+        "item2Title": "Virtual Studio & Recording",
+        "item2Desc": "Record speaking assignments and podcasts with standard equipment to analyze pronunciation, intonation, and gestures.",
+        "item3Title": "Data-driven feedback",
+        "item3Desc": "AI Speech Lab evaluates 30 criteria, outputting a detailed report after each practice session.",
+        "item4Title": "Expert Connection Network",
+        "item4Desc": "Join alumni communities in Italy and Italy – Vietnam to expand cooperative relations and careers."
+      },
+      "testimonials": {
+        "badge": "Real Feedback",
+        "title": "Success stories from the advanced level",
+        "desc": "C1/C2 students are working at Italian corporations, teaching at universities, or preparing to defend their doctoral thesis.",
+        "viewMore": "View more reviews",
+        "name1": "Le Hong Nhung · PhD Candidate",
+        "quote1": "The C1 course helped me write my research thesis in Italian fluently. Mentors gave feedback on every paragraph and suggested in-depth materials.",
+        "name2": "Dang Quang Huy · Business Director",
+        "quote2": "After 4 months of C2, I confidently lead negotiations with Italian partners. The mock negotiation system is very realistic."
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Q&A about the advanced program",
+        "subtitle": "We are always ready to advise if you need more information on exams, educational visas, or career orientation.",
+        "q1": "What are the entry requirements for C1/C2 classes?",
+        "a1": "You need to complete at least B2 or pass a placement test including speaking + writing to ensure readiness for the intensive program.",
+        "q2": "Does the course support thesis writing or academic portfolios?",
+        "a2": "Yes. Mentors support critiquing outlines, editing style, and standardizing documents according to school/unit requirements.",
+        "q3": "Can I participate if I don't take the exam?",
+        "a3": "Absolutely. You can choose a specialized path (business, diplomatic, academic) and complete a capstone project instead.",
+        "q4": "Is there a program to study in Italy?",
+        "a4": "Students who reach C1 or above can register for a 2-week short trip in Italy to practice with native speakers (additional cost)."
+      },
+      "cta": {
+        "title": "Ready to reach the peak of Italian?",
+        "desc": "Register for a consultation with our Academic Director, receive competency analysis and a personalized roadmap to reach C1/C2 fastest.",
+        "consult": "Book an in-depth consultation",
+        "viewCourses": "View C1/C2 courses"
+      }
+    },
+    "driving": {
+      "hero": {
+        "badge": "Driving Course · Safe & Professional",
+        "title": "Safe Driving Course for Everyone",
+        "description": "Learn to drive from basic to advanced with a team of professional instructors, new practice cars, and support for the driving license exam.",
+        "ctaProgram": "View program",
+        "ctaRegister": "Register for consultation",
+        "youWillExperience": "You will experience"
+      },
+      "highlights": [
+        "Safe driving practice",
+        "Instructors with 10+ years of experience",
+        "Support for the driving license exam"
+      ],
+      "stats": [
+        {
+          "label": "Graduated students",
+          "value": "2,500+"
+        },
+        {
+          "label": "License pass rate",
+          "value": "95%"
+        },
+        {
+          "label": "Practice hours",
+          "value": "30h+"
+        },
+        {
+          "label": "Practice cars",
+          "value": "15+ cars"
+        }
+      ],
+      "overview": {
+        "badge": "Professional Roadmap",
+        "title": "From beginner to confident driver in 8 weeks",
+        "intro": "The driving course is scientifically designed to help you master theory and practice, confidently participate in traffic, and pass the driving license exam.",
+        "bullet1": "Learn theory with the standard curriculum of the Ministry of Transport, updated with the latest regulations",
+        "bullet2": "Practice with new cars that are regularly maintained",
+        "bullet3": "Support for exam registration and preparation of the driving license application dossier",
+        "highlightsBadge": "Highlights",
+        "highlightsTitle": "Dedicated Instructors · Newer Cars · 24/7 Support",
+        "highlightsDesc": "Our team of instructors are experienced, patient, and dedicated. Practice cars are maintained regularly to ensure safely for students. Support for students anytime, anywhere.",
+        "scheduleTitle": "Flexible schedule",
+        "morning": "Morning",
+        "afternoon": "Afternoon",
+        "evening": "Evening",
+        "weekend": "Weekend",
+        "monFri": "Mon - Fri",
+        "satSun": "Sat - Sun"
+      },
+      "journey": [
+        {
+          "title": "Theory & Traffic Laws · Weeks 1-2",
+          "description": "Learn traffic laws, signs, safety rules, and basic traffic situations."
+        },
+        {
+          "title": "Basic Practice · Weeks 3-5",
+          "description": "Get familiar with the car, practice basic operations: starting, stopping, parking, turning, reversing."
+        },
+        {
+          "title": "Road Driving · Weeks 6-7",
+          "description": "Practice driving on actual roads, handling complex traffic situations."
+        },
+        {
+          "title": "Review & Exam · Week 8",
+          "description": "Review all knowledge, practice for the exam, and prepare for the official driving license exam."
+        }
+      ],
+      "courses": {
+        "badge": "Driving Course",
+        "sectionTitle": "Choose a course suitable for your needs",
+        "sectionDesc": "From beginner to skill enhancement – each course has its own instructor and personalized learning roadmap.",
+        "youWillAchieve": "You will achieve",
+        "chooseFormat": "Choose learning format",
+        "basic": {
+          "level": "Basic",
+          "title": "Basic Driving Course",
+          "description": "Learn from scratch basic driving skills, traffic laws, and safety when participating in traffic.",
+          "duration": "8 weeks · 20 sessions",
+          "outcome1": "Master road traffic laws",
+          "outcome2": "Proficient in basic driving skills",
+          "outcome3": "Confidently handle common traffic situations",
+          "class1": "Basic Class · 1 student",
+          "class2": "Basic Class · 4 students",
+          "typePrivate": "Private coaching",
+          "typeGroup": "Group class"
+        },
+        "advanced": {
+          "level": "Advanced",
+          "title": "Advanced Driving Course",
+          "description": "Enhance driving skills, handle complex situations, and prepare for B2, C category driving licenses.",
+          "duration": "10 weeks · 25 sessions",
+          "outcome1": "Proficiently handle difficult situations",
+          "outcome2": "Safe driving on highways",
+          "outcome3": "Pass the driving license exam",
+          "class1": "Advanced Class · 1 student",
+          "class2": "Advanced Class · 6 students"
+        }
+      },
+      "benefits": {
+        "badge": "Distinctive Value",
+        "title": "Why choose us?",
+        "item1Title": "Ministry of Transport Standard Curriculum",
+        "item1Desc": "The curriculum is compiled according to the standards of the Ministry of Transport, updated with the latest regulations.",
+        "item2Title": "New Practice Cars",
+        "item2Desc": "Our fleet consists of new practice cars, regularly maintained to ensure student safety.",
+        "item3Title": "Professional Instructors",
+        "item3Desc": "Our team of instructors has many years of experience, being dedicated and patient with each student.",
+        "item4Title": "Exam Support",
+        "item4Desc": "Support for registration, dossier preparation, and accompaniment throughout the exam process."
+      },
+      "testimonials": {
+        "badge": "Real Feedback",
+        "title": "What students say about the course?",
+        "desc": "95% of students pass the driving license exam on their first try thanks to scientific teaching methods and the dedication of our instructor team.",
+        "viewMore": "View more reviews",
+        "name1": "Nguyen Van An · Student",
+        "quote1": "The course helped me drive confidently after 8 weeks. The instructor was very dedicated, guiding every small detail. I passed on my first try.",
+        "name2": "Tran Thi Binh · Office Worker",
+        "quote2": "Initially I was very afraid to drive, but thanks to the patience of the instructor and the scientific teaching method, I overcame my fear and drive confidently."
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Solving questions about the driving course",
+        "subtitle": "Send us your questions if you need more detailed advice on the course, schedule, or license exam process.",
+        "q1": "I don't know anything about driving, can I study?",
+        "a1": "Absolutely. The course is designed for beginners, and instructors will guide you from the most basic knowledge.",
+        "q2": "Is the study time flexible?",
+        "a2": "Yes. We have multiple shifts: morning, afternoon, evening, and weekends to suit student schedules.",
+        "q3": "Does it include the license exam fee?",
+        "a3": "The course fee does not include the license exam fee. However, we will support registration and dossier preparation.",
+        "q4": "What if I don't pass?",
+        "a4": "Students are supported with free retakes for parts they didn't pass and receive advice to improve skills before retaking."
+      },
+      "cta": {
+        "title": "Ready to start your safe driving journey?",
+        "desc": "Register for free consultation, take an assessment test, and receive a personalized study roadmap within 24h.",
+        "consult": "Book a 1:1 consultation",
+        "explore": "Explore the course"
+      }
+    }
+  }
+}

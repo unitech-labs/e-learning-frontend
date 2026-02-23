@@ -1,0 +1,19 @@
+{
+  "descriptionCourse": {
+    "about": "Về khóa học này",
+    "whatYouWillLearn": "Bạn sẽ học được gì",
+    "requirements": "Yêu cầu",
+    "description": "Mô tả",
+    "curriculum": "Chương trình học",
+    "instructor": "Phiên dịch viên",
+    "reviews": "Đánh giá",
+    "students": "học viên",
+    "lessons": "bài học",
+    "hours": "giờ",
+    "level": "Cấp độ",
+    "language": "Ngôn ngữ",
+    "lastUpdated": "Cập nhật lần cuối",
+    "enrolled": "đã đăng ký",
+    "rating": "đánh giá"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "profile": {
+    "learning": "Học tập",
+    "title": "Hồ sơ",
+    "editButton": "Chỉnh sửa",
+    "joinDate": "Tham gia từ",
+    "coursesCount": "khóa học",
+    "tabs": {
+      "personalInfo": "Thông tin cá nhân",
+      "myCourses": "Khóa học của tôi"
+    },
+    "info": {
+      "email": "Email",
+      "phone": "Số điện thoại",
+      "address": "Địa chỉ",
+      "profession": "Nghề nghiệp",
+      "gender": "Giới tính",
+      "dateOfBirth": "Ngày sinh",
+      "bio": "Giới thiệu",
+      "notAvailable": "Chưa cập nhật"
+    },
+    "genders": {
+      "male": "Nam",
+      "female": "Nữ",
+      "other": "Khác"
+    },
+    "edit": {
+      "title": "Chỉnh sửa hồ sơ",
+      "save": "Lưu thay đổi",
+      "cancel": "Hủy",
+      "success": "Cập nhật hồ sơ thành công!",
+      "error": "Cập nhật hồ sơ thất bại"
+    },
+    "avatar": {
+      "title": "Ảnh đại diện",
+      "upload": "Tải lên ảnh mới",
+      "remove": "Xóa ảnh",
+      "change": "Thay đổi ảnh",
+      "uploading": "Đang tải lên...",
+      "maxSize": "Tối đa 5MB",
+      "formats": "JPG, PNG, GIF"
+    },
+    "profile": "Hồ sơ",
+    "myCourses": "Khóa học của tôi",
+    "settings": "Cài đặt",
+    "dashboard": "Bảng điều khiển",
+    "actions": "Hành động",
+    "logout": "Đăng xuất",
+    "switchAccount": "Đăng nhập tài khoản học",
+    "switchAccountSuccess": "Đăng nhập thành công",
+    "switchAccountFailed": "Đăng nhập thất bại",
+    "invalidCredentials": "Sai tài khoản hoặc mật khẩu",
+    "noOtherAccounts": "Không có tài khoản khác để chuyển đổi",
+    "clickToLogin": "Nhấn để đăng nhập",
+    "switching": "Đang đăng nhập...",
+    "savedAccounts": "Tài khoản đã lưu",
+    "or": "Hoặc",
+    "loginNewAccount": "Đăng nhập tài khoản mới",
+    "loginFormRequired": "Vui lòng nhập email và mật khẩu",
+    "accountDeleted": "Đã xóa tài khoản",
+    "courses": {
+      "title": "Khóa học của tôi",
+      "loading": "Đang tải khóa học đã đăng ký...",
+      "schedule": "Lịch học",
+      "progress": "Tiến độ",
+      "classroom": "Lớp học",
+      "course": "khóa học",
+      "courses": "khóa học",
+      "continueLearning": "Tiếp tục học",
+      "moreSchedules": "lịch học khác",
+      "teacher": {
+        "title": "Bạn là giáo viên",
+        "message": "Vui lòng xem danh sách khóa học ở bảng điều khiển quản trị để quản lý các khóa học của bạn.",
+        "goToDashboard": "Đi đến bảng điều khiển"
+      },
+      "error": {
+        "title": "Lỗi tải khóa học",
+        "tryAgain": "Thử lại"
+      },
+      "empty": {
+        "title": "Chưa có khóa học nào",
+        "message": "Bạn chưa đăng ký khóa học nào.",
+        "browseCourses": "Duyệt khóa học"
+      }
+    }
+  }
+}

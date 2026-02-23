@@ -1,0 +1,51 @@
+{
+  "checkoutCard": {
+    "enrollNow": "Enroll Now",
+    "buyNow": "Buy Now",
+    "addToCart": "Add to Cart",
+    "classroom": "Classroom",
+    "free": "Free",
+    "selectPricePlan": "Select Price Plan",
+    "selectPricePlanPlaceholder": "Select duration and price",
+    "months": "months",
+    "originalPrice": "Original Price",
+    "discount": "Discount",
+    "total": "Total",
+    "includes": "This course includes:",
+    "lifetimeAccess": "Lifetime access",
+    "certificate": "Certificate of completion",
+    "mobileAccess": "Access on mobile and desktop",
+    "assignments": "Assignments",
+    "moneyBack": "30-Day Money-Back Guarantee",
+    "share": "Share",
+    "copyLink": "Copy Link",
+    "wishlist": "Add to Wishlist",
+    "gift": "Gift this course",
+    "messages": {
+      "selectClassroom": "Please select a classroom",
+      "selectClassroomDesc": "You need to select a classroom before adding to the cart.",
+      "selectClassroomBuy": "You need to select a classroom before purchasing.",
+      "addedToCart": "Added to cart",
+      "addedToCartDesc": "The course \"{title}\" with class \"{classroom}\" has been added to your cart.",
+      "alreadyInCart": "Already in cart",
+      "alreadyInCartDesc": "The course \"{title}\" with class \"{classroom}\" is already in your cart.",
+      "classroomChanged": "Classroom changed",
+      "classroomChangedDesc": "Classroom for course \"{title}\" has been changed.",
+      "noClassroom": "This course has no classrooms yet",
+      "generatedAccountCannotPurchase": "System-generated accounts are not allowed to purchase courses",
+      "noPricePlans": "This course has no price plans yet",
+      "selectPricePlan": "Please select a price plan",
+      "selectPricePlanDesc": "You need to select a price plan before adding to the cart.",
+      "selectPricePlanBuy": "You need to select a price plan before purchasing.",
+      "linkCopied": "Link copied",
+      "linkCopiedDesc": "Course link has been copied to clipboard",
+      "copyFailed": "Copy failed",
+      "copyFailedDesc": "Could not copy link to clipboard"
+    },
+    "buttons": {
+      "checkoutNow": "Checkout Now",
+      "viewCart": "View Cart",
+      "editCourse": "Edit Course"
+    }
+  }
+}

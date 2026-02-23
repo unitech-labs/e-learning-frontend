@@ -1,0 +1,55 @@
+{
+  "coursesIndex": {
+    "hero": {
+      "badge": "Khám phá khóa học tiếng Ý",
+      "title": "Khám phá hành trình",
+      "subtitle": "tiếng Ý của bạn",
+      "description": "Thành thạo tiếng Ý với phiên dịch viên chuyên nghiệp và bài học tương tác",
+      "searchPlaceholder": "Tìm kiếm khóa học tiếng Ý...",
+      "searchButton": "Tìm kiếm"
+    },
+    "stats": {
+      "totalCourses": "Tổng khóa học",
+      "activeStudents": "Học viên đang học",
+      "expertInstructors": "Phiên dịch viên chuyên nghiệp",
+      "languagesAvailable": "Ngôn ngữ chuyên sâu"
+    },
+    "filters": {
+      "allLevels": "Tất cả cấp độ",
+      "allPrices": "Tất cả giá",
+      "free": "Miễn phí",
+      "paid": "Trả phí",
+      "mostPopular": "Phổ biến nhất",
+      "highestRated": "Đánh giá cao nhất",
+      "newest": "Mới nhất",
+      "priceLowToHigh": "Giá: Thấp đến cao",
+      "priceHighToLow": "Giá: Cao đến thấp",
+      "clearAll": "Xóa tất cả",
+      "coursesFound": "khóa học được tìm thấy"
+    },
+    "emptyState": {
+      "title": "Không tìm thấy khóa học",
+      "description": "Hãy thử điều chỉnh bộ lọc hoặc từ khóa tìm kiếm",
+      "clearFilters": "Xóa bộ lọc"
+    },
+    "successStories": {
+      "title": "Tham gia cùng 50,000+ người học ngôn ngữ",
+      "description": "Bắt đầu hành trình ngôn ngữ của bạn ngay hôm nay và mở ra những cơ hội mới với phương pháp học tập đã được chứng minh",
+      "interactiveLearning": {
+        "title": "Học tập tương tác",
+        "description": "Thực hành với người bản ngữ và cuộc trò chuyện được hỗ trợ bởi AI"
+      },
+      "certifiedProgress": {
+        "title": "Tiến bộ được chứng nhận",
+        "description": "Kiếm chứng chỉ và theo dõi sự cải thiện khả năng ngôn ngữ của bạn"
+      },
+      "flexibleSchedule": {
+        "title": "Lịch học linh hoạt",
+        "description": "Học theo tốc độ của riêng bạn, bất cứ lúc nào, bất cứ đâu"
+      },
+      "startLearningNow": "Bắt đầu học ngay",
+      "viewSuccessStories": "Xem câu chuyện thành công",
+      "registerNow": "Đăng ký ngay"
+    }
+  }
+}

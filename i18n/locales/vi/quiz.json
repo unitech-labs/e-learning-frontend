@@ -1,0 +1,12 @@
+{
+  "quiz": {
+    "teacher": "Giáo viên",
+    "teacherReviewing": "Giáo viên đang xem xét bài làm của bạn. Bạn sẽ nhận được điểm và nhận xét khi hoàn thành chấm bài.",
+    "student": "Học sinh",
+    "searchPlaceholder": "Tìm kiếm quiz",
+    "notAnswered": "Chưa trả lời",
+    "correct": "Đúng",
+    "incorrect": "Sai",
+    "pendingGrading": "Đang chờ chấm"
+  }
+}

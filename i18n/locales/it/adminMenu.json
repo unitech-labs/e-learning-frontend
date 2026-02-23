@@ -1,0 +1,14 @@
+{
+  "adminMenu": {
+    "overview": "Panoramica",
+    "generalCalendar": "Calendario generale",
+    "course": "Corsi",
+    "classroom": "Classi",
+    "quizManagement": "Gestione compiti",
+    "newQuizManagement": "Gestione Quiz",
+    "students": "Studenti",
+    "orders": "Ordini",
+    "videoPosts": "Video Post",
+    "settings": "Impostazioni"
+  }
+}

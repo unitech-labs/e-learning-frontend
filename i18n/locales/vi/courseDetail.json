@@ -1,0 +1,28 @@
+{
+  "courseDetail": {
+    "loading": "Đang tải chi tiết khóa học...",
+    "error": {
+      "title": "Không thể tải khóa học",
+      "description": "Đã xảy ra lỗi khi tải khóa học.",
+      "tryAgain": "Thử lại",
+      "backToCourses": "Quay lại khóa học"
+    },
+    "notFound": {
+      "title": "Không tìm thấy khóa học",
+      "description": "Khóa học bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.",
+      "backToCourses": "Quay lại khóa học"
+    },
+    "notifications": {
+      "loadFailed": "Không thể tải khóa học",
+      "courseNotFound": "Không tìm thấy khóa học"
+    },
+    "resources": {
+      "title": "Tài liệu",
+      "empty": "Chưa có tài liệu nào cho khóa học này",
+      "loadMore": "Tải thêm",
+      "loadingMore": "Đang tải thêm...",
+      "loadMoreFailed": "Không thể tải thêm tài liệu",
+      "loadMoreFailedDescription": "Đã xảy ra lỗi khi tải thêm tài liệu. Vui lòng thử lại."
+    }
+  }
+}

@@ -1,0 +1,1425 @@
+{
+  "admin": {
+    "dashboard": {
+      "title": "Tổng quan Dashboard",
+      "welcome": "Chào mừng trở lại! Đây là tổng quan hiệu suất của bạn hôm nay.",
+      "stats": {
+        "totalUsers": "Tổng học viên",
+        "activeCourses": "Khóa học hoạt động",
+        "monthlyRevenue": "Doanh thu tháng này",
+        "totalRevenue": "Tổng doanh thu",
+        "completionRate": "Tỷ lệ hoàn thành"
+      },
+      "quickActions": {
+        "title": "Thao tác nhanh",
+        "createCourse": "Tạo khóa học",
+        "manageStudents": "Quản lý học viên",
+        "viewOrders": "Xem đơn hàng",
+        "settings": "Cài đặt"
+      },
+      "latestUsers": {
+        "title": "Học viên mới nhất",
+        "viewAll": "Xem tất cả",
+        "active": "Hoạt động",
+        "inactive": "Không hoạt động",
+        "noUsers": "Chưa có học viên nào"
+      },
+      "topCourses": {
+        "title": "Khóa học hàng đầu",
+        "viewAll": "Xem tất cả",
+        "noCourses": "Chưa có khóa học nào"
+      }
+    },
+    "users": {
+      "title": "Quản lý học viên",
+      "subtitle": "Quản lý tài khoản học viên và theo dõi tiến độ học tập",
+      "stats": {
+        "totalStudents": "Tổng học viên",
+        "activeStudents": "Học viên hoạt động",
+        "completedStudents": "Học viên đã hoàn thành"
+      },
+      "search": {
+        "placeholder": "Tìm kiếm học viên theo tên, email hoặc tên đăng nhập..."
+      },
+      "actions": {
+        "refresh": "Làm mới",
+        "editUser": "Chỉnh sửa học viên",
+        "suspend": "Tạm dừng",
+        "activate": "Kích hoạt",
+        "deleteUser": "Xóa học viên"
+      },
+      "error": {
+        "title": "Lỗi tải học viên",
+        "tryAgain": "Thử lại"
+      },
+      "table": {
+        "title": "Tất cả học viên",
+        "student": "Học viên",
+        "enrolledCourses": "Khóa học đã đăng ký",
+        "status": "Trạng thái",
+        "joined": "Tham gia",
+        "actions": "Thao tác",
+        "showing": "Hiển thị {current} trong {total} học viên",
+        "totalStudents": "Tổng học viên: {total}"
+      },
+      "courses": {
+        "count": "{count} khóa học",
+        "active": "Hoạt động",
+        "completed": "Hoàn thành",
+        "avgProgress": "Tiến độ trung bình"
+      },
+      "status": {
+        "active": "Hoạt động",
+        "inactive": "Không hoạt động",
+        "hasCompleted": "Đã hoàn thành",
+        "inProgress": "Đang học"
+      },
+      "joined": {
+        "studentId": "ID học viên"
+      },
+      "empty": {
+        "title": "Không tìm thấy học viên",
+        "subtitle": "Thử điều chỉnh tiêu chí tìm kiếm của bạn",
+        "clearSearch": "Xóa tìm kiếm"
+      },
+      "messages": {
+        "refreshSuccess": "Làm mới học viên thành công",
+        "editUser": "Chỉnh sửa học viên: {name}",
+        "confirmSuspend": {
+          "title": "Bạn có chắc chắn muốn tạm dừng học viên này?",
+          "content": "Điều này sẽ tạm dừng {name}"
+        },
+        "confirmActivate": {
+          "title": "Bạn có chắc chắn muốn kích hoạt học viên này?",
+          "content": "Điều này sẽ kích hoạt {name}"
+        },
+        "confirmDelete": {
+          "title": "Bạn có chắc chắn muốn xóa học viên này?",
+          "content": "Điều này sẽ xóa vĩnh viễn {name}"
+        },
+        "suspendSuccess": "Tạm dừng học viên thành công",
+        "activateSuccess": "Kích hoạt học viên thành công",
+        "deleteSuccess": "Xóa học viên thành công"
+      }
+    },
+    "chapterManagement": {
+      "title": "Chương",
+      "addChapter": "Thêm chương",
+      "createChapter": "Tạo chương",
+      "createFirstChapter": "Tạo chương đầu tiên",
+      "emptyStates": {
+        "noChapters": "Chưa có chương nào",
+        "noChaptersDescription": "Tạo chương đầu tiên để bắt đầu tổ chức nội dung khóa học.",
+        "selectChapter": "Chọn một chương",
+        "selectChapterDescription": "Chọn một chương từ thanh bên để xem và quản lý các bài học.",
+        "noChaptersAvailable": "Không có chương nào",
+        "noChaptersAvailableDescription": "Tạo chương đầu tiên để bắt đầu tổ chức nội dung khóa học.",
+        "noLessons": "Chưa có bài học nào",
+        "noLessonsDescription": "Chương này chưa có bài học nào. Tạo bài học đầu tiên để bắt đầu giảng dạy.",
+        "createFirstLesson": "Tạo bài học đầu tiên"
+      },
+      "form": {
+        "title": "Thêm chương",
+        "editTitle": "Chỉnh sửa chương",
+        "chapterTitle": "Tiêu đề chương",
+        "chapterTitlePlaceholder": "Nhập tiêu đề chương",
+        "chapterTitleRequired": "Vui lòng nhập tiêu đề chương!",
+        "chapterDescription": "Mô tả chương",
+        "chapterDescriptionPlaceholder": "Nhập mô tả chương"
+      },
+      "lessons": {
+        "addLesson": "Thêm bài học",
+        "edit": "Chỉnh sửa",
+        "time": "Thời gian",
+        "minutes": "phút",
+        "seconds": "giây",
+        "updateOrderSuccess": "Cập nhật thứ tự bài học thành công!",
+        "updateOrderFailed": "Cập nhật thứ tự bài học thất bại"
+      },
+      "notifications": {
+        "createChapterSuccess": "Tạo chương thành công",
+        "createChapterFailed": "Tạo chương thất bại",
+        "updateChapterSuccess": "Cập nhật chương thành công!",
+        "updateChapterFailed": "Cập nhật chương thất bại",
+        "deleteChapterSuccess": "Xóa chương thành công!",
+        "deleteChapterFailed": "Xóa chương thất bại",
+        "updateOrderSuccess": "Cập nhật thứ tự chương thành công!",
+        "updateOrderFailed": "Cập nhật thứ tự chương thất bại"
+      },
+      "deleteConfirm": {
+        "title": "Xóa chương",
+        "message": "Bạn có chắc chắn muốn xóa chương này?",
+        "warning": "Hành động này không thể hoàn tác. Tất cả nội dung chương, bao gồm bài học và tài liệu, sẽ bị xóa vĩnh viễn.",
+        "lessons": "Bài học",
+        "cancel": "Hủy",
+        "confirm": "Xóa chương"
+      }
+    },
+    "formLesson": {
+      "title": {
+        "create": "Tạo bài học mới",
+        "edit": "Chỉnh sửa bài học"
+      },
+      "description": {
+        "create": "Thêm bài học mới vào chương này",
+        "edit": "Cập nhật thông tin và nội dung bài học"
+      },
+      "form": {
+        "title": "Tiêu đề",
+        "titlePlaceholder": "Nhập tiêu đề bài học",
+        "titleRequired": "Vui lòng nhập tiêu đề bài học!",
+        "slug": "Slug",
+        "slugPlaceholder": "Tự động tạo từ tiêu đề",
+        "videoDuration": "Thời lượng video (giây)",
+        "videoDurationPlaceholder": "Nhập thời lượng video",
+        "videoDurationRequired": "Thời lượng video phải ≥ 0!",
+        "description": "Mô tả",
+        "descriptionPlaceholder": "Nhập mô tả",
+        "isPreview": "Cài đặt xem trước",
+        "previewLabel": "Cho phép xem trước",
+        "previewNote": "Khi bật lựa chọn này thì người dùng có thể xem trước được video (video xem thử)",
+        "introVideo": "Tải lên video",
+        "introImage": "Tải lên hình ảnh giới thiệu"
+      },
+      "upload": {
+        "videoDragText": "Kéo thả tệp, hoặc",
+        "videoBrowse": "Duyệt",
+        "videoHint": "Tải lên Video định dạng Mov, MP4.",
+        "imageDragText": "Kéo thả tệp, hoặc",
+        "imageBrowse": "Duyệt",
+        "imageHint": "Tải lên Hình ảnh định dạng JPEG, PNG.",
+        "uploading": "Đang tải lên video...",
+        "fileUnchanged": "Tệp không thay đổi, bỏ qua tải lên"
+      },
+      "buttons": {
+        "previewLesson": "Xem trước bài học",
+        "deleteLesson": "Xóa bài học",
+        "createLesson": "Tạo bài học",
+        "updateLesson": "Cập nhật bài học",
+        "uploading": "Đang tải lên...",
+        "cancel": "Hủy",
+        "delete": "Xóa"
+      },
+      "deleteDialog": {
+        "title": "Xóa bài học",
+        "confirmTitle": "Xóa bài học",
+        "confirmMessage": "Hành động này không thể hoàn tác.",
+        "lessonLabel": "Bài học:",
+        "confirmDescription": "Bạn có chắc chắn muốn xóa bài học này? Tất cả nội dung bài học, bao gồm video và tài liệu, sẽ bị xóa vĩnh viễn."
+      },
+      "materials": {
+        "title": "Tài liệu bài học",
+        "upload": "Tải lên tài liệu",
+        "uploadDescription": "Kéo thả file hoặc click để chọn",
+        "addMaterial": "Thêm tài liệu",
+        "editMaterial": "Chỉnh sửa tài liệu",
+        "deleteMaterial": "Xóa tài liệu",
+        "materialTitle": "Tiêu đề",
+        "materialTitlePlaceholder": "Nhập tiêu đề tài liệu",
+        "materialTitleRequired": "Vui lòng nhập tiêu đề tài liệu!",
+        "materialDescription": "Mô tả",
+        "materialDescriptionPlaceholder": "Nhập mô tả tài liệu (tùy chọn)",
+        "fileType": "Loại file",
+        "fileSize": "Kích thước",
+        "uploadedAt": "Ngày tải lên",
+        "empty": "Chưa có tài liệu nào",
+        "emptyDescription": "Tải lên tài liệu để học viên có thể tải xuống và sử dụng",
+        "notifications": {
+          "uploadSuccess": "Tải lên tài liệu thành công",
+          "uploadFailed": "Tải lên tài liệu thất bại",
+          "saveSuccess": "Lưu tài liệu thành công",
+          "saveFailed": "Lưu tài liệu thất bại",
+          "deleteSuccess": "Xóa tài liệu thành công",
+          "deleteFailed": "Xóa tài liệu thất bại",
+          "editSuccess": "Cập nhật tài liệu thành công",
+          "editFailed": "Cập nhật tài liệu thất bại"
+        }
+      },
+      "notifications": {
+        "uploadVideoFailed": "Tải lên video thất bại",
+        "uploadImageFailed": "Tải lên hình ảnh thất bại",
+        "createLessonSuccess": "Tạo bài học thành công",
+        "updateLessonSuccess": "Cập nhật bài học thành công",
+        "createLessonFailed": "Tạo bài học thất bại",
+        "updateLessonFailed": "Cập nhật bài học thất bại",
+        "deleteLessonSuccess": "Xóa bài học thành công",
+        "deleteLessonSuccessDescription": "Bài học đã được xóa thành công.",
+        "deleteLessonFailed": "Xóa bài học thất bại",
+        "deleteLessonFailedDescription": "Đã xảy ra lỗi khi xóa bài học. Vui lòng thử lại."
+      }
+    },
+    "calendars": {
+      "title": "Lịch tổng",
+      "refresh": "Tải lại",
+      "sessionsCount": "{count} buổi học",
+      "today": "Hôm nay",
+      "choiceDialog": {
+        "title": "Chọn loại tạo",
+        "message": "Bạn muốn tạo lớp học mới hay tạo buổi học cho lớp có sẵn?",
+        "newClassroom": "Tạo lớp học mới",
+        "existingClassroom": "Tạo buổi học cho lớp có sẵn"
+      },
+      "createSessionDialog": {
+        "title": "Tạo buổi học",
+        "ok": "OK",
+        "cancel": "Cancel",
+        "sessionTitle": "Tiêu đề buổi học",
+        "sessionTitlePlaceholder": "Event Title",
+        "eventClass": "Event Class (optional)",
+        "eventClassPlaceholder": "Event Class",
+        "background": "Background"
+      },
+      "notifications": {
+        "selectClassroomRequired": "Vui lòng chọn lớp học",
+        "createSessionSuccess": "Đã tạo buổi học",
+        "createSessionFailed": "Không thể tạo buổi học",
+        "updateSessionTimeSuccess": "Đã cập nhật thời gian buổi học",
+        "updateSessionTimeFailed": "Không thể cập nhật thời gian",
+        "loadSessionsError": "Có lỗi xảy ra khi tải lịch tổng",
+        "openSessionDetailError": "Không thể mở chi tiết buổi học",
+        "openSessionDetailErrorDesc": "Thiếu courseId/classroomId từ API session detail.",
+        "loadSessionDetailError": "Không thể tải chi tiết buổi học"
+      },
+      "eventDisplay": {
+        "maxStudents": "Tối đa {limit} học viên"
+      }
+    },
+    "classroom": {
+      "title": "Lớp học",
+      "addNewClassroom": "Thêm lớp học mới",
+      "createFirstClassroom": "Tạo lớp học đầu tiên",
+      "emptyStates": {
+        "noClassrooms": "Chưa có lớp học nào",
+        "noClassroomsDescription": "Tạo lớp học đầu tiên để bắt đầu tổ chức các buổi học và quản lý việc đăng ký học viên."
+      },
+      "form": {
+        "title": "Tạo lớp học",
+        "classroomTitle": "Tên lớp học",
+        "classroomTitlePlaceholder": "Nhập tên lớp học",
+        "classroomTitleRequired": "Vui lòng nhập tên lớp học!",
+        "studentCount": "Số lượng học viên",
+        "studentCountPlaceholder": "Nhập số lượng học viên",
+        "studentCountRequired": "Vui lòng nhập số lượng học viên!",
+        "studentCountMin": "Số lượng học viên phải ít nhất là 1!",
+        "schedule": "Lịch học",
+        "scheduleRequired": "Vui lòng nhập lịch học!",
+        "selectDay": "Chọn thứ",
+        "selectDayRequired": "Vui lòng chọn thứ!",
+        "startTime": "Giờ bắt đầu",
+        "endTime": "Giờ kết thúc",
+        "addMore": "Thêm nữa",
+        "startDate": "Ngày bắt đầu",
+        "startDatePlaceholder": "Chọn ngày bắt đầu",
+        "startDateRequired": "Vui lòng chọn ngày bắt đầu!",
+        "endDate": "Ngày kết thúc",
+        "endDatePlaceholder": "Chọn ngày kết thúc",
+        "endDateRequired": "Vui lòng chọn ngày kết thúc!",
+        "startDateAfterEndDate": "Ngày bắt đầu không được sau ngày kết thúc!",
+        "pricingSection": "Định giá",
+        "isFree": "Lớp học miễn phí",
+        "isFreeDescription": "Nếu chọn, lớp học này sẽ được cung cấp miễn phí cho học viên",
+        "price": "Giá",
+        "pricePlaceholder": "Nhập giá lớp học",
+        "priceDescription": "Giá cơ bản của lớp học (1-on-1 thường có giá cao hơn lớp nhóm)",
+        "priceRequired": "Vui lòng nhập giá lớp học!",
+        "discountPrice": "Giá giảm",
+        "discountPricePlaceholder": "Nhập giá giảm (tùy chọn)",
+        "discountPriceDescription": "Giá giảm phải nhỏ hơn giá cơ bản",
+        "discountPriceMustBeLessThanPrice": "Giá giảm phải nhỏ hơn giá cơ bản!",
+        "discountPriceNotAllowedForFree": "Không thể đặt giá giảm cho lớp học miễn phí!",
+        "effectivePrice": "Giá hiệu quả"
+      },
+      "notifications": {
+        "createSuccess": "Tạo lớp học thành công!",
+        "createFailed": "Tạo lớp học thất bại",
+        "loadFailed": "Tải thông tin khóa học thất bại"
+      },
+      "session": {
+        "selectClassroomRequired": "Vui lòng chọn lớp học",
+        "addScheduleRequired": "Vui lòng thêm ít nhất một lịch học",
+        "createSuccess": "Thành công",
+        "createSuccessDesc": "Đã tạo buổi học thành công",
+        "createError": "Lỗi khi tạo buổi học",
+        "createErrorDesc": "Vui lòng thử lại"
+      },
+      "delete": {
+        "title": "Xác nhận xóa lớp học",
+        "confirmDelete": "Bạn có chắc chắn muốn xóa lớp học \"{name}\" không?",
+        "success": "Đã xóa lớp học thành công",
+        "error": "Không thể xóa lớp học",
+        "willDeleteSessions": "Tất cả các buổi học trong lớp",
+        "willDeleteMaterials": "Tất cả các tài liệu đã upload",
+        "willDeleteVideos": "Tất cả các video record",
+        "willDeleteEnrollments": "Thông tin đăng ký của học sinh"
+      },
+      "list": {
+        "title": "Danh sách lớp học",
+        "subtitle": "Quản lý tất cả các lớp học trong khóa học này",
+        "refresh": "Làm mới",
+        "refreshSuccess": "Đã làm mới danh sách"
+      },
+      "table": {
+        "columns": {
+          "title": "Tên lớp học",
+          "studentCount": "Số học viên",
+          "sessionCount": "Số buổi học",
+          "enrollmentCount": "Số học viên đã đăng ký",
+          "price": "Giá",
+          "schedule": "Lịch học",
+          "createdAt": "Ngày tạo",
+          "actions": "Thao tác"
+        },
+        "emptyState": {
+          "title": "Chưa có lớp học nào",
+          "description": "Hãy tạo lớp học đầu tiên để bắt đầu"
+        }
+      },
+      "card": {
+        "maxStudents": "Số học viên tối đa",
+        "enrolledStudents": "Học viên đã đăng ký",
+        "sessions": "Buổi học",
+        "schedule": "Lịch học",
+        "viewDetails": "Xem chi tiết",
+        "viewSchedule": "Xem lịch học",
+        "attendance": "Điểm danh",
+        "pricing": "Giá",
+        "free": "Miễn phí",
+        "off": "giảm",
+        "oneOnOne": "1-on-1"
+      },
+      "detail": {
+        "course": "Khóa học",
+        "maxStudents": "học viên tối đa",
+        "enrolled": "đã đăng ký",
+        "editClassroom": "Chỉnh sửa lớp học",
+        "backToList": "Quay lại danh sách",
+        "totalStudents": "Tổng học viên",
+        "enrolledStudents": "Học viên đã đăng ký",
+        "totalSessions": "Tổng buổi học",
+        "schedule": "Lịch học",
+        "scheduleInfo": "Thông tin lịch học",
+        "upcomingSessions": "Buổi học sắp tới",
+        "addSession": "Thêm buổi học",
+        "noSessions": "Không có buổi học sắp tới",
+        "attended": "tham gia",
+        "joinMeeting": "Tham gia cuộc họp",
+        "meetingLink": "Liên kết họp",
+        "sessionStatus": {
+          "scheduled": "Đã lên lịch",
+          "ongoing": "Đang diễn ra",
+          "completed": "Đã hoàn thành",
+          "cancelled": "Đã hủy"
+        },
+        "editSession": "Chỉnh sửa buổi học",
+        "sessionTopic": "Chủ đề buổi học",
+        "sessionTopicPlaceholder": "Nhập chủ đề buổi học",
+        "sessionDescription": "Mô tả",
+        "sessionDescriptionPlaceholder": "Nhập mô tả buổi học",
+        "startTime": "Thời gian bắt đầu",
+        "endTime": "Thời gian kết thúc",
+        "location": "Địa điểm",
+        "locationPlaceholder": "Nhập địa điểm hoặc phòng họp",
+        "meetingInfo": "Thông tin cuộc họp",
+        "meetingId": "ID cuộc họp",
+        "meetingIdPlaceholder": "Nhập ID cuộc họp",
+        "meetingPassword": "Mật khẩu cuộc họp",
+        "meetingPasswordPlaceholder": "Nhập mật khẩu cuộc họp",
+        "participantLimit": "Giới hạn người tham gia",
+        "status": "Trạng thái",
+        "scheduled": "Đã lên lịch",
+        "ongoing": "Đang diễn ra",
+        "completed": "Đã hoàn thành",
+        "cancelled": "Đã hủy",
+        "saveSession": "Lưu buổi học",
+        "sessionUpdated": "Cập nhật buổi học thành công",
+        "sessionUpdateFailed": "Cập nhật buổi học thất bại",
+        "sessionCreated": "Tạo buổi học thành công",
+        "sessionCreateFailed": "Tạo buổi học thất bại",
+        "sessionsLoadFailed": "Tải danh sách buổi học thất bại",
+        "classroomUpdated": "Cập nhật lớp học thành công",
+        "classroomUpdateFailed": "Cập nhật lớp học thất bại",
+        "createSession": "Tạo buổi học",
+        "sessionTopicRequired": "Chủ đề buổi học là bắt buộc",
+        "startTimeRequired": "Thời gian bắt đầu là bắt buộc",
+        "endTimeRequired": "Thời gian kết thúc là bắt buộc",
+        "startTimeInPast": "Thời gian bắt đầu không thể là quá khứ",
+        "endTimeAfterStartTime": "Thời gian kết thúc phải sau thời gian bắt đầu",
+        "sessionTooShort": "Thời lượng buổi học phải ít nhất 15 phút",
+        "sessionTooLong": "Thời lượng buổi học không được vượt quá 8 giờ",
+        "deleteSession": "Xóa buổi học",
+        "confirmDeleteSession": "Bạn có chắc chắn muốn xóa buổi học này?",
+        "deleteSessionWarning": "Hành động này không thể hoàn tác. Tất cả dữ liệu buổi học sẽ bị xóa vĩnh viễn.",
+        "sessionDeleted": "Xóa buổi học thành công",
+        "sessionDeleteFailed": "Xóa buổi học thất bại",
+        "viewStudents": "Xem danh sách học viên",
+        "studentList": "Danh sách học viên",
+        "noStudents": "Chưa có học viên nào đăng ký lớp học này",
+        "studentsLoadFailed": "Tải danh sách học viên thất bại",
+        "enrolledOn": "Đăng ký ngày",
+        "active": "Hoạt động",
+        "inactive": "Không hoạt động",
+        "sessionAttendance": "Danh sách điểm danh buổi học",
+        "attendanceLoadFailed": "Không thể tải dữ liệu điểm danh",
+        "noAttendance": "Chưa có bản ghi điểm danh nào",
+        "totalAttendance": "Tổng số điểm danh",
+        "present": "Có mặt",
+        "late": "Đi muộn",
+        "checkedAt": "Điểm danh lúc"
+      },
+      "dialog": {
+        "createNewClassroom": "Tạo lớp mới",
+        "selectCourse": "Khóa học",
+        "selectCoursePlaceholder": "Chọn khóa học",
+        "selectExistingClassroom": "Chọn lớp học có sẵn để tiếp tục.",
+        "selectClassroom": "Lớp học",
+        "selectClassroomPlaceholder": "Chọn lớp học",
+        "createSession": "Tạo buổi học",
+        "sessionTitle": "Tiêu đề",
+        "sessionTitlePlaceholder": "Nhập tiêu đề buổi học",
+        "startTime": "Bắt đầu",
+        "startTimePlaceholder": "Chọn thời gian bắt đầu",
+        "endTime": "Kết thúc",
+        "endTimePlaceholder": "Chọn thời gian kết thúc",
+        "meetingLink": "Meeting link",
+        "meetingLinkPlaceholder": "https://...",
+        "meetingId": "Meeting ID",
+        "meetingIdPlaceholder": "Meeting ID",
+        "meetingPass": "Meeting pass",
+        "meetingPassPlaceholder": "Meeting pass",
+        "startDate": "Ngày bắt đầu",
+        "startDatePlaceholder": "Chọn ngày bắt đầu",
+        "numberOfSessions": "Tổng số buổi học",
+        "numberOfSessionsPlaceholder": "Ví dụ: 10",
+        "pricing": "Giá cả",
+        "originalPrice": "Giá gốc",
+        "originalPricePlaceholder": "Nhập giá gốc",
+        "originalPriceDescription": "Giá gốc của lớp học (bắt buộc)",
+        "backgroundColor": "Màu nền cho lịch học",
+        "backgroundColorLabel": "Màu nền",
+        "backgroundColorDescription": "Chọn màu nền để hiển thị trên lịch học",
+        "selectCourseRequired": "Vui lòng chọn khóa học",
+        "selectClassroomRequired": "Vui lòng chọn lớp học",
+        "sessionTitleRequired": "Vui lòng nhập tiêu đề buổi học",
+        "startEndTimeRequired": "Vui lòng chọn thời gian bắt đầu/kết thúc",
+        "endTimeAfterStartTime": "Thời gian kết thúc phải sau thời gian bắt đầu",
+        "createSessionSuccess": "Đã tạo buổi học",
+        "createSessionFailed": "Không thể tạo buổi học",
+        "priceRequired": "Giá cả là bắt buộc và phải lớn hơn 0",
+        "numberOfSessionsRequired": "Vui lòng nhập tổng số buổi học",
+        "numberOfSessionsMin": "Tổng số buổi học phải >= 1"
+      },
+      "sessionDetail": {
+        "editSession": "Chỉnh sửa buổi học",
+        "sessionDetail": "Chi tiết buổi học",
+        "edit": "Sửa",
+        "cancel": "Hủy",
+        "saveChanges": "Lưu thay đổi",
+        "title": "Tiêu đề",
+        "titlePlaceholder": "Nhập tiêu đề buổi học",
+        "description": "Mô tả",
+        "descriptionPlaceholder": "Nhập mô tả buổi học",
+        "startTime": "Thời gian bắt đầu",
+        "startTimePlaceholder": "Chọn thời gian bắt đầu",
+        "startTimeRequired": "Vui lòng chọn thời gian bắt đầu",
+        "endTime": "Thời gian kết thúc",
+        "endTimePlaceholder": "Chọn thời gian kết thúc",
+        "endTimeRequired": "Vui lòng chọn thời gian kết thúc",
+        "location": "Địa điểm",
+        "locationPlaceholder": "Nhập địa điểm",
+        "meetingInfo": "Thông tin meeting",
+        "meetingLink": "Meeting Link",
+        "meetingLinkPlaceholder": "https://zoom.us/j/...",
+        "meetingId": "Meeting ID",
+        "meetingIdPlaceholder": "Nhập Meeting ID",
+        "meetingPassword": "Meeting Password",
+        "meetingPasswordPlaceholder": "Nhập password",
+        "editMeeting": "Chỉnh sửa",
+        "link": "Link:",
+        "id": "ID:",
+        "password": "Password:",
+        "notSet": "Chưa có",
+        "copyLink": "Sao chép link",
+        "linkCopied": "Đã sao chép link",
+        "students": "Học viên",
+        "addStudent": "Thêm học viên",
+        "emailPlaceholder": "Nhập email học viên",
+        "add": "Thêm",
+        "noStudents": "Chưa có học viên nào",
+        "removeStudent": "Xóa học viên",
+        "confirmRemoveStudent": "Xác nhận xóa học viên",
+        "removeStudentMessage": "Bạn có chắc chắn muốn xóa học viên này khỏi lớp?",
+        "deleteOrder": "Xóa đơn hàng",
+        "remove": "Xóa",
+        "videos": "Video",
+        "uploadVideo": "Tải lên video",
+        "noVideos": "Chưa có video nào",
+        "deleteVideo": "Xác nhận xóa video",
+        "deleteVideoMessage": "Bạn có chắc chắn muốn xóa video \"{name}\"? Video đã được upload sẽ bị xóa khỏi hệ thống.",
+        "attendance": "Điểm danh",
+        "present": "Có mặt",
+        "late": "Muộn",
+        "noAttendance": "Chưa có bản ghi điểm danh",
+        "editClassroom": "Chỉnh sửa lớp học",
+        "deleteSession": "Xóa",
+        "confirmDeleteSession": "Xác nhận xóa buổi học",
+        "deleteSessionMessage": "Bạn có chắc chắn muốn xóa buổi học này không? Hệ thống có thể tự động sinh buổi mới để bù vào theo lịch của lớp.",
+        "delete": "Xóa",
+        "loadSessionError": "Lỗi khi tải thông tin buổi học",
+        "loadStudentsError": "Lỗi khi tải danh sách học sinh",
+        "addStudentSuccess": "Đã thêm học sinh vào lớp thành công",
+        "addStudentError": "Lỗi khi thêm học sinh",
+        "removeStudentSuccess": "Đã xóa học sinh khỏi lớp thành công",
+        "removeStudentAndOrderSuccess": "Đã xóa học sinh và đơn hàng khỏi lớp thành công",
+        "removeStudentError": "Lỗi khi xóa học sinh",
+        "updateSessionSuccess": "Thành công",
+        "updateSessionSuccessDesc": "Đã cập nhật buổi học thành công",
+        "updateSessionError": "Lỗi khi cập nhật buổi học",
+        "updateMeetingSuccess": "Thành công",
+        "updateMeetingSuccessDesc": "Đã cập nhật thông tin meeting",
+        "updateMeetingError": "Lỗi",
+        "updateMeetingErrorDesc": "Không thể cập nhật thông tin meeting",
+        "deleteSessionSuccess": "Đã xóa buổi học",
+        "deleteSessionError": "Lỗi khi xóa buổi học",
+        "uploadVideoSuccess": "Upload thành công",
+        "uploadVideoSuccessDesc": "Đã upload {name} thành công",
+        "uploadVideoError": "Lỗi khi upload video",
+        "deleteVideoSuccess": "Đã xóa video",
+        "deleteVideoSuccessDesc": "Đã xóa {name}",
+        "deleteVideoError": "Lỗi khi xóa video",
+        "fileTypeNotSupported": "Loại file không được hỗ trợ. Chỉ chấp nhận: {types}",
+        "missingUploadUrl": "Không nhận được upload URL từ server",
+        "missingSessionOrCourse": "Lỗi",
+        "missingSessionOrCourseDesc": "Thiếu thông tin session hoặc course",
+        "sessionFallback": "Buổi học",
+        "meetingInfoTitle": "Thông tin meeting",
+        "linkLabel": "Link:",
+        "idLabel": "ID:",
+        "passwordLabel": "Pass:",
+        "save": "Lưu",
+        "locationLabel": "Địa điểm",
+        "classroomLabel": "Lớp học",
+        "maxStudents": "Tối đa {count} học viên",
+        "discountLabel": "KM:",
+        "courseLabel": "Khóa học",
+        "attendanceListTitle": "Danh sách học sinh đã điểm danh",
+        "presentCount": "{count} Có mặt",
+        "lateCount": "{count} Muộn",
+        "noAttendanceYet": "Chưa có học sinh nào tham gia",
+        "videoSectionTitle": "Video buổi học",
+        "upload": "Upload",
+        "noVideosYet": "Chưa có video nào",
+        "studentListTitle": "Danh sách học sinh",
+        "noStudentsInClass": "Chưa có học sinh nào trong lớp",
+        "noLinkedEmail": "Không có email liên kết",
+        "deleteSessionButton": "Xóa buổi học",
+        "close": "Đóng",
+        "confirmRemoveStudentTitle": "Xác nhận xóa học sinh",
+        "confirmRemoveStudentMessage": "Bạn có chắc chắn muốn xóa học sinh này khỏi lớp không?",
+        "deleteOrderLabel": "Xóa luôn đơn hàng",
+        "deleteOrderDescription": "Nếu bạn đã thêm nhầm học sinh và muốn xóa luôn đơn hàng để doanh thu không bị nhầm, hãy chọn tùy chọn này.\nMặc định chỉ xóa enrollment, đơn hàng sẽ được đánh dấu là \"đã hủy\".",
+        "meetingLinkPlaceholderEdit": "Meeting Link",
+        "meetingIdPlaceholderEdit": "Meeting ID",
+        "meetingPasswordPlaceholderEdit": "Password"
+      },
+      "error": {
+        "cannotJoinClass": "Không thể tham gia buổi học",
+        "checkInFailed": "Không thể tham gia buổi học. Vui lòng thử lại sau.",
+        "checkInTooEarly": "Bạn đang cố gắng vào học quá sớm. Vui lòng đợi đến khi buổi học bắt đầu.",
+        "checkInNotYetAvailable": "Chưa thể điểm danh. Có thể điểm danh từ {time}",
+        "checkInNotYetAvailableFrom": "Chưa thể điểm danh. Có thể điểm danh từ {time}"
+      },
+      "edit": {
+        "title": "Chỉnh sửa lớp học",
+        "classroomTitle": "Tên lớp học",
+        "classroomTitlePlaceholder": "Nhập tên lớp học",
+        "studentCount": "Số học viên tối đa",
+        "studentCountPlaceholder": "Nhập số học viên tối đa",
+        "startDate": "Ngày bắt đầu",
+        "startDatePlaceholder": "Chọn ngày bắt đầu",
+        "endDate": "Ngày kết thúc",
+        "endDatePlaceholder": "Chọn ngày kết thúc",
+        "meetingLink": "Liên kết họp",
+        "meetingLinkPlaceholder": "Nhập liên kết họp",
+        "currentInfo": "Thông tin hiện tại",
+        "course": "Khóa học",
+        "enrolled": "Đã đăng ký",
+        "students": "học viên",
+        "sessions": "Buổi học",
+        "save": "Lưu thay đổi",
+        "cancel": "Hủy",
+        "titleRequired": "Tên lớp học là bắt buộc",
+        "titleLength": "Tên phải có từ 3 đến 100 ký tự",
+        "studentCountRequired": "Số học viên là bắt buộc",
+        "studentCountRange": "Số học viên phải từ 1 đến 1000",
+        "startDateRequired": "Ngày bắt đầu là bắt buộc",
+        "endDateRequired": "Ngày kết thúc là bắt buộc",
+        "schedule": "Lịch học",
+        "addSchedule": "Thêm lịch học",
+        "noSchedules": "Chưa có lịch học nào",
+        "scheduleItem": "Lịch học",
+        "dayOfWeek": "Thứ trong tuần",
+        "startTime": "Giờ bắt đầu",
+        "endTime": "Giờ kết thúc"
+      },
+      "meetingLink": {
+        "editMeetingLink": "Chỉnh sửa liên kết họp",
+        "noMeetingLink": "Chưa có liên kết họp",
+        "meetingLinkPlaceholder": "Nhập liên kết họp (ví dụ: https://zoom.us/j/123456789)",
+        "saveMeetingLink": "Lưu liên kết họp",
+        "cancel": "Hủy",
+        "meetingLinkUpdated": "Cập nhật liên kết họp thành công!",
+        "meetingLinkUpdateFailed": "Không thể cập nhật liên kết họp",
+        "meetingLinkCopied": "Đã sao chép liên kết họp vào clipboard!",
+        "meetingLinkCopyFailed": "Không thể sao chép liên kết họp"
+      }
+    },
+    "quizManagement": {
+      "title": "Quản lý Quiz",
+      "description": "Theo dõi và chấm điểm các bài làm của học sinh",
+      "filters": {
+        "classroom": "Lớp học",
+        "selectClassroom": "Chọn lớp học",
+        "allClassrooms": "Tất cả lớp học",
+        "onlyNeedsGrading": "Chỉ hiện bài cần chấm",
+        "refresh": "Làm mới"
+      },
+      "table": {
+        "title": "Danh sách bài làm",
+        "total": "Tổng: {count} bài",
+        "loading": "Đang tải...",
+        "retry": "Thử lại",
+        "student": "Học sinh",
+        "quiz": "Quiz",
+        "status": "Trạng thái",
+        "score": "Điểm",
+        "date": "Ngày làm",
+        "actions": "Hành động",
+        "grade": "Chấm bài",
+        "view": "Xem"
+      },
+      "status": {
+        "completed": "Hoàn thành",
+        "inProgress": "Đang làm",
+        "expired": "Hết hạn",
+        "needsGrading": "Cần chấm"
+      },
+      "empty": {
+        "noSubmissions": "Không có bài làm nào",
+        "noSubmissionsNeedsGrading": "Không có bài làm nào cần chấm"
+      },
+      "errors": {
+        "loadSubmissions": "Không thể tải danh sách bài làm"
+      }
+    },
+    "quizSubmission": {
+      "back": "Quay lại",
+      "title": "Chi tiết bài làm",
+      "description": "Xem chi tiết bài làm của học sinh",
+      "loading": "Đang tải thông tin bài làm...",
+      "error": "Lỗi",
+      "studentInfo": {
+        "title": "Thông tin học sinh",
+        "name": "Tên",
+        "quiz": "Quiz",
+        "status": "Trạng thái",
+        "startedAt": "Bắt đầu",
+        "completedAt": "Hoàn thành"
+      },
+      "result": {
+        "title": "Kết quả",
+        "totalQuestions": "Tổng câu",
+        "correct": "Đúng",
+        "score": "Điểm",
+        "timeSpent": "Thời gian làm bài"
+      },
+      "questionsAndAnswers": "Câu hỏi và câu trả lời",
+      "questionTypes": {
+        "multipleChoice": "Trắc nghiệm",
+        "textInput": "Điền từ",
+        "essay": "Tự luận"
+      },
+      "answerStatus": {
+        "correct": "Đúng",
+        "incorrect": "Sai",
+        "graded": "Đã chấm",
+        "pendingGrading": "Chờ chấm"
+      },
+      "studentAnswer": "Câu trả lời của học sinh:",
+      "correctAnswer": "Đáp án đúng:",
+      "errors": {
+        "loadFailed": "Không thể tải thông tin bài làm"
+      }
+    },
+    "essayGrading": {
+      "classroom": "Lớp học",
+      "search": "Tìm kiếm",
+      "loading": "Đang tải...",
+      "student": "Học sinh:",
+      "maxScore": "Điểm tối đa:",
+      "submittedAt": "Ngày nộp:",
+      "question": "Câu hỏi:",
+      "studentAnswer": "Câu trả lời của học sinh:",
+      "filtersTitle": "Bộ lọc",
+      "selectClassroom": "Chọn lớp học",
+      "allClassrooms": "Tất cả lớp học",
+      "status": "Trạng thái",
+      "selectStatus": "Chọn trạng thái",
+      "allStatus": "Tất cả",
+      "searchPlaceholder": "Tìm theo tên học sinh hoặc quiz...",
+      "searchPlaceholderEssays": "Tìm theo tên học sinh, quiz, hoặc câu hỏi...",
+      "refresh": "Làm mới",
+      "listTitle": "Danh sách bài làm",
+      "needsGradingListTitle": "Danh sách bài cần chấm",
+      "retry": "Thử lại",
+      "needsGrading": "Cần chấm"
+    },
+    "essayGradingTeacher": {
+      "back": "Quay lại",
+      "name": "Tên:",
+      "submittedAt": "Ngày nộp:",
+      "maxScore": "Điểm tối đa:",
+      "points": "điểm",
+      "previewScore": "Xem trước điểm",
+      "success": "Thành công",
+      "successDesc": "Đã chấm điểm bài tự luận thành công!",
+      "error": "Lỗi",
+      "errorDesc": "Không thể chấm bài",
+      "title": "Chấm điểm bài tự luận",
+      "description": "Đánh giá và phản hồi cho bài làm của học sinh",
+      "loading": "Đang tải thông tin bài làm...",
+      "studentInfo": "Thông tin học sinh",
+      "question": "Câu hỏi",
+      "studentAnswer": "Câu trả lời của học sinh",
+      "gradingTitle": "Chấm điểm",
+      "scoreLabel": "Điểm số",
+      "scorePlaceholder": "Nhập điểm",
+      "feedbackLabel": "Phản hồi cho học sinh"
+    },
+    "quiz": {
+      "collapseAll": "Thu gọn tất cả",
+      "expandAll": "Mở rộng tất cả",
+      "addQuiz": "Thêm Quiz",
+      "loadingComments": "Đang tải nhận xét...",
+      "comment": {
+        "success": "Thành công",
+        "updateSuccess": "Đã cập nhật nhận xét!",
+        "addSuccess": "Đã thêm nhận xét!",
+        "error": "Lỗi",
+        "errorDesc": "Không thể lưu nhận xét"
+      }
+    },
+    "classrooms": {
+      "title": "Quản lý Lớp học"
+    },
+    "students": {
+      "title": "Học viên khóa học",
+      "description": "Quản lý học viên đã đăng ký khóa học này",
+      "stats": {
+        "totalStudents": "Tổng học viên",
+        "activeStudents": "Học viên hoạt động",
+        "averageProgress": "Tiến độ trung bình",
+        "recentEnrollments": "Đăng ký gần đây"
+      },
+      "filters": {
+        "searchPlaceholder": "Tìm kiếm học viên theo tên, email hoặc tên đăng nhập..."
+      },
+      "table": {
+        "columns": {
+          "student": "Học viên",
+          "classroom": "Lớp học",
+          "progress": "Tiến độ",
+          "lastAccessed": "Truy cập cuối",
+          "enrolled": "Đã đăng ký",
+          "actions": "Thao tác"
+        },
+        "status": {
+          "active": "Hoạt động",
+          "inactive": "Không hoạt động",
+          "notCompleted": "Chưa hoàn thành",
+          "enrolled": "Đã đăng ký",
+          "disabled": "Bị vô hiệu hóa"
+        },
+        "emptyState": {
+          "title": "Không tìm thấy học viên",
+          "description": "Hãy thử điều chỉnh tiêu chí tìm kiếm",
+          "clearSearch": "Xóa tìm kiếm"
+        },
+        "totalStudents": "Tổng học viên: {total}"
+      },
+      "actions": {
+        "refresh": "Làm mới",
+        "viewProgress": "Xem tiến độ",
+        "removeFromCourse": "Xóa khỏi khóa học",
+        "disableStudent": "Vô hiệu hóa học viên",
+        "enableStudent": "Kích hoạt học viên"
+      },
+      "error": {
+        "title": "Lỗi tải danh sách học viên",
+        "tryAgain": "Thử lại"
+      },
+      "messages": {
+        "refreshSuccess": "Làm mới danh sách học viên thành công",
+        "viewProgressMessage": "Xem tiến độ của {name}",
+        "removeStudentMessage": "Xóa {name} khỏi khóa học",
+        "disableStudentSuccess": "Học viên {name} đã được vô hiệu hóa",
+        "enableStudentSuccess": "Học viên {name} đã được kích hoạt",
+        "disableStudentError": "Không thể vô hiệu hóa học viên",
+        "enableStudentError": "Không thể kích hoạt học viên"
+      }
+    },
+    "video": {
+      "unsupportedFormat": "Định dạng video không được hỗ trợ. Vui lòng chọn file MP4, WebM, OGG, MOV hoặc AVI."
+    },
+    "courses": {
+      "title": "Quản lý khóa học",
+      "createCourse": "Tạo khóa học",
+      "courseNotFound": "Không tìm thấy khóa học",
+      "coursesSection": "Khoá học",
+      "noCourses": "Chưa có khoá học nào",
+      "resourcesSection": "Tài nguyên",
+      "noResources": "Chưa có tài nguyên nào",
+      "createResource": "Tạo tài nguyên",
+      "tabs": {
+        "classroom": "Lớp học",
+        "quiz": "Bài kiểm tra",
+        "students": "Học viên",
+        "chapters": "Chương",
+        "resources": "Tài liệu",
+        "pricing": "Giá tiền",
+        "detail": "Chi tiết"
+      },
+      "breadcrumb": {
+        "course": "Khóa học"
+      }
+    },
+    "pricePlans": {
+      "title": "Quản lý gói giá",
+      "description": "Quản lý các gói giá theo thời hạn cho khóa học này",
+      "actions": {
+        "add": "Thêm gói giá",
+        "edit": "Sửa",
+        "delete": "Xóa"
+      },
+      "table": {
+        "columns": {
+          "duration": "Thời hạn",
+          "price": "Giá",
+          "status": "Trạng thái",
+          "available": "Khả dụng",
+          "dateRange": "Khoảng thời gian",
+          "actions": "Thao tác"
+        },
+        "totalPlans": "gói giá",
+        "months": "tháng",
+        "active": "Hoạt động",
+        "inactive": "Không hoạt động",
+        "default": "Mặc định",
+        "available": "Có sẵn",
+        "unavailable": "Không có sẵn",
+        "noDateRange": "Không giới hạn",
+        "fromDate": "Từ {date}",
+        "untilDate": "Đến {date}"
+      },
+      "form": {
+        "duration": "Thời hạn (tháng)",
+        "durationRequired": "Vui lòng nhập thời hạn",
+        "durationPlaceholder": "Nhập số tháng",
+        "priceAmount": "Giá",
+        "priceAmountRequired": "Vui lòng nhập giá",
+        "priceAmountPlaceholder": "Nhập giá",
+        "priceCurrency": "Loại tiền tệ",
+        "priceCurrencyRequired": "Vui lòng chọn loại tiền tệ",
+        "priceCurrencyPlaceholder": "Chọn loại tiền tệ",
+        "startsAt": "Ngày bắt đầu",
+        "startsAtPlaceholder": "Chọn ngày bắt đầu",
+        "endsAt": "Ngày kết thúc",
+        "endsAtPlaceholder": "Chọn ngày kết thúc",
+        "isActive": "Kích hoạt",
+        "isAvailable": "Khả dụng",
+        "isDefault": "Mặc định"
+      },
+      "modal": {
+        "createTitle": "Thêm gói giá",
+        "editTitle": "Chỉnh sửa gói giá",
+        "save": "Lưu",
+        "cancel": "Hủy"
+      },
+      "notifications": {
+        "loadFailed": "Tải danh sách gói giá thất bại",
+        "createSuccess": "Tạo gói giá thành công",
+        "updateSuccess": "Cập nhật gói giá thành công",
+        "deleteSuccess": "Xóa gói giá thành công",
+        "deleteFailed": "Xóa gói giá thất bại",
+        "saveFailed": "Lưu gói giá thất bại"
+      },
+      "deleteConfirm": {
+        "title": "Xác nhận xóa",
+        "content": "Bạn có chắc chắn muốn xóa gói giá {duration} tháng với giá {price}?",
+        "okText": "Xóa",
+        "cancelText": "Hủy"
+      },
+      "empty": {
+        "title": "Chưa có gói giá nào",
+        "description": "Thêm gói giá đầu tiên cho khóa học này"
+      }
+    },
+    "resources": {
+      "title": "Quản lý tài liệu",
+      "description": "Quản lý các tài liệu, video, file và tài nguyên khác của khóa học",
+      "addResource": "Thêm tài liệu",
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa",
+      "downloadable": "Có thể tải xuống",
+      "notDownloadable": "Không thể tải xuống",
+      "classrooms": "lớp học",
+      "allClassrooms": "Tất cả lớp học",
+      "table": {
+        "totalResources": "tài liệu",
+        "columns": {
+          "order": "Thứ tự",
+          "type": "Loại",
+          "title": "Tiêu đề",
+          "size": "Kích thước",
+          "duration": "Thời lượng",
+          "downloadable": "Tải xuống",
+          "classrooms": "Lớp học",
+          "uploadedAt": "Ngày tải lên",
+          "actions": "Thao tác"
+        }
+      },
+      "empty": {
+        "title": "Chưa có tài liệu nào",
+        "subtitle": "Bắt đầu bằng cách thêm tài liệu đầu tiên cho khóa học này"
+      },
+      "deleteConfirm": {
+        "title": "Xóa tài liệu",
+        "content": "Bạn có chắc chắn muốn xóa tài liệu \"{title}\"? Hành động này không thể hoàn tác.",
+        "okText": "Xóa",
+        "cancelText": "Hủy"
+      },
+      "form": {
+        "addTitle": "Thêm tài liệu mới",
+        "editTitle": "Chỉnh sửa tài liệu",
+        "assetType": "Loại tài liệu",
+        "assetTypeRequired": "Vui lòng chọn loại tài liệu!",
+        "assetTypePlaceholder": "Chọn loại tài liệu",
+        "title": "Tiêu đề",
+        "titleRequired": "Vui lòng nhập tiêu đề!",
+        "titlePlaceholder": "Nhập tiêu đề tài liệu",
+        "description": "Mô tả",
+        "descriptionPlaceholder": "Nhập mô tả tài liệu (tùy chọn)",
+        "file": "File",
+        "fileRequired": "Vui lòng chọn file!",
+        "fileUploading": "Đang tải lên file, vui lòng đợi...",
+        "selectFile": "Chọn file",
+        "selectFiles": "Chọn nhiều file",
+        "fileUploaded": "File đã được tải lên thành công",
+        "uploaded": "Đã tải lên",
+        "dragText": "Kéo thả file vào đây hoặc",
+        "dragHint": "Hỗ trợ upload nhiều file cùng lúc. Kích thước tối đa 100MB mỗi file.",
+        "upload": "Tải lên",
+        "save": "Lưu",
+        "cancel": "Hủy",
+        "uploadingProgress": "Đang tải lên: {percent}%",
+        "invalidFileType": "Loại file không hợp lệ",
+        "invalidFileTypeDescription": "Vui lòng chọn file có định dạng hợp lệ (pdf, doc, ppt, zip, image, audio)",
+        "videoNotAllowed": "File video không được phép",
+        "videoNotAllowedDescription": "Tài liệu không hỗ trợ file video. Vui lòng chọn loại file khác.",
+        "fileTooLarge": "File quá lớn",
+        "fileTooLargeDescription": "File không được vượt quá 100MB",
+        "uploadFailed": "Tải lên file thất bại",
+        "getPresignedUrlFailed": "Lỗi khi lấy URL upload",
+        "missingUploadUrls": "Thiếu URL upload",
+        "uploadToS3Failed": "Lỗi khi upload lên S3",
+        "createAssetFailed": "Lỗi khi tạo tài liệu",
+        "duration": "Thời lượng",
+        "durationPlaceholder": "Nhập thời lượng (giây)",
+        "durationDescription": "Thời lượng tính bằng giây (chỉ dành cho video/audio)",
+        "seconds": "giây",
+        "order": "Thứ tự hiển thị",
+        "orderRequired": "Vui lòng nhập thứ tự!",
+        "orderPlaceholder": "Nhập thứ tự hiển thị",
+        "isDownloadable": "Cho phép tải xuống",
+        "isDownloadableDescription": "Học viên có thể tải xuống file này",
+        "visibleClassrooms": "Lớp học hiển thị",
+        "visibleClassroomsPlaceholder": "Chọn các lớp học có thể xem tài liệu này",
+        "visibleClassroomsDescription": "Chỉ các lớp học được chọn mới có thể xem tài liệu này (để trống để hiển thị cho tất cả)"
+      },
+      "notifications": {
+        "createSuccess": "Tạo tài liệu thành công!",
+        "updateSuccess": "Cập nhật tài liệu thành công!",
+        "saveFailed": "Lưu tài liệu thất bại",
+        "deleteSuccess": "Xóa tài liệu thành công!",
+        "deleteFailed": "Xóa tài liệu thất bại",
+        "loadFailed": "Tải danh sách tài liệu thất bại",
+        "loadClassroomsFailed": "Tải danh sách lớp học thất bại",
+        "uploadSuccess": "Đã tải lên {count} tài liệu thành công!",
+        "uploadPartialSuccess": "Đã tải lên {total} tài liệu, {failed} tài liệu thất bại. File lỗi: {files}",
+        "uploadAllFailed": "Tất cả file tải lên thất bại. File lỗi: {files}",
+        "allFilesUploaded": "Tất cả file đã được tải lên"
+      }
+    },
+    "formCourse": {
+      "title": {
+        "create": "Tạo khóa học mới",
+        "edit": "Chỉnh sửa khóa học"
+      },
+      "description": {
+        "create": "Thêm khóa học mới vào chương trình giảng dạy",
+        "edit": "Cập nhật thông tin và nội dung khóa học"
+      },
+      "courseDetails": "Chi tiết khóa học",
+      "form": {
+        "title": "Tiêu đề khóa học",
+        "titlePlaceholder": "Nhập tiêu đề khóa học",
+        "titleRequired": "Vui lòng nhập tiêu đề khóa học!",
+        "slug": "Slug khóa học",
+        "slugPlaceholder": "Tự động tạo từ tiêu đề",
+        "shortDescription": "Mô tả ngắn khóa học",
+        "shortDescriptionPlaceholder": "Nhập mô tả ngắn khóa học",
+        "shortDescriptionRequired": "Vui lòng nhập mô tả ngắn khóa học!",
+        "category": "Danh mục khóa học",
+        "categoryPlaceholder": "Chọn danh mục",
+        "categoryRequired": "Vui lòng chọn danh mục khóa học!",
+        "courseType": "Loại khóa học",
+        "courseTypePlaceholder": "Chọn loại khóa học",
+        "courseTypeRequired": "Vui lòng chọn loại khóa học!",
+        "courseLevel": "Cấp độ khóa học",
+        "courseLevelPlaceholder": "Chọn cấp độ (tùy chọn)",
+        "courseSubLevel": "Cấp độ phụ",
+        "courseSubLevelPlaceholder": "Chọn cấp độ phụ (tùy chọn)",
+        "courseSubLevelRequired": "Vui lòng chọn cấp độ phụ khi đã chọn cấp độ!",
+        "courseTypeOptions": {
+          "course": "Khóa học",
+          "resource": "Tài nguyên"
+        },
+        "courseLevelOptions": {
+          "basic": "Cơ bản",
+          "intermediate": "Trung cấp",
+          "advanced": "Nâng cao",
+          "driving_theory": "Lý thuyết lái xe"
+        },
+        "level": "Cấp độ khóa học (Legacy)",
+        "levelPlaceholder": "Chọn cấp độ",
+        "levelRequired": "Vui lòng chọn cấp độ!",
+        "isFree": "Khóa học miễn phí",
+        "free": "Miễn phí",
+        "paid": "Trả phí",
+        "price": "Giá khóa học",
+        "pricePlaceholder": "Nhập giá khóa học",
+        "priceRequired": "Vui lòng nhập giá khóa học!",
+        "discountPrice": "Giá giảm khóa học",
+        "discountPricePlaceholder": "Nhập giá giảm khóa học",
+        "durationHours": "Thời lượng khóa học (giờ)",
+        "durationHoursPlaceholder": "Nhập thời lượng khóa học",
+        "durationHoursRequired": "Vui lòng nhập thời lượng khóa học!",
+        "introVideo": "Tải lên video",
+        "introImage": "Tải lên hình ảnh giới thiệu",
+        "description": "Mô tả",
+        "descriptionRequired": "Vui lòng nhập mô tả khóa học!"
+      },
+      "upload": {
+        "videoDragText": "Kéo thả tệp, hoặc",
+        "videoBrowse": "Duyệt",
+        "videoHint": "Tải lên Video định dạng Mov, MP4.",
+        "imageDragText": "Kéo thả tệp, hoặc",
+        "imageBrowse": "Duyệt",
+        "imageHint": "Tải lên Hình ảnh định dạng JPEG, PNG.",
+        "uploading": "Đang tải lên video...",
+        "fileUnchanged": "Tệp không thay đổi, bỏ qua tải lên"
+      },
+      "buttons": {
+        "previewCourse": "Xem trước khóa học",
+        "deleteCourse": "Xóa khóa học",
+        "createCourse": "Tạo khóa học",
+        "updateCourse": "Cập nhật khóa học",
+        "uploading": "Đang tải lên...",
+        "cancel": "Hủy",
+        "delete": "Xóa"
+      },
+      "deleteDialog": {
+        "title": "Xóa khóa học",
+        "untitledCourse": "Khóa học chưa có tên",
+        "confirmTitle": "Xóa khóa học",
+        "confirmMessage": "Hành động này không thể hoàn tác.",
+        "courseLabel": "Khóa học:",
+        "confirmDescription": "Bạn có chắc chắn muốn xóa khóa học này? Khóa học sẽ được đánh dấu là đã xóa (soft delete) và không hiển thị trong danh sách công khai. Khóa học có thể được khôi phục sau."
+      },
+      "notifications": {
+        "loginRequired": "Vui lòng đăng nhập để lưu khóa học",
+        "createSuccess": "Tạo khóa học thành công",
+        "updateSuccess": "Cập nhật khóa học thành công",
+        "createFailed": "Tạo khóa học thất bại",
+        "updateFailed": "Cập nhật khóa học thất bại",
+        "deleteSuccess": "Xóa khóa học thành công",
+        "deleteSuccessDescription": "Khóa học đã được đánh dấu là đã xóa (soft delete). Khóa học có thể được khôi phục sau.",
+        "deleteFailed": "Xóa khóa học thất bại",
+        "deleteFailedDescription": "Đã xảy ra lỗi khi xóa khóa học. Vui lòng thử lại.",
+        "uploadImageFailed": "Tải lên hình ảnh thất bại"
+      }
+    },
+    "orders": {
+      "title": "Quản lý đơn hàng",
+      "description": "Quản lý và theo dõi tất cả đơn hàng khóa học",
+      "stats": {
+        "totalOrders": "Tổng đơn hàng",
+        "totalRevenue": "Tổng doanh thu",
+        "pendingOrders": "Đơn hàng chờ xử lý",
+        "completedOrders": "Đơn hàng đã hoàn thành"
+      },
+      "filters": {
+        "searchPlaceholder": "Tìm kiếm theo mã hóa đơn, học viên, khóa học...",
+        "statusFilter": "Lọc theo trạng thái",
+        "dateRange": "Khoảng thời gian",
+        "clearFilters": "Xóa bộ lọc"
+      },
+      "table": {
+        "columns": {
+          "invoice": "Hóa đơn",
+          "student": "Học viên",
+          "course": "Khóa học",
+          "classroom": "Lớp học",
+          "plan": "Gói",
+          "amount": "Số tiền",
+          "status": "Trạng thái",
+          "date": "Ngày",
+          "actions": "Thao tác"
+        },
+        "plan": {
+          "months": "tháng",
+          "pricePlan": "Gói giá"
+        },
+        "status": {
+          "pending": "Chờ xử lý",
+          "complete": "Hoàn thành",
+          "cancel": "Hủy"
+        },
+        "actions": {
+          "viewDetails": "Xem chi tiết",
+          "confirmReceive": "Xác nhận nhận tiền",
+          "reject": "Từ chối"
+        },
+        "detailDialog": {
+          "title": "Chi tiết đơn hàng",
+          "invoice": "Mã hóa đơn",
+          "student": "Học viên",
+          "course": "Khóa học",
+          "classroom": "Lớp học",
+          "amount": "Số tiền",
+          "status": "Trạng thái",
+          "paymentMethod": "Phương thức thanh toán",
+          "paymentReference": "Mã tham chiếu thanh toán",
+          "notes": "Ghi chú",
+          "adminNote": "Ghi chú admin",
+          "canceledReason": "Lý do hủy",
+          "createdAt": "Ngày tạo",
+          "updatedAt": "Ngày cập nhật",
+          "close": "Đóng"
+        },
+        "confirmDialog": {
+          "confirmReceive": {
+            "title": "Xác nhận nhận tiền",
+            "message": "Bạn có chắc chắn muốn xác nhận đã nhận tiền cho đơn hàng này?",
+            "confirm": "Có, Xác nhận",
+            "cancel": "Hủy"
+          },
+          "reject": {
+            "title": "Từ chối đơn hàng",
+            "message": "Bạn có chắc chắn muốn từ chối đơn hàng này?",
+            "reason": "Lý do từ chối",
+            "reasonPlaceholder": "Vui lòng cung cấp lý do từ chối đơn hàng này...",
+            "confirm": "Có, Từ chối",
+            "cancel": "Hủy"
+          }
+        },
+        "emptyState": {
+          "title": "Không tìm thấy đơn hàng",
+          "description": "Không có đơn hàng nào phù hợp với bộ lọc hiện tại",
+          "clearFilters": "Xóa bộ lọc"
+        },
+        "loading": "Đang tải đơn hàng...",
+        "error": "Không thể tải đơn hàng. Vui lòng thử lại.",
+        "refresh": "Làm mới"
+      },
+      "detailDialog": {
+        "title": "Chi tiết đơn hàng",
+        "invoice": "Mã hóa đơn",
+        "student": "Học viên",
+        "course": "Khóa học",
+        "classroom": "Lớp học",
+        "amount": "Số tiền",
+        "status": "Trạng thái",
+        "paymentMethod": "Phương thức thanh toán",
+        "paymentReference": "Mã tham chiếu thanh toán",
+        "notes": "Ghi chú",
+        "adminNote": "Ghi chú admin",
+        "canceledReason": "Lý do hủy",
+        "createdAt": "Ngày tạo",
+        "updatedAt": "Ngày cập nhật",
+        "close": "Đóng"
+      }
+    },
+    "videoPosts": {
+      "title": "Quản lý Video Posts",
+      "description": "Quản lý và theo dõi tất cả các video blog posts",
+      "stats": {
+        "totalPosts": "Tổng bài viết",
+        "publishedPosts": "Bài viết đã xuất bản",
+        "unpublishedPosts": "Bài viết chưa xuất bản",
+        "totalViews": "Tổng lượt xem"
+      },
+      "filters": {
+        "searchPlaceholder": "Tìm kiếm theo tiêu đề, tác giả...",
+        "statusFilter": "Lọc theo trạng thái",
+        "allStatus": "Tất cả",
+        "published": "Đã xuất bản",
+        "unpublished": "Chưa xuất bản"
+      },
+      "table": {
+        "columns": {
+          "title": "Tiêu đề",
+          "author": "Tác giả",
+          "status": "Trạng thái",
+          "views": "Lượt xem",
+          "publishedAt": "Ngày xuất bản",
+          "createdAt": "Ngày tạo",
+          "actions": "Thao tác"
+        },
+        "status": {
+          "published": "Đã xuất bản",
+          "unpublished": "Chưa xuất bản"
+        },
+        "noAuthor": "Không có tác giả",
+        "emptyState": {
+          "title": "Không tìm thấy bài viết",
+          "description": "Chưa có video post nào. Tạo bài viết đầu tiên để bắt đầu."
+        }
+      },
+      "actions": {
+        "create": "Tạo bài viết mới",
+        "edit": "Chỉnh sửa",
+        "delete": "Xóa",
+        "publish": "Xuất bản",
+        "unpublish": "Gỡ xuất bản",
+        "refresh": "Làm mới",
+        "deleteConfirm": {
+          "title": "Xóa Video Post",
+          "message": "Bạn có chắc chắn muốn xóa bài viết \"{title}\"?",
+          "confirm": "Xóa",
+          "cancel": "Hủy"
+        }
+      },
+      "messages": {
+        "loadError": "Không thể tải danh sách bài viết",
+        "createSuccess": "Tạo bài viết thành công",
+        "createError": "Không thể tạo bài viết",
+        "updateSuccess": "Cập nhật bài viết thành công",
+        "updateError": "Không thể cập nhật bài viết",
+        "uploadError": "Tải lên video thất bại",
+        "uploadThumbnailFailed": "Tải lên thumbnail thất bại",
+        "deleteSuccess": "Đã xóa bài viết \"{title}\" thành công",
+        "deleteError": "Không thể xóa bài viết",
+        "publishSuccess": "Đã xuất bản bài viết \"{title}\" thành công",
+        "unpublishSuccess": "Đã gỡ xuất bản bài viết \"{title}\" thành công",
+        "togglePublishError": "Không thể thay đổi trạng thái xuất bản",
+        "refreshSuccess": "Làm mới thành công"
+      },
+      "error": {
+        "loadError": "Không thể tải danh sách bài viết"
+      },
+      "editor": {
+        "createTitle": "Tạo Video Post Mới",
+        "editTitle": "Chỉnh sửa Video Post",
+        "createDescription": "Tạo video post mới với nội dung và video",
+        "editDescription": "Chỉnh sửa thông tin video post",
+        "back": "Quay lại",
+        "cancel": "Hủy",
+        "create": "Tạo Bài viết",
+        "update": "Cập nhật Bài viết",
+        "basicInfo": "Thông tin cơ bản",
+        "videoInfo": "Thông tin Video",
+        "title": "Tiêu đề",
+        "titlePlaceholder": "Nhập tiêu đề bài viết...",
+        "titleRequired": "Vui lòng nhập tiêu đề",
+        "titleMaxLength": "Tiêu đề không được vượt quá 200 ký tự",
+        "content": "Nội dung",
+        "contentPlaceholder": "Nhập nội dung bài viết (HTML)...",
+        "contentRequired": "Vui lòng nhập nội dung",
+        "contentHint": "Bạn có thể sử dụng HTML để định dạng nội dung",
+        "author": "Tác giả",
+        "authorPlaceholder": "Nhập tên tác giả (tùy chọn)...",
+        "authorMaxLength": "Tên tác giả không được vượt quá 100 ký tự",
+        "videoUrl": "URL Video",
+        "videoUrlPlaceholder": "https://www.youtube.com/watch?v=...",
+        "videoUrlRequired": "Vui lòng nhập URL video",
+        "videoUrlInvalid": "Vui lòng nhập URL hợp lệ",
+        "videoUrlHint": "Hỗ trợ YouTube, Vimeo hoặc direct video URL",
+        "thumbnail": "Thumbnail",
+        "thumbnailPlaceholder": "https://example.com/thumbnail.jpg (tùy chọn)",
+        "thumbnailInvalid": "Vui lòng nhập URL hợp lệ",
+        "thumbnailHint": "URL của hình ảnh thumbnail (tùy chọn)",
+        "thumbnailUploadText": "Kéo thả ảnh vào đây hoặc",
+        "thumbnailBrowse": "chọn ảnh",
+        "thumbnailAutoHint": "Nếu không chọn ảnh, hệ thống sẽ tự động tạo thumbnail từ frame đầu tiên của video.",
+        "tags": "Tags",
+        "tagPlaceholder": "Nhập tag và nhấn Enter",
+        "addTag": "Thêm Tag",
+        "settings": "Cài đặt",
+        "isPublished": "Xuất bản ngay",
+        "isPublishedHint": "Bài viết sẽ được hiển thị công khai nếu bật",
+        "videoFile": "Video",
+        "videoFileUploadText": "Click hoặc kéo thả file video vào đây",
+        "videoFileUploadHint": "Hỗ trợ MP4, WebM, OGG, MOV, AVI (tối đa 500MB)",
+        "videoFileOrUrl": "Hoặc nhập URL video bên dưới",
+        "uploadingVideo": "Đang tải lên video...",
+        "removeVideo": "Xóa",
+        "existingVideo": "Video hiện tại",
+        "replaceVideo": "Thay thế",
+        "clearUrl": "Xóa URL",
+        "videoRequired": "Vui lòng chọn file video hoặc nhập URL video",
+        "loadingPost": "Đang tải dữ liệu bài viết..."
+      }
+    },
+    "settings": {
+      "title": "Cài đặt nền tảng",
+      "description": "Cấu hình các cài đặt và tùy chọn cho toàn bộ nền tảng.",
+      "tabs": {
+        "general": "Tổng quan",
+        "users": "Người dùng",
+        "courses": "Khóa học",
+        "language": "Ngôn ngữ"
+      },
+      "general": {
+        "title": "Cài đặt tổng quan",
+        "platformName": "Tên nền tảng",
+        "platformDescription": "Mô tả nền tảng",
+        "contactEmail": "Email liên hệ"
+      },
+      "users": {
+        "title": "Quản lý người dùng",
+        "allowRegistration": "Cho phép đăng ký người dùng",
+        "allowRegistrationDesc": "Cho phép người dùng mới đăng ký trên nền tảng",
+        "emailVerificationRequired": "Yêu cầu xác thực email",
+        "emailVerificationDesc": "Yêu cầu người dùng xác thực địa chỉ email"
+      },
+      "courses": {
+        "title": "Quản lý khóa học",
+        "approvalRequired": "Yêu cầu phê duyệt khóa học",
+        "approvalRequiredDesc": "Yêu cầu admin phê duyệt khóa học mới",
+        "maxPrice": "Giá khóa học tối đa"
+      },
+      "language": {
+        "title": "Cài đặt ngôn ngữ",
+        "selectLanguage": "Chọn ngôn ngữ",
+        "currentLanguage": "Ngôn ngữ hiện tại",
+        "languageDesc": "Chọn ngôn ngữ ưa thích cho nền tảng"
+      },
+      "saveSettings": "Lưu cài đặt"
+    },
+    "sidebar": {
+      "title": "BẢNG ĐIỀU KHIỂN",
+      "subtitle": "Học tiếng Ý cùng",
+      "author": "Phan Tâm"
+    }
+  }
+}

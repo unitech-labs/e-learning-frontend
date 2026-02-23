@@ -1,0 +1,12 @@
+{
+  "quiz": {
+    "teacher": "Insegnante",
+    "teacherReviewing": "L'insegnante sta revisionando il tuo compito. Riceverai il punteggio e i commenti al termine della correzione.",
+    "student": "Studente",
+    "searchPlaceholder": "Cerca quiz",
+    "notAnswered": "Nessuna risposta data",
+    "correct": "Esatto",
+    "incorrect": "Errato",
+    "pendingGrading": "In attesa di correzione"
+  }
+}

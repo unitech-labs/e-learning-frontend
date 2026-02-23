@@ -1,0 +1,11 @@
+{
+  "checkoutComplete": {
+    "title": "Đặt hàng thành công",
+    "description": "Bạn sẽ nhận được email xác nhận sớm!",
+    "buttons": {
+      "goToMyCourses": "Đi đến khóa học của tôi",
+      "continueShopping": "Tiếp tục mua sắm"
+    },
+    "autoRedirect": "Bạn sẽ được tự động chuyển hướng đến khóa học của mình trong 5 giây..."
+  }
+}

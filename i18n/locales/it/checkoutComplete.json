@@ -1,0 +1,11 @@
+{
+  "checkoutComplete": {
+    "title": "Ordine effettuato con successo",
+    "description": "Riceverai presto un'email di conferma!",
+    "buttons": {
+      "goToMyCourses": "Vai ai miei corsi",
+      "continueShopping": "Continua lo shopping"
+    },
+    "autoRedirect": "Sarai reindirizzato automaticamente ai tuoi corsi tra 5 secondi..."
+  }
+}

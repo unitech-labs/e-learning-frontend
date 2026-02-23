@@ -1,0 +1,8 @@
+{
+  "enrolledCourse": {
+    "orderCode": "Mã đơn hàng:",
+    "amount": "Số tiền:",
+    "classroom": "Lớp học:",
+    "schedule": "Lịch học:"
+  }
+}

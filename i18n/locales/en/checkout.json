@@ -1,0 +1,59 @@
+{
+  "checkout": {
+    "title": "Cart",
+    "breadcrumb": {
+      "home": "Home",
+      "cart": "Cart"
+    },
+    "courseInfo": {
+      "format": "{hours} total hours. {lessons} lessons. {level}"
+    },
+    "summary": {
+      "coursesInCart": "{count} Courses in cart",
+      "emptyCart": {
+        "title": "Empty Cart",
+        "description": "You have no courses in your cart.",
+        "continueShopping": "Continue Shopping"
+      }
+    },
+    "orderSummary": {
+      "title": "Order Summary",
+      "price": "Subtotal",
+      "discount": "Discount",
+      "tax": "Tax",
+      "total": "Total",
+      "proceedToCheckout": "Proceed to Checkout",
+      "remove": "Remove"
+    },
+    "messages": {
+      "removedFromCart": "Removed from cart",
+      "removedFromCartDesc": "Item has been removed from your cart.",
+      "emptyCart": "Cart is empty",
+      "emptyCartDesc": "Please add items to your cart before proceeding to checkout.",
+      "paymentError": "Payment Error",
+      "paymentErrorDesc": "An error occurred while processing your order. Please try again."
+    },
+    "paymentDialog": {
+      "title": "Confirm Payment",
+      "confirmTitle": "Confirm you have transferred funds to the teacher",
+      "description": "Please confirm that you have made a transfer to the teacher for the amount of {amount}.",
+      "afterConfirm": "After confirmation, the teacher will notify you when the course has been added to your account.",
+      "orderDetails": "Order Details:",
+      "totalAmount": "Subtotal:",
+      "discount": "Discount:",
+      "tax": "Tax:",
+      "finalAmount": "Total Amount:",
+      "cancel": "Cancel",
+      "confirmTransfer": "I have transferred the money"
+    },
+    "loginDialog": {
+      "title": "Login Required",
+      "confirmTitle": "Please log in to continue",
+      "description": "You need to be logged in to checkout and purchase courses.",
+      "registerInfo": "If you don't have an account, you can register for free.",
+      "cancel": "Cancel",
+      "login": "Login",
+      "register": "Register"
+    }
+  }
+}

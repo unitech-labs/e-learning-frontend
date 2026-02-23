@@ -1,0 +1,33 @@
+{
+  "profileForm": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "username": "Username",
+    "email": "Email",
+    "enterFirstName": "Enter first name",
+    "enterLastName": "Enter last name",
+    "enterUsername": "Enter username",
+    "enterEmail": "Enter email",
+    "updateProfile": "Update Profile",
+    "avatar": {
+      "title": "Profile Picture",
+      "uploadCustom": "Upload your photo",
+      "fileFormat": "JPG, PNG max 5MB",
+      "uploading": "Uploading",
+      "invalidFileType": "Please select an image file",
+      "fileSizeExceeded": "File size cannot exceed 5MB",
+      "uploadFailed": "Failed to upload avatar"
+    },
+    "validation": {
+      "firstNameRequired": "Please enter first name!",
+      "lastNameRequired": "Please enter last name!",
+      "usernameRequired": "Please enter username!",
+      "emailRequired": "Please enter email!",
+      "emailInvalid": "Please enter a valid email!"
+    },
+    "messages": {
+      "updateSuccess": "Profile updated successfully!",
+      "updateFailed": "Failed to update profile"
+    }
+  }
+}

@@ -8,6 +8,7 @@ import CreateSessionsDialog from '~/components/admin/course/classroom/CreateSess
 import { useCourseApi } from '~/composables/api'
 import { useClassroomApi } from '~/composables/api/useClassroomApi'
 
+const { t, locale } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const courseId = computed(() => route.params.id as string)
@@ -27,7 +28,7 @@ const openSessionsDialog = ref<boolean>(false)
 // Format date
 function formatDate(dateString: string) {
   const date = new Date(dateString)
-  return date.toLocaleDateString('vi-VN', {
+  return date.toLocaleDateString(locale.value === 'vi' ? 'vi-VN' : locale.value === 'it' ? 'it-IT' : 'en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -40,7 +41,13 @@ function formatDate(dateString: string) {
 function formatPrice(price: string | null) {
   if (!price)
     return '-'
-  return `€${Number.parseFloat(price).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+  const amount = Number.parseFloat(price)
+  return amount.toLocaleString(locale.value === 'it' ? 'it-IT' : 'en-US', {
+    style: 'currency',
+    currency: 'EUR',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
 }
 
 // Load classrooms
@@ -54,8 +61,8 @@ async function loadClassrooms() {
   catch (err: any) {
     console.error('Error loading classrooms:', err)
     notification.error({
-      message: 'Lỗi',
-      description: err?.message || 'Không thể tải danh sách lớp học',
+      message: t('common.error'),
+      description: err?.message || t('admin.notifications.loadFailed'),
       duration: 5,
     })
   }
@@ -72,7 +79,7 @@ async function handleClassroomCreated() {
 // Handle refresh
 async function handleRefresh() {
   await loadClassrooms()
-  notification.success({ message: 'Đã làm mới danh sách' })
+  notification.success({ message: t('admin.classroom.list.refreshSuccess') })
 }
 
 // Handle view classroom detail
@@ -84,22 +91,22 @@ function handleViewClassroom(classroom: Classroom) {
 async function handleDeleteClassroom(classroom: Classroom) {
   const { deleteClassroom } = useClassroomApi()
   Modal.confirm({
-    title: 'Xác nhận xóa lớp học',
-    content: `Bạn có chắc chắn muốn xóa lớp học "${classroom.title}" không?`,
-    okText: 'Xóa',
-    cancelText: 'Hủy',
+    title: t('admin.classroom.delete.title'),
+    content: t('admin.classroom.delete.confirmDelete', { name: classroom.title }),
+    okText: t('common.delete'),
+    cancelText: t('common.cancel'),
     okType: 'danger',
     async onOk() {
       try {
         await deleteClassroom(classroom.id)
-        notification.success({ message: 'Đã xóa lớp học thành công' })
+        notification.success({ message: t('admin.classroom.delete.success') })
         await loadClassrooms()
       }
       catch (error: any) {
         console.error('Error deleting classroom:', error)
         notification.error({
-          message: 'Lỗi',
-          description: error?.message || 'Không thể xóa lớp học',
+          message: t('common.error'),
+          description: error?.message || t('admin.classroom.delete.error'),
           duration: 5,
         })
       }
@@ -110,44 +117,44 @@ async function handleDeleteClassroom(classroom: Classroom) {
 // Table columns
 const columns = computed((): TableColumnsType<Classroom> => [
   {
-    title: 'Tên lớp học',
+    title: t('admin.classroom.table.columns.title'),
     key: 'title',
     width: 250,
     fixed: 'left',
   },
   {
-    title: 'Số học viên',
+    title: t('admin.classroom.table.columns.studentCount'),
     key: 'student_count',
     width: 120,
   },
   {
-    title: 'Số buổi học',
+    title: t('admin.classroom.table.columns.sessionCount'),
     key: 'session_count',
     width: 120,
   },
   {
-    title: 'Số học viên đã đăng ký',
+    title: t('admin.classroom.table.columns.enrollmentCount'),
     key: 'enrollment_count',
     width: 150,
   },
   {
-    title: 'Giá',
+    title: t('admin.classroom.table.columns.price'),
     key: 'price',
     width: 150,
   },
   {
-    title: 'Lịch học',
+    title: t('admin.classroom.table.columns.schedule'),
     key: 'schedule_summary',
     width: 200,
   },
   {
-    title: 'Ngày tạo',
+    title: t('admin.classroom.table.columns.createdAt'),
     key: 'created_at',
     width: 180,
     sorter: (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
   },
   {
-    title: 'Thao tác',
+    title: t('admin.classroom.table.columns.actions'),
     key: 'actions',
     width: 150,
     fixed: 'right',
@@ -169,10 +176,10 @@ onMounted(() => {
             <div class="size-12 flex items-center justify-center bg-gradient-to-br from-green-500 to-green-600 rounded-xl">
               <Icon name="solar:calendar-bold" size="28" class="text-white" />
             </div>
-            Danh sách lớp học
+            {{ $t('admin.classroom.list.title') }}
           </h1>
           <p class="text-gray-600 mt-1">
-            Quản lý tất cả các lớp học trong khóa học này
+            {{ $t('admin.classroom.list.subtitle') }}
           </p>
         </div>
         <div class="flex items-center gap-3">
@@ -181,7 +188,7 @@ onMounted(() => {
             @click="handleRefresh"
           >
             <Icon name="solar:refresh-bold" size="18" />
-            Làm mới
+            {{ $t('admin.classroom.list.refresh') }}
           </a-button>
         </div>
       </div>
@@ -204,10 +211,10 @@ onMounted(() => {
               <Icon name="solar:calendar-bold" size="48" class="text-gray-300 mx-auto" />
             </div>
             <h3 class="text-lg font-medium text-gray-900 mb-2">
-              Chưa có lớp học nào
+              {{ $t('admin.classroom.table.emptyState.title') }}
             </h3>
             <p class="text-gray-500 mb-4">
-              Hãy tạo lớp học đầu tiên để bắt đầu
+              {{ $t('admin.classroom.table.emptyState.description') }}
             </p>
           </div>
         </template>

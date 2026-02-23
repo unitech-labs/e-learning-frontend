@@ -1,0 +1,85 @@
+{
+  "learning": {
+    "expired": {
+      "subscriptionExpired": "Your subscription for this course has <strong>expired</strong>. Access to the content has ended, so you can no longer view it here.",
+      "generatedAccountNote": "This is a study account issued through a classroom, so you <strong>cannot repurchase the course directly</strong> on this account. To continue studying this course, you can:",
+      "useOtherAccount": "Log in with <strong>another account</strong> (personal account) to register or repurchase the course.",
+      "contactTranslator": "If you are unsure how to proceed or need support, please message <strong>Instructor Phan Tam</strong> for guidance.",
+      "resourceExpired": "Access to <strong>this resource has expired</strong>. You no longer have permission to access the content here.",
+      "repurchaseNote": "To continue learning, please <strong>repurchase the resource package</strong> on the course / resource page. After payment, you will be granted new access and can re-enter this course to study."
+    },
+    "documents": {
+      "loadError": "Error",
+      "loadErrorDesc": "Could not load document. Please try again or download the file.",
+      "downloadDisabled": "Download disabled",
+      "downloadDisabledDesc": "Downloading this document is not allowed",
+      "printDisabled": "Printing disabled",
+      "printDisabledDesc": "Printing this document is not allowed"
+    },
+    "classmates": {
+      "loadError": "Could not load classmate list"
+    },
+    "lessonCompleted": "Lesson completed",
+    "lessonCompletedDesc": "You have completed the lesson {title}",
+    "lessonCompletionFailed": "Lesson completion failed",
+    "lessonCompletionFailedDesc": "Could not mark lesson as completed",
+    "lessonMaterials": {
+      "title": "Lesson materials",
+      "titleWithLesson": "{title} - Lesson materials",
+      "loadFailed": "Failed to load materials",
+      "loadFailedDescription": "Could not load lesson materials",
+      "empty": "No materials for this lesson yet"
+    },
+    "noVideoMessage": "This lesson has no video yet",
+    "sessionVideos": {
+      "title": "Recorded videos",
+      "empty": "No recorded videos yet"
+    },
+    "welcome": "Welcome {name}!",
+    "welcomeDesc": "Continue your learning journey.",
+    "student": "Student",
+    "stats": {
+      "totalCourses": "Total Courses",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "avgProgress": "Average Progress"
+    },
+    "continueLearning": {
+      "title": "Continue Learning",
+      "subtitle": "Courses you are currently participating in",
+      "viewAll": "View All",
+      "noCourses": "No courses yet",
+      "noCoursesDesc": "Start learning today to gain knowledge!",
+      "progress": "Progress",
+      "continue": "Continue"
+    },
+    "pendingCourses": {
+      "title": "Pending Courses",
+      "subtitle": "Courses awaiting system confirmation",
+      "viewAll": "View All",
+      "noPendingCourses": "No pending courses",
+      "noPendingCoursesDesc": "All your registration requests have been processed",
+      "statusText": "Pending"
+    },
+    "recentActivity": {
+      "title": "Recent Activity",
+      "subtitle": "Courses you recently accessed",
+      "completed": "Completed",
+      "continueLearning": "Continue Learning",
+      "noActivity": "No recent activity"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "myCourses": "My Courses",
+      "myCoursesDesc": "View the list of registered courses",
+      "myProfile": "My Profile",
+      "myProfileDesc": "Update your information and account settings"
+    },
+    "date": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "daysAgo": "{days} days ago",
+      "weeksAgo": "{weeks} weeks ago"
+    }
+  }
+}

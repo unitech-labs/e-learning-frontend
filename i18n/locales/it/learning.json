@@ -1,0 +1,85 @@
+{
+  "learning": {
+    "expired": {
+      "subscriptionExpired": "Il tuo pacchetto di studi per questo corso è <strong>scaduto</strong>. Il periodo di accesso al contenuto è terminato, quindi non puoi più visualizzarlo qui.",
+      "generatedAccountNote": "Questo è un account di studio fornito tramite una classe (aula), quindi <strong>non puoi riacquistare il corso</strong> direttamente su questo account. Per continuare a studiare questo corso, puoi:",
+      "useOtherAccount": "Accedere con <strong>un altro account</strong> (account personale) per iscriverti o riacquistare il corso.",
+      "contactTranslator": "In caso di dubbi o se hai bisogno di assistenza, invia un messaggio all'<strong>interprete Phan Tâm</strong> per ricevere istruzioni.",
+      "resourceExpired": "Il periodo di utilizzo di <strong>questa risorsa è scaduto</strong>. Non hai più il permesso di accedere al contenuto qui.",
+      "repurchaseNote": "Per continuare a studiare, <strong>riacquista il pacchetto di risorse</strong> sulla pagina del corso / risorsa. Dopo il pagamento, ti verrà concesso un nuovo accesso e potrai rientrare in questo corso per studiare."
+    },
+    "documents": {
+      "loadError": "Errore",
+      "loadErrorDesc": "Impossibile caricare il documento. Riprova o scarica il file.",
+      "downloadDisabled": "Download disabilitato",
+      "downloadDisabledDesc": "Non è consentito salvare questo documento",
+      "printDisabled": "Stampa disabilitata",
+      "printDisabledDesc": "Non è consentito stampare questo documento"
+    },
+    "classmates": {
+      "loadError": "Impossibile caricare la lista dei compagni di classe"
+    },
+    "lessonCompleted": "Lezione completata",
+    "lessonCompletedDesc": "Hai completato la lezione {title}",
+    "lessonCompletionFailed": "Completamento lezione fallito",
+    "lessonCompletionFailedDesc": "Impossibile segnare la lezione come completata",
+    "lessonMaterials": {
+      "title": "Materiali della lezione",
+      "titleWithLesson": "{title} - Materiali della lezione",
+      "loadFailed": "Caricamento materiali fallito",
+      "loadFailedDescription": "Impossibile caricare i materiali della lezione",
+      "empty": "Nessun materiale ancora per questa lezione"
+    },
+    "noVideoMessage": "Questa lezione non ha ancora un video",
+    "sessionVideos": {
+      "title": "Video registrati",
+      "empty": "Nessun video registrato ancora"
+    },
+    "welcome": "Benvenuto {name}!",
+    "welcomeDesc": "Continua il tuo percorso di apprendimento.",
+    "student": "Studente",
+    "stats": {
+      "totalCourses": "Corsi Totali",
+      "inProgress": "In Corso",
+      "completed": "Completati",
+      "avgProgress": "Progresso Medio"
+    },
+    "continueLearning": {
+      "title": "Continua ad Imparare",
+      "subtitle": "Corsi a cui stai partecipando",
+      "viewAll": "Visualizza Tutto",
+      "noCourses": "Nessun corso ancora",
+      "noCoursesDesc": "Inizia a imparare oggi per acquisire conoscenze!",
+      "progress": "Progresso",
+      "continue": "Continua"
+    },
+    "pendingCourses": {
+      "title": "Corsi in Attesa",
+      "subtitle": "Corsi in attesa di conferma dal sistema",
+      "viewAll": "Visualizza Tutto",
+      "noPendingCourses": "Nessun corso in attesa",
+      "noPendingCoursesDesc": "Tutte le tue richieste di iscrizione sono state elaborate",
+      "statusText": "In attesa"
+    },
+    "recentActivity": {
+      "title": "Attività Recente",
+      "subtitle": "Corsi a cui hai effettuato l'accesso di recente",
+      "completed": "Completato",
+      "continueLearning": "Continua ad Imparare",
+      "noActivity": "Nessuna attività recente"
+    },
+    "quickActions": {
+      "title": "Azioni Rapide",
+      "myCourses": "I Miei Corsi",
+      "myCoursesDesc": "Visualizza l'elenco dei corsi registrati",
+      "myProfile": "Il Mio Profilo",
+      "myProfileDesc": "Aggiorna le tue informazioni e le impostazioni dell'account"
+    },
+    "date": {
+      "today": "Oggi",
+      "yesterday": "Ieri",
+      "daysAgo": "{days} giorni fa",
+      "weeksAgo": "{weeks} settimane fa"
+    }
+  }
+}

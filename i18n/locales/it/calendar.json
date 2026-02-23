@@ -1,0 +1,56 @@
+{
+  "calendar": {
+    "header": {
+      "subtitle": "Calendario lezioni",
+      "title": "Segui il tuo piano di apprendimento",
+      "home": "Home"
+    },
+    "datePicker": {
+      "title": "Seleziona data",
+      "description": "Usa il calendario per passare rapidamente tra le settimane e le lezioni."
+    },
+    "upcomingEvents": {
+      "title": "Lezioni di oggi",
+      "hasEvents": "Sono presenti lezioni",
+      "noEvents": "Nessuna lezione",
+      "noClassesToday": "Non ci sono lezioni programmate per oggi."
+    },
+    "event": {
+      "time": "Orario",
+      "course": "Corso",
+      "noInfo": "Nessuna informazione",
+      "ended": "Terminata",
+      "noMeetingLink": "Nessun link alla lezione",
+      "session": "Lezione",
+      "classroom": "Aula",
+      "description": "Descrizione",
+      "meetingLinkNote": "Nota importante",
+      "meetingLinkWarning": "Se accedi alla lezione tramite il link diretto, la tua presenza non sarà registrata.",
+      "studentCount": "Numero di studenti",
+      "students": "studenti",
+      "enrollmentCount": "Presenze registrate",
+      "enrolled": "persone presenti"
+    },
+    "joinClass": {
+      "joinNow": "Accedi ora"
+    },
+    "detailedCalendar": {
+      "title": "Calendario dettagliato",
+      "classCount": "{count} lezioni"
+    },
+    "modal": {
+      "title": "Conferma accesso",
+      "confirmation": "Sei sicuro di voler partecipare a questa lezione?",
+      "cancel": "Annulla",
+      "joinNow": "Accedi ora",
+      "joining": "Accesso in corso..."
+    },
+    "loading": "Caricamento calendario...",
+    "notInClass": "Non fai parte di questa classe",
+    "error": {
+      "cannotJoinClass": "Impossibile partecipare alla lezione",
+      "checkInFailed": "Impossibile partecipare alla lezione. Riprova più tardi.",
+      "checkInTooEarly": "Stai cercando di accedere troppo presto. Attendi l'inizio della lezione."
+    }
+  }
+}

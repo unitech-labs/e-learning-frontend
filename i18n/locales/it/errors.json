@@ -1,0 +1,33 @@
+{
+  "errors": {
+    "pageNotFound": {
+      "title": "Pagina non trovata",
+      "description": "Spiacenti, la pagina che stai cercando non esiste.",
+      "backHome": "Torna alla Home",
+      "errorCode": "Errore 404"
+    },
+    "serverError": {
+      "title": "Errore del server",
+      "description": "Si è verificato un errore del server. Riprova più tardi.",
+      "tryAgain": "Riprova",
+      "errorCode": "Errore 500"
+    },
+    "networkError": {
+      "title": "Errore di connessione",
+      "description": "Impossibile connettersi al server. Per favore controlla la tua connessione internet.",
+      "checkConnection": "Controlla la connessione"
+    },
+    "unauthorized": {
+      "title": "Accesso non autorizzato",
+      "description": "Non hai il permesso di accedere a questa pagina.",
+      "login": "Accedi",
+      "errorCode": "Errore 401"
+    },
+    "forbidden": {
+      "title": "Accesso vietato",
+      "description": "Non hai il permesso di accedere a questa risorsa.",
+      "contactAdmin": "Contatta l'amministratore",
+      "errorCode": "Errore 403"
+    }
+  }
+}

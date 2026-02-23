@@ -1,0 +1,55 @@
+{
+  "coursesIndex": {
+    "hero": {
+      "badge": "Discover Italian Courses",
+      "title": "Explore your",
+      "subtitle": "Italian journey",
+      "description": "Master Italian with professional instructors and interactive lessons",
+      "searchPlaceholder": "Search Italian courses...",
+      "searchButton": "Search"
+    },
+    "stats": {
+      "totalCourses": "Total Courses",
+      "activeStudents": "Active Students",
+      "expertInstructors": "Expert Instructors",
+      "languagesAvailable": "Languages Specialist"
+    },
+    "filters": {
+      "allLevels": "All Levels",
+      "allPrices": "All Prices",
+      "free": "Free",
+      "paid": "Paid",
+      "mostPopular": "Most Popular",
+      "highestRated": "Highest Rated",
+      "newest": "Newest",
+      "priceLowToHigh": "Price: Low to High",
+      "priceHighToLow": "Price: High to Low",
+      "clearAll": "Clear All",
+      "coursesFound": "courses found"
+    },
+    "emptyState": {
+      "title": "No courses found",
+      "description": "Try adjusting your filters or search terms",
+      "clearFilters": "Clear Filters"
+    },
+    "successStories": {
+      "title": "Join 50,000+ language learners",
+      "description": "Start your language journey today and open up new opportunities with our proven learning method",
+      "interactiveLearning": {
+        "title": "Interactive Learning",
+        "description": "Practice with native speakers and AI-supported conversations"
+      },
+      "certifiedProgress": {
+        "title": "Certified Progress",
+        "description": "Earn certificates and track your language ability improvement"
+      },
+      "flexibleSchedule": {
+        "title": "Flexible Schedule",
+        "description": "Learn at your own pace, anytime, anywhere"
+      },
+      "startLearningNow": "Start Learning Now",
+      "viewSuccessStories": "View Success Stories",
+      "registerNow": "Register Now"
+    }
+  }
+}

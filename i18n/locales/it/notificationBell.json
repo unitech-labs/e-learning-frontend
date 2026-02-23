@@ -1,0 +1,21 @@
+{
+  "notificationBell": {
+    "title": "Notifiche",
+    "ariaLabel": "Notifiche",
+    "newCount": "{count} nuove",
+    "markAllRead": "Segna tutti come letti",
+    "empty": "Nessuna notifica presente",
+    "unknownSender": "Qualcuno",
+    "invoiceCode": "Codice fattura:",
+    "statusPending": "● In attesa",
+    "statusComplete": "● Completato",
+    "statusCancel": "● Annullato",
+    "orderRegistered": "si è appena iscritto a un corso",
+    "commented": "ha commentato nel corso",
+    "replied": "ha risposto al tuo commento",
+    "justNow": "Proprio ora",
+    "minutesAgo": "{n} minuti fa",
+    "hoursAgo": "{n} ore fa",
+    "daysAgo": "{n} giorni fa"
+  }
+}

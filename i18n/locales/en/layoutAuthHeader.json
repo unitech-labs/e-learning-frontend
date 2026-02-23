@@ -1,0 +1,49 @@
+{
+  "layoutAuthHeader": {
+    "brand": {
+      "tagline": "Learn Italian with Phan Tam"
+    },
+    "navigation": {
+      "courses": "Courses",
+      "contact": "Contact",
+      "about": "About",
+      "pricing": "Pricing",
+      "learning": "Learning",
+      "myCourses": "My Courses",
+      "profile": "Profile",
+      "resources": "Resources",
+      "cart": "Cart",
+      "quiz": "Quiz",
+      "video": "Video",
+      "details": "Details"
+    },
+    "levels": {
+      "basic": {
+        "label": "Basic",
+        "summary": "Build your Italian foundation with CEFR-aligned curriculum."
+      },
+      "intermediate": {
+        "label": "Intermediate",
+        "summary": "Perfect your academic listening, speaking, and writing skills."
+      },
+      "advanced": {
+        "label": "Advanced",
+        "summary": "Conquer C-level certificates & in-depth projects."
+      },
+      "driving_theory": {
+        "label": "Driving Theory",
+        "summary": "Learn driving theory with standard curriculum."
+      }
+    },
+    "buttons": {
+      "contactDirectly": "Contact Directly",
+      "signUpForFree": "Sign Up for Free",
+      "signIn": "Sign In",
+      "goToMyCourse": "Go to My Course",
+      "language": "Language"
+    },
+    "mobile": {
+      "toggleMenu": "Toggle mobile menu"
+    }
+  }
+}

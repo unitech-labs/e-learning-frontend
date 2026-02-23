@@ -1,0 +1,40 @@
+{
+  "footer": {
+    "company": {
+      "title": "Azienda",
+      "about": "Chi siamo",
+      "careers": "Carriere",
+      "contact": "Contatti",
+      "blog": "Blog"
+    },
+    "support": {
+      "title": "Supporto",
+      "helpCenter": "Centro assistenza",
+      "faq": "FAQ",
+      "community": "Community",
+      "tutorials": "Tutorial"
+    },
+    "legal": {
+      "title": "Legale",
+      "privacy": "Informativa sulla privacy",
+      "terms": "Termini di utilizzo",
+      "cookies": "Cookie policy",
+      "gdpr": "GDPR"
+    },
+    "social": {
+      "title": "Social network",
+      "followUs": "Seguici"
+    },
+    "newsletter": {
+      "title": "Iscriviti alla newsletter",
+      "description": "Ricevi aggiornamenti sui nuovi corsi e offerte speciali.",
+      "emailPlaceholder": "Inserisci la tua email",
+      "subscribe": "Iscriviti",
+      "success": "Iscrizione completata con successo!",
+      "error": "Iscrizione non riuscita. Riprova."
+    },
+    "copyright": "© 2024 Phan Tâm. Tutti i diritti riservati.",
+    "madeWith": "Creato con",
+    "by": "da"
+  }
+}

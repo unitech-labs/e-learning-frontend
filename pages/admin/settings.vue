@@ -50,7 +50,7 @@ const settings = ref({
 // Available languages
 const availableLanguages = [
   { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
-  // { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
   { code: 'en', name: 'English', flag: '🇺🇸' },
 ]
 

@@ -1,0 +1,49 @@
+{
+  "layoutAuthHeader": {
+    "brand": {
+      "tagline": "Impara l'italiano con Phan Tâm"
+    },
+    "navigation": {
+      "courses": "Corsi",
+      "contact": "Contatti",
+      "about": "Chi siamo",
+      "pricing": "Prezzi",
+      "learning": "Apprendimento",
+      "myCourses": "I miei corsi",
+      "profile": "Profilo",
+      "resources": "Risorse",
+      "cart": "Carrello",
+      "quiz": "Quiz",
+      "video": "Video",
+      "details": "Dettagli"
+    },
+    "levels": {
+      "basic": {
+        "label": "Base",
+        "summary": "Costruisci le tue basi di italiano con un programma standard CEFR."
+      },
+      "intermediate": {
+        "label": "Intermedio",
+        "summary": "Perfeziona le abilità di ascolto, conversazione e scrittura accademica."
+      },
+      "advanced": {
+        "label": "Avanzato",
+        "summary": "Ottieni certificazioni di livello C e lavora su progetti approfonditi."
+      },
+      "driving_theory": {
+        "label": "Teoria della patente",
+        "summary": "Studia la teoria della patente di guida con un programma standard."
+      }
+    },
+    "buttons": {
+      "contactDirectly": "Contatta direttamente",
+      "signUpForFree": "Registrati gratuitamente",
+      "signIn": "Accedi",
+      "goToMyCourse": "Vai al mio corso",
+      "language": "Lingua"
+    },
+    "mobile": {
+      "toggleMenu": "Attiva/disattiva menu mobile"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "calendar": {
+    "header": {
+      "subtitle": "Lịch học",
+      "title": "Theo dõi kế hoạch học tập của bạn",
+      "home": "Trang chủ"
+    },
+    "datePicker": {
+      "title": "Chọn ngày",
+      "description": "Sử dụng lịch để chuyển nhanh giữa các tuần và buổi học."
+    },
+    "upcomingEvents": {
+      "title": "Lịch học hôm nay",
+      "hasEvents": "Có lịch",
+      "noEvents": "Trống",
+      "noClassesToday": "Hôm nay chưa có buổi học nào."
+    },
+    "event": {
+      "time": "Thời gian",
+      "course": "Khóa học",
+      "noInfo": "Chưa có thông tin",
+      "ended": "Đã kết thúc",
+      "noMeetingLink": "Không có link học",
+      "session": "Buổi học",
+      "classroom": "Phòng học",
+      "description": "Mô tả",
+      "meetingLinkNote": "Lưu ý quan trọng",
+      "meetingLinkWarning": "Nếu bạn bấm vào link để vào lớp thì sẽ không được ghi nhận điểm danh",
+      "studentCount": "Số học viên",
+      "students": "học viên",
+      "enrollmentCount": "Đã điểm danh",
+      "enrolled": "người điểm danh"
+    },
+    "joinClass": {
+      "joinNow": "Vào học ngay"
+    },
+    "detailedCalendar": {
+      "title": "Lịch học chi tiết",
+      "classCount": "{count} buổi học"
+    },
+    "modal": {
+      "title": "Xác nhận vào học",
+      "confirmation": "Bạn có chắc chắn muốn tham gia buổi học này không?",
+      "cancel": "Hủy",
+      "joinNow": "Vào học ngay",
+      "joining": "Đang vào học..."
+    },
+    "loading": "Đang tải lịch...",
+    "notInClass": "Bạn không thuộc lớp này",
+    "error": {
+      "cannotJoinClass": "Không thể tham gia buổi học",
+      "checkInFailed": "Không thể tham gia buổi học. Vui lòng thử lại sau.",
+      "checkInTooEarly": "Bạn đang cố gắng vào học quá sớm. Vui lòng đợi đến khi buổi học bắt đầu."
+    }
+  }
+}

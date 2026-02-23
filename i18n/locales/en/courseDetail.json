@@ -1,0 +1,28 @@
+{
+  "courseDetail": {
+    "loading": "Loading course details...",
+    "error": {
+      "title": "Could not load course",
+      "description": "An error occurred while loading the course.",
+      "tryAgain": "Try Again",
+      "backToCourses": "Back to Courses"
+    },
+    "notFound": {
+      "title": "Course not found",
+      "description": "The course you are looking for does not exist or has been deleted.",
+      "backToCourses": "Back to Courses"
+    },
+    "notifications": {
+      "loadFailed": "Could not load course",
+      "courseNotFound": "Course not found"
+    },
+    "resources": {
+      "title": "Materials",
+      "empty": "No materials yet for this course",
+      "loadMore": "Load More",
+      "loadingMore": "Loading more...",
+      "loadMoreFailed": "Could not load more materials",
+      "loadMoreFailedDescription": "An error occurred while loading more materials. Please try again."
+    }
+  }
+}

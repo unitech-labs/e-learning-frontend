@@ -980,7 +980,6 @@
         "checkInTooEarly": "Bạn đang cố gắng vào học quá sớm. Vui lòng đợi đến khi buổi học bắt đầu.",
         "checkInNotYetAvailable": "Chưa thể điểm danh. Có thể điểm danh từ {time}",
         "checkInNotYetAvailableFrom": "Chưa thể điểm danh. Có thể điểm danh từ {time}",
-        "Check-in not yet available. Available from 2025-10-13T01:15:00+00:00": "Chưa thể điểm danh. Có thể điểm danh từ 2025-10-13T01:15:00+00:00"
       },
       "edit": {
         "title": "Chỉnh sửa lớp học",

@@ -1,0 +1,13 @@
+{
+  "courseCard": {
+    "featured": "In primo piano",
+    "by": "Di",
+    "unknownTeacher": "Insegnante sconosciuto",
+    "unknownCategory": "Categoria sconosciuta",
+    "ratings": "Valutazioni",
+    "totalHours": "Ore totali",
+    "lectures": "Lezioni",
+    "studentsEnrolled": "studenti iscritti",
+    "free": "Gratis"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "descriptionCourse": {
+    "about": "About this course",
+    "whatYouWillLearn": "What you will learn",
+    "requirements": "Requirements",
+    "description": "Description",
+    "curriculum": "Curriculum",
+    "instructor": "Instructor",
+    "reviews": "Reviews",
+    "students": "students",
+    "lessons": "lessons",
+    "hours": "hours",
+    "level": "Level",
+    "language": "Language",
+    "lastUpdated": "Last updated",
+    "enrolled": "enrolled",
+    "rating": "rating"
+  }
+}

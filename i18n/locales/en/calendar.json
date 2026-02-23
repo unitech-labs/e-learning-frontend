@@ -1,0 +1,56 @@
+{
+  "calendar": {
+    "header": {
+      "subtitle": "Class Schedule",
+      "title": "Track your learning plan",
+      "home": "Home"
+    },
+    "datePicker": {
+      "title": "Pick a date",
+      "description": "Use the calendar to quickly switch between weeks and sessions."
+    },
+    "upcomingEvents": {
+      "title": "Today's Schedule",
+      "hasEvents": "Scheduled",
+      "noEvents": "Empty",
+      "noClassesToday": "No sessions scheduled for today."
+    },
+    "event": {
+      "time": "Time",
+      "course": "Course",
+      "noInfo": "No information",
+      "ended": "Ended",
+      "noMeetingLink": "No meeting link",
+      "session": "Session",
+      "classroom": "Classroom",
+      "description": "Description",
+      "meetingLinkNote": "Important Note",
+      "meetingLinkWarning": "If you use this link to enter the class directly, your attendance will not be recorded.",
+      "studentCount": "Student Count",
+      "students": "students",
+      "enrollmentCount": "Checked-in",
+      "enrolled": "checked-in"
+    },
+    "joinClass": {
+      "joinNow": "Join Now"
+    },
+    "detailedCalendar": {
+      "title": "Detailed Schedule",
+      "classCount": "{count} sessions"
+    },
+    "modal": {
+      "title": "Join Class Confirmation",
+      "confirmation": "Are you sure you want to join this session?",
+      "cancel": "Cancel",
+      "joinNow": "Join Now",
+      "joining": "Joining..."
+    },
+    "loading": "Loading calendar...",
+    "notInClass": "You are not in this class",
+    "error": {
+      "cannotJoinClass": "Cannot join session",
+      "checkInFailed": "Cannot join session. Please try again later.",
+      "checkInTooEarly": "You are trying to join too early. Please wait until the session starts."
+    }
+  }
+}

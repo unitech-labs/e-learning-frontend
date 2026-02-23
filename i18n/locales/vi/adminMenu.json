@@ -1,0 +1,14 @@
+{
+  "adminMenu": {
+    "overview": "Tổng quan",
+    "generalCalendar": "Lịch tổng",
+    "course": "Khóa học",
+    "classroom": "Lớp học",
+    "quizManagement": "Quản lý bài làm",
+    "newQuizManagement": "Quản lý Quiz",
+    "students": "Học viên",
+    "orders": "Đơn hàng",
+    "videoPosts": "Video Posts",
+    "settings": "Cài đặt"
+  }
+}

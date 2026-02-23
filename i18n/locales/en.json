@@ -8,26 +8,26 @@
     "steps": {
       "basicInfo": {
         "title": "Basic Information",
-        "description": "Please provide your name and choose an avatar for your account"
+        "description": "Please enter your name and choose an avatar for your account."
       },
       "personalInfo": {
         "title": "Personal Information",
-        "description": "Share some personal information so we can understand you better"
+        "description": "Share some personal details so we can better understand you."
       },
       "contactInfo": {
         "title": "Contact Information",
-        "description": "Provide your address and professional information"
+        "description": "Provide your address and professional information."
       },
       "confirmation": {
         "title": "Confirm Information",
-        "description": "Please review your information before completing"
+        "description": "Please review your information before completing setup."
       }
     },
     "step1": {
       "avatar": {
         "title": "Choose Avatar",
-        "uploadLabel": "Upload your image",
-        "uploadDescription": "JPG, PNG max 5MB"
+        "uploadLabel": "Upload your photo",
+        "uploadDescription": "JPG, PNG up to 5MB"
       },
       "name": {
         "firstName": "First Name",
@@ -36,8 +36,8 @@
         "lastNamePlaceholder": "Enter your last name"
       },
       "notifications": {
-        "invalidFileType": "Please select an image file",
-        "fileSizeExceeded": "File size cannot exceed 5MB"
+        "invalidFileType": "Please select an image file.",
+        "fileSizeExceeded": "File size must not exceed 5MB."
       }
     },
     "step2": {
@@ -49,7 +49,7 @@
       },
       "dateOfBirth": {
         "title": "Date of Birth",
-        "placeholder": "Select your birth date",
+        "placeholder": "Select your date of birth",
         "day": "Day",
         "month": "Month",
         "year": "Year"
@@ -57,30 +57,30 @@
       "phone": {
         "title": "Phone Number",
         "placeholder": "Enter your phone number",
-        "description": "Phone number will be used for contact and account verification",
+        "description": "Your phone number will be used for account verification and communication.",
         "validation": {
-          "invalid": "Invalid phone number"
+          "invalid": "Invalid phone number."
         }
       },
       "validation": {
-        "birthYearInvalid": "Invalid birth year"
+        "birthYearInvalid": "Invalid birth year."
       }
     },
     "step3": {
       "address": {
-        "title": "Contact Address",
+        "title": "Address",
         "placeholder": "Enter your full address",
-        "description": "Address will be used to send learning materials and important notifications"
+        "description": "Your address may be used to send learning materials and important notifications."
       },
       "profession": {
-        "title": "Current Job",
+        "title": "Current Profession",
         "placeholder": "Select your profession",
-        "required": "Please select a profession"
+        "required": "Please select your profession."
       },
       "bio": {
         "title": "Additional Information (Optional)",
         "placeholder": "Brief introduction about yourself, learning goals...",
-        "description": "This information will help us understand you better and personalize your learning experience"
+        "description": "This helps us personalize your learning experience."
       },
       "jobs": {
         "student": "Student",
@@ -95,24 +95,24 @@
         "sales": "Sales",
         "freelancer": "Freelancer",
         "retired": "Retired",
-        "unemployed": "Looking for work",
+        "unemployed": "Job Seeker",
         "other": "Other"
       }
     },
     "step4": {
       "title": "Confirm Information",
-      "description": "Please review your information before completing",
+      "description": "Please review your information before finishing.",
       "summary": {
         "dateOfBirth": "Date of Birth:",
         "phoneNumber": "Phone Number:",
         "profession": "Profession:",
         "address": "Address:",
-        "bio": "Introduction:",
+        "bio": "Bio:",
         "notUpdated": "Not updated"
       },
       "privacy": {
         "title": "Privacy Information",
-        "description": "Your personal information will be kept secure and used only to improve your learning experience. You can update this information anytime in settings."
+        "description": "Your personal information is securely stored and used only to improve your learning experience. You can update this information anytime in Settings."
       }
     },
     "navigation": {
@@ -122,35 +122,38 @@
       "uploading": "Uploading {progress}%"
     },
     "validation": {
-      "firstNameRequired": "Please enter your first name",
-      "lastNameRequired": "Please enter your last name",
-      "firstNameMinLength": "First name must be at least 2 characters",
-      "lastNameMinLength": "Last name must be at least 2 characters",
-      "avatarRequired": "Please select an avatar",
-      "genderRequired": "Please select your gender",
-      "dateOfBirthRequired": "Please select your birth date",
-      "phoneRequired": "Please enter your phone number",
-      "addressRequired": "Please enter your address",
-      "professionRequired": "Please select your profession"
+      "firstNameRequired": "First name is required.",
+      "lastNameRequired": "Last name is required.",
+      "firstNameMinLength": "First name must be at least 2 characters.",
+      "lastNameMinLength": "Last name must be at least 2 characters.",
+      "avatarRequired": "Please choose an avatar.",
+      "genderRequired": "Please select your gender.",
+      "dateOfBirthRequired": "Please select your date of birth.",
+      "phoneRequired": "Phone number is required.",
+      "addressRequired": "Address is required.",
+      "professionRequired": "Please select your profession."
     },
+    "uploadingAvatar": "Uploading avatar...",
+    "updateSuccess": "Information updated successfully!",
+    "updateFailed": "Failed to update information.",
     "footer": {
-      "step1": "This information will help us personalize your learning experience",
-      "step2": "Personal information will be kept secure and used only to improve our service",
-      "step3": "Address will be used to send learning materials and important notifications",
+      "step1": "This information helps us personalize your learning experience.",
+      "step2": "Your personal information is securely protected and used only to improve our service.",
+      "step3": "Your address may be used to send learning materials and important notifications.",
       "step4": "Thank you for completing the account setup process!"
     }
   },
   "password": {
     "title": "Password Settings",
-    "description": "Secure your account by updating your password",
+    "description": "Secure your account by updating your password.",
     "form": {
       "title": "Change Password",
       "currentPassword": "Current Password",
-      "currentPasswordPlaceholder": "Enter your current password",
+      "currentPasswordPlaceholder": "Enter current password",
       "newPassword": "New Password",
-      "newPasswordPlaceholder": "Enter your new password",
+      "newPasswordPlaceholder": "Enter new password",
       "confirmPassword": "Confirm New Password",
-      "confirmPasswordPlaceholder": "Re-enter your new password",
+      "confirmPasswordPlaceholder": "Re-enter new password",
       "updateButton": "Update Password",
       "resetButton": "Reset"
     },
@@ -170,26 +173,26 @@
       "joinDate": "Join Date"
     },
     "validation": {
-      "currentPasswordRequired": "Please enter your current password",
-      "newPasswordRequired": "Please enter your new password",
-      "newPasswordMinLength": "Password must be at least 6 characters",
-      "confirmPasswordRequired": "Please confirm your password",
-      "passwordsNotMatch": "Passwords do not match"
+      "currentPasswordRequired": "Current password is required.",
+      "newPasswordRequired": "New password is required.",
+      "newPasswordMinLength": "Password must be at least 6 characters.",
+      "confirmPasswordRequired": "Please confirm your password.",
+      "passwordsNotMatch": "Passwords do not match."
     },
     "notifications": {
       "success": "Password updated successfully!",
-      "currentPasswordIncorrect": "Current password is incorrect",
-      "newPasswordInvalid": "New password is invalid",
-      "confirmPasswordMismatch": "Password confirmation does not match",
-      "updateFailed": "Failed to update password"
+      "currentPasswordIncorrect": "Current password is incorrect.",
+      "newPasswordInvalid": "New password is invalid.",
+      "confirmPasswordMismatch": "Passwords do not match.",
+      "updateFailed": "Failed to update password."
     }
   },
   "devices": {
     "title": "Device Management",
-    "description": "View and manage devices that have logged into your account",
+    "description": "View and manage devices logged into your account.",
     "empty": {
-      "title": "No devices yet",
-      "description": "Devices you log in from will appear here"
+      "title": "No Devices Found",
+      "description": "Devices you log in from will appear here."
     },
     "table": {
       "deviceName": "Device Name",
@@ -207,170 +210,176 @@
     },
     "status": {
       "active": "Active",
-      "inactive": "Inactive"
+      "inactive": "Disabled"
     },
     "actions": {
-      "revoke": "Revoke",
+      "revoke": "Disable",
       "delete": "Delete Permanently",
-      "revokeConfirm": "Revoke this device?",
-      "revokeDescription": "The device will be deactivated but can still log in again later.",
+      "revokeConfirm": "Disable this device?",
+      "revokeDescription": "This device will be disabled but can log in again later.",
       "deleteConfirm": "Delete this device permanently?",
-      "deleteDescription": "The device will be permanently deleted. You can register a new device of the same type after deletion."
+      "deleteDescription": "This device will be permanently removed. You can register a new device of the same type later."
     },
     "notifications": {
-      "loadFailed": "Failed to load devices",
-      "revokeSuccess": "Device revoked successfully",
-      "revokeFailed": "Failed to revoke device",
-      "deleteSuccess": "Device deleted successfully",
-      "deleteFailed": "Failed to delete device"
+      "loadFailed": "Failed to load device list.",
+      "revokeSuccess": "Device disabled successfully.",
+      "revokeFailed": "Failed to disable device.",
+      "deleteSuccess": "Device deleted successfully.",
+      "deleteFailed": "Failed to delete device."
     }
   },
-  "homepage": {
-    "hero": {
-      "badge": "Learn with Expert Guidance",
-      "title": "Learn Italian Effectively and Confidently",
-      "description": "Join thousands of students learning authentic Italian with Phan Tam, an experienced instructor dedicated to making your language journey engaging and effective.",
-      "exploreCourses": "Explore Courses",
-      "signUpNow": "Sign Up Now",
-      "stats": {
-        "activeStudents": "Active Students",
-        "averageRating": "Average Rating",
-        "completionRate": "Completion Rate"
-      }
-    },
-    "courses": {
-      "title": "Featured Courses",
-      "description": "Carefully crafted courses designed to take you from beginner to fluent speaker",
-      "badges": {
-        "bestseller": "Bestseller",
-        "popular": "Popular",
-        "new": "New"
-      },
-      "levels": {
-        "beginner": "Beginner",
-        "intermediate": "Intermediate",
-        "advanced": "Advanced"
-      },
-      "course1": {
-        "title": "Italian for Beginners",
-        "description": "Start your Italian journey with essential vocabulary, grammar foundations, and conversational skills for everyday situations.",
-        "duration": "12 weeks"
-      },
-      "course2": {
-        "title": "Intermediate Italian Mastery",
-        "description": "Elevate your Italian with complex grammar, idiomatic expressions, and cultural insights for confident communication.",
-        "duration": "16 weeks"
-      },
-      "course3": {
-        "title": "Advanced Conversation",
-        "description": "Perfect your fluency with advanced topics, professional Italian, and nuanced communication for business and travel.",
-        "duration": "20 weeks"
-      }
-    },
-    "quiz": {
-      "badge": "Interactive Quizzes",
-      "title": "Master Italian with Smart Quizzes",
-      "description": "Reinforce every lesson with adaptive assessments, instant feedback, and gamified challenges designed to keep you motivated.",
-      "metrics": {
-        "questions": {
-          "value": "1,200+",
-          "label": "Practice Questions"
-        },
-        "passRate": {
-          "value": "94%",
-          "label": "Average Pass Rate"
-        },
-        "time": {
-          "value": "10 min",
-          "label": "Average Session"
+
+
+
+    "homepage": {
+      "hero": {
+        "badge": "Learn with Professional Guidance",
+        "title": "Learn Italian with Phan Tâm",
+        "description": "Every language opens the door to a new world.\nLet Phan Tâm guide you on your journey to mastering Italian.",
+        "exploreCourses": "Explore Courses",
+        "signUpNow": "Sign Up Now",
+        "stats": {
+          "activeStudents": "Active Students",
+          "averageRating": "Average Rating",
+          "completionRate": "Completion Rate"
         }
       },
-      "highlights": {
-        "adaptive": {
-          "title": "Learner-adaptive paths",
-          "description": "Question difficulty adjusts automatically based on your progress to keep you challenged without feeling overwhelmed."
+      "courses": {
+        "title": "Featured Courses",
+        "description": "Carefully designed courses that take you from beginner to fluent speaker.",
+        "badges": {
+          "bestseller": "Best Seller",
+          "popular": "Popular",
+          "new": "New"
         },
-        "feedback": {
-          "title": "Instant feedback",
-          "description": "Each answer comes with context, explanations, and examples so you immediately understand the why."
+        "levels": {
+          "beginner": "Beginner",
+          "intermediate": "Intermediate",
+          "advanced": "Advanced"
         },
-        "certification": {
-          "title": "Certificate ready",
-          "description": "Complete quiz milestones to unlock badges and certificates that celebrate every step of your journey."
+        "course1": {
+          "title": "Italian for Beginners",
+          "description": "Start your Italian journey with essential vocabulary, core grammar foundations, and practical communication skills for everyday situations.",
+          "duration": "12 Weeks"
+        },
+        "course2": {
+          "title": "Intermediate Italian Mastery",
+          "description": "Enhance your Italian with advanced grammar structures, idiomatic expressions, and cultural insights to communicate with confidence.",
+          "duration": "16 Weeks"
+        },
+        "course3": {
+          "title": "Advanced Conversation",
+          "description": "Refine your fluency with advanced topics, professional Italian, and nuanced communication skills for work and travel.",
+          "duration": "20 Weeks"
         }
       },
-      "cta": "Try a Quiz Experience",
-      "summary": {
-        "title": "Live Performance",
-        "value": "92% Accuracy",
-        "caption": "Keep up the great work! You're on track to master intermediate-level vocabulary."
-      },
-      "preview": {
-        "title": "Italian Vocabulary Quiz",
-        "subtitle": "Question 3 - 12 remaining",
-        "badge": "Adaptive Mode",
-        "topic": "Vocabulary Focus",
-        "question": "What is the correct translation for \"Buongiorno\"?",
-        "options": {
-          "a": "Good evening",
-          "b": "Good morning",
-          "c": "See you soon"
+      "quiz": {
+        "badge": "Interactive Quiz",
+        "title": "Practice Italian with Our Smart Quiz System",
+        "description": "Reinforce your knowledge after each lesson with adaptive tests, instant feedback, and gamified challenges that keep you motivated.",
+        "metrics": {
+          "questions": {
+            "value": "1,200+",
+            "label": "Practice Questions"
+          },
+          "passRate": {
+            "value": "94%",
+            "label": "Average Pass Rate"
+          },
+          "time": {
+            "value": "10 Minutes",
+            "label": "Average Session Time"
+          }
         },
-        "correct": "Correct answer"
-      },
-      "progress": {
-        "label": "Progress",
-        "value": "80% completed"
-      }
-    },
-    "instructor": {
-      "badge": "Meet Your Instructor",
-      "title": "Learn from Phan Tam",
-      "description": "With over a decade of experience teaching Italian to international students, Phan Tam brings a unique blend of linguistic expertise and cultural passion to every lesson.",
-      "experience": "10+ Years",
-      "experienceText": "Teaching Italian Language",
-      "features": {
-        "certified": {
-          "title": "Certified Expert",
-          "description": "Master's degree in Italian Linguistics from University of Bologna"
+        "highlights": {
+          "adaptive": {
+            "title": "Adaptive Learning Path",
+            "description": "The system automatically adjusts difficulty based on your progress to keep you consistently challenged."
+          },
+          "feedback": {
+            "title": "Instant Feedback",
+            "description": "Every answer includes explanations and examples to help you understand deeply and remember longer."
+          },
+          "certification": {
+            "title": "Certification Ready",
+            "description": "Complete quiz milestones to unlock badges and certificates that recognize your achievements."
+          }
         },
-        "cultural": {
-          "title": "Cultural Immersion",
-          "description": "Lived in Italy for 8 years, teaching and studying Italian culture"
+        "cta": "Try the Quiz Now",
+        "summary": {
+          "title": "Live Performance",
+          "value": "92% Accuracy",
+          "caption": "Keep going! You're making excellent progress toward mastering intermediate vocabulary."
         },
-        "method": {
-          "title": "Proven Method",
-          "description": "Developed unique teaching approach with 98% student satisfaction"
+        "preview": {
+          "title": "Italian Vocabulary Quiz",
+          "subtitle": "Question 3 – 12 Remaining",
+          "badge": "Adaptive Mode",
+          "topic": "Vocabulary Focus",
+          "question": "What is the correct translation of \"Buongiorno\"?",
+          "options": {
+            "a": "Good evening",
+            "b": "Good morning",
+            "c": "See you later"
+          },
+          "correct": "Correct Answer"
+        },
+        "progress": {
+          "label": "Progress",
+          "value": "80% Complete"
         }
       },
-      "button": "Book a Free Consultation"
-    },
-    "testimonials": {
-      "title": "What Students Say",
-      "description": "Join thousands of satisfied learners who achieved their Italian language goals",
-      "testimonial1": {
-        "text": "Phan Tam's teaching style is incredible! I went from zero Italian to confidently ordering at restaurants in Rome within 3 months.",
-        "author": "Sarah Martinez",
-        "course": "Beginner Course"
+      "instructor": {
+        "badge": "Meet Your Instructor",
+        "title": "Learn with Phan Tâm",
+        "description": "With nearly a decade of experience teaching Italian to international students, Phan Tâm brings a unique combination of linguistic expertise and cultural passion to every lesson.",
+        "experience": "Nearly 10 Years",
+        "experienceText": "Teaching Italian",
+        "features": {
+          "certified": {
+            "title": "Translation & Interpretation Expert",
+            "description": "Extensive experience across multiple sectors including politics, economics, medicine, banking, dentistry, research, agriculture, and Italian-Vietnamese enterprises."
+          },
+          "cultural": {
+            "title": "Cultural Immersion",
+            "description": "10 years living in Italy and 8 years teaching Italian."
+          },
+          "method": {
+            "title": "Professional Experience",
+            "description": "6 years of translation and interpretation experience since 2022 after the COVID period."
+          }
+        },
+        "button": "Request Consultation"
       },
-      "testimonial2": {
-        "text": "The intermediate course exceeded my expectations. The cultural insights and practical exercises made learning engaging and effective.",
-        "author": "James Chen",
-        "course": "Intermediate Course"
+      "testimonials": {
+        "title": "What Our Students Say",
+        "description": "Join thousands of satisfied learners who have achieved their Italian language goals.",
+        "testimonial1": {
+          "text": "Ms. Tâm teaches in such a clear and engaging way! In just 3 months, I went from knowing nothing to confidently ordering food at an Italian restaurant.",
+          "author": "Nguyễn Minh Anh",
+          "course": "Beginner Course"
+        },
+        "testimonial2": {
+          "text": "The intermediate course exceeded my expectations! It wasn’t just grammar — I learned so much about Italian culture too. It felt like traveling while studying.",
+          "author": "Trần Quốc Huy",
+          "course": "Intermediate Course"
+        },
+        "testimonial3": {
+          "text": "Investing in Italian lessons with Ms. Tâm was the best decision I’ve made! Thanks to the advanced course, I secured a job in Milan.",
+          "author": "Lê Thu Trang",
+          "course": "Advanced Course"
+        }
       },
-      "testimonial3": {
-        "text": "Best investment in my career! The advanced course helped me land a job in Milan. Phan Tam is simply the best Italian teacher.",
-        "author": "Emma Peterson",
-        "course": "Advanced Course"
+      "cta": {
+        "title": "Ready to Start Your Italian Journey?",
+        "description": "Join a passionate learning community and discover the beauty of the Italian language.",
+        "browseCourses": "Browse All Courses",
+        "signUpNow": "Sign Up Now"
       }
     },
-    "cta": {
-      "title": "Ready to Start Your Italian Journey?",
-      "description": "Join our community of passionate learners and discover the beauty of the Italian language",
-      "browseCourses": "Browse All Courses",
-      "signUpNow": "Sign Up Now"
-    }
-  },
+
+
+
   "admin": {
     "dashboard": {
       "title": "Dashboard Overview",
@@ -1376,28 +1385,28 @@
           "complete": "Complete",
           "cancel": "Cancel"
         },
-         "actions": {
-           "viewDetails": "View Details",
-           "confirmReceive": "Confirm Receive",
-           "reject": "Reject"
-         },
-         "detailDialog": {
-           "title": "Order Details",
-           "invoice": "Invoice Code",
-           "student": "Student",
-           "course": "Course",
-           "classroom": "Classroom",
-           "amount": "Amount",
-           "status": "Status",
-           "paymentMethod": "Payment Method",
-           "paymentReference": "Payment Reference",
-           "notes": "Notes",
-           "adminNote": "Admin Note",
-           "canceledReason": "Canceled Reason",
-           "createdAt": "Created At",
-           "updatedAt": "Updated At",
-           "close": "Close"
-         },
+        "actions": {
+          "viewDetails": "View Details",
+          "confirmReceive": "Confirm Receive",
+          "reject": "Reject"
+        },
+        "detailDialog": {
+          "title": "Order Details",
+          "invoice": "Invoice Code",
+          "student": "Student",
+          "course": "Course",
+          "classroom": "Classroom",
+          "amount": "Amount",
+          "status": "Status",
+          "paymentMethod": "Payment Method",
+          "paymentReference": "Payment Reference",
+          "notes": "Notes",
+          "adminNote": "Admin Note",
+          "canceledReason": "Canceled Reason",
+          "createdAt": "Created At",
+          "updatedAt": "Updated At",
+          "close": "Close"
+        },
         "confirmDialog": {
           "confirmReceive": {
             "title": "Confirm Receive Payment",
@@ -1617,6 +1626,9 @@
       "author": "Phan Tam"
     }
   },
+
+
+  
   "sidebar": {
     "search": "Search",
     "studyNow": "Study now",
@@ -1941,7 +1953,7 @@
     "studentsEnrolled": "students enrolled",
     "free": "Free"
   },
-    "checkoutCard": {
+  "checkoutCard": {
     "enrollNow": "Enroll Now",
     "buyNow": "Buy Now",
     "addToCart": "Add to Cart",

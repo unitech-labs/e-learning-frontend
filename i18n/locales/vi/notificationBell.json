@@ -1,0 +1,21 @@
+{
+  "notificationBell": {
+    "title": "Thông báo",
+    "ariaLabel": "Thông báo",
+    "newCount": "{count} mới",
+    "markAllRead": "Đọc tất cả",
+    "empty": "Chưa có thông báo nào",
+    "unknownSender": "Ai đó",
+    "invoiceCode": "Mã HĐ:",
+    "statusPending": "● Chờ xử lý",
+    "statusComplete": "● Hoàn thành",
+    "statusCancel": "● Đã huỷ",
+    "orderRegistered": "vừa đăng ký khoá học",
+    "commented": "đã bình luận trong khoá học",
+    "replied": "đã trả lời bình luận của bạn",
+    "justNow": "Vừa xong",
+    "minutesAgo": "{n} phút trước",
+    "hoursAgo": "{n} giờ trước",
+    "daysAgo": "{n} ngày trước"
+  }
+}

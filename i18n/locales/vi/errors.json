@@ -1,0 +1,33 @@
+{
+  "errors": {
+    "pageNotFound": {
+      "title": "Trang không tìm thấy",
+      "description": "Xin lỗi, trang bạn đang tìm kiếm không tồn tại.",
+      "backHome": "Về trang chủ",
+      "errorCode": "Lỗi 404"
+    },
+    "serverError": {
+      "title": "Lỗi máy chủ",
+      "description": "Đã xảy ra lỗi máy chủ. Vui lòng thử lại sau.",
+      "tryAgain": "Thử lại",
+      "errorCode": "Lỗi 500"
+    },
+    "networkError": {
+      "title": "Lỗi kết nối",
+      "description": "Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối internet của bạn.",
+      "checkConnection": "Kiểm tra kết nối"
+    },
+    "unauthorized": {
+      "title": "Không có quyền truy cập",
+      "description": "Bạn không có quyền truy cập vào trang này.",
+      "login": "Đăng nhập",
+      "errorCode": "Lỗi 401"
+    },
+    "forbidden": {
+      "title": "Truy cập bị cấm",
+      "description": "Bạn không có quyền truy cập vào tài nguyên này.",
+      "contactAdmin": "Liên hệ quản trị viên",
+      "errorCode": "Lỗi 403"
+    }
+  }
+}

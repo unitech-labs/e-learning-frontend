@@ -1,0 +1,8 @@
+{
+  "enrolledCourse": {
+    "orderCode": "Codice ordine:",
+    "amount": "Importo:",
+    "classroom": "Classe:",
+    "schedule": "Programma:"
+  }
+}

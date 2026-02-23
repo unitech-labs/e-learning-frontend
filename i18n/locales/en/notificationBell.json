@@ -1,0 +1,21 @@
+{
+  "notificationBell": {
+    "title": "Notifications",
+    "ariaLabel": "Notifications",
+    "newCount": "{count} new",
+    "markAllRead": "Mark all as read",
+    "empty": "No notifications yet",
+    "unknownSender": "Someone",
+    "invoiceCode": "Invoice Code:",
+    "statusPending": "● Pending",
+    "statusComplete": "● Completed",
+    "statusCancel": "● Cancelled",
+    "orderRegistered": "just registered for a course",
+    "commented": "commented on a course",
+    "replied": "replied to your comment",
+    "justNow": "Just now",
+    "minutesAgo": "{n} minutes ago",
+    "hoursAgo": "{n} hours ago",
+    "daysAgo": "{n} days ago"
+  }
+}

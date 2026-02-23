@@ -1,0 +1,141 @@
+{
+  "onboarding": {
+    "steps": {
+      "basicInfo": {
+        "title": "Informazioni di base",
+        "description": "Fornisci il tuo nome e scegli un avatar per il tuo account"
+      },
+      "personalInfo": {
+        "title": "Informazioni personali",
+        "description": "Portaci a conoscerti meglio con alcune informazioni personali"
+      },
+      "contactInfo": {
+        "title": "Informazioni di contatto",
+        "description": "Fornisci il tuo indirizzo e le informazioni professionali"
+      },
+      "confirmation": {
+        "title": "Conferma informazioni",
+        "description": "Controlla le informazioni prima di completare"
+      }
+    },
+    "step1": {
+      "avatar": {
+        "title": "Scegli avatar",
+        "uploadLabel": "Carica la tua foto",
+        "uploadDescription": "JPG, PNG massimo 5MB"
+      },
+      "name": {
+        "firstName": "Nome",
+        "lastName": "Cognome",
+        "firstNamePlaceholder": "Inserisci il tuo nome",
+        "lastNamePlaceholder": "Inserisci il tuo cognome"
+      },
+      "notifications": {
+        "invalidFileType": "Scegli un file immagine",
+        "fileSizeExceeded": "La dimensione del file non deve superare i 5MB"
+      }
+    },
+    "step2": {
+      "gender": {
+        "title": "Genere",
+        "male": "Maschio",
+        "female": "Femmina",
+        "other": "Altro"
+      },
+      "dateOfBirth": {
+        "title": "Data di nascita",
+        "placeholder": "Seleziona data di nascita",
+        "day": "Giorno",
+        "month": "Mese",
+        "year": "Anno"
+      },
+      "phone": {
+        "title": "Numero di telefono",
+        "placeholder": "Inserisci il tuo numero di telefono",
+        "description": "Il numero verrà utilizzato per contatti e autenticazione account",
+        "validation": {
+          "invalid": "Numero di telefono non valido"
+        }
+      },
+      "validation": {
+        "birthYearInvalid": "Anno di nascita non valido"
+      }
+    },
+    "step3": {
+      "address": {
+        "title": "Indirizzo di contatto",
+        "placeholder": "Inserisci il tuo indirizzo completo",
+        "description": "L'indirizzo verrà utilizzato per l'invio di materiali di studio e notifiche importanti"
+      },
+      "profession": {
+        "title": "Lavoro attuale",
+        "placeholder": "Seleziona la tua professione",
+        "required": "Seleziona una professione"
+      },
+      "bio": {
+        "title": "Informazioni aggiuntive (opzionale)",
+        "placeholder": "Breve introduzione, obiettivi di studio...",
+        "description": "Queste informazioni ci aiutano a personalizzare la tua esperienza di apprendimento"
+      },
+      "jobs": {
+        "student": "Studente",
+        "teacher": "Insegnante",
+        "engineer": "Ingegnere",
+        "doctor": "Medico",
+        "lawyer": "Avvocato",
+        "business": "Business",
+        "designer": "Designer",
+        "developer": "Sviluppatore",
+        "marketing": "Marketing",
+        "sales": "Vendite",
+        "freelancer": "Freelancer",
+        "retired": "Pensionato",
+        "unemployed": "In cerca di lavoro",
+        "other": "Altro"
+      }
+    },
+    "step4": {
+      "title": "Conferma informazioni",
+      "description": "Controlla le informazioni prima di completare",
+      "summary": {
+        "dateOfBirth": "Data di nascita:",
+        "phoneNumber": "Numero di telefono:",
+        "profession": "Professione:",
+        "address": "Indirizzo:",
+        "bio": "Introduzione:",
+        "notUpdated": "Non aggiornato"
+      },
+      "privacy": {
+        "title": "Informativa sulla privacy",
+        "description": "Le tue informazioni personali sono riservate e verranno utilizzate solo per migliorare la tua esperienza di studio. Puoi aggiornarle in qualsiasi momento nelle impostazioni."
+      }
+    },
+    "navigation": {
+      "previous": "Indietro",
+      "next": "Avanti",
+      "complete": "Completa",
+      "uploading": "Caricamento in corso {progress}%"
+    },
+    "validation": {
+      "firstNameRequired": "Inserisci il nome",
+      "lastNameRequired": "Inserisci il cognome",
+      "firstNameMinLength": "Il nome deve avere almeno 2 caratteri",
+      "lastNameMinLength": "Il cognome deve avere almeno 2 caratteri",
+      "avatarRequired": "Seleziona un avatar",
+      "genderRequired": "Seleziona il genere",
+      "dateOfBirthRequired": "Seleziona la data di nascita",
+      "phoneRequired": "Inserisci il numero di telefono",
+      "addressRequired": "Inserisci l'indirizzo",
+      "professionRequired": "Seleziona la professione"
+    },
+    "uploadingAvatar": "Caricamento avatar...",
+    "updateSuccess": "Informazioni aggiornate con successo!",
+    "updateFailed": "Aggiornamento informazioni fallito",
+    "footer": {
+      "step1": "Queste informazioni ci aiutano a personalizzare la tua esperienza di studio",
+      "step2": "Le informazioni personali sono riservate e utilizzate solo per migliorare il servizio",
+      "step3": "L'indirizzo verrà utilizzato per l'invio di materiali di studio e notifiche importanti",
+      "step4": "Grazie per aver completato la configurazione dell'account!"
+    }
+  }
+}

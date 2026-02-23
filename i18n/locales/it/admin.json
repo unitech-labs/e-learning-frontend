@@ -1,0 +1,1425 @@
+{
+  "admin": {
+    "dashboard": {
+      "title": "Panoramica Dashboard",
+      "welcome": "Bentornato! Ecco una panoramica delle tue prestazioni oggi.",
+      "stats": {
+        "totalUsers": "Studenti totali",
+        "activeCourses": "Corsi attivi",
+        "monthlyRevenue": "Entrate di questo mese",
+        "totalRevenue": "Entrate totali",
+        "completionRate": "Tasso di completamento"
+      },
+      "quickActions": {
+        "title": "Azioni rapide",
+        "createCourse": "Crea corso",
+        "manageStudents": "Gestisci studenti",
+        "viewOrders": "Vedi ordini",
+        "settings": "Impostazioni"
+      },
+      "latestUsers": {
+        "title": "Ultimi studenti",
+        "viewAll": "Vedi tutti",
+        "active": "Attivo",
+        "inactive": "Inattivo",
+        "noUsers": "Nessuno studente presente"
+      },
+      "topCourses": {
+        "title": "Corsi principali",
+        "viewAll": "Vedi tutti",
+        "noCourses": "Nessun corso presente"
+      }
+    },
+    "users": {
+      "title": "Gestione studenti",
+      "subtitle": "Gestisci gli account degli studenti e segui i loro progressi",
+      "stats": {
+        "totalStudents": "Studenti totali",
+        "activeStudents": "Studenti attivi",
+        "completedStudents": "Studenti che hanno completato"
+      },
+      "search": {
+        "placeholder": "Cerca studente per nome, email o username..."
+      },
+      "actions": {
+        "refresh": "Aggiorna",
+        "editUser": "Modifica studente",
+        "suspend": "Sospendi",
+        "activate": "Attiva",
+        "deleteUser": "Elimina studente"
+      },
+      "error": {
+        "title": "Errore caricamento studenti",
+        "tryAgain": "Riprova"
+      },
+      "table": {
+        "title": "Tutti gli studenti",
+        "student": "Studente",
+        "enrolledCourses": "Corsi iscritti",
+        "status": "Stato",
+        "joined": "Iscritto il",
+        "actions": "Azioni",
+        "showing": "Mostrando {current} di {total} studenti",
+        "totalStudents": "Studenti totali: {total}"
+      },
+      "courses": {
+        "count": "{count} corsi",
+        "active": "Attivo",
+        "completed": "Completato",
+        "avgProgress": "Progresso medio"
+      },
+      "status": {
+        "active": "Attivo",
+        "inactive": "Inattivo",
+        "hasCompleted": "Completato",
+        "inProgress": "In corso"
+      },
+      "joined": {
+        "studentId": "ID Studente"
+      },
+      "empty": {
+        "title": "Nessuno studente trovato",
+        "subtitle": "Prova a modificare i criteri di ricerca",
+        "clearSearch": "Cancella ricerca"
+      },
+      "messages": {
+        "refreshSuccess": "Studenti aggiornati con successo",
+        "editUser": "Modifica studente: {name}",
+        "confirmSuspend": {
+          "title": "Sei sicuro di voler sospendere questo studente?",
+          "content": "Questa azione sospenderà {name}"
+        },
+        "confirmActivate": {
+          "title": "Sei sicuro di voler attivare questo studente?",
+          "content": "Questa azione attiverà {name}"
+        },
+        "confirmDelete": {
+          "title": "Sei sicuro di voler eliminare questo studente?",
+          "content": "Questa azione eliminerà permanentemente {name}"
+        },
+        "suspendSuccess": "Studente sospeso con successo",
+        "activateSuccess": "Studente attivato con successo",
+        "deleteSuccess": "Studente eliminato con successo"
+      }
+    },
+    "chapterManagement": {
+      "title": "Capitoli",
+      "addChapter": "Aggiungi capitolo",
+      "createChapter": "Crea capitolo",
+      "createFirstChapter": "Crea il tuo primo capitolo",
+      "emptyStates": {
+        "noChapters": "Nessun capitolo presente",
+        "noChaptersDescription": "Crea il tuo primo capitolo per iniziare a organizzare i contenuti del corso.",
+        "selectChapter": "Seleziona un capitolo",
+        "selectChapterDescription": "Seleziona un capitolo dalla barra laterale per vedere e gestire le lezioni.",
+        "noChaptersAvailable": "Nessun capitolo disponibile",
+        "noChaptersAvailableDescription": "Crea il tuo primo capitolo per organizzare il contenuto.",
+        "noLessons": "Nessuna lezione presente",
+        "noLessonsDescription": "Questo capitolo non ha ancora lezioni. Crea la prima lezione per iniziare a insegnare.",
+        "createFirstLesson": "Crea la prima lezione"
+      },
+      "form": {
+        "title": "Aggiungi capitolo",
+        "editTitle": "Modifica capitolo",
+        "chapterTitle": "Titolo capitolo",
+        "chapterTitlePlaceholder": "Inserisci il titolo del capitolo",
+        "chapterTitleRequired": "Inserisci il titolo del capitolo!",
+        "chapterDescription": "Descrizione capitolo",
+        "chapterDescriptionPlaceholder": "Inserisci la descrizione"
+      },
+      "lessons": {
+        "addLesson": "Aggiungi lezione",
+        "edit": "Modifica",
+        "time": "Tempo",
+        "minutes": "minuti",
+        "seconds": "secondi",
+        "updateOrderSuccess": "Ordine lezioni aggiornato con successo!",
+        "updateOrderFailed": "Aggiornamento ordine lezioni fallito"
+      },
+      "notifications": {
+        "createChapterSuccess": "Capitolo creato con successo",
+        "createChapterFailed": "Creazione capitolo fallita",
+        "updateChapterSuccess": "Capitolo aggiornato con successo!",
+        "updateChapterFailed": "Aggiornamento capitolo fallito",
+        "deleteChapterSuccess": "Capitolo eliminato con successo!",
+        "deleteChapterFailed": "Eliminazione capitolo fallita",
+        "updateOrderSuccess": "Ordine capitoli aggiornato con successo!",
+        "updateOrderFailed": "Aggiornamento ordine capitoli fallito"
+      },
+      "deleteConfirm": {
+        "title": "Elimina capitolo",
+        "message": "Sei sicuro di voler eliminare questo capitolo?",
+        "warning": "Questa azione non può essere annullata. Tutti i contenuti del capitolo, incluse le lezioni e i materiali, verranno eliminati permanentemente.",
+        "lessons": "Lezioni",
+        "cancel": "Annulla",
+        "confirm": "Elimina capitolo"
+      }
+    },
+    "formLesson": {
+      "title": {
+        "create": "Crea nuova lezione",
+        "edit": "Modifica lezione"
+      },
+      "description": {
+        "create": "Aggiungi una nuova lezione a questo capitolo",
+        "edit": "Aggiorna le informazioni e il contenuto della lezione"
+      },
+      "form": {
+        "title": "Titolo",
+        "titlePlaceholder": "Inserisci il titolo della lezione",
+        "titleRequired": "Inserisci il titolo della lezione!",
+        "slug": "Slug",
+        "slugPlaceholder": "Generato automaticamente dal titolo",
+        "videoDuration": "Durata video (secondi)",
+        "videoDurationPlaceholder": "Inserisci durata video",
+        "videoDurationRequired": "La durata del video deve essere ≥ 0!",
+        "description": "Descrizione",
+        "descriptionPlaceholder": "Inserisci descrizione",
+        "isPreview": "Impostazioni anteprima",
+        "previewLabel": "Consenti anteprima",
+        "previewNote": "Abilitando questa opzione, gli utenti potranno visualizzare il video in anteprima (video di prova)",
+        "introVideo": "Carica video",
+        "introImage": "Carica immagine di copertina"
+      },
+      "upload": {
+        "videoDragText": "Trascina i file, oppure",
+        "videoBrowse": "Sfoglia",
+        "videoHint": "Carica video in formato Mov, MP4.",
+        "imageDragText": "Trascina i file, oppure",
+        "imageBrowse": "Sfoglia",
+        "imageHint": "Carica immagini in formato JPEG, PNG.",
+        "uploading": "Caricamento video in corso...",
+        "fileUnchanged": "File invariato, skip caricamento"
+      },
+      "buttons": {
+        "previewLesson": "Anteprima lezione",
+        "deleteLesson": "Elimina lezione",
+        "createLesson": "Crea lezione",
+        "updateLesson": "Aggiorna lezione",
+        "uploading": "Caricamento in corso...",
+        "cancel": "Annulla",
+        "delete": "Elimina"
+      },
+      "deleteDialog": {
+        "title": "Elimina lezione",
+        "confirmTitle": "Elimina lezione",
+        "confirmMessage": "Questa azione non può essere annullata.",
+        "lessonLabel": "Lezione:",
+        "confirmDescription": "Sei sicuro di voler eliminare questa lezione? Tutti i contenuti, inclusi video e materiali, verranno eliminati permanentemente."
+      },
+      "materials": {
+        "title": "Materiali lezione",
+        "upload": "Carica materiali",
+        "uploadDescription": "Trascina il file o clicca per selezionare",
+        "addMaterial": "Aggiungi materiale",
+        "editMaterial": "Modifica materiale",
+        "deleteMaterial": "Elimina materiale",
+        "materialTitle": "Titolo",
+        "materialTitlePlaceholder": "Inserisci titolo materiale",
+        "materialTitleRequired": "Inserisci titolo materiale!",
+        "materialDescription": "Descrizione",
+        "materialDescriptionPlaceholder": "Inserisci descrizione (opzionale)",
+        "fileType": "Tipo file",
+        "fileSize": "Dimensione",
+        "uploadedAt": "Data caricamento",
+        "empty": "Nessun materiale presente",
+        "emptyDescription": "Carica materiali che gli studenti possono scaricare e utilizzare",
+        "notifications": {
+          "uploadSuccess": "Materiale caricato con successo",
+          "uploadFailed": "Caricamento materiale fallito",
+          "saveSuccess": "Materiale salvato con successo",
+          "saveFailed": "Salvataggio materiale fallito",
+          "deleteSuccess": "Materiale eliminato con successo",
+          "deleteFailed": "Eliminazione materiale fallita",
+          "editSuccess": "Materiale aggiornato con successo",
+          "editFailed": "Aggiornamento materiale fallito"
+        }
+      },
+      "notifications": {
+        "uploadVideoFailed": "Caricamento video fallito",
+        "uploadImageFailed": "Caricamento immagine fallito",
+        "createLessonSuccess": "Lezione creata con successo",
+        "updateLessonSuccess": "Lezione aggiornata con successo",
+        "createLessonFailed": "Creazione lezione fallita",
+        "updateLessonFailed": "Aggiornamento lezione fallito",
+        "deleteLessonSuccess": "Lezione eliminata con successo",
+        "deleteLessonSuccessDescription": "La lezione è stata eliminata con successo.",
+        "deleteLessonFailed": "Eliminazione lezione fallita",
+        "deleteLessonFailedDescription": "Errore durante l'eliminazione della lezione. Riprova."
+      }
+    },
+    "calendars": {
+      "title": "Calendario generale",
+      "refresh": "Aggiorna",
+      "sessionsCount": "{count} sessioni",
+      "today": "Oggi",
+      "choiceDialog": {
+        "title": "Scegli tipo di creazione",
+        "message": "Vuoi creare una nuova classe oppure una sessione per una classe esistente?",
+        "newClassroom": "Crea nuova classe",
+        "existingClassroom": "Crea sessione per classe esistente"
+      },
+      "createSessionDialog": {
+        "title": "Crea sessione",
+        "ok": "OK",
+        "cancel": "Annulla",
+        "sessionTitle": "Titolo sessione",
+        "sessionTitlePlaceholder": "Titolo evento",
+        "eventClass": "Categoria evento (opzionale)",
+        "eventClassPlaceholder": "Categoria",
+        "background": "Sfondo"
+      },
+      "notifications": {
+        "selectClassroomRequired": "Seleziona una classe",
+        "createSessionSuccess": "Sessione creata",
+        "createSessionFailed": "Impossibile creare sessione",
+        "updateSessionTimeSuccess": "Orario sessione aggiornato",
+        "updateSessionTimeFailed": "Impossibile aggiornare l'orario",
+        "loadSessionsError": "Errore durante il caricamento del calendario",
+        "openSessionDetailError": "Impossibile aprire i dettagli della sessione",
+        "openSessionDetailErrorDesc": "Dati courseId/classroomId mancanti dal dettaglio sessione.",
+        "loadSessionDetailError": "Impossibile caricare i dettagli della sessione"
+      },
+      "eventDisplay": {
+        "maxStudents": "Massimo {limit} studenti"
+      }
+    },
+    "classroom": {
+      "title": "Classi",
+      "addNewClassroom": "Aggiungi nuova classe",
+      "createFirstClassroom": "Crea la tua prima classe",
+      "emptyStates": {
+        "noClassrooms": "Nessuna classe presente",
+        "noClassroomsDescription": "Crea la tua prima classe per iniziare a organizzare le sessioni e gestire le iscrizioni."
+      },
+      "form": {
+        "title": "Crea classe",
+        "classroomTitle": "Nome classe",
+        "classroomTitlePlaceholder": "Inserisci nome classe",
+        "classroomTitleRequired": "Inserisci il nome della classe!",
+        "studentCount": "Numero di studenti",
+        "studentCountPlaceholder": "Inserisci il numero di studenti",
+        "studentCountRequired": "Inserisci il numero di studenti!",
+        "studentCountMin": "Il numero di studenti deve essere almeno 1!",
+        "schedule": "Programma",
+        "scheduleRequired": "Inserisci il programma!",
+        "selectDay": "Seleziona giorno",
+        "selectDayRequired": "Seleziona un giorno!",
+        "startTime": "Ora inizio",
+        "endTime": "Ora fine",
+        "addMore": "Aggiungi ancora",
+        "startDate": "Data inizio",
+        "startDatePlaceholder": "Seleziona data inizio",
+        "startDateRequired": "Seleziona data inizio!",
+        "endDate": "Data fine",
+        "endDatePlaceholder": "Seleziona data fine",
+        "endDateRequired": "Seleziona data fine!",
+        "startDateAfterEndDate": "La data d'inizio non può essere successiva alla data di fine!",
+        "pricingSection": "Prezzi",
+        "isFree": "Classe gratuita",
+        "isFreeDescription": "Se selezionato, questa classe sarà offerta gratuitamente",
+        "price": "Prezzo",
+        "pricePlaceholder": "Inserisci prezzo",
+        "priceDescription": "Prezzo base (le lezioni 1-on-1 solitamente costano più di quelle di gruppo)",
+        "priceRequired": "Inserisci il prezzo!",
+        "discountPrice": "Prezzo scontato",
+        "discountPricePlaceholder": "Inserisci prezzo scontato (opzionale)",
+        "discountPriceDescription": "Il prezzo scontato deve essere inferiore al prezzo base",
+        "discountPriceMustBeLessThanPrice": "Il prezzo scontato deve essere inferiore al prezzo base!",
+        "discountPriceNotAllowedForFree": "Non è possibile impostare un prezzo scontato per una classe gratuita!",
+        "effectivePrice": "Prezzo effettivo"
+      },
+      "notifications": {
+        "createSuccess": "Classe creata con successo!",
+        "createFailed": "Creazione classe fallita",
+        "loadFailed": "Caricamento informazioni corso fallito"
+      },
+      "session": {
+        "selectClassroomRequired": "Seleziona una classe",
+        "addScheduleRequired": "Aggiungi almeno un programma",
+        "createSuccess": "Successo",
+        "createSuccessDesc": "Sessione creata con successo",
+        "createError": "Errore durante la creazione della sessione",
+        "createErrorDesc": "Riprova"
+      },
+      "delete": {
+        "title": "Conferma eliminazione classe",
+        "confirmDelete": "Sei sicuro di voler eliminare la classe \"{name}\"?",
+        "success": "Classe eliminata con successo",
+        "error": "Impossibile eliminare la classe",
+        "willDeleteSessions": "Tutte le sessioni della classe",
+        "willDeleteMaterials": "Tutti i materiali caricati",
+        "willDeleteVideos": "Tutti i video registrati",
+        "willDeleteEnrollments": "Informazioni iscrizione studenti"
+      },
+      "list": {
+        "title": "Lista Classi",
+        "subtitle": "Gestisci tutte le classi in questo corso",
+        "refresh": "Aggiorna",
+        "refreshSuccess": "Lista aggiornata"
+      },
+      "table": {
+        "columns": {
+          "title": "Nome Classe",
+          "studentCount": "Numero Studenti",
+          "sessionCount": "Numero Sessioni",
+          "enrollmentCount": "Numero Iscritti",
+          "price": "Prezzo",
+          "schedule": "Programma",
+          "createdAt": "Data Creazione",
+          "actions": "Azioni"
+        },
+        "emptyState": {
+          "title": "Nessuna classe presente",
+          "description": "Crea la tua prima classe per iniziare"
+        }
+      },
+      "card": {
+        "maxStudents": "Numero massimo studenti",
+        "enrolledStudents": "Studenti iscritti",
+        "sessions": "Sessioni",
+        "schedule": "Programma",
+        "viewDetails": "Vedi dettagli",
+        "viewSchedule": "Vedi calendario",
+        "attendance": "Presenze",
+        "pricing": "Prezzo",
+        "free": "Gratis",
+        "off": "di sconto",
+        "oneOnOne": "1-on-1"
+      },
+      "detail": {
+        "course": "Corso",
+        "maxStudents": "studenti massimi",
+        "enrolled": "iscritti",
+        "editClassroom": "Modifica classe",
+        "backToList": "Torna alla lista",
+        "totalStudents": "Studenti totali",
+        "enrolledStudents": "Studenti iscritti",
+        "totalSessions": "Sessioni totali",
+        "schedule": "Programma",
+        "scheduleInfo": "Info programma",
+        "upcomingSessions": "Prossime sessioni",
+        "addSession": "Aggiungi sessione",
+        "noSessions": "Nessuna sessione imminente",
+        "attended": "frequentato",
+        "joinMeeting": "Partecipa al meeting",
+        "meetingLink": "Link meeting",
+        "sessionStatus": {
+          "scheduled": "Programmata",
+          "ongoing": "In corso",
+          "completed": "Completata",
+          "cancelled": "Annullata"
+        },
+        "editSession": "Modifica sessione",
+        "sessionTopic": "Argomento sessione",
+        "sessionTopicPlaceholder": "Inserisci argomento",
+        "sessionDescription": "Descrizione",
+        "sessionDescriptionPlaceholder": "Inserisci descrizione",
+        "startTime": "Ora inizio",
+        "endTime": "Ora fine",
+        "location": "Luogo",
+        "locationPlaceholder": "Inserisci luogo o stanza",
+        "meetingInfo": "Dettagli meeting",
+        "meetingId": "ID meeting",
+        "meetingIdPlaceholder": "Inserisci ID meeting",
+        "meetingPassword": "Password meeting",
+        "meetingPasswordPlaceholder": "Inserisci password",
+        "participantLimit": "Limite partecipanti",
+        "status": "Stato",
+        "scheduled": "Programmata",
+        "ongoing": "In corso",
+        "completed": "Completata",
+        "cancelled": "Annullata",
+        "saveSession": "Salva sessione",
+        "sessionUpdated": "Sessione aggiornata con successo",
+        "sessionUpdateFailed": "Aggiornamento sessione fallito",
+        "sessionCreated": "Sessione creata con successo",
+        "sessionCreateFailed": "Creazione sessione fallita",
+        "sessionsLoadFailed": "Caricamento sessioni fallito",
+        "classroomUpdated": "Classe aggiornata con successo",
+        "classroomUpdateFailed": "Aggiornamento classe fallito",
+        "createSession": "Crea sessione",
+        "sessionTopicRequired": "L'argomento della sessione è obbligatorio",
+        "startTimeRequired": "L'ora di inizio è obbligatoria",
+        "endTimeRequired": "L'ora di fine è obbligatoria",
+        "startTimeInPast": "L'ora di inizio non può essere passata",
+        "endTimeAfterStartTime": "L'ora di fine deve essere successiva all'ora di inizio",
+        "sessionTooShort": "La durata deve essere di almeno 15 minuti",
+        "sessionTooLong": "La durata non può superare le 8 ore",
+        "deleteSession": "Elimina sessione",
+        "confirmDeleteSession": "Sei sicuro di voler eliminare questa sessione?",
+        "deleteSessionWarning": "Questa azione non può essere annullata. Tutti i dati della sessione saranno eliminati.",
+        "sessionDeleted": "Sessione eliminata con successo",
+        "sessionDeleteFailed": "Eliminazione sessione fallita",
+        "viewStudents": "Vedi lista studenti",
+        "studentList": "Lista studenti",
+        "noStudents": "Nessuno studente iscritto a questa classe",
+        "studentsLoadFailed": "Caricamento studenti fallito",
+        "enrolledOn": "Iscritto il",
+        "active": "Attivo",
+        "inactive": "Inattivo",
+        "sessionAttendance": "Registro presenze sessione",
+        "attendanceLoadFailed": "Impossibile caricare registro presenze",
+        "noAttendance": "Nessun record di presenza",
+        "totalAttendance": "Presenze totali",
+        "present": "Presente",
+        "late": "In ritardo",
+        "checkedAt": "Registrato alle"
+      },
+      "dialog": {
+        "createNewClassroom": "Crea nuova classe",
+        "selectCourse": "Corso",
+        "selectCoursePlaceholder": "Seleziona corso",
+        "selectExistingClassroom": "Seleziona una classe esistente per continuare.",
+        "selectClassroom": "Classe",
+        "selectClassroomPlaceholder": "Seleziona classe",
+        "createSession": "Crea sessione",
+        "sessionTitle": "Titolo",
+        "sessionTitlePlaceholder": "Inserisci titolo sessione",
+        "startTime": "Inizio",
+        "startTimePlaceholder": "Seleziona ora d'inizio",
+        "endTime": "Fine",
+        "endTimePlaceholder": "Seleziona ora di fine",
+        "meetingLink": "Link meeting",
+        "meetingLinkPlaceholder": "https://...",
+        "meetingId": "ID Meeting",
+        "meetingIdPlaceholder": "ID Meeting",
+        "meetingPass": "Pass meeting",
+        "meetingPassPlaceholder": "Pass meeting",
+        "startDate": "Data d'inizio",
+        "startDatePlaceholder": "Seleziona data d'inizio",
+        "numberOfSessions": "Sessioni totali",
+        "numberOfSessionsPlaceholder": "es: 10",
+        "pricing": "Prezzi",
+        "originalPrice": "Prezzo originale",
+        "originalPricePlaceholder": "Inserisci prezzo originale",
+        "originalPriceDescription": "Prezzo originale della classe (obbligatorio)",
+        "backgroundColor": "Colore di sfondo per il calendario",
+        "backgroundColorLabel": "Colore sfondo",
+        "backgroundColorDescription": "Scegli un colore di sfondo da visualizzare nel calendario",
+        "selectCourseRequired": "Seleziona un corso",
+        "selectClassroomRequired": "Seleziona una classe",
+        "sessionTitleRequired": "Inserisci il titolo della sessione",
+        "startEndTimeRequired": "Seleziona ora d'inizio e fine",
+        "endTimeAfterStartTime": "L'ora di fine deve essere successiva all'ora di inizio",
+        "createSessionSuccess": "Sessione creata",
+        "createSessionFailed": "Impossibile creare sessione",
+        "priceRequired": "Il prezzo è obbligatorio e deve essere maggiore di 0",
+        "numberOfSessionsRequired": "Inserisci il numero totale di sessioni",
+        "numberOfSessionsMin": "Il numero totale di sessioni deve essere >= 1"
+      },
+      "sessionDetail": {
+        "editSession": "Modifica sessione",
+        "sessionDetail": "Dettagli sessione",
+        "edit": "Modifica",
+        "cancel": "Annulla",
+        "saveChanges": "Salva modifiche",
+        "title": "Titolo",
+        "titlePlaceholder": "Inserisci titolo sessione",
+        "description": "Descrizione",
+        "descriptionPlaceholder": "Inserisci descrizione sessione",
+        "startTime": "Ora inizio",
+        "startTimePlaceholder": "Seleziona ora inizio",
+        "startTimeRequired": "Seleziona ora inizio",
+        "endTime": "Ora fine",
+        "endTimePlaceholder": "Seleziona ora fine",
+        "endTimeRequired": "Seleziona ora fine",
+        "location": "Luogo",
+        "locationPlaceholder": "Inserisci luogo",
+        "meetingInfo": "Info meeting",
+        "meetingLink": "Link Meeting",
+        "meetingLinkPlaceholder": "https://zoom.us/j/...",
+        "meetingId": "ID Meeting",
+        "meetingIdPlaceholder": "Inserisci ID Meeting",
+        "meetingPassword": "Password Meeting",
+        "meetingPasswordPlaceholder": "Inserisci password",
+        "editMeeting": "Modifica",
+        "link": "Link:",
+        "id": "ID:",
+        "password": "Password:",
+        "notSet": "Non impostato",
+        "copyLink": "Copia link",
+        "linkCopied": "Link copiato",
+        "students": "Studenti",
+        "addStudent": "Aggiungi studente",
+        "emailPlaceholder": "Inserisci email studente",
+        "add": "Aggiungi",
+        "noStudents": "Nessuno studente presente",
+        "removeStudent": "Rimuovi studente",
+        "confirmRemoveStudent": "Conferma rimozione studente",
+        "removeStudentMessage": "Sei sicuro di voler rimuovere lo studente dalla classe?",
+        "deleteOrder": "Elimina ordine",
+        "remove": "Rimuovi",
+        "videos": "Video",
+        "uploadVideo": "Carica video",
+        "noVideos": "Nessun video presente",
+        "deleteVideo": "Conferma eliminazione video",
+        "deleteVideoMessage": "Sei sicuro di voler eliminare il video \"{name}\"? Il video caricato verrà rimosso dal sistema.",
+        "attendance": "Presenze",
+        "present": "Presente",
+        "late": "In ritardo",
+        "noAttendance": "Nessun record di presenza",
+        "editClassroom": "Modifica classe",
+        "deleteSession": "Elimina",
+        "confirmDeleteSession": "Conferma eliminazione sessione",
+        "deleteSessionMessage": "Sei sicuro di voler eliminare questa sessione? Il sistema potrebbe generarne automaticamente una nuova per recuperare secondo il programma della classe.",
+        "delete": "Elimina",
+        "loadSessionError": "Errore durante il caricamento della sessione",
+        "loadStudentsError": "Errore durante il caricamento della lista studenti",
+        "addStudentSuccess": "Studente aggiunto alla classe con successo",
+        "addStudentError": "Errore durante l'aggiunta dello studente",
+        "removeStudentSuccess": "Studente rimosso dalla classe con successo",
+        "removeStudentAndOrderSuccess": "Studente e ordine rimossi dalla classe con successo",
+        "removeStudentError": "Errore durante la rimozione dello studente",
+        "updateSessionSuccess": "Successo",
+        "updateSessionSuccessDesc": "Sessione aggiornata con successo",
+        "updateSessionError": "Errore durante l'aggiornamento della sessione",
+        "updateMeetingSuccess": "Successo",
+        "updateMeetingSuccessDesc": "Informazioni meeting aggiornate",
+        "updateMeetingError": "Errore",
+        "updateMeetingErrorDesc": "Impossibile aggiornare le informazioni del meeting",
+        "deleteSessionSuccess": "Sessione eliminata",
+        "deleteSessionError": "Errore durante l'eliminazione della sessione",
+        "uploadVideoSuccess": "Caricamento completato",
+        "uploadVideoSuccessDesc": "Video {name} caricato con successo",
+        "uploadVideoError": "Errore durante il caricamento del video",
+        "deleteVideoSuccess": "Video eliminato",
+        "deleteVideoSuccessDesc": "Video {name} eliminato",
+        "deleteVideoError": "Errore durante l'eliminazione del video",
+        "fileTypeNotSupported": "Tipo di file non supportato. Accettati solo: {types}",
+        "missingUploadUrl": "URL di caricamento non ricevuto dal server",
+        "missingSessionOrCourse": "Errore",
+        "missingSessionOrCourseDesc": "Informazioni sessione o corso mancanti",
+        "sessionFallback": "Sessione",
+        "meetingInfoTitle": "Informazioni meeting",
+        "linkLabel": "Link:",
+        "idLabel": "ID:",
+        "passwordLabel": "Pass:",
+        "save": "Salva",
+        "locationLabel": "Luogo",
+        "classroomLabel": "Classe",
+        "maxStudents": "Massimo {count} studenti",
+        "discountLabel": "Sconto:",
+        "courseLabel": "Corso",
+        "attendanceListTitle": "Lista presenze studenti",
+        "presentCount": "{count} Presenti",
+        "lateCount": "{count} In ritardo",
+        "noAttendanceYet": "Nessuno studente ha partecipato",
+        "videoSectionTitle": "Video della sessione",
+        "upload": "Carica",
+        "noVideosYet": "Nessun video presente",
+        "studentListTitle": "Lista studenti",
+        "noStudentsInClass": "Nessuno studente in questa classe",
+        "noLinkedEmail": "Nessuna email collegata",
+        "deleteSessionButton": "Elimina sessione",
+        "close": "Chiudi",
+        "confirmRemoveStudentTitle": "Conferma rimozione studente",
+        "confirmRemoveStudentMessage": "Sei sicuro di voler rimuovere lo studente dalla classe?",
+        "deleteOrderLabel": "Elimina anche l'ordine",
+        "deleteOrderDescription": "Se hai aggiunto lo studente per errore e vuoi eliminare anche l'ordine affinché le entrate siano corrette, seleziona questa opzione.\nPer impostazione predefinita viene rimossa solo l'iscrizione, l'ordine sarà segnato come \"annullato\".",
+        "meetingLinkPlaceholderEdit": "Link Meeting",
+        "meetingIdPlaceholderEdit": "ID Meeting",
+        "meetingPasswordPlaceholderEdit": "Password"
+      },
+      "error": {
+        "cannotJoinClass": "Impossibile partecipare alla sessione",
+        "checkInFailed": "Impossibile registrare la presenza. Riprova più tardi.",
+        "checkInTooEarly": "Stai tentando di accedere troppo presto. Attendi l'inizio della sessione.",
+        "checkInNotYetAvailable": "Check-in non ancora disponibile. Disponibile dalle {time}",
+        "checkInNotYetAvailableFrom": "Check-in non ancora disponibile. Disponibile dalle {time}"
+      },
+      "edit": {
+        "title": "Modifica classe",
+        "classroomTitle": "Nome classe",
+        "classroomTitlePlaceholder": "Inserisci nome classe",
+        "studentCount": "Numero massimo studenti",
+        "studentCountPlaceholder": "Inserisci numero massimo studenti",
+        "startDate": "Data inizio",
+        "startDatePlaceholder": "Seleziona data inizio",
+        "endDate": "Data fine",
+        "endDatePlaceholder": "Seleziona data fine",
+        "meetingLink": "Link meeting",
+        "meetingLinkPlaceholder": "Inserisci link meeting",
+        "currentInfo": "Informazioni attuali",
+        "course": "Corso",
+        "enrolled": "Iscritti",
+        "students": "studenti",
+        "sessions": "Sessioni",
+        "save": "Salva modifiche",
+        "cancel": "Annulla",
+        "titleRequired": "Il nome della classe è obbligatorio",
+        "titleLength": "Il nome deve essere tra 3 e 100 caratteri",
+        "studentCountRequired": "Il numero di studenti è obbligatorio",
+        "studentCountRange": "Il numero di studenti deve essere tra 1 e 1000",
+        "startDateRequired": "La data d'inizio è obbligatoria",
+        "endDateRequired": "La data di fine è obbligatoria",
+        "schedule": "Programma",
+        "addSchedule": "Aggiungi programma",
+        "noSchedules": "Nessun programma presente",
+        "scheduleItem": "Programma",
+        "dayOfWeek": "Giorno della settimana",
+        "startTime": "Ora inizio",
+        "endTime": "Ora fine"
+      },
+      "meetingLink": {
+        "editMeetingLink": "Modifica link meeting",
+        "noMeetingLink": "Nessun link meeting presente",
+        "meetingLinkPlaceholder": "Inserisci link meeting (es: https://zoom.us/j/123456789)",
+        "saveMeetingLink": "Salva link meeting",
+        "cancel": "Annulla",
+        "meetingLinkUpdated": "Link meeting aggiornato con successo!",
+        "meetingLinkUpdateFailed": "Impossibile aggiornare link meeting",
+        "meetingLinkCopied": "Link meeting copiato negli appunti!",
+        "meetingLinkCopyFailed": "Impossibile copiare il link meeting"
+      }
+    },
+    "quizManagement": {
+      "title": "Gestione Quiz",
+      "description": "Segui e correggi i compiti degli studenti",
+      "filters": {
+        "classroom": "Classe",
+        "selectClassroom": "Seleziona classe",
+        "allClassrooms": "Tutte le classi",
+        "onlyNeedsGrading": "Mostra solo da correggere",
+        "refresh": "Aggiorna"
+      },
+      "table": {
+        "title": "Lista compiti",
+        "total": "Totale: {count} compiti",
+        "loading": "Caricamento in corso...",
+        "retry": "Riprova",
+        "student": "Studente",
+        "quiz": "Quiz",
+        "status": "Stato",
+        "score": "Punteggio",
+        "date": "Data esecuzione",
+        "actions": "Azioni",
+        "grade": "Correggi",
+        "view": "Vedi"
+      },
+      "status": {
+        "completed": "Completato",
+        "inProgress": "In corso",
+        "expired": "Scaduto",
+        "needsGrading": "Da correggere"
+      },
+      "empty": {
+        "noSubmissions": "Nessun compito consegnato",
+        "noSubmissionsNeedsGrading": "Nessun compito da correggere"
+      },
+      "errors": {
+        "loadSubmissions": "Impossibile caricare lista consegne"
+      }
+    },
+    "quizSubmission": {
+      "back": "Indietro",
+      "title": "Dettagli consegna",
+      "description": "Visualizza i dettagli del compito dello studente",
+      "loading": "Caricamento informazioni consegna...",
+      "error": "Errore",
+      "studentInfo": {
+        "title": "Informazioni studente",
+        "name": "Nome",
+        "quiz": "Quiz",
+        "status": "Stato",
+        "startedAt": "Inizio",
+        "completedAt": "Fine"
+      },
+      "result": {
+        "title": "Risultato",
+        "totalQuestions": "Domande totali",
+        "correct": "Esatte",
+        "score": "Punteggio",
+        "timeSpent": "Tempo impiegato"
+      },
+      "questionsAndAnswers": "Domande e risposte",
+      "questionTypes": {
+        "multipleChoice": "Scelta multipla",
+        "textInput": "Inserimento testo",
+        "essay": "Tema/Saggio"
+      },
+      "answerStatus": {
+        "correct": "Esatta",
+        "incorrect": "Errata",
+        "graded": "Corretta",
+        "pendingGrading": "In attesa di correzione"
+      },
+      "studentAnswer": "Risposta dello studente:",
+      "correctAnswer": "Risposta corretta:",
+      "errors": {
+        "loadFailed": "Impossibile caricare informazioni consegna"
+      }
+    },
+    "essayGrading": {
+      "classroom": "Classe",
+      "search": "Cerca",
+      "loading": "Caricamento in corso...",
+      "student": "Studente:",
+      "maxScore": "Punteggio massimo:",
+      "submittedAt": "Data consegna:",
+      "question": "Domanda:",
+      "studentAnswer": "Risposta dello studente:",
+      "filtersTitle": "Filtri",
+      "selectClassroom": "Seleziona classe",
+      "allClassrooms": "Tutte le classi",
+      "status": "Stato",
+      "selectStatus": "Seleziona stato",
+      "allStatus": "Tutti",
+      "searchPlaceholder": "Cerca per nome studente o quiz...",
+      "searchPlaceholderEssays": "Cerca per nome studente, quiz o domanda...",
+      "refresh": "Aggiorna",
+      "listTitle": "Lista consegne",
+      "needsGradingListTitle": "Lista temi da correggere",
+      "retry": "Riprova",
+      "needsGrading": "Da correggere"
+    },
+    "essayGradingTeacher": {
+      "back": "Indietro",
+      "name": "Nome:",
+      "submittedAt": "Data consegna:",
+      "maxScore": "Punteggio massimo:",
+      "points": "punti",
+      "previewScore": "Anteprima punteggio",
+      "success": "Successo",
+      "successDesc": "Punteggio aggiornato con successo!",
+      "error": "Errore",
+      "errorDesc": "Impossibile correggere il compito",
+      "title": "Correzione tema/saggio",
+      "description": "Valuta e fornisci feedback al compito dello studente",
+      "loading": "Caricamento informazioni consegna...",
+      "studentInfo": "Informazioni studente",
+      "question": "Domanda",
+      "studentAnswer": "Risposta dello studente",
+      "gradingTitle": "Correzione",
+      "scoreLabel": "Punteggio",
+      "scorePlaceholder": "Inserisci punteggio",
+      "feedbackLabel": "Feedback per lo studente"
+    },
+    "quiz": {
+      "collapseAll": "Comprimi tutto",
+      "expandAll": "Espandi tutto",
+      "addQuiz": "Aggiungi Quiz",
+      "loadingComments": "Caricamento commenti...",
+      "comment": {
+        "success": "Successo",
+        "updateSuccess": "Commento aggiornato!",
+        "addSuccess": "Commento aggiunto!",
+        "error": "Errore",
+        "errorDesc": "Impossibile salvare il commento"
+      }
+    },
+    "classrooms": {
+      "title": "Gestione Classi"
+    },
+    "students": {
+      "title": "Studenti del corso",
+      "description": "Gestisci gli studenti iscritti a questo corso",
+      "stats": {
+        "totalStudents": "Studenti totali",
+        "activeStudents": "Studenti attivi",
+        "averageProgress": "Progresso medio",
+        "recentEnrollments": "Iscrizioni recenti"
+      },
+      "filters": {
+        "searchPlaceholder": "Cerca studenti per nome, email o username..."
+      },
+      "table": {
+        "columns": {
+          "student": "Studente",
+          "classroom": "Classe",
+          "progress": "Progresso",
+          "lastAccessed": "Ultimo accesso",
+          "enrolled": "Iscritto il",
+          "actions": "Azioni"
+        },
+        "status": {
+          "active": "Attivo",
+          "inactive": "Inattivo",
+          "notCompleted": "Non completato",
+          "enrolled": "Iscritto",
+          "disabled": "Disabilitato"
+        },
+        "emptyState": {
+          "title": "Studente non trovato",
+          "description": "Prova a modificare i criteri di ricerca",
+          "clearSearch": "Cancella ricerca"
+        },
+        "totalStudents": "Studenti totali: {total}"
+      },
+      "actions": {
+        "refresh": "Aggiorna",
+        "viewProgress": "Vedi progresso",
+        "removeFromCourse": "Rimuovi dal corso",
+        "disableStudent": "Disabilita studente",
+        "enableStudent": "Abilita studente"
+      },
+      "error": {
+        "title": "Errore caricamento lista studenti",
+        "tryAgain": "Riprova"
+      },
+      "messages": {
+        "refreshSuccess": "Lista studenti aggiornata con successo",
+        "viewProgressMessage": "Visualizzazione progresso di {name}",
+        "removeStudentMessage": "Rimuovi {name} dal corso",
+        "disableStudentSuccess": "Lo studente {name} è stato disabilitato",
+        "enableStudentSuccess": "Lo studente {name} è stato abilitato",
+        "disableStudentError": "Impossibile disabilitare lo studente",
+        "enableStudentError": "Impossibile abilitare lo studente"
+      }
+    },
+    "video": {
+      "unsupportedFormat": "Formato video non supportato. Scegli un file MP4, WebM, OGG, MOV o AVI."
+    },
+    "courses": {
+      "title": "Gestione corsi",
+      "createCourse": "Crea corso",
+      "courseNotFound": "Corso non trovato",
+      "coursesSection": "Corso",
+      "noCourses": "Nessun corso presente",
+      "resourcesSection": "Risorse",
+      "noResources": "Nessuna risorsa presente",
+      "createResource": "Crea risorsa",
+      "tabs": {
+        "classroom": "Classe",
+        "quiz": "Quiz",
+        "students": "Studenti",
+        "chapters": "Capitoli",
+        "resources": "Materiali",
+        "pricing": "Prezzi",
+        "detail": "Dettagli"
+      },
+      "breadcrumb": {
+        "course": "Corso"
+      }
+    },
+    "pricePlans": {
+      "title": "Gestione piani tariffari",
+      "description": "Gestisci i piani tariffari a tempo per questo corso",
+      "actions": {
+        "add": "Aggiungi piano",
+        "edit": "Modifica",
+        "delete": "Elimina"
+      },
+      "table": {
+        "columns": {
+          "duration": "Durata",
+          "price": "Prezzo",
+          "status": "Stato",
+          "available": "Disponibile",
+          "dateRange": "Periodo",
+          "actions": "Azioni"
+        },
+        "totalPlans": "piani tariffari",
+        "months": "mesi",
+        "active": "Attivo",
+        "inactive": "Inattivo",
+        "default": "Predefinito",
+        "available": "Disponibile",
+        "unavailable": "Non disponibile",
+        "noDateRange": "Illimitato",
+        "fromDate": "Dal {date}",
+        "untilDate": "Al {date}"
+      },
+      "form": {
+        "duration": "Durata (mesi)",
+        "durationRequired": "Inserisci la durata",
+        "durationPlaceholder": "Inserisci numero mesi",
+        "priceAmount": "Prezzo",
+        "priceAmountRequired": "Inserisci il prezzo",
+        "priceAmountPlaceholder": "Inserisci prezzo",
+        "priceCurrency": "Valuta",
+        "priceCurrencyRequired": "Seleziona valuta",
+        "priceCurrencyPlaceholder": "Seleziona valuta",
+        "startsAt": "Data inizio",
+        "startsAtPlaceholder": "Seleziona data inizio",
+        "endsAt": "Data fine",
+        "endsAtPlaceholder": "Seleziona data fine",
+        "isActive": "Attivo",
+        "isAvailable": "Disponibile",
+        "isDefault": "Predefinito"
+      },
+      "modal": {
+        "createTitle": "Aggiungi piano",
+        "editTitle": "Modifica piano",
+        "save": "Salva",
+        "cancel": "Annulla"
+      },
+      "notifications": {
+        "loadFailed": "Caricamento piani fallito",
+        "createSuccess": "Piano creato con successo",
+        "updateSuccess": "Piano aggiornato con successo",
+        "deleteSuccess": "Piano eliminato con successo",
+        "deleteFailed": "Eliminazione piano fallita",
+        "saveFailed": "Salvataggio piano fallito"
+      },
+      "deleteConfirm": {
+        "title": "Conferma eliminazione",
+        "content": "Sei sicuro di voler eliminare il piano da {duration} mesi con prezzo {price}?",
+        "okText": "Elimina",
+        "cancelText": "Annulla"
+      },
+      "empty": {
+        "title": "Nessun piano tariffario presente",
+        "description": "Aggiungi il tuo primo piano tariffario per questo corso"
+      }
+    },
+    "resources": {
+      "title": "Gestione materiali",
+      "description": "Gestisci materiali, video, file e altre risorse del corso",
+      "addResource": "Aggiungi materiale",
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "downloadable": "Scaricabile",
+      "notDownloadable": "Non scaricabile",
+      "classrooms": "classi",
+      "allClassrooms": "Tutte le classi",
+      "table": {
+        "totalResources": "materiali",
+        "columns": {
+          "order": "Ordine",
+          "type": "Tipo",
+          "title": "Titolo",
+          "size": "Dimensione",
+          "duration": "Durata",
+          "downloadable": "Download",
+          "classrooms": "Classi",
+          "uploadedAt": "Data caricamento",
+          "actions": "Azioni"
+        }
+      },
+      "empty": {
+        "title": "Nessun materiale presente",
+        "subtitle": "Inizia aggiungendo il primo materiale per questo corso"
+      },
+      "deleteConfirm": {
+        "title": "Elimina materiale",
+        "content": "Sei sicuro di voler eliminare il materiale \"{title}\"? Questa azione non può essere annullata.",
+        "okText": "Elimina",
+        "cancelText": "Annulla"
+      },
+      "form": {
+        "addTitle": "Aggiungi nuovo materiale",
+        "editTitle": "Modifica materiale",
+        "assetType": "Tipo materiale",
+        "assetTypeRequired": "Seleziona tipo materiale!",
+        "assetTypePlaceholder": "Seleziona tipo materiale",
+        "title": "Titolo",
+        "titleRequired": "Inserisci il titolo!",
+        "titlePlaceholder": "Inserisci titolo materiale",
+        "description": "Descrizione",
+        "descriptionPlaceholder": "Inserisci descrizione (opzionale)",
+        "file": "File",
+        "fileRequired": "Seleziona un file!",
+        "fileUploading": "Caricamento file in corso...",
+        "selectFile": "Scegli file",
+        "selectFiles": "Scegli file multipli",
+        "fileUploaded": "File caricato con successo",
+        "uploaded": "Caricato",
+        "dragText": "Trascina i file qui o",
+        "dragHint": "Supporta il caricamento di più file contemporaneamente. Dimensione massima 100MB per file.",
+        "upload": "Carica",
+        "save": "Salva",
+        "cancel": "Annulla",
+        "uploadingProgress": "Caricamento: {percent}%",
+        "invalidFileType": "Tipo di file non valido",
+        "invalidFileTypeDescription": "Scegli un file con formato valido (pdf, doc, ppt, zip, immagine, audio)",
+        "videoNotAllowed": "File video non consentiti",
+        "videoNotAllowedDescription": "I materiali non supportano file video. Scegli un altro tipo di file.",
+        "fileTooLarge": "File troppo grande",
+        "fileTooLargeDescription": "Il file non deve superare i 100MB",
+        "uploadFailed": "Caricamento file fallito",
+        "getPresignedUrlFailed": "Errore durante il recupero dell'URL di caricamento",
+        "missingUploadUrls": "URL di caricamento mancanti",
+        "uploadToS3Failed": "Errore durante il caricamento su S3",
+        "createAssetFailed": "Errore durante la creazione del materiale",
+        "duration": "Durata",
+        "durationPlaceholder": "Inserisci durata (secondi)",
+        "durationDescription": "Durata in secondi (solo per video/audio)",
+        "seconds": "secondi",
+        "order": "Ordine visualizzazione",
+        "orderRequired": "Inserisci l'ordine!",
+        "orderPlaceholder": "Inserisci ordine visualizzazione",
+        "isDownloadable": "Consenti download",
+        "isDownloadableDescription": "Gli studenti possono scaricare questo file",
+        "visibleClassrooms": "Classi visibili",
+        "visibleClassroomsPlaceholder": "Seleziona le classi che possono vedere questo materiale",
+        "visibleClassroomsDescription": "Solo le classi selezionate potranno vedere questo materiale (lascia vuoto per mostrare a tutte)"
+      },
+      "notifications": {
+        "createSuccess": "Materiale creato con successo!",
+        "updateSuccess": "Materiale aggiornato con successo!",
+        "saveFailed": "Salvataggio materiale fallito",
+        "deleteSuccess": "Materiale eliminato con successo!",
+        "deleteFailed": "Eliminazione materiale fallita",
+        "loadFailed": "Caricamento materiali fallito",
+        "loadClassroomsFailed": "Caricamento classi fallito",
+        "uploadSuccess": "Caricati {count} materiali con successo!",
+        "uploadPartialSuccess": "Caricati {total} materiali, {failed} falliti. File con errore: {files}",
+        "uploadAllFailed": "Caricamento di tutti i file fallito. File con errore: {files}",
+        "allFilesUploaded": "Tutti i file sono stati caricati"
+      }
+    },
+    "formCourse": {
+      "title": {
+        "create": "Crea nuovo corso",
+        "edit": "Modifica corso"
+      },
+      "description": {
+        "create": "Aggiungi un nuovo corso al programma di studi",
+        "edit": "Aggiorna informazioni e contenuti del corso"
+      },
+      "courseDetails": "Dettagli corso",
+      "form": {
+        "title": "Titolo corso",
+        "titlePlaceholder": "Inserisci titolo corso",
+        "titleRequired": "Inserisci il titolo del corso!",
+        "slug": "Slug corso",
+        "slugPlaceholder": "Generato automaticamente dal titolo",
+        "shortDescription": "Descrizione breve",
+        "shortDescriptionPlaceholder": "Inserisci descrizione breve",
+        "shortDescriptionRequired": "Inserisci la descrizione breve!",
+        "category": "Categoria",
+        "categoryPlaceholder": "Seleziona categoria",
+        "categoryRequired": "Seleziona la categoria del corso!",
+        "courseType": "Tipo corso",
+        "courseTypePlaceholder": "Seleziona tipo corso",
+        "courseTypeRequired": "Seleziona il tipo di corso!",
+        "courseLevel": "Livello",
+        "courseLevelPlaceholder": "Seleziona livello (opzionale)",
+        "courseSubLevel": "Sotto-livello",
+        "courseSubLevelPlaceholder": "Seleziona sotto-livello (opzionale)",
+        "courseSubLevelRequired": "Seleziona il sotto-livello quando il livello è selezionato!",
+        "courseTypeOptions": {
+          "course": "Corso",
+          "resource": "Risorsa"
+        },
+        "courseLevelOptions": {
+          "basic": "Base",
+          "intermediate": "Intermedio",
+          "advanced": "Avanzato",
+          "driving_theory": "Teoria guida"
+        },
+        "level": "Livello (Legacy)",
+        "levelPlaceholder": "Seleziona livello",
+        "levelRequired": "Seleziona il livello!",
+        "isFree": "Corso gratuito",
+        "free": "Gratis",
+        "paid": "A pagamento",
+        "price": "Prezzo corso",
+        "pricePlaceholder": "Inserisci prezzo corso",
+        "priceRequired": "Inserisci il prezzo del corso!",
+        "discountPrice": "Prezzo scontato",
+        "discountPricePlaceholder": "Inserisci prezzo scontato",
+        "durationHours": "Durata corso (ore)",
+        "durationHoursPlaceholder": "Inserisci durata corso",
+        "durationHoursRequired": "Inserisci la durata del corso!",
+        "introVideo": "Carica video",
+        "introImage": "Carica immagine copertina",
+        "description": "Descrizione",
+        "descriptionRequired": "Inserisci la descrizione del corso!"
+      },
+      "upload": {
+        "videoDragText": "Trascina tệp, oppure",
+        "videoBrowse": "Sfoglia",
+        "videoHint": "Carica video Mov, MP4.",
+        "imageDragText": "Trascina tệp, oppure",
+        "imageBrowse": "Sfoglia",
+        "imageHint": "Carica immagini JPEG, PNG.",
+        "uploading": "Caricamento video...",
+        "fileUnchanged": "File invariato, skip caricamento"
+      },
+      "buttons": {
+        "previewCourse": "Anteprima corso",
+        "deleteCourse": "Elimina corso",
+        "createCourse": "Crea corso",
+        "updateCourse": "Aggiorna corso",
+        "uploading": "Caricamento...",
+        "cancel": "Annulla",
+        "delete": "Elimina"
+      },
+      "deleteDialog": {
+        "title": "Elimina corso",
+        "untitledCourse": "Corso senza titolo",
+        "confirmTitle": "Elimina corso",
+        "confirmMessage": "Questa azione non può essere annullata.",
+        "courseLabel": "Corso:",
+        "confirmDescription": "Sei sicuro di voler eliminare questo corso? Il corso sarà segnato come eliminato (soft delete) e non sarà visibile pubblicamente. Può essere ripristinato in seguito."
+      },
+      "notifications": {
+        "loginRequired": "Accedi per salvare il corso",
+        "createSuccess": "Corso creato con successo",
+        "updateSuccess": "Corso aggiornato con successo",
+        "createFailed": "Creazione corso fallita",
+        "updateFailed": "Aggiornamento corso fallito",
+        "deleteSuccess": "Corso eliminato con successo",
+        "deleteSuccessDescription": "Il corso è stato segnato come eliminato. Può essere ripristinato in seguito.",
+        "deleteFailed": "Eliminazione corso fallita",
+        "deleteFailedDescription": "Errore durante l'eliminazione del corso. Riprova.",
+        "uploadImageFailed": "Caricamento immagine fallito"
+      }
+    },
+    "orders": {
+      "title": "Gestione ordini",
+      "description": "Gestisci e traccia tutti gli ordini dei corsi",
+      "stats": {
+        "totalOrders": "Ordini totali",
+        "totalRevenue": "Entrate totali",
+        "pendingOrders": "Ordini in attesa",
+        "completedOrders": "Ordini completati"
+      },
+      "filters": {
+        "searchPlaceholder": "Cerca per fattura, studente, corso...",
+        "statusFilter": "Filtra per stato",
+        "dateRange": "Periodo",
+        "clearFilters": "Cancella filtri"
+      },
+      "table": {
+        "columns": {
+          "invoice": "Fattura",
+          "student": "Studente",
+          "course": "Corso",
+          "classroom": "Classe",
+          "plan": "Piano",
+          "amount": "Importo",
+          "status": "Stato",
+          "date": "Data",
+          "actions": "Azioni"
+        },
+        "plan": {
+          "months": "mesi",
+          "pricePlan": "Piano tariffario"
+        },
+        "status": {
+          "pending": "In attesa",
+          "complete": "Completato",
+          "cancel": "Annullato"
+        },
+        "actions": {
+          "viewDetails": "Vedi dettagli",
+          "confirmReceive": "Conferma ricezione pagamento",
+          "reject": "Rifiuta"
+        },
+        "detailDialog": {
+          "title": "Dettagli ordine",
+          "invoice": "Codice fattura",
+          "student": "Studente",
+          "course": "Corso",
+          "classroom": "Classe",
+          "amount": "Importo",
+          "status": "Stato",
+          "paymentMethod": "Metodo di pagamento",
+          "paymentReference": "Riferimento pagamento",
+          "notes": "Note",
+          "adminNote": "Note admin",
+          "canceledReason": "Motivo annullamento",
+          "createdAt": "Data creazione",
+          "updatedAt": "Data aggiornamento",
+          "close": "Chiudi"
+        },
+        "confirmDialog": {
+          "confirmReceive": {
+            "title": "Conferma ricezione pagamento",
+            "message": "Sei sicuro di voler confermare di aver ricevuto il pagamento per questo ordine?",
+            "confirm": "Sì, conferma",
+            "cancel": "Annulla"
+          },
+          "reject": {
+            "title": "Rifiuta ordine",
+            "message": "Sei sicuro di voler rifiutare questo ordine?",
+            "reason": "Motivo rifiuto",
+            "reasonPlaceholder": "Fornisci un motivo per il rifiuto dell'ordine...",
+            "confirm": "Sì, rifiuta",
+            "cancel": "Annulla"
+          }
+        },
+        "emptyState": {
+          "title": "Nessun ordine trovato",
+          "description": "Nessun ordine corrisponde ai filtri attuali",
+          "clearFilters": "Cancella filtri"
+        },
+        "loading": "Caricamento ordini...",
+        "error": "Impossibile caricare ordini. Riprova.",
+        "refresh": "Aggiorna"
+      },
+      "detailDialog": {
+        "title": "Dettagli ordine",
+        "invoice": "Codice fattura",
+        "student": "Studente",
+        "course": "Corso",
+        "classroom": "Classe",
+        "amount": "Importo",
+        "status": "Stato",
+        "paymentMethod": "Metodo di pagamento",
+        "paymentReference": "Riferimento pagamento",
+        "notes": "Note",
+        "adminNote": "Note admin",
+        "canceledReason": "Motivo annullamento",
+        "createdAt": "Data creazione",
+        "updatedAt": "Data aggiornamento",
+        "close": "Chiudi"
+      }
+    },
+    "videoPosts": {
+      "title": "Gestione Video Posts",
+      "description": "Gestisci e traccia tutti i video blog posts",
+      "stats": {
+        "totalPosts": "Post totali",
+        "publishedPosts": "Post pubblicati",
+        "unpublishedPosts": "Post non pubblicati",
+        "totalViews": "Visualizzazioni totali"
+      },
+      "filters": {
+        "searchPlaceholder": "Cerca per titolo, autore...",
+        "statusFilter": "Filtra per stato",
+        "allStatus": "Tutti",
+        "published": "Pubblicato",
+        "unpublished": "Non pubblicato"
+      },
+      "table": {
+        "columns": {
+          "title": "Titolo",
+          "author": "Autore",
+          "status": "Stato",
+          "views": "Visualizzazioni",
+          "publishedAt": "Data pubblicazione",
+          "createdAt": "Data creazione",
+          "actions": "Azioni"
+        },
+        "status": {
+          "published": "Pubblicato",
+          "unpublished": "Non pubblicato"
+        },
+        "noAuthor": "Nessun autore",
+        "emptyState": {
+          "title": "Nessun post trovato",
+          "description": "Nessun video post presente. Crea il primo post per iniziare."
+        }
+      },
+      "actions": {
+        "create": "Crea nuovo post",
+        "edit": "Modifica",
+        "delete": "Elimina",
+        "publish": "Pubblica",
+        "unpublish": "Rendi privato",
+        "refresh": "Aggiorna",
+        "deleteConfirm": {
+          "title": "Elimina Video Post",
+          "message": "Sei sicuro di voler eliminare il post \"{title}\"?",
+          "confirm": "Elimina",
+          "cancel": "Annulla"
+        }
+      },
+      "messages": {
+        "loadError": "Impossibile caricare lista post",
+        "createSuccess": "Post creato con successo",
+        "createError": "Impossibile creare post",
+        "updateSuccess": "Post aggiornato con successo",
+        "updateError": "Impossibile aggiornare post",
+        "uploadError": "Caricamento video fallito",
+        "uploadThumbnailFailed": "Caricamento thumbnail fallito",
+        "deleteSuccess": "Post \"{title}\" eliminato con successo",
+        "deleteError": "Impossibile eliminare post",
+        "publishSuccess": "Post \"{title}\" pubblicato con successo",
+        "unpublishSuccess": "Post \"{title}\" rimosso dalla pubblicazione con successo",
+        "togglePublishError": "Impossibile cambiare lo stato di pubblicazione",
+        "refreshSuccess": "Aggiornamento completato"
+      },
+      "error": {
+        "loadError": "Impossibile caricare lista post"
+      },
+      "editor": {
+        "createTitle": "Crea Nuovo Video Post",
+        "editTitle": "Modifica Video Post",
+        "createDescription": "Crea un nuovo video post con contenuti e video",
+        "editDescription": "Modifica le informazioni del video post",
+        "back": "Indietro",
+        "cancel": "Annulla",
+        "create": "Crea Post",
+        "update": "Aggiorna Post",
+        "basicInfo": "Informazioni di base",
+        "videoInfo": "Informazioni Video",
+        "title": "Titolo",
+        "titlePlaceholder": "Inserisci titolo post...",
+        "titleRequired": "Inserisci il titolo",
+        "titleMaxLength": "Il titolo non deve superare i 200 caratteri",
+        "content": "Contenuto",
+        "contentPlaceholder": "Inserisci contenuto post (HTML)...",
+        "contentRequired": "Inserisci il contenuto",
+        "contentHint": "Puoi usare HTML per formattare il contenuto",
+        "author": "Autore",
+        "authorPlaceholder": "Inserisci nome autore (opzionale)...",
+        "authorMaxLength": "Il nome autore non deve superare i 100 caratteri",
+        "videoUrl": "URL Video",
+        "videoUrlPlaceholder": "https://www.youtube.com/watch?v=...",
+        "videoUrlRequired": "Inserisci URL video",
+        "videoUrlInvalid": "Inserisci un URL valido",
+        "videoUrlHint": "Supporta YouTube, Vimeo o link video diretto",
+        "thumbnail": "Thumbnail",
+        "thumbnailPlaceholder": "https://example.com/thumbnail.jpg (opzionale)",
+        "thumbnailInvalid": "Inserisci un URL valido",
+        "thumbnailHint": "URL dell'immagine thumbnail (opzionale)",
+        "thumbnailUploadText": "Trascina l'immagine qui o",
+        "thumbnailBrowse": "scegli immagine",
+        "thumbnailAutoHint": "Se non scegli un'immagine, il sistema genererà automaticamente una thumbnail dal primo frame del video.",
+        "tags": "Tags",
+        "tagPlaceholder": "Inserisci tag e premi Enter",
+        "addTag": "Aggiungi Tag",
+        "settings": "Impostazioni",
+        "isPublished": "Pubblica subito",
+        "isPublishedHint": "Il post sarà visibile pubblicamente se attivo",
+        "videoFile": "Video",
+        "videoFileUploadText": "Clicca o trascina il file video qui",
+        "videoFileUploadHint": "Supporta MP4, WebM, OGG, MOV, AVI (max 500MB)",
+        "videoFileOrUrl": "Oppure inserisci l'URL video sotto",
+        "uploadingVideo": "Caricamento video in corso...",
+        "removeVideo": "Rimuovi",
+        "existingVideo": "Video attuale",
+        "replaceVideo": "Sostituisci",
+        "clearUrl": "Cancella URL",
+        "videoRequired": "Seleziona un file video o inserisci un URL video",
+        "loadingPost": "Caricamento dati post..."
+      }
+    },
+    "settings": {
+      "title": "Impostazioni piattaforma",
+      "description": "Configura le impostazioni e le opzioni per l'intera piattaforma.",
+      "tabs": {
+        "general": "Generale",
+        "users": "Utenti",
+        "courses": "Corsi",
+        "language": "Lingua"
+      },
+      "general": {
+        "title": "Impostazioni generali",
+        "platformName": "Nome piattaforma",
+        "platformDescription": "Descrizione piattaforma",
+        "contactEmail": "Email di contatto"
+      },
+      "users": {
+        "title": "Gestione utenti",
+        "allowRegistration": "Consenti registrazione utenti",
+        "allowRegistrationDesc": "Consenti ai nuovi utenti di registrarsi sulla piattaforma",
+        "emailVerificationRequired": "Richiedi verifica email",
+        "emailVerificationDesc": "Richiedi agli utenti di verificare il proprio indirizzo email"
+      },
+      "courses": {
+        "title": "Gestione corsi",
+        "approvalRequired": "Richiedi approvazione corsi",
+        "approvalRequiredDesc": "Richiedi l'approvazione dell'admin per i nuovi corsi",
+        "maxPrice": "Prezzo massimo corso"
+      },
+      "language": {
+        "title": "Impostazioni lingua",
+        "selectLanguage": "Seleziona lingua",
+        "currentLanguage": "Lingua attuale",
+        "languageDesc": "Scegli la lingua preferita per la piattaforma"
+      },
+      "saveSettings": "Salva impostazioni"
+    },
+    "sidebar": {
+      "title": "DASHBOARD",
+      "subtitle": "Impara l'italiano con",
+      "author": "Phan Tâm"
+    }
+  }
+}

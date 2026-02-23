@@ -11,7 +11,7 @@ definePageMeta({
 
 const { user } = useAuth()
 const { getCourseEnrolled } = useCourseApi()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 // Fetch enrolled courses
 const { data: enrolledCourses, pending: loadingEnrolled } = useLazyAsyncData(
@@ -117,7 +117,12 @@ function formatDate(dateString: string) {
     return t('learning.date.daysAgo', { days: diffInDays })
   if (diffInDays < 30)
     return t('learning.date.weeksAgo', { weeks: Math.floor(diffInDays / 7) })
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+
+  return date.toLocaleDateString(locale.value === 'vi' ? 'vi-VN' : locale.value === 'it' ? 'it-IT' : 'en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
 }
 
 // Navigate to course
@@ -131,7 +136,7 @@ function navigateToCourse(enrollmentId: string) {
     <!-- Welcome Header -->
     <div class="mb-8 sm:mb-10">
       <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-shade-9 mb-3">
-        {{ $t('learning.welcome', { name: user?.first_name || user?.username || 'Student' }) }}
+        {{ $t('learning.welcome', { name: user?.first_name || user?.username || $t('learning.student') }) }}
       </h1>
       <p class="text-base sm:text-lg text-shade-6">
         {{ $t('learning.welcomeDesc') }}

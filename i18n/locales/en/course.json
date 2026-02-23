@@ -1,0 +1,45 @@
+{
+  "course": {
+    "loadingCourse": "Loading course...",
+    "errorLoadingCourse": "Error loading course",
+    "defaultTitle": "Introduction to User Experience Design",
+    "details": "Details",
+    "overview": "Course Overview",
+    "instructor": "Instructor",
+    "defaultInstructor": "Ronald Richards",
+    "instructorTitle": "UI/UX Designer",
+    "reviews": "{count} reviews",
+    "students": "{count} students",
+    "courses": "{count} courses",
+    "instructorDescription": "With over a decade of industry experience, Ronald brings a wealth of practical understanding to the classroom. He has played a key role in designing user-centric interfaces for renowned technology companies, ensuring a smooth and engaging user experience.",
+    "quizTab": "Quiz",
+    "courseQuiz": "Course Quiz",
+    "comments": "Comments",
+    "quizPage": {
+      "title": "Take Quiz",
+      "description": "Take quiz with auto-save and immediate feedback",
+      "loading": "Loading quiz...",
+      "error": "Error",
+      "tryAgain": "Try Again",
+      "loadError": "Could not load quiz info",
+      "startError": "Could not start quiz",
+      "retakeLimitExceeded": "You have exceeded the allowed number of retakes",
+      "notPublished": "This quiz is not yet published",
+      "leaveConfirm": "Are you sure you want to leave? Your progress is saved automatically.",
+      "expired": {
+        "title": "Time's up",
+        "description": "Your time is up. You cannot continue or save your answers.",
+        "viewResults": "View Results"
+      }
+    },
+    "selectLessonToViewComments": "Select a lesson to view comments",
+    "courseContent": "Course Content",
+    "lessonLocked": "Lesson Locked",
+    "lessonLockedDesc": "This lesson is not yet available. Please complete previous lessons first.",
+    "lessonComingSoon": "Lesson Coming Soon",
+    "lessonComingSoonDesc": "This lesson is being prepared and will be available soon.",
+    "classmates": "Classmates ({count})",
+    "loadingClassmates": "Loading classmates...",
+    "noClassmatesYet": "No classmates yet"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "navigation": {
+    "home": "Home",
+    "courses": "Corsi",
+    "about": "Chi siamo",
+    "contact": "Contatti",
+    "login": "Accedi",
+    "register": "Registrati",
+    "profile": "Profilo",
+    "settings": "Impostazioni",
+    "logout": "Disconnetti",
+    "dashboard": "Dashboard",
+    "myCourses": "I miei corsi",
+    "calendar": "Calendario lezioni",
+    "admin": "Amministrazione",
+    "language": "Lingua"
+  }
+}

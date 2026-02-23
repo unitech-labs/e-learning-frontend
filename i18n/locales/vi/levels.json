@@ -1,0 +1,580 @@
+{
+  "levels": {
+    "basic": {
+      "hero": {
+        "badge": "Level A1 · A2 · CEFR aligned",
+        "title": "Khoá học cơ bản cho người mới bắt đầu tiếng Ý",
+        "description": "Học tiếng Ý từ con số 0 với lộ trình 12 tuần: phát âm chuẩn, ngữ pháp nền tảng, luyện phản xạ nói theo phương pháp shadowing cùng phiên dịch viên bản xứ.",
+        "ctaCourse": "Chọn khoá phù hợp",
+        "ctaConsult": "Nhận tư vấn lộ trình",
+        "youWillAchieve": "Bạn sẽ đạt được"
+      },
+      "highlights": [
+        "Học online linh hoạt",
+        "Giáo trình độc quyền từ phiên dịch viên bản xứ",
+        "Cam kết đầu ra theo khung CEFR"
+      ],
+      "stats": [
+        {
+          "label": "Học viên hoàn thành",
+          "value": "2.350+"
+        },
+        {
+          "label": "Điểm hài lòng trung bình",
+          "value": "4.9/5"
+        },
+        {
+          "label": "Buổi học trực tiếp",
+          "value": "40+"
+        },
+        {
+          "label": "Bài tập thực hành",
+          "value": "60+"
+        }
+      ],
+      "overview": {
+        "badge": "Tổng quan lộ trình",
+        "title": "Vì sao nên bắt đầu từ khoá học cơ bản?",
+        "intro": "Khoá học A1-A2 là bước đệm quan trọng giúp bạn nắm chắc nền tảng tiếng Ý trước khi chuyển lên các level cao hơn. Chương trình kết hợp giữa giảng dạy trực tiếp, bài tập tương tác và công nghệ chấm phát âm bằng AI.",
+        "bullet1": "Xây dựng vốn từ vựng 600+ từ, 60 cấu trúc câu cơ bản",
+        "bullet2": "Làm chủ phát âm chuẩn bản xứ với 1:1 coaching từng buổi",
+        "bullet3": "Ứng dụng ngay qua dự án thực tế: đặt vé, đặt phòng, viết email, gọi điện",
+        "roadmapBadge": "Lộ trình 12 tuần",
+        "roadmapTitle": "70% thời gian dành cho luyện nói và phản xạ",
+        "roadmapDesc": "Mỗi buổi học gồm 3 phần: Warm-up speaking · Ngữ pháp áp dụng · Hoạt động mô phỏng tình huống thực tế. Cuối tuần có buổi coaching 1:1 để chữa lỗi phát âm.",
+        "scheduleTitle": "Lịch học linh hoạt",
+        "evening": "Buổi tối",
+        "weekend": "Cuối tuần",
+        "format": "Hình thức",
+        "onlineLive": "Online live",
+        "viaZoom": "Qua Zoom + LMS",
+        "homework": "Bài tập",
+        "homeworkDesc": "30 phút/ngày",
+        "appPractice": "App luyện tập",
+        "monWedFri": "Thứ 2 - 4 - 6",
+        "satSun": "Thứ 7 - Chủ nhật"
+      },
+      "journey": [
+        {
+          "title": "Khởi động · Tuần 1-2",
+          "description": "Làm quen bảng chữ cái, âm vị tiếng Ý, 50 từ vựng nền tảng. Thi speaking demo để kiểm tra khẩu hình."
+        },
+        {
+          "title": "Xây nền ngữ pháp · Tuần 3-6",
+          "description": "Nắm vững cấu trúc câu, thì hiện tại, quá khứ gần. Luyện tập hội thoại với kịch bản thực tế."
+        },
+        {
+          "title": "Ứng dụng thực tế · Tuần 7-10",
+          "description": "Làm dự án mini: đặt vé máy bay, đặt phòng khách sạn, viết email. Feedback 1:1 từng buổi."
+        },
+        {
+          "title": "Tăng tốc & kiểm tra · Tuần 11-12",
+          "description": "Thi thử chuẩn CEFR, đánh giá phát âm bằng AI, tư vấn lộ trình lên A2/B1."
+        }
+      ],
+      "courses": {
+        "badge": "A1 · A2 Programs",
+        "sectionTitle": "Chọn khoá học cơ bản phù hợp với mục tiêu của bạn",
+        "sectionDesc": "Chúng tôi phân tách rõ ràng giữa A1 (foundation) và A2 (applied) để bạn dễ dàng định hướng lộ trình học tiếp theo.",
+        "youWillAchieve": "Bạn sẽ đạt được",
+        "chooseFormat": "Chọn hình thức học",
+        "A1": {
+          "title": "Foundational Italian A1",
+          "description": "Học phát âm, từ vựng và cấu trúc câu cơ bản để tự tin giao tiếp trong cuộc sống hàng ngày.",
+          "duration": "10 tuần · 30 buổi học",
+          "outcome1": "Tự giới thiệu bản thân, gia đình, sở thích",
+          "outcome2": "Hiểu và đặt câu hỏi đơn giản (What, Where, Who...)",
+          "outcome3": "Đọc hiểu bảng hiệu, thực đơn, email ngắn",
+          "class1": "Lớp A1 · 1 học viên",
+          "class2": "Lớp A1 · 3 học viên",
+          "type11": "1:1 coaching",
+          "typeMicro": "Micro class"
+        },
+        "A2": {
+          "title": "Applied Italian A2",
+          "description": "Tăng tốc kỹ năng giao tiếp, nghe hiểu nội dung dài hơn và phản xạ tự nhiên trong nhiều tình huống.",
+          "duration": "12 tuần · 36 buổi học",
+          "outcome1": "Miêu tả trải nghiệm, kể lại kỷ niệm",
+          "outcome2": "Tự tin giao tiếp trong du lịch, công việc cơ bản",
+          "outcome3": "Viết email, đoạn văn ngắn với ngữ pháp đúng",
+          "class1": "Lớp A2 · 1 học viên",
+          "class2": "Lớp A2 · 3 học viên"
+        }
+      },
+      "benefits": {
+        "badge": "Giá trị khác biệt",
+        "title": "Chúng tôi đồng hành cùng bạn mọi lúc",
+        "item1Title": "Phiên dịch viên bản xứ & song ngữ",
+        "item1Desc": "100% tutor đạt tối thiểu C2 và có chứng chỉ giảng dạy, hỗ trợ song ngữ Việt - Ý.",
+        "item2Title": "Nền tảng học tập thông minh",
+        "item2Desc": "Học mọi lúc với app: flashcard, bài tập nghe, AI chấm phát âm chuẩn IPA.",
+        "item3Title": "Bảo trợ đầu ra",
+        "item3Desc": "Thi thử miễn phí, được học lại miễn phí nếu không đạt target đã cam kết.",
+        "item4Title": "Community 24/7",
+        "item4Desc": "Tham gia câu lạc bộ nói tiếng Ý hàng tuần, nhận mentor đồng hành."
+      },
+      "testimonials": {
+        "badge": "Feedback thực tế",
+        "title": "Học viên nói gì về khoá cơ bản?",
+        "desc": "98% học viên hoàn thành khoá A1/A2 đạt mục tiêu đầu ra đã đặt ra ban đầu. Họ cảm thấy tự tin hơn khi nói chuyện với người Ý và tiếp tục học lên các level cao hơn.",
+        "viewMore": "Xem thêm review",
+        "name1": "Nguyễn Thuỳ Linh · Du học sinh Ý",
+        "quote1": "Sau 8 tuần học A1 mình có thể tự tin phỏng vấn visa bằng tiếng Ý. Giáo viên chỉnh phát âm cực kỳ chi tiết, bài tập nghe rất sát thực tế.",
+        "name2": "Trần Đức Nam · Food blogger",
+        "quote2": "Đi Ý review ẩm thực mà không biết tiếng bản địa thì thiếu cảm xúc. Nhờ lớp A2 mà mình giao tiếp rất tự nhiên với người dân bản xứ."
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Câu hỏi thường gặp khi học tiếng Ý cơ bản",
+        "subtitle": "Nếu còn điều gì băn khoăn, hãy để lại thông tin để mentor tư vấn chi tiết hơn.",
+        "q1": "Tôi chưa biết gì về tiếng Ý có học được không?",
+        "a1": "Hoàn toàn được! Khoá cơ bản dành cho người chưa có nền tảng. Bạn sẽ được học phát âm từ đầu và có mentor hỗ trợ khi tự học ở nhà.",
+        "q2": "Có giáo trình in kèm theo không?",
+        "a2": "Học viên nhận bộ giáo trình PDF + vở bài tập + flashcard online. Với lớp 1:1 sẽ được tặng thêm lịch học cá nhân hoá.",
+        "q3": "Nếu bận thì có thể bảo lưu không?",
+        "a3": "Bạn được bảo lưu tối đa 03 tháng và vẫn giữ quyền truy cập tài liệu, app luyện tập trong thời gian này.",
+        "q4": "Sự khác nhau giữa lớp 1 học viên và 3 học viên?",
+        "a4": "Lớp 1:1 cá nhân hoá hoàn toàn và linh hoạt lịch học, trong khi lớp 3 học viên tăng tương tác nhóm và tối ưu chi phí."
+      },
+      "cta": {
+        "title": "Sẵn sàng bắt đầu hành trình tiếng Ý?",
+        "desc": "Đăng ký ngay để giữ chỗ trong lớp khai giảng gần nhất. Bạn sẽ được kiểm tra đầu vào miễn phí và nhận lộ trình cá nhân hóa từ đội ngũ phiên dịch viên.",
+        "consult": "Đặt lịch tư vấn 1:1",
+        "schedule": "Xem lịch khai giảng"
+      }
+    },
+    "middle": {
+      "hero": {
+        "badge": "Level B1 · B2 · CEFR aligned",
+        "title": "Khoá học trung cấp chinh phục tiếng Ý học thuật & công việc",
+        "description": "Luyện nói - nghe - viết nâng cao, xử lý các buổi thuyết trình, phản biện và thi chứng chỉ B1/B2 với hệ thống bài tập thực chiến và mentor đồng hành.",
+        "ctaProgram": "Xem chương trình B-level",
+        "ctaMentor": "Gặp mentor lộ trình",
+        "youWillExperience": "Bạn sẽ trải nghiệm"
+      },
+      "highlights": [
+        "Chuẩn hoá ngữ pháp B-level",
+        "Workshop phản xạ thực chiến",
+        "Phiên dịch viên bản địa + mentor Việt"
+      ],
+      "stats": [
+        {
+          "label": "Học viên đạt B1+",
+          "value": "1.250+"
+        },
+        {
+          "label": "Tỷ lệ đậu kỳ thi",
+          "value": "93%"
+        },
+        {
+          "label": "Giờ coaching riêng",
+          "value": "24h+"
+        },
+        {
+          "label": "Dự án thực tế",
+          "value": "08 projects"
+        }
+      ],
+      "overview": {
+        "badge": "Lộ trình chuyên sâu",
+        "title": "Từ vững nền A2 tới tự tin B1/B2 trong 12 tuần",
+        "intro": "Khoá học trung cấp tập trung khai thác kỹ năng tư duy bằng tiếng Ý, giúp bạn trình bày ý tưởng logic và phản biện đa chiều, song song chuẩn bị cho kỳ thi chứng chỉ quốc tế.",
+        "bullet1": "600+ collocations & idioms thường dùng trong học thuật và business",
+        "bullet2": "8 dự án mô phỏng meeting thực tế với feedback bằng video",
+        "bullet3": "2 kỳ mock test full format CELI/CILS đi kèm điểm số chi tiết",
+        "workshopBadge": "Workshop chuyên đề",
+        "workshopTitle": "Debate Lab · Business Pitch · Academic Writing",
+        "workshopDesc": "Mỗi tháng có 3 workshop invite-only cùng chuyên gia Ý. Học viên được chỉnh body language, rhythm nói, cách xử lý câu hỏi khó và storytelling bằng tiếng Ý.",
+        "scheduleTitle": "Lịch học linh hoạt",
+        "evening": "Buổi tối",
+        "weekend": "Cuối tuần",
+        "format": "Hình thức",
+        "hybrid": "Hybrid",
+        "zoomOffline": "Zoom + Offline meet-up",
+        "coaching": "Coaching",
+        "coachingDesc": "1 buổi/tuần",
+        "feedback11": "Feedback 1:1",
+        "monWedFri": "Thứ 2 - 4 - 6",
+        "satSun": "Thứ 7 - Chủ nhật"
+      },
+      "journey": [
+        {
+          "title": "Phân tích lỗ hổng · Tuần 1-2",
+          "description": "Mock test chuẩn CEFR, phân tích điểm yếu phát âm, ngữ pháp, kỹ năng viết. Thiết kế KPI cá nhân."
+        },
+        {
+          "title": "Tăng tốc kỹ năng · Tuần 3-6",
+          "description": "Shadowing với audio bản ngữ, workshop viết academic, luyện phản xạ tranh luận tình huống thực tế."
+        },
+        {
+          "title": "Dự án thực chiến · Tuần 7-10",
+          "description": "Xử lý case-study: pitching dự án, phỏng vấn, thuyết trình. Mentor sửa bài ghi hình."
+        },
+        {
+          "title": "Ôn thi & chứng nhận · Tuần 11-12",
+          "description": "Thi thử 02 lần, coaching riêng từng kỹ năng, hướng dẫn đăng ký kỳ thi CELI/CILS."
+        }
+      ],
+      "courses": {
+        "badge": "B1 · B2 Programs",
+        "sectionTitle": "Lộ trình trung cấp phù hợp từng mục tiêu",
+        "sectionDesc": "Từ học thuật, nghề nghiệp đến chuẩn bị du học – mỗi khoá học đều có mentor riêng và hệ thống bài tập chuyên sâu.",
+        "youWillAchieve": "Bạn sẽ đạt được",
+        "chooseFormat": "Chọn hình thức học",
+        "B1": {
+          "title": "Professional Italian B1",
+          "description": "Phát triển kỹ năng giao tiếp trong môi trường học thuật và công việc, học cách trình bày quan điểm và viết email chuyên nghiệp.",
+          "duration": "12 tuần · 36 buổi học",
+          "outcome1": "Chủ động mô tả kinh nghiệm, ước mơ, mục tiêu",
+          "outcome2": "Trình bày quan điểm rõ ràng với cấu trúc logic",
+          "outcome3": "Viết email/essay 250 từ với ngữ pháp chính xác",
+          "class1": "Lớp B1 · 1 học viên",
+          "class2": "Lớp B1 · 4 học viên",
+          "typeExec": "Executive coaching",
+          "typeElite": "Elite micro class"
+        },
+        "B2": {
+          "title": "Impact Italian B2",
+          "description": "Hoàn thiện khả năng tranh luận, xử lý tình huống phức tạp và nghe hiểu nội dung chuyên môn chuẩn CEFR B2.",
+          "duration": "14 tuần · 40 buổi học",
+          "outcome1": "Tranh luận, phản biện với cấu trúc rõ ràng",
+          "outcome2": "Nghe hiểu podcast, talkshow tốc độ tự nhiên",
+          "outcome3": "Viết báo cáo, proposal dạng dài với từ vựng chuyên ngành",
+          "class1": "Lớp B2 · 1 học viên",
+          "class2": "Lớp B2 · 6 học viên",
+          "typeMentor": "Mentor 1:1",
+          "typeSmall": "Small cohort"
+        }
+      },
+      "benefits": {
+        "badge": "Giá trị khác biệt",
+        "title": "Luôn có đội ngũ hỗ trợ phía sau bạn",
+        "item1Title": "Curriculum chuẩn CEFR B-level",
+        "item1Desc": "Giáo trình độc quyền kết hợp tài liệu CELI, CILS và đề thi thực tế trong 3 năm gần nhất.",
+        "item2Title": "Coaching giao tiếp chuyên ngành",
+        "item2Desc": "Tùy chọn module Hospitality, Marketing, Business để luyện theo mục tiêu sự nghiệp.",
+        "item3Title": "AI Performance Tracker",
+        "item3Desc": "Theo dõi tiến bộ từng kỹ năng, đề xuất bài tập tự học thông minh mỗi ngày.",
+        "item4Title": "Mentor đồng hành 24/7",
+        "item4Desc": "Mentor Việt hỗ trợ giải đáp, sửa bài viết và nhắc lịch học qua Discord/Telegram."
+      },
+      "testimonials": {
+        "badge": "Feedback thực tế",
+        "title": "Học viên nói gì về level trung cấp?",
+        "desc": "9/10 học viên tiếp tục học lên B2 sau khi hoàn thành B1 tại trung tâm nhờ trải nghiệm học tập cá nhân hóa và cộng đồng hỗ trợ.",
+        "viewMore": "Xem thêm review",
+        "name1": "Phạm Minh Thư · Marketing Manager",
+        "quote1": "Lộ trình B1 giúp mình trình bày ý tưởng với đối tác Ý tự tin hơn hẳn. Thích nhất là phần workshop phản biện cùng mentor.",
+        "name2": "Hoàng Tùng Lâm · Du học sinh Ý",
+        "quote2": "Thi CILS B2 vượt target nhờ các buổi mock test và feedback chi tiết. Thầy cô sửa từng câu chữ và body language khi thuyết trình."
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Giải đáp thắc mắc về khoá trung cấp",
+        "subtitle": "Gửi câu hỏi cho chúng tôi nếu bạn cần tư vấn chi tiết hơn về chứng chỉ, visa hay định hướng nghề nghiệp.",
+        "q1": "Không có chứng chỉ A2 có học được không?",
+        "a1": "Nếu bạn đã từng học ít nhất 200 giờ tiếng Ý hoặc có bằng chứng khả năng giao tiếp cơ bản, chúng tôi sẽ tổ chức placement test để sắp lớp phù hợp.",
+        "q2": "Khóa học có bao gồm luyện thi B1/B2 không?",
+        "a2": "Có. Trong 4 tuần cuối, học viên được luyện đề hoàn chỉnh, chấm điểm theo rubric chính thức và hướng dẫn đăng ký kỳ thi sắp tới.",
+        "q3": "Có hỗ trợ tìm việc hay du học không?",
+        "a3": "Đối với học viên hoàn thành B2 với điểm speaking > 80, chúng tôi có network mentor hỗ trợ chuẩn bị phỏng vấn và hồ sơ du học.",
+        "q4": "Nếu bỏ lỡ buổi học thì sao?",
+        "a4": "Lớp 1:1 được học bù tối đa 4 buổi/khoá. Lớp nhóm sẽ có bản ghi hình và mentor phụ đạo lại nội dung quan trọng."
+      },
+      "cta": {
+        "title": "Chạm mốc B1/B2 nhanh hơn với mentor đồng hành",
+        "desc": "Đăng ký tư vấn miễn phí, làm placement test và nhận kế hoạch học tập cá nhân hoá chỉ trong 24h.",
+        "consult": "Đặt lịch tư vấn 1:1",
+        "explore": "Khám phá khoá trung cấp"
+      }
+    },
+    "high": {
+      "hero": {
+        "badge": "Level C1 · C2 · Mastery Program",
+        "title": "Khoá học nâng cao cho người muốn làm chủ tiếng Ý",
+        "description": "Hoàn thiện ngôn ngữ ở đẳng cấp bản xứ, phục vụ nghiên cứu, đàm phán cấp cao hoặc giảng dạy. Học cùng mentor quốc tế và hệ thống bài tập đột phá.",
+        "ctaExplore": "Khám phá lộ trình C-level",
+        "ctaConsult": "Đặt lịch tư vấn riêng",
+        "journeyTitle": "Lộ trình cá nhân hoá 4 giai đoạn"
+      },
+      "highlights": [
+        "Masterclass C1/C2 chuẩn CEFR",
+        "Phiên dịch viên bản ngữ 15+ năm kinh nghiệm",
+        "Coaching thuyết trình & nghiên cứu"
+      ],
+      "stats": [
+        {
+          "label": "Tỷ lệ đạt C1/C2",
+          "value": "88%"
+        },
+        {
+          "label": "Thời lượng seminar",
+          "value": "60h+"
+        },
+        {
+          "label": "Case-study chuyên sâu",
+          "value": "10+"
+        },
+        {
+          "label": "Mentor quốc tế",
+          "value": "12 mentors"
+        }
+      ],
+      "overview": {
+        "badge": "Signature Program",
+        "title": "Khi tiếng Ý trở thành bản năng thứ hai của bạn",
+        "intro": "Chương trình nâng cao tập trung khai thác phong cách cá nhân và khả năng tư duy bằng tiếng Ý ở những chủ đề phức tạp.",
+        "bullet1": "Seminar đọc hiểu văn bản học thuật, triết học và chính trị",
+        "bullet2": "Coaching thuyết trình TED-style với đạo diễn hình ảnh chuyên nghiệp",
+        "bullet3": "Được phản biện bởi 2 mentor (bản ngữ + người Việt) sau mỗi bài assignment",
+        "capstoneBadge": "Capstone studio",
+        "capstoneTitle": "Biến ý tưởng thành keynote, podcast hoặc research paper",
+        "capstoneDesc": "Học viên được cung cấp template, thư viện nguồn và đội ngũ kỹ thuật hỗ trợ dựng slide, ghi âm, để biến dự án tiếng Ý thành sản phẩm thực tế.",
+        "scheduleTitle": "Lịch học & coaching",
+        "intensive": "Intensive",
+        "intensiveDesc": "2-4 buổi/tuần",
+        "minutes": "120-150 phút",
+        "coaching": "Coaching",
+        "coachingDesc": "1-1 mentor",
+        "feedbackMulti": "Feedback đa góc",
+        "format": "Hình thức",
+        "hybridStudio": "Hybrid studio",
+        "onlineWorkshop": "Online + workshop",
+        "materials": "Tài liệu",
+        "resources": "500+ resources",
+        "academicBusiness": "Academic + business"
+      },
+      "journey": [
+        {
+          "title": "Diagnostics & Goal Design",
+          "description": "Đánh giá 360° từng kỹ năng, phỏng vấn mục tiêu nghề nghiệp, cá nhân hoá KPI theo kỳ thi hoặc dự án."
+        },
+        {
+          "title": "Deep Dive Seminar",
+          "description": "Seminar phân tích văn bản triết học, chính trị, kinh tế; tranh biện chuyên sâu cùng phiên dịch viên bản xứ."
+        },
+        {
+          "title": "Capstone Project",
+          "description": "Thực hiện dự án cá nhân: whitepaper, podcast, keynote. Được mentor chỉnh sửa 1:1 từng phần."
+        },
+        {
+          "title": "Certification Sprint",
+          "description": "Ôn luyện chiến lược, quản lý thời gian thi, coaching tâm lý và diễn tập điều kiện thi thật."
+        }
+      ],
+      "courses": {
+        "badge": "C1 · C2 Programs",
+        "sectionTitle": "Chọn lộ trình nâng cao phù hợp với mục tiêu đỉnh cao của bạn",
+        "sectionDesc": "Mỗi khoá học đều có capstone thực tế, mentor quốc tế và hệ thống đánh giá chuẩn CEFR cao nhất.",
+        "youWillAchieve": "Bạn sẽ đạt được",
+        "chooseFormat": "Chọn hình thức học",
+        "C1": {
+          "title": "Strategic Italian C1",
+          "description": "Làm chủ ngôn ngữ học thuật và nghề nghiệp, xử lý tài liệu phức tạp, thuyết trình chuyên sâu bằng tiếng Ý.",
+          "duration": "14 tuần · 42 buổi học",
+          "outcome1": "Viết luận nghiên cứu 800+ từ với lập luận vững chắc",
+          "outcome2": "Nghe hiểu 100% podcast, tin tức tốc độ bản ngữ",
+          "outcome3": "Điều phối cuộc họp đa văn hoá, phản hồi nhanh",
+          "class1": "Lớp C1 · 1 học viên",
+          "class2": "Lớp C1 · 5 học viên",
+          "typePremier": "Premier coaching",
+          "typeMaster": "Master cohort"
+        },
+        "C2": {
+          "title": "Signature Italian C2",
+          "description": "Chạm tới độ tinh tế của người bản xứ: xử lý nghiên cứu chuyên ngành, đàm phán cấp cao, viết báo cáo chiến lược.",
+          "duration": "16 tuần · 48 buổi học",
+          "outcome1": "Biên tập tài liệu chuyên môn, chính sách, hợp đồng",
+          "outcome2": "Đàm phán, thương thảo đa chiều với đối tác Ý",
+          "outcome3": "Đạt band C2 trong kỳ thi CELI 5 / CILS C2",
+          "class1": "Lớp C2 · 1 học viên",
+          "class2": "C2 Research Lab",
+          "typeAdvisor": "Advisor 1:1",
+          "typeProject": "Project-based"
+        }
+      },
+      "benefits": {
+        "badge": "Giá trị khác biệt",
+        "title": "Trải nghiệm học tập đẳng cấp quốc tế",
+        "item1Title": "Hệ thống mentor quốc tế",
+        "item1Desc": "Phiên dịch viên C2 từng giảng dạy tại đại học Ý, kèm mentor Việt hỗ trợ định hướng nghề nghiệp.",
+        "item2Title": "Phòng thu & studio ảo",
+        "item2Desc": "Ghi hình bài nói, podcast với thiết bị chuẩn để phân tích phát âm, ngữ điệu, gesture.",
+        "item3Title": "Data-driven feedback",
+        "item3Desc": "AI Speech Lab đánh giá 30 tiêu chí, xuất báo cáo chi tiết sau mỗi lần luyện tập.",
+        "item4Title": "Network kết nối chuyên gia",
+        "item4Desc": "Tham gia cộng đồng alumni tại Ý, Ý – Việt để mở rộng quan hệ hợp tác, sự nghiệp."
+      },
+      "testimonials": {
+        "badge": "Feedback thực tế",
+        "title": "Những câu chuyện thành công từ level nâng cao",
+        "desc": "Học viên đạt C1/C2 đang làm việc tại các tập đoàn Ý, giảng dạy tại trường đại học hoặc chuẩn bị bảo vệ nghiên cứu sinh.",
+        "viewMore": "Xem thêm review",
+        "name1": "Lê Hồng Nhung · PhD Candidate",
+        "quote1": "Khoá C1 giúp mình viết luận nghiên cứu bằng tiếng Ý một cách trôi chảy. Mentor phản hồi từng đoạn văn và đề xuất tài liệu chuyên sâu.",
+        "name2": "Đặng Quang Huy · Business Director",
+        "quote2": "Sau 4 tháng học C2, mình tự tin dẫn dắt negotiation với đối tác Ý. Hệ thống mock negotiation rất sát thực tế."
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Hỏi đáp về chương trình nâng cao",
+        "subtitle": "Chúng tôi luôn sẵn sàng tư vấn nếu bạn cần thêm thông tin về kỳ thi, visa giáo dục hay định hướng nghề nghiệp.",
+        "q1": "Yêu cầu đầu vào cho lớp C1/C2 là gì?",
+        "a1": "Bạn cần hoàn thành tối thiểu B2 hoặc vượt qua placement test gồm speaking + writing để đảm bảo sẵn sàng cho chương trình chuyên sâu.",
+        "q2": "Khoá học có hỗ trợ làm luận văn hay hồ sơ học thuật không?",
+        "a2": "Có. Mentor sẽ hỗ trợ phản biện đề cương, chỉnh sửa văn phong và chuẩn hoá tài liệu theo yêu cầu của trường/đơn vị.",
+        "q3": "Nếu không thi chứng chỉ có tham gia được không?",
+        "a3": "Hoàn toàn được. Bạn có thể chọn lộ trình chuyên ngành (business, diplomatic, academic) và hoàn thành capstone project thay thế.",
+        "q4": "Có chương trình học tại Ý không?",
+        "a4": "Học viên đạt C1 trở lên có thể đăng ký short trip 2 tuần tại Ý để thực hành với native speakers (chi phí riêng)."
+      },
+      "cta": {
+        "title": "Sẵn sàng chạm đỉnh tiếng Ý?",
+        "desc": "Đăng ký tư vấn cùng Academic Director, nhận phân tích năng lực và lộ trình cá nhân hoá để đạt C1/C2 nhanh nhất.",
+        "consult": "Đặt lịch tư vấn chuyên sâu",
+        "viewCourses": "Xem khoá C1/C2"
+      }
+    },
+    "driving": {
+      "hero": {
+        "badge": "Khoá học lái xe · An toàn & Chuyên nghiệp",
+        "title": "Khoá học lái xe an toàn cho mọi người",
+        "description": "Học lái xe từ cơ bản đến nâng cao với đội ngũ phiên dịch viên chuyên nghiệp, xe tập lái đời mới và hỗ trợ thi bằng lái xe.",
+        "ctaProgram": "Xem chương trình học",
+        "ctaRegister": "Đăng ký tư vấn",
+        "youWillExperience": "Bạn sẽ trải nghiệm"
+      },
+      "highlights": [
+        "Thực hành lái xe an toàn",
+        "Phiên dịch viên có kinh nghiệm 10+ năm",
+        "Hỗ trợ thi bằng lái xe"
+      ],
+      "stats": [
+        {
+          "label": "Học viên đã tốt nghiệp",
+          "value": "2.500+"
+        },
+        {
+          "label": "Tỷ lệ đậu thi bằng",
+          "value": "95%"
+        },
+        {
+          "label": "Giờ thực hành",
+          "value": "30h+"
+        },
+        {
+          "label": "Xe tập lái",
+          "value": "15+ xe"
+        }
+      ],
+      "overview": {
+        "badge": "Lộ trình chuyên nghiệp",
+        "title": "Từ người mới bắt đầu đến tự tin lái xe trong 8 tuần",
+        "intro": "Khoá học lái xe được thiết kế khoa học, giúp bạn nắm vững lý thuyết và thực hành thành thạo, tự tin tham gia giao thông và đậu kỳ thi sát hạch bằng lái xe.",
+        "bullet1": "Học lý thuyết với giáo trình chuẩn Bộ GTVT, cập nhật mới nhất",
+        "bullet2": "Thực hành với xe tập lái đời mới, được bảo dưỡng thường xuyên",
+        "bullet3": "Hỗ trợ đăng ký thi và chuẩn bị hồ sơ thi bằng lái xe",
+        "highlightsBadge": "Ưu điểm nổi bật",
+        "highlightsTitle": "Phiên dịch viên tận tâm · Xe đời mới · Hỗ trợ 24/7",
+        "highlightsDesc": "Đội ngũ phiên dịch viên có nhiều năm kinh nghiệm, kiên nhẫn và tận tâm. Xe tập lái được bảo dưỡng định kỳ, đảm bảo an toàn. Hỗ trợ học viên mọi lúc, mọi nơi.",
+        "scheduleTitle": "Lịch học linh hoạt",
+        "morning": "Buổi sáng",
+        "afternoon": "Buổi chiều",
+        "evening": "Buổi tối",
+        "weekend": "Cuối tuần",
+        "monFri": "Thứ 2 - 6",
+        "satSun": "Thứ 7 - CN"
+      },
+      "journey": [
+        {
+          "title": "Lý thuyết & Luật giao thông · Tuần 1-2",
+          "description": "Học lý thuyết về luật giao thông, biển báo, quy tắc an toàn và các tình huống giao thông cơ bản."
+        },
+        {
+          "title": "Thực hành cơ bản · Tuần 3-5",
+          "description": "Làm quen với xe, tập các thao tác cơ bản: khởi động, dừng, đỗ, quay đầu, lùi xe."
+        },
+        {
+          "title": "Lái xe trên đường · Tuần 6-7",
+          "description": "Thực hành lái xe trên đường thực tế, xử lý các tình huống giao thông phức tạp."
+        },
+        {
+          "title": "Ôn tập & Thi sát hạch · Tuần 8",
+          "description": "Ôn tập toàn bộ kiến thức, luyện thi sát hạch và chuẩn bị thi bằng lái xe chính thức."
+        }
+      ],
+      "courses": {
+        "badge": "Khoá học lái xe",
+        "sectionTitle": "Chọn khoá học phù hợp với nhu cầu của bạn",
+        "sectionDesc": "Từ người mới bắt đầu đến nâng cao kỹ năng – mỗi khoá học đều có phiên dịch viên riêng và lộ trình học tập cá nhân hoá.",
+        "youWillAchieve": "Bạn sẽ đạt được",
+        "chooseFormat": "Chọn hình thức học",
+        "basic": {
+          "level": "Cơ bản",
+          "title": "Khoá học lái xe cơ bản",
+          "description": "Học từ đầu các kỹ năng lái xe cơ bản, luật giao thông và an toàn khi tham gia giao thông.",
+          "duration": "8 tuần · 20 buổi học",
+          "outcome1": "Nắm vững luật giao thông đường bộ",
+          "outcome2": "Thành thạo các kỹ năng lái xe cơ bản",
+          "outcome3": "Tự tin xử lý các tình huống giao thông thông thường",
+          "class1": "Lớp cơ bản · 1 học viên",
+          "class2": "Lớp cơ bản · 4 học viên",
+          "typePrivate": "Học riêng",
+          "typeGroup": "Lớp nhóm"
+        },
+        "advanced": {
+          "level": "Nâng cao",
+          "title": "Khoá học lái xe nâng cao",
+          "description": "Nâng cao kỹ năng lái xe, xử lý tình huống phức tạp và chuẩn bị thi bằng lái xe hạng B2, C.",
+          "duration": "10 tuần · 25 buổi học",
+          "outcome1": "Xử lý thành thạo các tình huống khó",
+          "outcome2": "Lái xe an toàn trên đường cao tốc",
+          "outcome3": "Đậu kỳ thi sát hạch bằng lái xe",
+          "class1": "Lớp nâng cao · 1 học viên",
+          "class2": "Lớp nâng cao · 6 học viên"
+        }
+      },
+      "benefits": {
+        "badge": "Giá trị khác biệt",
+        "title": "Tại sao chọn chúng tôi?",
+        "item1Title": "Giáo trình chuẩn Bộ GTVT",
+        "item1Desc": "Giáo trình được biên soạn theo tiêu chuẩn của Bộ Giao thông Vận tải, cập nhật mới nhất các quy định.",
+        "item2Title": "Xe tập lái đời mới",
+        "item2Desc": "Đội ngũ xe tập lái đời mới, được bảo dưỡng thường xuyên, đảm bảo an toàn cho học viên.",
+        "item3Title": "Phiên dịch viên chuyên nghiệp",
+        "item3Desc": "Đội ngũ phiên dịch viên có nhiều năm kinh nghiệm, tận tâm và kiên nhẫn với từng học viên.",
+        "item4Title": "Hỗ trợ thi bằng lái",
+        "item4Desc": "Hỗ trợ đăng ký thi, chuẩn bị hồ sơ và đồng hành cùng học viên trong suốt quá trình thi."
+      },
+      "testimonials": {
+        "badge": "Feedback thực tế",
+        "title": "Học viên nói gì về khoá học?",
+        "desc": "95% học viên đậu thi bằng lái xe ngay lần đầu tiên nhờ phương pháp dạy khoa học và sự tận tâm của đội ngũ phiên dịch viên.",
+        "viewMore": "Xem thêm review",
+        "name1": "Nguyễn Văn An · Sinh viên",
+        "quote1": "Khoá học giúp mình tự tin lái xe sau 8 tuần. Phiên dịch viên rất tận tâm, chỉ dẫn từng chi tiết nhỏ. Mình đã đậu thi bằng ngay lần đầu.",
+        "name2": "Trần Thị Bình · Nhân viên văn phòng",
+        "quote2": "Ban đầu mình rất sợ lái xe, nhưng nhờ sự kiên nhẫn của phiên dịch viên và phương pháp dạy khoa học, mình đã vượt qua nỗi sợ và lái xe tự tin."
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Giải đáp thắc mắc về khoá học lái xe",
+        "subtitle": "Gửi câu hỏi cho chúng tôi nếu bạn cần tư vấn chi tiết hơn về khoá học, lịch học hay quy trình thi bằng lái xe.",
+        "q1": "Tôi chưa biết gì về lái xe, có học được không?",
+        "a1": "Hoàn toàn được. Khoá học được thiết kế dành cho người mới bắt đầu, phiên dịch viên sẽ hướng dẫn từ những kiến thức cơ bản nhất.",
+        "q2": "Thời gian học có linh hoạt không?",
+        "a2": "Có. Chúng tôi có nhiều ca học khác nhau: sáng, chiều, tối và cuối tuần để phù hợp với lịch trình của học viên.",
+        "q3": "Có bao gồm chi phí thi bằng lái không?",
+        "a3": "Chi phí khoá học không bao gồm lệ phí thi bằng lái. Tuy nhiên, chúng tôi sẽ hỗ trợ đăng ký và chuẩn bị hồ sơ thi.",
+        "q4": "Nếu không đậu thi thì sao?",
+        "a4": "Học viên được hỗ trợ học lại miễn phí các phần chưa đạt và được tư vấn để cải thiện kỹ năng trước khi thi lại."
+      },
+      "cta": {
+        "title": "Sẵn sàng bắt đầu hành trình lái xe an toàn?",
+        "desc": "Đăng ký tư vấn miễn phí, làm bài test đánh giá và nhận lộ trình học tập cá nhân hoá chỉ trong 24h.",
+        "consult": "Đặt lịch tư vấn 1:1",
+        "explore": "Khám phá khoá học"
+      }
+    }
+  }
+}

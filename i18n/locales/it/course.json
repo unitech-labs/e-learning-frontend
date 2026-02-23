@@ -1,0 +1,45 @@
+{
+  "course": {
+    "loadingCourse": "Caricamento corso...",
+    "errorLoadingCourse": "Errore nel caricamento del corso",
+    "defaultTitle": "Introduzione al Design della User Experience",
+    "details": "Dettagli",
+    "overview": "Panoramica del corso",
+    "instructor": "Interprete",
+    "defaultInstructor": "Ronald Richards",
+    "instructorTitle": "Designer UI/UX",
+    "reviews": "{count} recensioni",
+    "students": "{count} studenti",
+    "courses": "{count} corsi",
+    "instructorDescription": "Con oltre un decennio di esperienza nel settore, Ronald porta una ricca comprensione pratica in aula. Ha svolto un ruolo chiave nella progettazione di interfacce incentrate sull'utente per rinomate aziende tecnologiche, garantendo esperienze utente fluide e accattivanti.",
+    "quizTab": "Quiz",
+    "courseQuiz": "Quiz del corso",
+    "comments": "Commenti",
+    "quizPage": {
+      "title": "Esegui Quiz",
+      "description": "Fai il quiz con salvataggio automatico e feedback immediato",
+      "loading": "Caricamento quiz...",
+      "error": "Errore",
+      "tryAgain": "Riprova",
+      "loadError": "Impossibile caricare le informazioni del quiz",
+      "startError": "Impossibile iniziare il quiz",
+      "retakeLimitExceeded": "Hai superato il numero massimo di tentativi consentiti",
+      "notPublished": "Questo quiz non è ancora stato pubblicato",
+      "leaveConfirm": "Sei sicuro di voler uscire dalla pagina? I tuoi progressi sono stati salvati automaticamente.",
+      "expired": {
+        "title": "Tempo scaduto",
+        "description": "Il tempo a tua disposizione è terminato. Non puoi più continuare a rispondere o salvare le risposte.",
+        "viewResults": "Vedi risultati"
+      }
+    },
+    "selectLessonToViewComments": "Seleziona una lezione per vedere i commenti",
+    "courseContent": "Contenuto del corso",
+    "lessonLocked": "Lezione bloccata",
+    "lessonLockedDesc": "Questa lezione non è ancora disponibile. Completa le lezioni precedenti.",
+    "lessonComingSoon": "Lezione in arrivo",
+    "lessonComingSoonDesc": "La lezione è in fase di preparazione e sarà disponibile a breve.",
+    "classmates": "Compagni di classe ({count})",
+    "loadingClassmates": "Caricamento lista compagni di classe...",
+    "noClassmatesYet": "Nessun compagno di classe presente"
+  }
+}

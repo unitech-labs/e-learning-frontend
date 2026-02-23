@@ -1,0 +1,85 @@
+{
+  "learning": {
+    "expired": {
+      "subscriptionExpired": "Gói học của bạn với khoá học này đã <strong>hết hạn</strong>. Thời gian truy cập nội dung khoá đã kết thúc nên bạn không thể xem tiếp tại đây.",
+      "generatedAccountNote": "Đây là tài khoản học được cấp qua lớp (classroom), nên <strong>không thể tự mua lại khoá</strong> trực tiếp trên tài khoản này. Để tiếp tục học khoá này, bạn có thể:",
+      "useOtherAccount": "Đăng nhập bằng <strong>tài khoản khác</strong> (tài khoản cá nhân) để đăng ký hoặc mua lại khóa học.",
+      "contactTranslator": "Nếu không rõ cách làm hoặc cần hỗ trợ, hãy nhắn tin cho <strong>Phiên dịch viên Phan Tâm</strong> để được hướng dẫn.",
+      "resourceExpired": "Thời gian sử dụng <strong>tài nguyên này đã hết hạn</strong>. Bạn không còn quyền truy cập nội dung tại đây.",
+      "repurchaseNote": "Để tiếp tục học, vui lòng <strong>mua lại gói tài nguyên</strong> trên trang khoá học / tài nguyên. Sau khi thanh toán, bạn sẽ được cấp quyền truy cập mới và có thể vào lại khoá này để học."
+    },
+    "documents": {
+      "loadError": "Lỗi",
+      "loadErrorDesc": "Không thể tải tài liệu. Vui lòng thử lại hoặc tải file xuống.",
+      "downloadDisabled": "Tắt tải xuống",
+      "downloadDisabledDesc": "Không cho phép lưu tài liệu này",
+      "printDisabled": "Tắt in",
+      "printDisabledDesc": "Không cho phép in tài liệu này"
+    },
+    "classmates": {
+      "loadError": "Không thể tải danh sách bạn cùng lớp"
+    },
+    "lessonCompleted": "Hoàn thành bài học",
+    "lessonCompletedDesc": "Bạn đã hoàn thành bài học {title}",
+    "lessonCompletionFailed": "Lỗi hoàn thành bài học",
+    "lessonCompletionFailedDesc": "Không thể đánh dấu hoàn thành bài học",
+    "lessonMaterials": {
+      "title": "Tài liệu bài học",
+      "titleWithLesson": "{title} - Tài liệu bài học",
+      "loadFailed": "Lỗi tải tài liệu",
+      "loadFailedDescription": "Không thể tải tài liệu bài học",
+      "empty": "Chưa có tài liệu cho bài học này"
+    },
+    "noVideoMessage": "Bài học này hiện chưa có video",
+    "sessionVideos": {
+      "title": "Video record",
+      "empty": "Chưa có video record"
+    },
+    "welcome": "Chào mừng {name}!",
+    "welcomeDesc": "Tiếp tục hành trình học tập của bạn.",
+    "student": "Học viên",
+    "stats": {
+      "totalCourses": "Tổng số khóa học",
+      "inProgress": "Đang học",
+      "completed": "Đã hoàn thành",
+      "avgProgress": "Tiến độ trung bình"
+    },
+    "continueLearning": {
+      "title": "Tiếp tục học",
+      "subtitle": "Các khóa học bạn đang tham gia",
+      "viewAll": "Xem tất cả",
+      "noCourses": "Chưa có khóa học nào",
+      "noCoursesDesc": "Bắt đầu học ngay hôm nay để tích lũy kiến thức!",
+      "progress": "Tiến độ",
+      "continue": "Học tiếp"
+    },
+    "pendingCourses": {
+      "title": "Khóa học chờ duyệt",
+      "subtitle": "Các khóa học đang chờ hệ thống xác nhận",
+      "viewAll": "Xem tất cả",
+      "noPendingCourses": "Không có khóa học nào đang chờ",
+      "noPendingCoursesDesc": "Mọi yêu cầu đăng ký của bạn đã được xử lý xong",
+      "statusText": "Chờ duyệt"
+    },
+    "recentActivity": {
+      "title": "Hoạt động gần đây",
+      "subtitle": "Các khóa học bạn vừa truy cập",
+      "completed": "Đã hoàn thành",
+      "continueLearning": "Học tiếp",
+      "noActivity": "Chưa có hoạt động nào gần đây"
+    },
+    "quickActions": {
+      "title": "Thao tác nhanh",
+      "myCourses": "Khóa học của tôi",
+      "myCoursesDesc": "Xem danh sách các khóa học đã đăng ký",
+      "myProfile": "Hồ sơ cá nhân",
+      "myProfileDesc": "Cập nhật thông tin và cài đặt tài khoản"
+    },
+    "date": {
+      "today": "Hôm nay",
+      "yesterday": "Hôm qua",
+      "daysAgo": "{days} ngày trước",
+      "weeksAgo": "{weeks} tuần trước"
+    }
+  }
+}

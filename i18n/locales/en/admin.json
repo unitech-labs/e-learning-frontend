@@ -1,0 +1,1425 @@
+{
+  "admin": {
+    "dashboard": {
+      "title": "Dashboard Overview",
+      "welcome": "Welcome back! Here's an overview of your performance today.",
+      "stats": {
+        "totalUsers": "Total Students",
+        "activeCourses": "Active Courses",
+        "monthlyRevenue": "Revenue This Month",
+        "totalRevenue": "Total Revenue",
+        "completionRate": "Completion Rate"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "createCourse": "Create Course",
+        "manageStudents": "Manage Students",
+        "viewOrders": "View Orders",
+        "settings": "Settings"
+      },
+      "latestUsers": {
+        "title": "Latest Students",
+        "viewAll": "View All",
+        "active": "Active",
+        "inactive": "Inactive",
+        "noUsers": "No students yet"
+      },
+      "topCourses": {
+        "title": "Top Courses",
+        "viewAll": "View All",
+        "noCourses": "No courses yet"
+      }
+    },
+    "users": {
+      "title": "Student Management",
+      "subtitle": "Manage student accounts and track learning progress",
+      "stats": {
+        "totalStudents": "Total Students",
+        "activeStudents": "Active Students",
+        "completedStudents": "Completed Students"
+      },
+      "search": {
+        "placeholder": "Search students by name, email or username..."
+      },
+      "actions": {
+        "refresh": "Refresh",
+        "editUser": "Edit Student",
+        "suspend": "Suspend",
+        "activate": "Activate",
+        "deleteUser": "Delete Student"
+      },
+      "error": {
+        "title": "Error loading students",
+        "tryAgain": "Try Again"
+      },
+      "table": {
+        "title": "All Students",
+        "student": "Student",
+        "enrolledCourses": "Enrolled Courses",
+        "status": "Status",
+        "joined": "Joined",
+        "actions": "Actions",
+        "showing": "Showing {current} of {total} students",
+        "totalStudents": "Total Students: {total}"
+      },
+      "courses": {
+        "count": "{count} courses",
+        "active": "Active",
+        "completed": "Completed",
+        "avgProgress": "Average Progress"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "hasCompleted": "Completed",
+        "inProgress": "In Progress"
+      },
+      "joined": {
+        "studentId": "Student ID"
+      },
+      "empty": {
+        "title": "No students found",
+        "subtitle": "Try adjusting your search criteria",
+        "clearSearch": "Clear Search"
+      },
+      "messages": {
+        "refreshSuccess": "Students refreshed successfully",
+        "editUser": "Edit Student: {name}",
+        "confirmSuspend": {
+          "title": "Are you sure you want to suspend this student?",
+          "content": "This will suspend {name}"
+        },
+        "confirmActivate": {
+          "title": "Are you sure you want to activate this student?",
+          "content": "This will activate {name}"
+        },
+        "confirmDelete": {
+          "title": "Are you sure you want to delete this student?",
+          "content": "This will permanently delete {name}"
+        },
+        "suspendSuccess": "Student suspended successfully",
+        "activateSuccess": "Student activated successfully",
+        "deleteSuccess": "Student deleted successfully"
+      }
+    },
+    "chapterManagement": {
+      "title": "Chapters",
+      "addChapter": "Add Chapter",
+      "createChapter": "Create Chapter",
+      "createFirstChapter": "Create First Chapter",
+      "emptyStates": {
+        "noChapters": "No chapters yet",
+        "noChaptersDescription": "Create your first chapter to start organizing course content.",
+        "selectChapter": "Select a chapter",
+        "selectChapterDescription": "Select a chapter from the sidebar to view and manage lessons.",
+        "noChaptersAvailable": "No chapters available",
+        "noChaptersAvailableDescription": "Create your first chapter to start organizing course content.",
+        "noLessons": "No lessons yet",
+        "noLessonsDescription": "This chapter has no lessons yet. Create your first lesson to start teaching.",
+        "createFirstLesson": "Create First Lesson"
+      },
+      "form": {
+        "title": "Add Chapter",
+        "editTitle": "Edit Chapter",
+        "chapterTitle": "Chapter Title",
+        "chapterTitlePlaceholder": "Enter chapter title",
+        "chapterTitleRequired": "Please enter chapter title!",
+        "chapterDescription": "Chapter Description",
+        "chapterDescriptionPlaceholder": "Enter chapter description"
+      },
+      "lessons": {
+        "addLesson": "Add Lesson",
+        "edit": "Edit",
+        "time": "Time",
+        "minutes": "minutes",
+        "seconds": "seconds",
+        "updateOrderSuccess": "Lesson order updated successfully!",
+        "updateOrderFailed": "Failed to update lesson order"
+      },
+      "notifications": {
+        "createChapterSuccess": "Chapter created successfully",
+        "createChapterFailed": "Failed to create chapter",
+        "updateChapterSuccess": "Chapter updated successfully!",
+        "updateChapterFailed": "Failed to update chapter",
+        "deleteChapterSuccess": "Chapter deleted successfully!",
+        "deleteChapterFailed": "Failed to delete chapter",
+        "updateOrderSuccess": "Chapter order updated successfully!",
+        "updateOrderFailed": "Failed to update chapter order"
+      },
+      "deleteConfirm": {
+        "title": "Delete Chapter",
+        "message": "Are you sure you want to delete this chapter?",
+        "warning": "This action cannot be undone. All chapter content, including lessons and materials, will be permanently deleted.",
+        "lessons": "Lessons",
+        "cancel": "Cancel",
+        "confirm": "Delete Chapter"
+      }
+    },
+    "formLesson": {
+      "title": {
+        "create": "Create New Lesson",
+        "edit": "Edit Lesson"
+      },
+      "description": {
+        "create": "Add a new lesson to this chapter",
+        "edit": "Update lesson information and content"
+      },
+      "form": {
+        "title": "Title",
+        "titlePlaceholder": "Enter lesson title",
+        "titleRequired": "Please enter lesson title!",
+        "slug": "Slug",
+        "slugPlaceholder": "Automatically generated from title",
+        "videoDuration": "Video Duration (seconds)",
+        "videoDurationPlaceholder": "Enter video duration",
+        "videoDurationRequired": "Video duration must be ≥ 0!",
+        "description": "Description",
+        "descriptionPlaceholder": "Enter description",
+        "isPreview": "Preview Settings",
+        "previewLabel": "Allow Preview",
+        "previewNote": "When this option is enabled, users can preview the video (preview video)",
+        "introVideo": "Upload Video",
+        "introImage": "Upload Intro Image"
+      },
+      "upload": {
+        "videoDragText": "Drag and drop file, or",
+        "videoBrowse": "Browse",
+        "videoHint": "Upload Video in Mov, MP4 format.",
+        "imageDragText": "Drag and drop file, or",
+        "imageBrowse": "Browse",
+        "imageHint": "Upload Image in JPEG, PNG format.",
+        "uploading": "Uploading video...",
+        "fileUnchanged": "File unchanged, skipping upload"
+      },
+      "buttons": {
+        "previewLesson": "Preview Lesson",
+        "deleteLesson": "Delete Lesson",
+        "createLesson": "Create Lesson",
+        "updateLesson": "Update Lesson",
+        "uploading": "Uploading...",
+        "cancel": "Cancel",
+        "delete": "Delete"
+      },
+      "deleteDialog": {
+        "title": "Delete Lesson",
+        "confirmTitle": "Delete Lesson",
+        "confirmMessage": "This action cannot be undone.",
+        "lessonLabel": "Lesson:",
+        "confirmDescription": "Are you sure you want to delete this lesson? All lesson content, including videos and materials, will be permanently deleted."
+      },
+      "materials": {
+        "title": "Lesson Materials",
+        "upload": "Upload Material",
+        "uploadDescription": "Drag and drop file or click to select",
+        "addMaterial": "Add Material",
+        "editMaterial": "Edit Material",
+        "deleteMaterial": "Delete Material",
+        "materialTitle": "Title",
+        "materialTitlePlaceholder": "Enter material title",
+        "materialTitleRequired": "Please enter material title!",
+        "materialDescription": "Description",
+        "materialDescriptionPlaceholder": "Enter material description (optional)",
+        "fileType": "File Type",
+        "fileSize": "Size",
+        "uploadedAt": "Upload Date",
+        "empty": "No materials yet",
+        "emptyDescription": "Upload materials for students to download and use",
+        "notifications": {
+          "uploadSuccess": "Material uploaded successfully",
+          "uploadFailed": "Failed to upload material",
+          "saveSuccess": "Material saved successfully",
+          "saveFailed": "Failed to save material",
+          "deleteSuccess": "Material deleted successfully",
+          "deleteFailed": "Failed to delete material",
+          "editSuccess": "Material updated successfully",
+          "editFailed": "Failed to update material"
+        }
+      },
+      "notifications": {
+        "uploadVideoFailed": "Failed to upload video",
+        "uploadImageFailed": "Failed to upload image",
+        "createLessonSuccess": "Lesson created successfully",
+        "updateLessonSuccess": "Lesson updated successfully",
+        "createLessonFailed": "Failed to create lesson",
+        "updateLessonFailed": "Failed to update lesson",
+        "deleteLessonSuccess": "Lesson deleted successfully",
+        "deleteLessonSuccessDescription": "The lesson has been deleted successfully.",
+        "deleteLessonFailed": "Failed to delete lesson",
+        "deleteLessonFailedDescription": "An error occurred while deleting the lesson. Please try again."
+      }
+    },
+    "calendars": {
+      "title": "Master Calendar",
+      "refresh": "Reload",
+      "sessionsCount": "{count} sessions",
+      "today": "Today",
+      "choiceDialog": {
+        "title": "Choose Creation Type",
+        "message": "Do you want to create a new classroom or create a session for an existing classroom?",
+        "newClassroom": "Create New Classroom",
+        "existingClassroom": "Create Session for Existing Classroom"
+      },
+      "createSessionDialog": {
+        "title": "Create Session",
+        "ok": "OK",
+        "cancel": "Cancel",
+        "sessionTitle": "Session Title",
+        "sessionTitlePlaceholder": "Event Title",
+        "eventClass": "Event Class (optional)",
+        "eventClassPlaceholder": "Event Class",
+        "background": "Background"
+      },
+      "notifications": {
+        "selectClassroomRequired": "Please select a classroom",
+        "createSessionSuccess": "Session created",
+        "createSessionFailed": "Could not create session",
+        "updateSessionTimeSuccess": "Session time updated",
+        "updateSessionTimeFailed": "Could not update time",
+        "loadSessionsError": "An error occurred while loading the master calendar",
+        "openSessionDetailError": "Could not open session details",
+        "openSessionDetailErrorDesc": "Missing courseId/classroomId from API session detail.",
+        "loadSessionDetailError": "Could not load session details"
+      },
+      "eventDisplay": {
+        "maxStudents": "Max {limit} students"
+      }
+    },
+    "classroom": {
+      "title": "Classroom",
+      "addNewClassroom": "Add New Classroom",
+      "createFirstClassroom": "Create First Classroom",
+      "emptyStates": {
+        "noClassrooms": "No classrooms yet",
+        "noClassroomsDescription": "Create your first classroom to start organizing sessions and managing student enrollments."
+      },
+      "form": {
+        "title": "Create Classroom",
+        "classroomTitle": "Classroom Name",
+        "classroomTitlePlaceholder": "Enter classroom name",
+        "classroomTitleRequired": "Please enter classroom name!",
+        "studentCount": "Number of Students",
+        "studentCountPlaceholder": "Enter number of students",
+        "studentCountRequired": "Please enter number of students!",
+        "studentCountMin": "Number of students must be at least 1!",
+        "schedule": "Schedule",
+        "scheduleRequired": "Please enter schedule!",
+        "selectDay": "Select Day",
+        "selectDayRequired": "Please select a day!",
+        "startTime": "Start Time",
+        "endTime": "End Time",
+        "addMore": "Add More",
+        "startDate": "Start Date",
+        "startDatePlaceholder": "Select start date",
+        "startDateRequired": "Please select a start date!",
+        "endDate": "End Date",
+        "endDatePlaceholder": "Select end date",
+        "endDateRequired": "Please select an end date!",
+        "startDateAfterEndDate": "Start date cannot be after end date!",
+        "pricingSection": "Pricing",
+        "isFree": "Free Classroom",
+        "isFreeDescription": "If selected, this classroom will be provided free of charge to students",
+        "price": "Price",
+        "pricePlaceholder": "Enter classroom price",
+        "priceDescription": "Base price of the classroom (1-on-1 usually has higher price than group classes)",
+        "priceRequired": "Please enter classroom price!",
+        "discountPrice": "Discount Price",
+        "discountPricePlaceholder": "Enter discount price (optional)",
+        "discountPriceDescription": "Discount price must be less than base price",
+        "discountPriceMustBeLessThanPrice": "Discount price must be less than base price!",
+        "discountPriceNotAllowedForFree": "Cannot set discount price for free classes!",
+        "effectivePrice": "Effective Price"
+      },
+      "notifications": {
+        "createSuccess": "Classroom created successfully!",
+        "createFailed": "Failed to create classroom",
+        "loadFailed": "Failed to load course information"
+      },
+      "session": {
+        "selectClassroomRequired": "Please select a classroom",
+        "addScheduleRequired": "Please add at least one schedule",
+        "createSuccess": "Success",
+        "createSuccessDesc": "Session created successfully",
+        "createError": "Error creating session",
+        "createErrorDesc": "Please try again"
+      },
+      "delete": {
+        "title": "Confirm classroom deletion",
+        "confirmDelete": "Are you sure you want to delete classroom \"{name}\"?",
+        "success": "Classroom deleted successfully",
+        "error": "Cannot delete classroom",
+        "willDeleteSessions": "All sessions in the class",
+        "willDeleteMaterials": "All uploaded materials",
+        "willDeleteVideos": "All recorded videos",
+        "willDeleteEnrollments": "Student enrollment information"
+      },
+      "list": {
+        "title": "Classroom List",
+        "subtitle": "Manage all classrooms in this course",
+        "refresh": "Refresh",
+        "refreshSuccess": "List refreshed"
+      },
+      "table": {
+        "columns": {
+          "title": "Classroom Name",
+          "studentCount": "Number of Students",
+          "sessionCount": "Number of Sessions",
+          "enrollmentCount": "Number of Enrolled Students",
+          "price": "Price",
+          "schedule": "Schedule",
+          "createdAt": "Created Date",
+          "actions": "Actions"
+        },
+        "emptyState": {
+          "title": "No classrooms yet",
+          "description": "Create your first classroom to start"
+        }
+      },
+      "card": {
+        "maxStudents": "Max Students",
+        "enrolledStudents": "Enrolled Students",
+        "sessions": "Sessions",
+        "schedule": "Schedule",
+        "viewDetails": "View Details",
+        "viewSchedule": "View Schedule",
+        "attendance": "Attendance",
+        "pricing": "Pricing",
+        "free": "Free",
+        "off": "off",
+        "oneOnOne": "1-on-1"
+      },
+      "detail": {
+        "course": "Course",
+        "maxStudents": "max students",
+        "enrolled": "enrolled",
+        "editClassroom": "Edit Classroom",
+        "backToList": "Back to List",
+        "totalStudents": "Total Students",
+        "enrolledStudents": "Enrolled Students",
+        "totalSessions": "Total Sessions",
+        "schedule": "Schedule",
+        "scheduleInfo": "Schedule Info",
+        "upcomingSessions": "Upcoming Sessions",
+        "addSession": "Add Session",
+        "noSessions": "No upcoming sessions",
+        "attended": "attended",
+        "joinMeeting": "Join Meeting",
+        "meetingLink": "Meeting Link",
+        "sessionStatus": {
+          "scheduled": "Scheduled",
+          "ongoing": "Ongoing",
+          "completed": "Completed",
+          "cancelled": "Cancelled"
+        },
+        "editSession": "Edit Session",
+        "sessionTopic": "Session Topic",
+        "sessionTopicPlaceholder": "Enter session topic",
+        "sessionDescription": "Description",
+        "sessionDescriptionPlaceholder": "Enter session description",
+        "startTime": "Start Time",
+        "endTime": "End Time",
+        "location": "Location",
+        "locationPlaceholder": "Enter location or meeting room",
+        "meetingInfo": "Meeting Info",
+        "meetingId": "Meeting ID",
+        "meetingIdPlaceholder": "Enter Meeting ID",
+        "meetingPassword": "Meeting Password",
+        "meetingPasswordPlaceholder": "Enter Meeting Password",
+        "participantLimit": "Participant Limit",
+        "status": "Status",
+        "scheduled": "Scheduled",
+        "ongoing": "Ongoing",
+        "completed": "Completed",
+        "cancelled": "Cancelled",
+        "saveSession": "Save Session",
+        "sessionUpdated": "Session updated successfully",
+        "sessionUpdateFailed": "Failed to update session",
+        "sessionCreated": "Session created successfully",
+        "sessionCreateFailed": "Failed to create session",
+        "sessionsLoadFailed": "Failed to load session list",
+        "classroomUpdated": "Classroom updated successfully",
+        "classroomUpdateFailed": "Failed to update classroom",
+        "createSession": "Create Session",
+        "sessionTopicRequired": "Session topic is required",
+        "startTimeRequired": "Start time is required",
+        "endTimeRequired": "End time is required",
+        "startTimeInPast": "Start time cannot be in the past",
+        "endTimeAfterStartTime": "End time must be after start time",
+        "sessionTooShort": "Session duration must be at least 15 minutes",
+        "sessionTooLong": "Session duration cannot exceed 8 hours",
+        "deleteSession": "Delete Session",
+        "confirmDeleteSession": "Are you sure you want to delete this session?",
+        "deleteSessionWarning": "This action cannot be undone. All session data will be permanently deleted.",
+        "sessionDeleted": "Session deleted successfully",
+        "sessionDeleteFailed": "Failed to delete session",
+        "viewStudents": "View Student List",
+        "studentList": "Student List",
+        "noStudents": "No students enrolled in this classroom",
+        "studentsLoadFailed": "Failed to load student list",
+        "enrolledOn": "Enrolled on",
+        "active": "Active",
+        "inactive": "Inactive",
+        "sessionAttendance": "Session Attendance List",
+        "attendanceLoadFailed": "Could not load attendance data",
+        "noAttendance": "No attendance records yet",
+        "totalAttendance": "Total Attendance",
+        "present": "Present",
+        "late": "Late",
+        "checkedAt": "Checked in at"
+      },
+      "dialog": {
+        "createNewClassroom": "Create New Class",
+        "selectCourse": "Course",
+        "selectCoursePlaceholder": "Select Course",
+        "selectExistingClassroom": "Select an existing classroom to continue.",
+        "selectClassroom": "Classroom",
+        "selectClassroomPlaceholder": "Select Classroom",
+        "createSession": "Create Session",
+        "sessionTitle": "Title",
+        "sessionTitlePlaceholder": "Enter session title",
+        "startTime": "Start",
+        "startTimePlaceholder": "Select start time",
+        "endTime": "End",
+        "endTimePlaceholder": "Select end time",
+        "meetingLink": "Meeting Link",
+        "meetingLinkPlaceholder": "https://...",
+        "meetingId": "Meeting ID",
+        "meetingIdPlaceholder": "Meeting ID",
+        "meetingPass": "Meeting Pass",
+        "meetingPassPlaceholder": "Meeting Pass",
+        "startDate": "Start Date",
+        "startDatePlaceholder": "Select start date",
+        "numberOfSessions": "Total Sessions",
+        "numberOfSessionsPlaceholder": "Example: 10",
+        "pricing": "Pricing",
+        "originalPrice": "Original Price",
+        "originalPricePlaceholder": "Enter original price",
+        "originalPriceDescription": "Original price of the classroom (required)",
+        "backgroundColor": "Background Color for Calendar",
+        "backgroundColorLabel": "Background Color",
+        "backgroundColorDescription": "Select background color to display on calendar",
+        "selectCourseRequired": "Please select a course",
+        "selectClassroomRequired": "Please select a classroom",
+        "sessionTitleRequired": "Please enter session title",
+        "startEndTimeRequired": "Please select start/end time",
+        "endTimeAfterStartTime": "End time must be after start time",
+        "createSessionSuccess": "Session created",
+        "createSessionFailed": "Could not create session",
+        "priceRequired": "Price is required and must be greater than 0",
+        "numberOfSessionsRequired": "Please enter total sessions",
+        "numberOfSessionsMin": "Total sessions must be >= 1"
+      },
+      "sessionDetail": {
+        "editSession": "Edit Session",
+        "sessionDetail": "Session Detail",
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "saveChanges": "Save Changes",
+        "title": "Title",
+        "titlePlaceholder": "Enter session title",
+        "description": "Description",
+        "descriptionPlaceholder": "Enter session description",
+        "startTime": "Start Time",
+        "startTimePlaceholder": "Select start time",
+        "startTimeRequired": "Please select start time",
+        "endTime": "End Time",
+        "endTimePlaceholder": "Select end time",
+        "endTimeRequired": "Please select end time",
+        "location": "Location",
+        "locationPlaceholder": "Enter location",
+        "meetingInfo": "Meeting Info",
+        "meetingLink": "Meeting Link",
+        "meetingLinkPlaceholder": "https://zoom.us/j/...",
+        "meetingId": "Meeting ID",
+        "meetingIdPlaceholder": "Enter Meeting ID",
+        "meetingPassword": "Meeting Password",
+        "meetingPasswordPlaceholder": "Enter password",
+        "editMeeting": "Edit",
+        "link": "Link:",
+        "id": "ID:",
+        "password": "Password:",
+        "notSet": "Not set",
+        "copyLink": "Copy link",
+        "linkCopied": "Link copied",
+        "students": "Students",
+        "addStudent": "Add Student",
+        "emailPlaceholder": "Enter student email",
+        "add": "Add",
+        "noStudents": "No students yet",
+        "removeStudent": "Remove Student",
+        "confirmRemoveStudent": "Confirm Remove Student",
+        "removeStudentMessage": "Are you sure you want to remove this student from the class?",
+        "deleteOrder": "Delete Order",
+        "remove": "Remove",
+        "videos": "Videos",
+        "uploadVideo": "Upload Video",
+        "noVideos": "No videos yet",
+        "deleteVideo": "Confirm Delete Video",
+        "deleteVideoMessage": "Are you sure you want to delete video \"{name}\"? The uploaded video will be removed from the system.",
+        "attendance": "Attendance",
+        "present": "Present",
+        "late": "Late",
+        "noAttendance": "No attendance records",
+        "editClassroom": "Edit Classroom",
+        "deleteSession": "Delete",
+        "confirmDeleteSession": "Confirm Delete Session",
+        "deleteSessionMessage": "Are you sure you want to delete this session? The system may automatically generate a new session to compensate according to the class schedule.",
+        "delete": "Delete",
+        "loadSessionError": "Error loading session information",
+        "loadStudentsError": "Error loading student list",
+        "addStudentSuccess": "Student added to class successfully",
+        "addStudentError": "Error adding student",
+        "removeStudentSuccess": "Student removed from class successfully",
+        "removeStudentAndOrderSuccess": "Student and order removed from class successfully",
+        "removeStudentError": "Error removing student",
+        "updateSessionSuccess": "Success",
+        "updateSessionSuccessDesc": "Session updated successfully",
+        "updateSessionError": "Error updating session",
+        "updateMeetingSuccess": "Success",
+        "updateMeetingSuccessDesc": "Meeting info updated",
+        "updateMeetingError": "Error",
+        "updateMeetingErrorDesc": "Could not update meeting info",
+        "deleteSessionSuccess": "Session deleted",
+        "deleteSessionError": "Error deleting session",
+        "uploadVideoSuccess": "Upload successful",
+        "uploadVideoSuccessDesc": "Uploaded {name} successfully",
+        "uploadVideoError": "Error uploading video",
+        "deleteVideoSuccess": "Video deleted",
+        "deleteVideoSuccessDesc": "Deleted {name}",
+        "deleteVideoError": "Error deleting video",
+        "fileTypeNotSupported": "File type not supported. Accepted: {types}",
+        "missingUploadUrl": "Upload URL not received from server",
+        "missingSessionOrCourse": "Error",
+        "missingSessionOrCourseDesc": "Missing session or course information",
+        "sessionFallback": "Session",
+        "meetingInfoTitle": "Meeting Info",
+        "linkLabel": "Link:",
+        "idLabel": "ID:",
+        "passwordLabel": "Pass:",
+        "save": "Save",
+        "locationLabel": "Location",
+        "classroomLabel": "Classroom",
+        "maxStudents": "Max {count} students",
+        "discountLabel": "Promo:",
+        "courseLabel": "Course",
+        "attendanceListTitle": "Checked-in Student List",
+        "presentCount": "{count} Present",
+        "lateCount": "{count} Late",
+        "noAttendanceYet": "No students participated yet",
+        "videoSectionTitle": "Session Video",
+        "upload": "Upload",
+        "noVideosYet": "No videos yet",
+        "studentListTitle": "Student List",
+        "noStudentsInClass": "No students in class",
+        "noLinkedEmail": "No linked email",
+        "deleteSessionButton": "Delete Session",
+        "close": "Close",
+        "confirmRemoveStudentTitle": "Confirm Remove Student",
+        "confirmRemoveStudentMessage": "Are you sure you want to remove this student from the class?",
+        "deleteOrderLabel": "Delete order as well",
+        "deleteOrderDescription": "If you accidentally added a student and want to delete the order as well so revenue is not incorrect, select this option.\nBy default only enrollment is deleted, order will be marked as \"cancelled\".",
+        "meetingLinkPlaceholderEdit": "Meeting Link",
+        "meetingIdPlaceholderEdit": "Meeting ID",
+        "meetingPasswordPlaceholderEdit": "Password"
+      },
+      "error": {
+        "cannotJoinClass": "Cannot join session",
+        "checkInFailed": "Cannot join session. Please try again later.",
+        "checkInTooEarly": "You are trying to join too early. Please wait until the session starts.",
+        "checkInNotYetAvailable": "Attendance not yet available. Available from {time}",
+        "checkInNotYetAvailableFrom": "Attendance not yet available. Available from {time}"
+      },
+      "edit": {
+        "title": "Edit Classroom",
+        "classroomTitle": "Classroom Name",
+        "classroomTitlePlaceholder": "Enter classroom name",
+        "studentCount": "Max Students",
+        "studentCountPlaceholder": "Enter max students",
+        "startDate": "Start Date",
+        "startDatePlaceholder": "Select start date",
+        "endDate": "End Date",
+        "endDatePlaceholder": "Select end date",
+        "meetingLink": "Meeting Link",
+        "meetingLinkPlaceholder": "Enter meeting link",
+        "currentInfo": "Current Info",
+        "course": "Course",
+        "enrolled": "Enrolled",
+        "students": "students",
+        "sessions": "Sessions",
+        "save": "Save Changes",
+        "cancel": "Cancel",
+        "titleRequired": "Classroom name is required",
+        "titleLength": "Name must be between 3 and 100 characters",
+        "studentCountRequired": "Student count is required",
+        "studentCountRange": "Student count must be between 1 and 1000",
+        "startDateRequired": "Start date is required",
+        "endDateRequired": "End date is required",
+        "schedule": "Schedule",
+        "addSchedule": "Add Schedule",
+        "noSchedules": "No schedules yet",
+        "scheduleItem": "Schedule",
+        "dayOfWeek": "Day of week",
+        "startTime": "Start Time",
+        "endTime": "End Time"
+      },
+      "meetingLink": {
+        "editMeetingLink": "Edit Meeting Link",
+        "noMeetingLink": "No meeting link yet",
+        "meetingLinkPlaceholder": "Enter meeting link (e.g., https://zoom.us/j/123456789)",
+        "saveMeetingLink": "Save Meeting Link",
+        "cancel": "Cancel",
+        "meetingLinkUpdated": "Meeting link updated successfully!",
+        "meetingLinkUpdateFailed": "Could not update meeting link",
+        "meetingLinkCopied": "Meeting link copied to clipboard!",
+        "meetingLinkCopyFailed": "Could not copy meeting link"
+      }
+    },
+    "quizManagement": {
+      "title": "Quiz Management",
+      "description": "Track and grade student submissions",
+      "filters": {
+        "classroom": "Classroom",
+        "selectClassroom": "Select Classroom",
+        "allClassrooms": "All Classrooms",
+        "onlyNeedsGrading": "Only show items needing grading",
+        "refresh": "Refresh"
+      },
+      "table": {
+        "title": "Submission List",
+        "total": "Total: {count} submissions",
+        "loading": "Loading...",
+        "retry": "Retry",
+        "student": "Student",
+        "quiz": "Quiz",
+        "status": "Status",
+        "score": "Score",
+        "date": "Submission Date",
+        "actions": "Actions",
+        "grade": "Grade",
+        "view": "View"
+      },
+      "status": {
+        "completed": "Completed",
+        "inProgress": "In Progress",
+        "expired": "Expired",
+        "needsGrading": "Needs Grading"
+      },
+      "empty": {
+        "noSubmissions": "No submissions found",
+        "noSubmissionsNeedsGrading": "No submissions need grading"
+      },
+      "errors": {
+        "loadSubmissions": "Could not load submission list"
+      }
+    },
+    "quizSubmission": {
+      "back": "Back",
+      "title": "Submission Details",
+      "description": "View details of student submission",
+      "loading": "Loading submission info...",
+      "error": "Error",
+      "studentInfo": {
+        "title": "Student Info",
+        "name": "Name",
+        "quiz": "Quiz",
+        "status": "Status",
+        "startedAt": "Started",
+        "completedAt": "Completed"
+      },
+      "result": {
+        "title": "Result",
+        "totalQuestions": "Total Questions",
+        "correct": "Correct",
+        "score": "Score",
+        "timeSpent": "Time Spent"
+      },
+      "questionsAndAnswers": "Questions and Answers",
+      "questionTypes": {
+        "multipleChoice": "Multiple Choice",
+        "textInput": "Text Input",
+        "essay": "Essay"
+      },
+      "answerStatus": {
+        "correct": "Correct",
+        "incorrect": "Incorrect",
+        "graded": "Graded",
+        "pendingGrading": "Pending Grading"
+      },
+      "studentAnswer": "Student's answer:",
+      "correctAnswer": "Correct answer:",
+      "errors": {
+        "loadFailed": "Could not load submission info"
+      }
+    },
+    "essayGrading": {
+      "classroom": "Classroom",
+      "search": "Search",
+      "loading": "Loading...",
+      "student": "Student:",
+      "maxScore": "Max Score:",
+      "submittedAt": "Submitted Date:",
+      "question": "Question:",
+      "studentAnswer": "Student's answer:",
+      "filtersTitle": "Filters",
+      "selectClassroom": "Select Classroom",
+      "allClassrooms": "All Classrooms",
+      "status": "Status",
+      "selectStatus": "Select Status",
+      "allStatus": "All",
+      "searchPlaceholder": "Search by student name or quiz...",
+      "searchPlaceholderEssays": "Search by student name, quiz, or question...",
+      "refresh": "Refresh",
+      "listTitle": "Submission List",
+      "needsGradingListTitle": "Needs Grading List",
+      "retry": "Retry",
+      "needsGrading": "Needs Grading"
+    },
+    "essayGradingTeacher": {
+      "back": "Back",
+      "name": "Name:",
+      "submittedAt": "Submitted Date:",
+      "maxScore": "Max Score:",
+      "points": "points",
+      "previewScore": "Preview Score",
+      "success": "Success",
+      "successDesc": "Essay graded successfully!",
+      "error": "Error",
+      "errorDesc": "Could not grade submission",
+      "title": "Grade Essay",
+      "description": "Evaluate and provide feedback for student submission",
+      "loading": "Loading submission info...",
+      "studentInfo": "Student Info",
+      "question": "Question",
+      "studentAnswer": "Student's answer",
+      "gradingTitle": "Grading",
+      "scoreLabel": "Score",
+      "scorePlaceholder": "Enter score",
+      "feedbackLabel": "Feedback for student"
+    },
+    "quiz": {
+      "collapseAll": "Collapse All",
+      "expandAll": "Expand All",
+      "addQuiz": "Add Quiz",
+      "loadingComments": "Loading comments...",
+      "comment": {
+        "success": "Success",
+        "updateSuccess": "Comment updated!",
+        "addSuccess": "Comment added!",
+        "error": "Error",
+        "errorDesc": "Could not save comment"
+      }
+    },
+    "classrooms": {
+      "title": "Classroom Management"
+    },
+    "students": {
+      "title": "Course Students",
+      "description": "Manage students enrolled in this course",
+      "stats": {
+        "totalStudents": "Total Students",
+        "activeStudents": "Active Students",
+        "averageProgress": "Average Progress",
+        "recentEnrollments": "Recent Enrollments"
+      },
+      "filters": {
+        "searchPlaceholder": "Search students by name, email or username..."
+      },
+      "table": {
+        "columns": {
+          "student": "Student",
+          "classroom": "Classroom",
+          "progress": "Progress",
+          "lastAccessed": "Last Accessed",
+          "enrolled": "Enrolled",
+          "actions": "Actions"
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive",
+          "notCompleted": "Not Completed",
+          "enrolled": "Enrolled",
+          "disabled": "Disabled"
+        },
+        "emptyState": {
+          "title": "No students found",
+          "description": "Try adjusting your search criteria",
+          "clearSearch": "Clear Search"
+        },
+        "totalStudents": "Total Students: {total}"
+      },
+      "actions": {
+        "refresh": "Refresh",
+        "viewProgress": "View Progress",
+        "removeFromCourse": "Remove from course",
+        "disableStudent": "Disable student",
+        "enableStudent": "Enable student"
+      },
+      "error": {
+        "title": "Error loading student list",
+        "tryAgain": "Try Again"
+      },
+      "messages": {
+        "refreshSuccess": "Student list refreshed successfully",
+        "viewProgressMessage": "View progress for {name}",
+        "removeStudentMessage": "Remove {name} from course",
+        "disableStudentSuccess": "Student {name} has been disabled",
+        "enableStudentSuccess": "Student {name} has been enabled",
+        "disableStudentError": "Could not disable student",
+        "enableStudentError": "Could not enable student"
+      }
+    },
+    "video": {
+      "unsupportedFormat": "Unsupported video format. Please select MP4, WebM, OGG, MOV or AVI file."
+    },
+    "courses": {
+      "title": "Course Management",
+      "createCourse": "Create Course",
+      "courseNotFound": "Course not found",
+      "coursesSection": "Courses",
+      "noCourses": "No courses yet",
+      "resourcesSection": "Resources",
+      "noResources": "No resources yet",
+      "createResource": "Create Resource",
+      "tabs": {
+        "classroom": "Classroom",
+        "quiz": "Quiz",
+        "students": "Students",
+        "chapters": "Chapters",
+        "resources": "Resources",
+        "pricing": "Pricing",
+        "detail": "Detail"
+      },
+      "breadcrumb": {
+        "course": "Course"
+      }
+    },
+    "pricePlans": {
+      "title": "Price Plan Management",
+      "description": "Manage time-based price plans for this course",
+      "actions": {
+        "add": "Add Price Plan",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "table": {
+        "columns": {
+          "duration": "Duration",
+          "price": "Price",
+          "status": "Status",
+          "available": "Available",
+          "dateRange": "Date Range",
+          "actions": "Actions"
+        },
+        "totalPlans": "price plans",
+        "months": "months",
+        "active": "Active",
+        "inactive": "Inactive",
+        "default": "Default",
+        "available": "Available",
+        "unavailable": "Unavailable",
+        "noDateRange": "No Limit",
+        "fromDate": "From {date}",
+        "untilDate": "Until {date}"
+      },
+      "form": {
+        "duration": "Duration (months)",
+        "durationRequired": "Please enter duration",
+        "durationPlaceholder": "Enter number of months",
+        "priceAmount": "Price",
+        "priceAmountRequired": "Please enter price",
+        "priceAmountPlaceholder": "Enter price",
+        "priceCurrency": "Currency",
+        "priceCurrencyRequired": "Please select currency",
+        "priceCurrencyPlaceholder": "Select currency",
+        "startsAt": "Start Date",
+        "startsAtPlaceholder": "Select start date",
+        "endsAt": "End Date",
+        "endsAtPlaceholder": "Select end date",
+        "isActive": "Activate",
+        "isAvailable": "Available",
+        "isDefault": "Default"
+      },
+      "modal": {
+        "createTitle": "Add Price Plan",
+        "editTitle": "Edit Price Plan",
+        "save": "Save",
+        "cancel": "Cancel"
+      },
+      "notifications": {
+        "loadFailed": "Failed to load price plan list",
+        "createSuccess": "Price plan created successfully",
+        "updateSuccess": "Price plan updated successfully",
+        "deleteSuccess": "Price plan deleted successfully",
+        "deleteFailed": "Failed to delete price plan",
+        "saveFailed": "Failed to save price plan"
+      },
+      "deleteConfirm": {
+        "title": "Confirm Delete",
+        "content": "Are you sure you want to delete {duration} month price plan with price {price}?",
+        "okText": "Delete",
+        "cancelText": "Cancel"
+      },
+      "empty": {
+        "title": "No price plans yet",
+        "description": "Add the first price plan for this course"
+      }
+    },
+    "resources": {
+      "title": "Material Management",
+      "description": "Manage materials, videos, files and other course resources",
+      "addResource": "Add Material",
+      "edit": "Edit",
+      "delete": "Delete",
+      "downloadable": "Downloadable",
+      "notDownloadable": "Not Downloadable",
+      "classrooms": "classrooms",
+      "allClassrooms": "All Classrooms",
+      "table": {
+        "totalResources": "materials",
+        "columns": {
+          "order": "Order",
+          "type": "Type",
+          "title": "Title",
+          "size": "Size",
+          "duration": "Duration",
+          "downloadable": "Download",
+          "classrooms": "Classroom",
+          "uploadedAt": "Upload Date",
+          "actions": "Actions"
+        }
+      },
+      "empty": {
+        "title": "No materials yet",
+        "subtitle": "Start by adding the first material for this course"
+      },
+      "deleteConfirm": {
+        "title": "Delete Material",
+        "content": "Are you sure you want to delete material \"{title}\"? This action cannot be undone.",
+        "okText": "Delete",
+        "cancelText": "Cancel"
+      },
+      "form": {
+        "addTitle": "Add New Material",
+        "editTitle": "Edit Material",
+        "assetType": "Material Type",
+        "assetTypeRequired": "Please select material type!",
+        "assetTypePlaceholder": "Select material type",
+        "title": "Title",
+        "titleRequired": "Please enter title!",
+        "titlePlaceholder": "Enter material title",
+        "description": "Description",
+        "descriptionPlaceholder": "Enter material description (optional)",
+        "file": "File",
+        "fileRequired": "Please select file!",
+        "fileUploading": "Uploading file, please wait...",
+        "selectFile": "Select file",
+        "selectFiles": "Select multiple files",
+        "fileUploaded": "File uploaded successfully",
+        "uploaded": "Uploaded",
+        "dragText": "Drag and drop file here or",
+        "dragHint": "Support multiple file uploads. Max size 100MB per file.",
+        "upload": "Upload",
+        "save": "Save",
+        "cancel": "Cancel",
+        "uploadingProgress": "Uploading: {percent}%",
+        "invalidFileType": "Invalid file type",
+        "invalidFileTypeDescription": "Please select a valid file format (pdf, doc, ppt, zip, image, audio)",
+        "videoNotAllowed": "Video files not allowed",
+        "videoNotAllowedDescription": "Materials do not support video files. Please select another file type.",
+        "fileTooLarge": "File too large",
+        "fileTooLargeDescription": "File must not exceed 100MB",
+        "uploadFailed": "File upload failed",
+        "getPresignedUrlFailed": "Error getting upload URL",
+        "missingUploadUrls": "Missing upload URLs",
+        "uploadToS3Failed": "Error uploading to S3",
+        "createAssetFailed": "Error creating material",
+        "duration": "Duration",
+        "durationPlaceholder": "Enter duration (seconds)",
+        "durationDescription": "Duration in seconds (for video/audio only)",
+        "seconds": "seconds",
+        "order": "Display Order",
+        "orderRequired": "Please enter order!",
+        "orderPlaceholder": "Enter display order",
+        "isDownloadable": "Allow Download",
+        "isDownloadableDescription": "Students can download this file",
+        "visibleClassrooms": "Visible Classrooms",
+        "visibleClassroomsPlaceholder": "Select classrooms that can view this material",
+        "visibleClassroomsDescription": "Only selected classrooms can view this material (leave empty to show to all)"
+      },
+      "notifications": {
+        "createSuccess": "Material created successfully!",
+        "updateSuccess": "Material updated successfully!",
+        "saveFailed": "Failed to save material",
+        "deleteSuccess": "Material deleted successfully!",
+        "deleteFailed": "Failed to delete material",
+        "loadFailed": "Failed to load material list",
+        "loadClassroomsFailed": "Failed to load classroom list",
+        "uploadSuccess": "Uploaded {count} materials successfully!",
+        "uploadPartialSuccess": "Uploaded {total} materials, {failed} materials failed. Error files: {files}",
+        "uploadAllFailed": "All uploads failed. Error files: {files}",
+        "allFilesUploaded": "All files have been uploaded"
+      }
+    },
+    "formCourse": {
+      "title": {
+        "create": "Create New Course",
+        "edit": "Edit Course"
+      },
+      "description": {
+        "create": "Add a new course to the curriculum",
+        "edit": "Update course information and content"
+      },
+      "courseDetails": "Course Details",
+      "form": {
+        "title": "Course Title",
+        "titlePlaceholder": "Enter course title",
+        "titleRequired": "Please enter course title!",
+        "slug": "Course Slug",
+        "slugPlaceholder": "Automatically generated from title",
+        "shortDescription": "Short Course Description",
+        "shortDescriptionPlaceholder": "Enter short description",
+        "shortDescriptionRequired": "Please enter short description!",
+        "category": "Course Category",
+        "categoryPlaceholder": "Select category",
+        "categoryRequired": "Please select course category!",
+        "courseType": "Course Type",
+        "courseTypePlaceholder": "Select course type",
+        "courseTypeRequired": "Please select course type!",
+        "courseLevel": "Course Level",
+        "courseLevelPlaceholder": "Select level (optional)",
+        "courseSubLevel": "Sub Level",
+        "courseSubLevelPlaceholder": "Select sub level (optional)",
+        "courseSubLevelRequired": "Please select sub level when level is selected!",
+        "courseTypeOptions": {
+          "course": "Course",
+          "resource": "Resource"
+        },
+        "courseLevelOptions": {
+          "basic": "Basic",
+          "intermediate": "Intermediate",
+          "advanced": "Advanced",
+          "driving_theory": "Driving Theory"
+        },
+        "level": "Course Level (Legacy)",
+        "levelPlaceholder": "Select level",
+        "levelRequired": "Please select level!",
+        "isFree": "Free Course",
+        "free": "Free",
+        "paid": "Paid",
+        "price": "Course Price",
+        "pricePlaceholder": "Enter course price",
+        "priceRequired": "Please enter course price!",
+        "discountPrice": "Discount Course Price",
+        "discountPricePlaceholder": "Enter discount price",
+        "durationHours": "Course Duration (hours)",
+        "durationHoursPlaceholder": "Enter duration",
+        "durationHoursRequired": "Please enter course duration!",
+        "introVideo": "Upload Video",
+        "introImage": "Upload Intro Image",
+        "description": "Description",
+        "descriptionRequired": "Please enter course description!"
+      },
+      "upload": {
+        "videoDragText": "Drag and drop file, or",
+        "videoBrowse": "Browse",
+        "videoHint": "Upload Video in Mov, MP4 format.",
+        "imageDragText": "Drag and drop file, or",
+        "imageBrowse": "Browse",
+        "imageHint": "Upload Image in JPEG, PNG format.",
+        "uploading": "Uploading video...",
+        "fileUnchanged": "File unchanged, skipping upload"
+      },
+      "buttons": {
+        "previewCourse": "Preview Course",
+        "deleteCourse": "Delete Course",
+        "createCourse": "Create Course",
+        "updateCourse": "Update Course",
+        "uploading": "Uploading...",
+        "cancel": "Cancel",
+        "delete": "Delete"
+      },
+      "deleteDialog": {
+        "title": "Delete Course",
+        "untitledCourse": "Untitled Course",
+        "confirmTitle": "Delete Course",
+        "confirmMessage": "This action cannot be undone.",
+        "courseLabel": "Course:",
+        "confirmDescription": "Are you sure you want to delete this course? The course will be marked as deleted (soft delete) and not shown in public lists. The course can be restored later."
+      },
+      "notifications": {
+        "loginRequired": "Please log in to save course",
+        "createSuccess": "Course created successfully",
+        "updateSuccess": "Course updated successfully",
+        "createFailed": "Failed to create course",
+        "updateFailed": "Failed to update course",
+        "deleteSuccess": "Course deleted successfully",
+        "deleteSuccessDescription": "The course has been marked as deleted (soft delete). It can be restored later.",
+        "deleteFailed": "Failed to delete course",
+        "deleteFailedDescription": "An error occurred while deleting the course. Please try again.",
+        "uploadImageFailed": "Failed to upload image"
+      }
+    },
+    "orders": {
+      "title": "Order Management",
+      "description": "Manage and track all course orders",
+      "stats": {
+        "totalOrders": "Total Orders",
+        "totalRevenue": "Total Revenue",
+        "pendingOrders": "Pending Orders",
+        "completedOrders": "Completed Orders"
+      },
+      "filters": {
+        "searchPlaceholder": "Search by invoice ID, student, course...",
+        "statusFilter": "Filter by status",
+        "dateRange": "Date Range",
+        "clearFilters": "Clear Filters"
+      },
+      "table": {
+        "columns": {
+          "invoice": "Invoice",
+          "student": "Student",
+          "course": "Course",
+          "classroom": "Classroom",
+          "plan": "Plan",
+          "amount": "Amount",
+          "status": "Status",
+          "date": "Date",
+          "actions": "Actions"
+        },
+        "plan": {
+          "months": "months",
+          "pricePlan": "Price Plan"
+        },
+        "status": {
+          "pending": "Pending",
+          "complete": "Complete",
+          "cancel": "Cancel"
+        },
+        "actions": {
+          "viewDetails": "View Details",
+          "confirmReceive": "Confirm Payment Received",
+          "reject": "Reject"
+        },
+        "detailDialog": {
+          "title": "Order Details",
+          "invoice": "Invoice ID",
+          "student": "Student",
+          "course": "Course",
+          "classroom": "Classroom",
+          "amount": "Amount",
+          "status": "Status",
+          "paymentMethod": "Payment Method",
+          "paymentReference": "Payment Reference",
+          "notes": "Notes",
+          "adminNote": "Admin Note",
+          "canceledReason": "Cancellation Reason",
+          "createdAt": "Created At",
+          "updatedAt": "Updated At",
+          "close": "Close"
+        },
+        "confirmDialog": {
+          "confirmReceive": {
+            "title": "Confirm Payment Received",
+            "message": "Are you sure you want to confirm that payment has been received for this order?",
+            "confirm": "Yes, Confirm",
+            "cancel": "Cancel"
+          },
+          "reject": {
+            "title": "Reject Order",
+            "message": "Are you sure you want to reject this order?",
+            "reason": "Rejection Reason",
+            "reasonPlaceholder": "Please provide a reason for rejecting this order...",
+            "confirm": "Yes, Reject",
+            "cancel": "Cancel"
+          }
+        },
+        "emptyState": {
+          "title": "No orders found",
+          "description": "No orders match the current filters",
+          "clearFilters": "Clear Filters"
+        },
+        "loading": "Loading orders...",
+        "error": "Could not load orders. Please try again.",
+        "refresh": "Refresh"
+      },
+      "detailDialog": {
+        "title": "Order Details",
+        "invoice": "Invoice ID",
+        "student": "Student",
+        "course": "Course",
+        "classroom": "Classroom",
+        "amount": "Amount",
+        "status": "Status",
+        "paymentMethod": "Payment Method",
+        "paymentReference": "Payment Reference",
+        "notes": "Notes",
+        "adminNote": "Admin Note",
+        "canceledReason": "Cancellation Reason",
+        "createdAt": "Created At",
+        "updatedAt": "Updated At",
+        "close": "Close"
+      }
+    },
+    "videoPosts": {
+      "title": "Video Post Management",
+      "description": "Manage and track all video blog posts",
+      "stats": {
+        "totalPosts": "Total Posts",
+        "publishedPosts": "Published Posts",
+        "unpublishedPosts": "Unpublished Posts",
+        "totalViews": "Total Views"
+      },
+      "filters": {
+        "searchPlaceholder": "Search by title, author...",
+        "statusFilter": "Filter by status",
+        "allStatus": "All",
+        "published": "Published",
+        "unpublished": "Unpublished"
+      },
+      "table": {
+        "columns": {
+          "title": "Title",
+          "author": "Author",
+          "status": "Status",
+          "views": "Views",
+          "publishedAt": "Published At",
+          "createdAt": "Created At",
+          "actions": "Actions"
+        },
+        "status": {
+          "published": "Published",
+          "unpublished": "Unpublished"
+        },
+        "noAuthor": "No author",
+        "emptyState": {
+          "title": "No posts found",
+          "description": "No video posts yet. Create your first post to start."
+        }
+      },
+      "actions": {
+        "create": "Create New Post",
+        "edit": "Edit",
+        "delete": "Delete",
+        "publish": "Publish",
+        "unpublish": "Unpublish",
+        "refresh": "Refresh",
+        "deleteConfirm": {
+          "title": "Delete Video Post",
+          "message": "Are you sure you want to delete post \"{title}\"?",
+          "confirm": "Delete",
+          "cancel": "Cancel"
+        }
+      },
+      "messages": {
+        "loadError": "Could not load post list",
+        "createSuccess": "Post created successfully",
+        "createError": "Could not create post",
+        "updateSuccess": "Post updated successfully",
+        "updateError": "Could not update post",
+        "uploadError": "Video upload failed",
+        "uploadThumbnailFailed": "Thumbnail upload failed",
+        "deleteSuccess": "Post \"{title}\" deleted successfully",
+        "deleteError": "Could not delete post",
+        "publishSuccess": "Post \"{title}\" published successfully",
+        "unpublishSuccess": "Post \"{title}\" unpublished successfully",
+        "togglePublishError": "Could not change publishing status",
+        "refreshSuccess": "Refreshed successfully"
+      },
+      "error": {
+        "loadError": "Could not load post list"
+      },
+      "editor": {
+        "createTitle": "Create New Video Post",
+        "editTitle": "Edit Video Post",
+        "createDescription": "Create new video post with content and video",
+        "editDescription": "Edit video post information",
+        "back": "Back",
+        "cancel": "Cancel",
+        "create": "Create Post",
+        "update": "Update Post",
+        "basicInfo": "Basic Info",
+        "videoInfo": "Video Info",
+        "title": "Title",
+        "titlePlaceholder": "Enter post title...",
+        "titleRequired": "Please enter title",
+        "titleMaxLength": "Title must not exceed 200 characters",
+        "content": "Content",
+        "contentPlaceholder": "Enter post content (HTML)...",
+        "contentRequired": "Please enter content",
+        "contentHint": "You can use HTML to format content",
+        "author": "Author",
+        "authorPlaceholder": "Enter author name (optional)...",
+        "authorMaxLength": "Author name must not exceed 100 characters",
+        "videoUrl": "Video URL",
+        "videoUrlPlaceholder": "https://www.youtube.com/watch?v=...",
+        "videoUrlRequired": "Please enter video URL",
+        "videoUrlInvalid": "Please enter a valid URL",
+        "videoUrlHint": "Supports YouTube, Vimeo or direct video URL",
+        "thumbnail": "Thumbnail",
+        "thumbnailPlaceholder": "https://example.com/thumbnail.jpg (optional)",
+        "thumbnailInvalid": "Please enter a valid URL",
+        "thumbnailHint": "URL of thumbnail image (optional)",
+        "thumbnailUploadText": "Drag and drop image here or",
+        "thumbnailBrowse": "choose image",
+        "thumbnailAutoHint": "If no image is chosen, the system will automatically create a thumbnail from the first frame of the video.",
+        "tags": "Tags",
+        "tagPlaceholder": "Enter tag and press Enter",
+        "addTag": "Add Tag",
+        "settings": "Settings",
+        "isPublished": "Publish immediately",
+        "isPublishedHint": "Post will be publicly visible if enabled",
+        "videoFile": "Video",
+        "videoFileUploadText": "Click or drag and drop video file here",
+        "videoFileUploadHint": "Supports MP4, WebM, OGG, MOV, AVI (max 500MB)",
+        "videoFileOrUrl": "Or enter video URL below",
+        "uploadingVideo": "Uploading video...",
+        "removeVideo": "Remove",
+        "existingVideo": "Current video",
+        "replaceVideo": "Replace",
+        "clearUrl": "Clear URL",
+        "videoRequired": "Please select a video file or enter a video URL",
+        "loadingPost": "Loading post data..."
+      }
+    },
+    "settings": {
+      "title": "Platform Settings",
+      "description": "Configure settings and options for the entire platform.",
+      "tabs": {
+        "general": "General",
+        "users": "Users",
+        "courses": "Courses",
+        "language": "Language"
+      },
+      "general": {
+        "title": "General Settings",
+        "platformName": "Platform Name",
+        "platformDescription": "Platform Description",
+        "contactEmail": "Contact Email"
+      },
+      "users": {
+        "title": "User Management",
+        "allowRegistration": "Allow user registration",
+        "allowRegistrationDesc": "Allow new users to register on the platform",
+        "emailVerificationRequired": "Require email verification",
+        "emailVerificationDesc": "Require users to verify their email address"
+      },
+      "courses": {
+        "title": "Course Management",
+        "approvalRequired": "Require course approval",
+        "approvalRequiredDesc": "Require admin to approve new courses",
+        "maxPrice": "Maximum course price"
+      },
+      "language": {
+        "title": "Language Settings",
+        "selectLanguage": "Select Language",
+        "currentLanguage": "Current Language",
+        "languageDesc": "Select preferred language for the platform"
+      },
+      "saveSettings": "Save Settings"
+    },
+    "sidebar": {
+      "title": "CONTROL PANEL",
+      "subtitle": "Learn Italian with",
+      "author": "Phan Tam"
+    }
+  }
+}

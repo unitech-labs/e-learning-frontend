@@ -1,0 +1,18 @@
+{
+  "navigation": {
+    "home": "Home",
+    "courses": "Courses",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "myCourses": "My Courses",
+    "calendar": "Schedule",
+    "admin": "Admin",
+    "language": "Language"
+  }
+}

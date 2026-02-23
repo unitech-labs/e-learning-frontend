@@ -1,0 +1,51 @@
+{
+  "checkoutCard": {
+    "enrollNow": "Iscriviti ora",
+    "buyNow": "Acquista ora",
+    "addToCart": "Aggiungi al carrello",
+    "classroom": "Classe",
+    "free": "Gratis",
+    "selectPricePlan": "Seleziona piano tariffario",
+    "selectPricePlanPlaceholder": "Seleziona durata e prezzo",
+    "months": "mesi",
+    "originalPrice": "Prezzo originale",
+    "discount": "Sconto",
+    "total": "Totale",
+    "includes": "Questo corso include:",
+    "lifetimeAccess": "Accesso a vita",
+    "certificate": "Certificato di completamento",
+    "mobileAccess": "Accesso su mobile e desktop",
+    "assignments": "Compiti",
+    "moneyBack": "Garanzia soddisfatti o rimborsati di 30 giorni",
+    "share": "Condividi",
+    "copyLink": "Copia link",
+    "wishlist": "Aggiungi alla lista dei desideri",
+    "gift": "Regala questo corso",
+    "messages": {
+      "selectClassroom": "Seleziona una classe",
+      "selectClassroomDesc": "È necessario selezionare una classe prima di aggiungere al carrello.",
+      "selectClassroomBuy": "È necessario selezionare una classe prima dell'acquisto.",
+      "addedToCart": "Aggiunto al carrello",
+      "addedToCartDesc": "Il corso \"{title}\" nella classe \"{classroom}\" è stato aggiunto al carrello.",
+      "alreadyInCart": "Già nel carrello",
+      "alreadyInCartDesc": "Il corso \"{title}\" nella classe \"{classroom}\" è già presente nel carrello.",
+      "classroomChanged": "Classe modificata",
+      "classroomChangedDesc": "La classe per il corso \"{title}\" è stata modificata.",
+      "noClassroom": "Questo corso non ha classi disponibili",
+      "generatedAccountCannotPurchase": "L'account generato dal sistema non è autorizzato ad acquistare corsi",
+      "noPricePlans": "Questo corso non ha piani tariffari disponibili",
+      "selectPricePlan": "Seleziona un piano tariffario",
+      "selectPricePlanDesc": "È necessario selezionare un piano tariffario prima di aggiungere al carrello.",
+      "selectPricePlanBuy": "È necessario selezionare un piano tariffario prima dell'acquisto.",
+      "linkCopied": "Link copiato",
+      "linkCopiedDesc": "Il link del corso è stato copiato negli appunti",
+      "copyFailed": "Copia fallita",
+      "copyFailedDesc": "Impossibile copiare il link negli appunti"
+    },
+    "buttons": {
+      "checkoutNow": "Paga ora",
+      "viewCart": "Vedi carrello",
+      "editCourse": "Modifica corso"
+    }
+  }
+}

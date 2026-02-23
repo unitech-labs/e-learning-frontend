@@ -1,0 +1,40 @@
+{
+  "footer": {
+    "company": {
+      "title": "Company",
+      "about": "About",
+      "careers": "Careers",
+      "contact": "Contact",
+      "blog": "Blog"
+    },
+    "support": {
+      "title": "Support",
+      "helpCenter": "Help Center",
+      "faq": "FAQ",
+      "community": "Community",
+      "tutorials": "Tutorials"
+    },
+    "legal": {
+      "title": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use",
+      "cookies": "Cookie Policy",
+      "gdpr": "GDPR"
+    },
+    "social": {
+      "title": "Social",
+      "followUs": "Follow us"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Get updates on new courses and special offers.",
+      "emailPlaceholder": "Enter your email",
+      "subscribe": "Subscribe",
+      "success": "Subscribed successfully!",
+      "error": "Subscription failed. Please try again."
+    },
+    "copyright": "© 2024 Phan Tam. All rights reserved.",
+    "madeWith": "Made with",
+    "by": "by"
+  }
+}

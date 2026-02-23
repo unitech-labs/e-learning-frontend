@@ -1,0 +1,33 @@
+{
+  "profileForm": {
+    "firstName": "Tên",
+    "lastName": "Họ",
+    "username": "Tên đăng nhập",
+    "email": "Email",
+    "enterFirstName": "Nhập tên",
+    "enterLastName": "Nhập họ",
+    "enterUsername": "Nhập tên đăng nhập",
+    "enterEmail": "Nhập email",
+    "updateProfile": "Cập nhật hồ sơ",
+    "avatar": {
+      "title": "Ảnh đại diện",
+      "uploadCustom": "Tải lên ảnh của bạn",
+      "fileFormat": "JPG, PNG tối đa 5MB",
+      "uploading": "Đang tải lên",
+      "invalidFileType": "Vui lòng chọn file ảnh",
+      "fileSizeExceeded": "Kích thước file không được vượt quá 5MB",
+      "uploadFailed": "Tải lên avatar thất bại"
+    },
+    "validation": {
+      "firstNameRequired": "Vui lòng nhập tên!",
+      "lastNameRequired": "Vui lòng nhập họ!",
+      "usernameRequired": "Vui lòng nhập tên đăng nhập!",
+      "emailRequired": "Vui lòng nhập email!",
+      "emailInvalid": "Vui lòng nhập email hợp lệ!"
+    },
+    "messages": {
+      "updateSuccess": "Cập nhật hồ sơ thành công!",
+      "updateFailed": "Cập nhật hồ sơ thất bại"
+    }
+  }
+}

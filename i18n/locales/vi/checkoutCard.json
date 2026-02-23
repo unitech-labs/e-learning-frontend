@@ -1,0 +1,51 @@
+{
+  "checkoutCard": {
+    "enrollNow": "Đăng ký ngay",
+    "buyNow": "Mua ngay",
+    "addToCart": "Thêm vào giỏ hàng",
+    "classroom": "Lớp học",
+    "free": "Miễn phí",
+    "selectPricePlan": "Chọn gói giá",
+    "selectPricePlanPlaceholder": "Chọn thời hạn và giá",
+    "months": "tháng",
+    "originalPrice": "Giá gốc",
+    "discount": "Giảm giá",
+    "total": "Tổng cộng",
+    "includes": "Khóa học này bao gồm:",
+    "lifetimeAccess": "Truy cập trọn đời",
+    "certificate": "Chứng chỉ hoàn thành",
+    "mobileAccess": "Truy cập trên mobile và desktop",
+    "assignments": "Bài tập",
+    "moneyBack": "Đảm bảo hoàn tiền 30 ngày",
+    "share": "Chia sẻ",
+    "copyLink": "Sao chép liên kết",
+    "wishlist": "Thêm vào danh sách yêu thích",
+    "gift": "Tặng khóa học này",
+    "messages": {
+      "selectClassroom": "Vui lòng chọn lớp học",
+      "selectClassroomDesc": "Bạn cần chọn một lớp học trước khi thêm vào giỏ hàng.",
+      "selectClassroomBuy": "Bạn cần chọn một lớp học trước khi mua.",
+      "addedToCart": "Đã thêm vào giỏ hàng",
+      "addedToCartDesc": "Khóa học \"{title}\" với lớp \"{classroom}\" đã được thêm vào giỏ hàng.",
+      "alreadyInCart": "Đã có trong giỏ hàng",
+      "alreadyInCartDesc": "Khóa học \"{title}\" với lớp \"{classroom}\" đã có trong giỏ hàng.",
+      "classroomChanged": "Đã thay đổi lớp học",
+      "classroomChangedDesc": "Đã thay đổi lớp học cho khóa học \"{title}\".",
+      "noClassroom": "Khóa học này chưa có lớp học",
+      "generatedAccountCannotPurchase": "Tài khoản được hệ thống cấp không được phép mua khóa học",
+      "noPricePlans": "Khóa học này chưa có gói giá",
+      "selectPricePlan": "Vui lòng chọn gói giá",
+      "selectPricePlanDesc": "Bạn cần chọn một gói giá trước khi thêm vào giỏ hàng.",
+      "selectPricePlanBuy": "Bạn cần chọn một gói giá trước khi mua.",
+      "linkCopied": "Đã sao chép liên kết",
+      "linkCopiedDesc": "Liên kết khóa học đã được sao chép vào clipboard",
+      "copyFailed": "Không thể sao chép",
+      "copyFailedDesc": "Không thể sao chép liên kết vào clipboard"
+    },
+    "buttons": {
+      "checkoutNow": "Thanh toán ngay",
+      "viewCart": "Xem giỏ hàng",
+      "editCourse": "Chỉnh sửa khóa học"
+    }
+  }
+}

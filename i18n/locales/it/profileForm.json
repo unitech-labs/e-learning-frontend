@@ -1,0 +1,33 @@
+{
+  "profileForm": {
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "username": "Username",
+    "email": "Email",
+    "enterFirstName": "Inserisci nome",
+    "enterLastName": "Inserisci cognome",
+    "enterUsername": "Inserisci username",
+    "enterEmail": "Inserisci email",
+    "updateProfile": "Aggiorna profilo",
+    "avatar": {
+      "title": "Foto del profilo",
+      "uploadCustom": "Carica la tua foto",
+      "fileFormat": "JPG, PNG massimo 5MB",
+      "uploading": "Caricamento in corso",
+      "invalidFileType": "Scegli un file immagine",
+      "fileSizeExceeded": "La dimensione del file non deve superare i 5MB",
+      "uploadFailed": "Caricamento avatar fallito"
+    },
+    "validation": {
+      "firstNameRequired": "Inserisci il nome!",
+      "lastNameRequired": "Inserisci il cognome!",
+      "usernameRequired": "Inserisci l'username!",
+      "emailRequired": "Inserisci l'email!",
+      "emailInvalid": "Inserisci un'email valida!"
+    },
+    "messages": {
+      "updateSuccess": "Profilo aggiornato con successo!",
+      "updateFailed": "Aggiornamento profilo fallito"
+    }
+  }
+}

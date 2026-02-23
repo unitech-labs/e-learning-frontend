@@ -1,0 +1,12 @@
+{
+  "quiz": {
+    "teacher": "Teacher",
+    "teacherReviewing": "Teacher is reviewing your work. You will receive a score and comments when the grading is complete.",
+    "student": "Student",
+    "searchPlaceholder": "Search quizzes",
+    "notAnswered": "Not answered",
+    "correct": "Correct",
+    "incorrect": "Incorrect",
+    "pendingGrading": "Pending grading"
+  }
+}

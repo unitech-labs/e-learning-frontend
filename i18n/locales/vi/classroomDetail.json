@@ -1,0 +1,83 @@
+{
+  "classroomDetail": {
+    "loading": "Đang tải thông tin lớp học...",
+    "maxStudents": "học viên tối đa",
+    "breadcrumb": {
+      "home": "Trang chủ"
+    },
+    "error": {
+      "title": "Không thể tải thông tin",
+      "description": "Đã xảy ra lỗi khi tải thông tin lớp học. Vui lòng thử lại.",
+      "tryAgain": "Thử lại",
+      "backToHome": "Về trang chủ"
+    },
+    "notFound": {
+      "title": "Không tìm thấy lớp học",
+      "description": "Lớp học bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.",
+      "backToHome": "Về trang chủ"
+    },
+    "notifications": {
+      "loadFailed": "Tải thông tin lớp học thất bại",
+      "notFound": "Không tìm thấy lớp học",
+      "classroomNotFound": "Không tìm thấy lớp học",
+      "classroomNotFoundDesc": "Không thể tìm thấy thông tin lớp học cho lịch học này.",
+      "loginRequired": "Vui lòng đăng nhập",
+      "loginRequiredDesc": "Bạn cần đăng nhập để đăng ký lớp học.",
+      "teacherCannotRegister": "Giáo viên không thể đăng ký",
+      "teacherCannotRegisterDesc": "Bạn là giáo viên, không thể đăng ký lớp học này.",
+      "generatedAccountCannotRegister": "Không thể đăng ký",
+      "generatedAccountCannotRegisterDesc": "Tài khoản được tạo tự động không thể mua khóa học.",
+      "paymentError": "Lỗi thanh toán",
+      "paymentErrorDesc": "Có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại."
+    },
+    "resources": {
+      "title": "Tài liệu",
+      "downloadable": "Có thể tải xuống",
+      "download": "Tải xuống",
+      "empty": "Chưa có tài liệu nào cho lớp học này",
+      "loadMore": "Tải thêm",
+      "loadingMore": "Đang tải thêm...",
+      "loadMoreFailed": "Không thể tải thêm tài liệu",
+      "loadMoreFailedDescription": "Đã xảy ra lỗi khi tải thêm tài liệu. Vui lòng thử lại."
+    },
+    "classroomTitle": "Lớp học",
+    "classroomTitleWithCount": "Lớp {count} học viên",
+    "schedule": {
+      "selectRegistration": "Chọn lịch đăng ký học",
+      "today": "Hôm nay"
+    },
+    "assetTypes": {
+      "video": "Video",
+      "pdf": "PDF",
+      "doc": "Document",
+      "ppt": "PowerPoint",
+      "zip": "ZIP",
+      "image": "Image",
+      "audio": "Audio",
+      "other": "Other"
+    },
+    "classroomDialog": {
+      "schedule": "Lịch học",
+      "sessionCount": "Số buổi học",
+      "sessionCountUnit": "{count} buổi",
+      "enrollmentCount": "Số lượng học viên",
+      "free": "Miễn phí",
+      "teacherWarning": "Bạn là giáo viên, không thể đăng ký lớp học này.",
+      "generatedAccountWarning": "Tài khoản được tạo tự động không thể mua khóa học.",
+      "classroomFullWarning": "Lớp học đã đầy, không thể đăng ký thêm.",
+      "registerNow": "Đăng ký lớp này ngay",
+      "close": "Đóng"
+    },
+    "paymentDialog": {
+      "confirmTitle": "Xác nhận đã thanh toán đơn hàng",
+      "amountToPay": "Số tiền cần thanh toán:",
+      "orderInfo": "Thông tin đơn hàng",
+      "course": "Khóa học",
+      "classroom": "Lớp học",
+      "amount": "Số tiền",
+      "paymentInstructions": "Sau khi nhắn tin và thanh toán khóa học cho phiên dịch viên Phan tâm thì nhấn nút \"Tôi đã chuyển tiền\" để xác nhận đã thanh toán.",
+      "cancel": "Hủy",
+      "confirmPaid": "Tôi đã chuyển tiền"
+    }
+  }
+}

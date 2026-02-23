@@ -1,0 +1,59 @@
+{
+  "checkout": {
+    "title": "Giỏ hàng",
+    "breadcrumb": {
+      "home": "Trang chủ",
+      "cart": "Giỏ hàng"
+    },
+    "courseInfo": {
+      "format": "{hours} giờ tổng cộng. {lessons} bài học. {level}"
+    },
+    "summary": {
+      "coursesInCart": "{count} Khóa học trong giỏ hàng",
+      "emptyCart": {
+        "title": "Giỏ hàng trống",
+        "description": "Bạn chưa có khóa học nào trong giỏ hàng.",
+        "continueShopping": "Tiếp tục mua sắm"
+      }
+    },
+    "orderSummary": {
+      "title": "Chi tiết đơn hàng",
+      "price": "Tổng tiền",
+      "discount": "Giảm giá",
+      "tax": "Thuế",
+      "total": "Thành tiền",
+      "proceedToCheckout": "Tiến hành thanh toán",
+      "remove": "Xóa"
+    },
+    "messages": {
+      "removedFromCart": "Đã xóa khỏi giỏ hàng",
+      "removedFromCartDesc": "Sản phẩm đã được xóa khỏi giỏ hàng.",
+      "emptyCart": "Giỏ hàng trống",
+      "emptyCartDesc": "Vui lòng thêm sản phẩm vào giỏ hàng trước khi thanh toán.",
+      "paymentError": "Lỗi thanh toán",
+      "paymentErrorDesc": "Có lỗi xảy ra khi xử lý đơn hàng. Vui lòng thử lại."
+    },
+    "paymentDialog": {
+      "title": "Xác nhận thanh toán",
+      "confirmTitle": "Xác nhận bạn đã chuyển tiền cho giáo viên",
+      "description": "Vui lòng xác nhận rằng bạn đã thực hiện chuyển khoản cho giáo viên với số tiền {amount}.",
+      "afterConfirm": "Sau khi xác nhận, giáo viên sẽ thông báo cho bạn khi khóa học đã được thêm vào tài khoản của bạn.",
+      "orderDetails": "Chi tiết đơn hàng:",
+      "totalAmount": "Tổng tiền:",
+      "discount": "Giảm giá:",
+      "tax": "Thuế:",
+      "finalAmount": "Thành tiền:",
+      "cancel": "Hủy",
+      "confirmTransfer": "Đã chuyển tiền"
+    },
+    "loginDialog": {
+      "title": "Yêu cầu đăng nhập",
+      "confirmTitle": "Vui lòng đăng nhập để tiếp tục",
+      "description": "Bạn cần đăng nhập để có thể thanh toán và mua khóa học.",
+      "registerInfo": "Nếu chưa có tài khoản, bạn có thể đăng ký miễn phí.",
+      "cancel": "Hủy",
+      "login": "Đăng nhập",
+      "register": "Đăng ký"
+    }
+  }
+}

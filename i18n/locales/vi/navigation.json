@@ -1,0 +1,18 @@
+{
+  "navigation": {
+    "home": "Trang chủ",
+    "courses": "Khóa học",
+    "about": "Giới thiệu",
+    "contact": "Liên hệ",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "profile": "Hồ sơ",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất",
+    "dashboard": "Bảng điều khiển",
+    "myCourses": "Khóa học của tôi",
+    "calendar": "Lịch học",
+    "admin": "Quản trị",
+    "language": "Ngôn ngữ"
+  }
+}

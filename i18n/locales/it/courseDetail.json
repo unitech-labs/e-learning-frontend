@@ -1,0 +1,28 @@
+{
+  "courseDetail": {
+    "loading": "Caricamento dettagli corso...",
+    "error": {
+      "title": "Impossibile caricare il corso",
+      "description": "Si è verificato un errore durante il caricamento del corso.",
+      "tryAgain": "Riprova",
+      "backToCourses": "Torna ai corsi"
+    },
+    "notFound": {
+      "title": "Corso non trovato",
+      "description": "Il corso che stai cercando non esiste o è stato eliminato.",
+      "backToCourses": "Torna ai corsi"
+    },
+    "notifications": {
+      "loadFailed": "Impossibile caricare il corso",
+      "courseNotFound": "Corso non trovato"
+    },
+    "resources": {
+      "title": "Materiali",
+      "empty": "Non ci sono ancora materiali per questo corso",
+      "loadMore": "Carica altri",
+      "loadingMore": "Caricamento in corso...",
+      "loadMoreFailed": "Impossibile caricare altri materiali",
+      "loadMoreFailedDescription": "Si è verificato un errore durante il caricamento di altri materiali. Riprova."
+    }
+  }
+}

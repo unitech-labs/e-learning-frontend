@@ -1,0 +1,45 @@
+{
+  "course": {
+    "loadingCourse": "Đang tải khóa học...",
+    "errorLoadingCourse": "Lỗi tải khóa học",
+    "defaultTitle": "Giới thiệu về Thiết kế Trải nghiệm Người dùng",
+    "details": "Chi tiết",
+    "overview": "Tổng quan khóa học",
+    "instructor": "Phiên dịch viên",
+    "defaultInstructor": "Ronald Richards",
+    "instructorTitle": "Nhà thiết kế UI/UX",
+    "reviews": "{count} đánh giá",
+    "students": "{count} học viên",
+    "courses": "{count} khóa học",
+    "instructorDescription": "Với hơn một thập kỷ kinh nghiệm trong ngành, Ronald mang đến sự hiểu biết thực tế phong phú cho lớp học. Ông đã đóng vai trò quan trọng trong việc thiết kế các giao diện tập trung vào người dùng cho các công ty công nghệ nổi tiếng, đảm bảo trải nghiệm người dùng mượt mà và hấp dẫn.",
+    "quizTab": "Bài kiểm tra",
+    "courseQuiz": "Bài kiểm tra khóa học",
+    "comments": "Bình luận",
+    "quizPage": {
+      "title": "Làm Quiz",
+      "description": "Làm bài quiz với auto-save và immediate feedback",
+      "loading": "Đang tải quiz...",
+      "error": "Lỗi",
+      "tryAgain": "Thử lại",
+      "loadError": "Không thể tải thông tin quiz",
+      "startError": "Không thể bắt đầu quiz",
+      "retakeLimitExceeded": "Bạn đã vượt quá số lần làm lại cho phép",
+      "notPublished": "Quiz này chưa được xuất bản",
+      "leaveConfirm": "Bạn có chắc muốn rời khỏi trang? Tiến độ của bạn đã được lưu tự động.",
+      "expired": {
+        "title": "Thời gian làm bài đã hết",
+        "description": "Thời gian làm bài của bạn đã hết. Bạn không thể tiếp tục làm bài hoặc lưu câu trả lời.",
+        "viewResults": "Xem kết quả"
+      }
+    },
+    "selectLessonToViewComments": "Chọn một bài học để xem bình luận",
+    "courseContent": "Nội dung khóa học",
+    "lessonLocked": "Bài học bị khóa",
+    "lessonLockedDesc": "Bài học này chưa khả dụng. Vui lòng hoàn thành các bài học trước.",
+    "lessonComingSoon": "Bài học sắp ra mắt",
+    "lessonComingSoonDesc": "Bài học đang được chuẩn bị và sẽ sớm khả dụng.",
+    "classmates": "Bạn cùng lớp ({count})",
+    "loadingClassmates": "Đang tải danh sách bạn cùng lớp...",
+    "noClassmatesYet": "Chưa có bạn cùng lớp nào"
+  }
+}

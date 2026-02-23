@@ -1,0 +1,40 @@
+{
+  "footer": {
+    "company": {
+      "title": "Công ty",
+      "about": "Giới thiệu",
+      "careers": "Tuyển dụng",
+      "contact": "Liên hệ",
+      "blog": "Blog"
+    },
+    "support": {
+      "title": "Hỗ trợ",
+      "helpCenter": "Trung tâm trợ giúp",
+      "faq": "Câu hỏi thường gặp",
+      "community": "Cộng đồng",
+      "tutorials": "Hướng dẫn"
+    },
+    "legal": {
+      "title": "Pháp lý",
+      "privacy": "Chính sách bảo mật",
+      "terms": "Điều khoản sử dụng",
+      "cookies": "Chính sách cookie",
+      "gdpr": "GDPR"
+    },
+    "social": {
+      "title": "Mạng xã hội",
+      "followUs": "Theo dõi chúng tôi"
+    },
+    "newsletter": {
+      "title": "Đăng ký nhận tin",
+      "description": "Nhận thông tin cập nhật về khóa học mới và ưu đãi đặc biệt.",
+      "emailPlaceholder": "Nhập email của bạn",
+      "subscribe": "Đăng ký",
+      "success": "Đăng ký thành công!",
+      "error": "Đăng ký thất bại. Vui lòng thử lại."
+    },
+    "copyright": "© 2024 Phan Tâm. Tất cả quyền được bảo lưu.",
+    "madeWith": "Được tạo với",
+    "by": "bởi"
+  }
+}

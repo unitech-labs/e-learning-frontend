@@ -1,0 +1,141 @@
+{
+  "onboarding": {
+    "steps": {
+      "basicInfo": {
+        "title": "Basic Information",
+        "description": "Provide your name and choose an avatar for your account"
+      },
+      "personalInfo": {
+        "title": "Personal Information",
+        "description": "Share some personal information so we can understand you better"
+      },
+      "contactInfo": {
+        "title": "Contact Information",
+        "description": "Provide your address and professional information"
+      },
+      "confirmation": {
+        "title": "Information Confirmation",
+        "description": "Check your information before finishing"
+      }
+    },
+    "step1": {
+      "avatar": {
+        "title": "Select avatar",
+        "uploadLabel": "Upload your photo",
+        "uploadDescription": "JPG, PNG max 5MB"
+      },
+      "name": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "firstNamePlaceholder": "Enter your first name",
+        "lastNamePlaceholder": "Enter your last name"
+      },
+      "notifications": {
+        "invalidFileType": "Please select an image file",
+        "fileSizeExceeded": "File size cannot exceed 5MB"
+      }
+    },
+    "step2": {
+      "gender": {
+        "title": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
+      "dateOfBirth": {
+        "title": "Date of Birth",
+        "placeholder": "Select birth date",
+        "day": "Day",
+        "month": "Month",
+        "year": "Year"
+      },
+      "phone": {
+        "title": "Phone Number",
+        "placeholder": "Enter your phone number",
+        "description": "Phone number will be used for contact and account verification",
+        "validation": {
+          "invalid": "Invalid phone number"
+        }
+      },
+      "validation": {
+        "birthYearInvalid": "Invalid birth year"
+      }
+    },
+    "step3": {
+      "address": {
+        "title": "Contact Address",
+        "placeholder": "Enter your full address",
+        "description": "The address will be used to send course materials and important notifications"
+      },
+      "profession": {
+        "title": "Current Profession",
+        "placeholder": "Select your profession",
+        "required": "Please select a profession"
+      },
+      "bio": {
+        "title": "Additional Info (Optional)",
+        "placeholder": "Short intro about yourself, learning goals...",
+        "description": "This information helps us understand you better and personalize your learning experience"
+      },
+      "jobs": {
+        "student": "Pupil/Student",
+        "teacher": "Teacher",
+        "engineer": "Engineer",
+        "doctor": "Doctor",
+        "lawyer": "Lawyer",
+        "business": "Business",
+        "designer": "Designer",
+        "developer": "Developer",
+        "marketing": "Marketing",
+        "sales": "Sales",
+        "freelancer": "Freelancer",
+        "retired": "Retired",
+        "unemployed": "Unemployed",
+        "other": "Other"
+      }
+    },
+    "step4": {
+      "title": "Information Confirmation",
+      "description": "Please check your information before finishing",
+      "summary": {
+        "dateOfBirth": "Date of Birth:",
+        "phoneNumber": "Phone Number:",
+        "profession": "Profession:",
+        "address": "Address:",
+        "bio": "Introduction:",
+        "notUpdated": "Not updated"
+      },
+      "privacy": {
+        "title": "Privacy Information",
+        "description": "Your personal information will be kept secure and only used to improve the learning experience. You can update this information anytime in settings."
+      }
+    },
+    "navigation": {
+      "previous": "Go Back",
+      "next": "Next",
+      "complete": "Complete",
+      "uploading": "Uploading {progress}%"
+    },
+    "validation": {
+      "firstNameRequired": "Please enter first name",
+      "lastNameRequired": "Please enter last name",
+      "firstNameMinLength": "First name must be at least 2 characters",
+      "lastNameMinLength": "Last name must be at least 2 characters",
+      "avatarRequired": "Please select an avatar",
+      "genderRequired": "Please select gender",
+      "dateOfBirthRequired": "Please select birth date",
+      "phoneRequired": "Please enter phone number",
+      "addressRequired": "Please enter address",
+      "professionRequired": "Please select a profession"
+    },
+    "uploadingAvatar": "Uploading avatar...",
+    "updateSuccess": "Information updated successfully!",
+    "updateFailed": "Failed to update information",
+    "footer": {
+      "step1": "This information will help us personalize your learning experience",
+      "step2": "Personal information will be kept secure and used only to improve the service",
+      "step3": "The address will be used to send study materials and important notifications",
+      "step4": "Thank you for completing the account setup process!"
+    }
+  }
+}

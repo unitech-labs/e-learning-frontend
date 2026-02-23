@@ -1,0 +1,55 @@
+{
+  "coursesIndex": {
+    "hero": {
+      "badge": "Esplora i corsi di italiano",
+      "title": "Inizia il tuo viaggio",
+      "subtitle": "nella lingua italiana",
+      "description": "Padroneggia l'italiano con interpreti professionisti e lezioni interattive",
+      "searchPlaceholder": "Cerca corsi di italiano...",
+      "searchButton": "Cerca"
+    },
+    "stats": {
+      "totalCourses": "Corsi totali",
+      "activeStudents": "Studenti attivi",
+      "expertInstructors": "Interpreti professionisti",
+      "languagesAvailable": "Lingue specialistiche"
+    },
+    "filters": {
+      "allLevels": "Tutti i livelli",
+      "allPrices": "Tutti i prezzi",
+      "free": "Gratis",
+      "paid": "A pagamento",
+      "mostPopular": "Più popolari",
+      "highestRated": "Più votati",
+      "newest": "Più recenti",
+      "priceLowToHigh": "Prezzo: dal più basso",
+      "priceHighToLow": "Prezzo: dal più alto",
+      "clearAll": "Cancella tutto",
+      "coursesFound": "corsi trovati"
+    },
+    "emptyState": {
+      "title": "Nessun corso trovato",
+      "description": "Prova a modificare i filtri o la parola chiave cercata",
+      "clearFilters": "Cancella filtri"
+    },
+    "successStories": {
+      "title": "Unisciti a oltre 50.000 studenti",
+      "description": "Inizia oggi il tuo viaggio linguistico e apri nuove opportunità con un metodo di apprendimento comprovato",
+      "interactiveLearning": {
+        "title": "Apprendimento interattivo",
+        "description": "Esercitati con madrelingua e conversazioni assistite dall'AI"
+      },
+      "certifiedProgress": {
+        "title": "Progressi certificati",
+        "description": "Ottieni certificati e monitora il miglioramento delle tue abilità linguistiche"
+      },
+      "flexibleSchedule": {
+        "title": "Programma flessibile",
+        "description": "Impara al tuo ritmo, in qualsiasi momento e ovunque"
+      },
+      "startLearningNow": "Inizia a imparare ora",
+      "viewSuccessStories": "Vedi le storie di successo",
+      "registerNow": "Iscriviti ora"
+    }
+  }
+}

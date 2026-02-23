@@ -1,0 +1,83 @@
+{
+  "classroomDetail": {
+    "loading": "Loading classroom information...",
+    "maxStudents": "max students",
+    "breadcrumb": {
+      "home": "Home"
+    },
+    "error": {
+      "title": "Could not load information",
+      "description": "An error occurred while loading classroom information. Please try again.",
+      "tryAgain": "Try Again",
+      "backToHome": "Back to Home"
+    },
+    "notFound": {
+      "title": "Classroom not found",
+      "description": "The classroom you are looking for does not exist or has been deleted.",
+      "backToHome": "Back to Home"
+    },
+    "notifications": {
+      "loadFailed": "Failed to load classroom information",
+      "notFound": "Classroom not found",
+      "classroomNotFound": "Classroom not found",
+      "classroomNotFoundDesc": "Could not find classroom information for this schedule.",
+      "loginRequired": "Login required",
+      "loginRequiredDesc": "You need to log in to register for a classroom.",
+      "teacherCannotRegister": "Teachers cannot register",
+      "teacherCannotRegisterDesc": "You are a teacher, you cannot register for this classroom.",
+      "generatedAccountCannotRegister": "Cannot register",
+      "generatedAccountCannotRegisterDesc": "Automatically generated accounts cannot purchase courses.",
+      "paymentError": "Payment error",
+      "paymentErrorDesc": "An error occurred while creating the order. Please try again."
+    },
+    "resources": {
+      "title": "Materials",
+      "downloadable": "Downloadable",
+      "download": "Download",
+      "empty": "No materials yet for this classroom",
+      "loadMore": "Load More",
+      "loadingMore": "Loading more...",
+      "loadMoreFailed": "Could not load more materials",
+      "loadMoreFailedDescription": "An error occurred while loading more materials. Please try again."
+    },
+    "classroomTitle": "Classroom",
+    "classroomTitleWithCount": "Class {count} students",
+    "schedule": {
+      "selectRegistration": "Select registration schedule",
+      "today": "Today"
+    },
+    "assetTypes": {
+      "video": "Video",
+      "pdf": "PDF",
+      "doc": "Document",
+      "ppt": "PowerPoint",
+      "zip": "ZIP",
+      "image": "Image",
+      "audio": "Audio",
+      "other": "Other"
+    },
+    "classroomDialog": {
+      "schedule": "Schedule",
+      "sessionCount": "Sessions",
+      "sessionCountUnit": "{count} sessions",
+      "enrollmentCount": "Student Count",
+      "free": "Free",
+      "teacherWarning": "You are a teacher, you cannot register for this classroom.",
+      "generatedAccountWarning": "Automatically generated accounts cannot purchase courses.",
+      "classroomFullWarning": "Classroom is full, cannot register more students.",
+      "registerNow": "Register for this class now",
+      "close": "Close"
+    },
+    "paymentDialog": {
+      "confirmTitle": "Confirm order payment",
+      "amountToPay": "Amount to pay:",
+      "orderInfo": "Order Information",
+      "course": "Course",
+      "classroom": "Classroom",
+      "amount": "Amount",
+      "paymentInstructions": "After messaging and paying for the course to instructor Phan Tam, press the \"I have transferred the money\" button to confirm payment.",
+      "cancel": "Cancel",
+      "confirmPaid": "I have transferred the money"
+    }
+  }
+}

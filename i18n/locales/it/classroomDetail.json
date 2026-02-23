@@ -1,0 +1,83 @@
+{
+  "classroomDetail": {
+    "loading": "Caricamento informazioni classe...",
+    "maxStudents": "studenti massimi",
+    "breadcrumb": {
+      "home": "Home"
+    },
+    "error": {
+      "title": "Impossibile caricare le informazioni",
+      "description": "Si è verificato un errore durante il caricamento delle informazioni sulla classe. Riprova.",
+      "tryAgain": "Riprova",
+      "backToHome": "Torna alla Home"
+    },
+    "notFound": {
+      "title": "Classe non trovata",
+      "description": "La classe che stai cercando non esiste o è stata eliminata.",
+      "backToHome": "Torna alla Home"
+    },
+    "notifications": {
+      "loadFailed": "Caricamento informazioni classe fallito",
+      "notFound": "Classe non trovata",
+      "classroomNotFound": "Classe non trovata",
+      "classroomNotFoundDesc": "Impossibile trovare le informazioni sulla classe per questo programma.",
+      "loginRequired": "Accesso richiesto",
+      "loginRequiredDesc": "Devi accedere per iscriverti alla classe.",
+      "teacherCannotRegister": "L'insegnante non può iscriversi",
+      "teacherCannotRegisterDesc": "Sei un insegnante, non puoi iscriverti a questa classe.",
+      "generatedAccountCannotRegister": "Impossibile iscriversi",
+      "generatedAccountCannotRegisterDesc": "L'account creato automaticamente non può acquistare corsi.",
+      "paymentError": "Errore di pagamento",
+      "paymentErrorDesc": "Si è verificato un errore durante la creazione dell'ordine. Riprova."
+    },
+    "resources": {
+      "title": "Materiali",
+      "downloadable": "Scaricabile",
+      "download": "Scarica",
+      "empty": "Non ci sono ancora materiali per questa classe",
+      "loadMore": "Carica altri",
+      "loadingMore": "Caricamento in corso...",
+      "loadMoreFailed": "Impossibile caricare altri materiali",
+      "loadMoreFailedDescription": "Si è verificato un errore durante il caricamento di altri materiali. Riprova."
+    },
+    "classroomTitle": "Classe",
+    "classroomTitleWithCount": "Classe con {count} studenti",
+    "schedule": {
+      "selectRegistration": "Seleziona il programma di iscrizione",
+      "today": "Oggi"
+    },
+    "assetTypes": {
+      "video": "Video",
+      "pdf": "PDF",
+      "doc": "Documento",
+      "ppt": "PowerPoint",
+      "zip": "ZIP",
+      "image": "Immagine",
+      "audio": "Audio",
+      "other": "Altro"
+    },
+    "classroomDialog": {
+      "schedule": "Orario",
+      "sessionCount": "Numero di lezioni",
+      "sessionCountUnit": "{count} lezioni",
+      "enrollmentCount": "Numero di studenti",
+      "free": "Gratis",
+      "teacherWarning": "Sei un insegnante, non puoi iscriverti a questa classe.",
+      "generatedAccountWarning": "L'account creato automaticamente non può acquistare corsi.",
+      "classroomFullWarning": "La classe è piena, non è possibile accettare altre iscrizioni.",
+      "registerNow": "Iscriviti subito a questa classe",
+      "close": "Chiudi"
+    },
+    "paymentDialog": {
+      "confirmTitle": "Conferma pagamento ordine",
+      "amountToPay": "Importo da pagare:",
+      "orderInfo": "Informazioni ordine",
+      "course": "Corso",
+      "classroom": "Classe",
+      "amount": "Importo",
+      "paymentInstructions": "Dopo aver contattato e pagato il corso all'interprete Phan Tam, clicca sul pulsante \"Bonifico effettuato\" per confermare il pagamento.",
+      "cancel": "Annulla",
+      "confirmPaid": "Bonifico effettuato"
+    }
+  }
+}

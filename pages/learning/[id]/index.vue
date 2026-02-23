@@ -875,7 +875,7 @@ onBeforeUnmount(() => {
               <div class="text-center text-white">
                 <Icon name="solar:video-frame-play-vertical-bold-duotone" size="64" class="mx-auto mb-4 text-gray-400" />
                 <p class="text-lg font-medium text-gray-300">
-                  Bài học này hiện chưa có video
+                  {{ t('learning.noVideoMessage') }}
                 </p>
               </div>
             </div>
@@ -891,7 +891,7 @@ onBeforeUnmount(() => {
             <div class="bg-white rounded-2xl p-6 border border-gray-200">
               <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
                 <Icon name="solar:document-text-bold" size="24" class="text-blue-600" />
-                {{ t('learning.lessonMaterials.title') }} của {{ activeLesson.title }}
+                {{ t('learning.lessonMaterials.titleWithLesson', { title: activeLesson.title }) }}
               </h2>
 
               <!-- Loading State -->
@@ -1167,7 +1167,7 @@ onBeforeUnmount(() => {
           <!-- Session Videos Section (only for course type) -->
           <div v-if="course?.course_type === 'course'" class="max-h-[calc(90vh-100px)] overflow-y-auto bg-white border border-gray-200 rounded-2xl course-completion-card">
             <h2 class="border-b pb-4 text-2xl px-4 mt-4 font-bold text-gray-900">
-              Video record
+              {{ t('learning.sessionVideos.title') }}
             </h2>
 
             <!-- Loading State -->
@@ -1218,7 +1218,7 @@ onBeforeUnmount(() => {
             <div v-else class="text-center py-8">
               <Icon name="tabler:video" class="text-gray-400 text-2xl mx-auto mb-2" />
               <p class="text-sm text-gray-500">
-                Chưa có video record
+                {{ t('learning.sessionVideos.empty') }}
               </p>
             </div>
           </div>

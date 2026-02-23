@@ -1,0 +1,148 @@
+{
+  "homepage": {
+    "hero": {
+      "badge": "Impara con una guida professionale",
+      "title": "Impara l'italiano con Phan Tâm",
+      "description": "Ogni lingua è una porta verso un mondo nuovo. \n Lascia che Phan Tâm ti accompagni nel tuo viaggio alla scoperta dell'italiano",
+      "exploreCourses": "Esplora i corsi",
+      "signUpNow": "Iscriviti ora",
+      "stats": {
+        "activeStudents": "Studenti attivi",
+        "averageRating": "Valutazione media",
+        "completionRate": "Tasso di completamento"
+      }
+    },
+    "courses": {
+      "title": "Corsi in primo piano",
+      "description": "Corsi progettati con cura per portarti da principiante a parlatore fluente",
+      "badges": {
+        "bestseller": "I più venduti",
+        "popular": "Popolari",
+        "new": "Nuovi"
+      },
+      "levels": {
+        "beginner": "Principiante",
+        "intermediate": "Intermedio",
+        "advanced": "Avanzato"
+      },
+      "course1": {
+        "title": "Italiano per principianti",
+        "description": "Inizia il tuo viaggio in italiano con il vocabolario essenziale, le basi della grammatica e le abilità comunicative per le situazioni quotidiane.",
+        "duration": "12 settimane"
+      },
+      "course2": {
+        "title": "Padroneggia l'italiano intermedio",
+        "description": "Migliora il tuo italiano con grammatica complessa, espressioni idiomatiche e approfondimenti culturali per comunicare con sicurezza.",
+        "duration": "16 settimane"
+      },
+      "course3": {
+        "title": "Conversazione avanzata",
+        "description": "Perfeziona la tua fluidità con argomenti avanzati, italiano professionale e comunicazioni sofisticate per il lavoro e il viaggio.",
+        "duration": "20 settimane"
+      }
+    },
+    "quiz": {
+      "badge": "Quiz interattivi",
+      "title": "Esercitati con un sistema di quiz intelligente",
+      "description": "Consolida le tue conoscenze dopo ogni lezione con test adattivi, feedback istantaneo e sfide gamificate per mantenerti motivato.",
+      "metrics": {
+        "questions": {
+          "value": "1.200+",
+          "label": "Domande di pratica"
+        },
+        "passRate": {
+          "value": "94%",
+          "label": "Tasso di superamento medio"
+        },
+        "time": {
+          "value": "10 min",
+          "label": "Durata per sessione"
+        }
+      },
+      "highlights": {
+        "adaptive": {
+          "title": "Percorso adattivo",
+          "description": "Il sistema regola automaticamente la difficoltà in base ai tuoi progressi per mantenerti sempre stimolato al punto giusto."
+        },
+        "feedback": {
+          "title": "Feedback istantaneo",
+          "description": "Ogni risposta include spiegazioni, esempi e promemoria per aiutarti a capire a fondo e ricordare più a lungo."
+        },
+        "certification": {
+          "title": "Pronto per la certificazione",
+          "description": "Completa le pietre miliari dei quiz per sbloccare badge e certificati che riconoscono il tuo impegno."
+        }
+      },
+      "cta": "Prova i quiz ora",
+      "summary": {
+        "title": "Prestazioni in tempo reale",
+        "value": "92% Precisione",
+        "caption": "Continua così! Stai facendo grandi progressi nel padroneggiare il vocabolario di livello intermedio."
+      },
+      "preview": {
+        "title": "Quiz sul vocabolario italiano",
+        "subtitle": "Domanda 3 - 12 rimanenti",
+        "badge": "Modalità adattiva",
+        "topic": "Focus sul vocabolario",
+        "question": "Come si traduce correttamente la parola \"Buongiorno\"?",
+        "options": {
+          "a": "Buonasera",
+          "b": "Buongiorno",
+          "c": "Arrivederci"
+        },
+        "correct": "Risposta corretta"
+      },
+      "progress": {
+        "label": "Progresso",
+        "value": "80% Completato"
+      }
+    },
+    "instructor": {
+      "badge": "Incontra il tuo istruttore",
+      "title": "Impara con Phan Tâm",
+      "description": "Con quasi un decennio di esperienza nell'insegnamento dell'italiano a studenti internazionali, Phan Tâm porta in ogni lezione un mix unico di competenza linguistica e passione culturale.",
+      "experience": "Quasi 10 anni",
+      "experienceText": "Insegnamento dell'italiano",
+      "features": {
+        "certified": {
+          "title": "Esperto in traduzione e interpretariato",
+          "description": "Interprete in diversi settori: politica, economia, medicina, banca, odontoiatria, silvicoltura, agricoltura e per joint venture italo-vietnamite o aziende al 100% italiane nei settori produttivi ed export."
+        },
+        "cultural": {
+          "title": "Immersione culturale",
+          "description": "10 anni di vita in Italia e 8 anni di insegnamento della lingua italiana."
+        },
+        "method": {
+          "title": "Esperienza in traduzione e interpretariato",
+          "description": "6 anni di esperienza in traduzione e interpretariato dal 2022 post-COVID."
+        }
+      },
+      "button": "Contatta per consulenza"
+    },
+    "testimonials": {
+      "title": "Cosa dicono i nostri studenti",
+      "description": "Unisciti a migliaia di studenti soddisfatti che hanno raggiunto i loro obiettivi linguistici con l'italiano",
+      "testimonial1": {
+        "text": "L'insegnante Tâm insegna molto bene ed è facile da capire! Partendo da zero, ora posso ordinare con sicurezza nei ristoranti italiani, in soli 3 mesi!",
+        "author": "Nguyễn Minh Anh",
+        "course": "Corso per principianti"
+      },
+      "testimonial2": {
+        "text": "Il corso intermedio è stato molto più interessante di quanto immaginassi! L'insegnante Tâm non insegna solo la grammatica, ma condivide anche molte curiosità sulla cultura italiana. Sembra di viaggiare mentre si impara!",
+        "author": "Trần Quốc Huy",
+        "course": "Corso intermedio"
+      },
+      "testimonial3": {
+        "text": "Investire nello studio dell'italiano con l'insegnante Tâm è stata la migliore decisione! Grazie al corso avanzato, ho trovato lavoro a Milano. È davvero la migliore insegnante di italiano!",
+        "author": "Lê Thu Trang",
+        "course": "Corso avanzato"
+      }
+    },
+    "cta": {
+      "title": "Pronto per iniziare il tuo viaggio con l'italiano?",
+      "description": "Unisciti a una community di studenti appassionati e scopri la bellezza della lingua italiana",
+      "browseCourses": "Esplora tutti i corsi",
+      "signUpNow": "Iscriviti ora"
+    }
+  }
+}

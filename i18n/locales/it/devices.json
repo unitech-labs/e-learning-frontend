@@ -1,0 +1,43 @@
+{
+  "devices": {
+    "title": "Gestione dispositivi",
+    "description": "Visualizza e gestisci i dispositivi collegati al tuo account",
+    "empty": {
+      "title": "Nessun dispositivo trovato",
+      "description": "I dispositivi con cui hai effettuato l'accesso appariranno qui"
+    },
+    "table": {
+      "deviceName": "Nome dispositivo",
+      "deviceType": "Tipo dispositivo",
+      "ipAddress": "Indirizzo IP",
+      "lastLogin": "Ultimo accesso",
+      "status": "Stato",
+      "actions": "Azioni"
+    },
+    "types": {
+      "laptop": "Computer",
+      "tablet": "Tablet",
+      "phone": "Telefono",
+      "web": "Web"
+    },
+    "status": {
+      "active": "Attivo",
+      "inactive": "Disabilitato"
+    },
+    "actions": {
+      "revoke": "Disabilita",
+      "delete": "Elimina permanentemente",
+      "revokeConfirm": "Disabilitare questo dispositivo?",
+      "revokeDescription": "Il dispositivo verrà disabilitato ma sarà possibile accedere nuovamente in seguito.",
+      "deleteConfirm": "Eliminare permanentemente questo dispositivo?",
+      "deleteDescription": "Il dispositivo verrà rimosso permanentemente. Potrai registrare un nuovo dispositivo dello stesso tipo dopo l'eliminazione."
+    },
+    "notifications": {
+      "loadFailed": "Caricamento lista dispositivi fallito",
+      "revokeSuccess": "Dispositivo disabilitato con successo",
+      "revokeFailed": "Disabilitazione dispositivo fallita",
+      "deleteSuccess": "Dispositivo eliminato con successo",
+      "deleteFailed": "Eliminazione dispositivo fallita"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "adminMenu": {
+    "overview": "Overview",
+    "generalCalendar": "Master Calendar",
+    "course": "Course",
+    "classroom": "Classroom",
+    "quizManagement": "Submission Management",
+    "newQuizManagement": "Quiz Management",
+    "students": "Students",
+    "orders": "Orders",
+    "videoPosts": "Video Posts",
+    "settings": "Settings"
+  }
+}

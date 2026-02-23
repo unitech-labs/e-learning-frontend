@@ -1,0 +1,13 @@
+{
+  "menu": {
+    "home": "Trang chủ",
+    "myCourses": "Khóa học của tôi",
+    "calendars": "Lịch",
+    "settings": "Cài đặt",
+    "editProfile": "Chỉnh sửa hồ sơ",
+    "language": "Ngôn ngữ",
+    "notifications": "Thông báo",
+    "password": "Mật khẩu",
+    "devices": "Thiết bị"
+  }
+}

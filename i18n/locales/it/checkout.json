@@ -1,0 +1,59 @@
+{
+  "checkout": {
+    "title": "Carrello",
+    "breadcrumb": {
+      "home": "Home",
+      "cart": "Carrello"
+    },
+    "courseInfo": {
+      "format": "{hours} ore totali. {lessons} lezioni. {level}"
+    },
+    "summary": {
+      "coursesInCart": "{count} corsi nel carrello",
+      "emptyCart": {
+        "title": "Il carrello è vuoto",
+        "description": "Non hai ancora aggiunto alcun corso al carrello.",
+        "continueShopping": "Continua lo shopping"
+      }
+    },
+    "orderSummary": {
+      "title": "Dettaglio ordine",
+      "price": "Totale parziale",
+      "discount": "Sconto",
+      "tax": "Tasse",
+      "total": "Totale",
+      "proceedToCheckout": "Procedi al pagamento",
+      "remove": "Rimuovi"
+    },
+    "messages": {
+      "removedFromCart": "Rimosso dal carrello",
+      "removedFromCartDesc": "Il prodotto è stato rimosso dal carrello.",
+      "emptyCart": "Il carrello è vuoto",
+      "emptyCartDesc": "Aggiungi dei prodotti al carrello prima di procedere al pagamento.",
+      "paymentError": "Errore di pagamento",
+      "paymentErrorDesc": "Si è verificato un errore durante l'elaborazione dell'ordine. Riprova."
+    },
+    "paymentDialog": {
+      "title": "Conferma pagamento",
+      "confirmTitle": "Conferma di aver trasferito i fondi all'insegnante",
+      "description": "Conferma di aver effettuato il bonifico all'insegnante per l'importo di {amount}.",
+      "afterConfirm": "Dopo la conferma, l'insegnante ti informerà quando il corso sarà stato aggiunto al tuo account.",
+      "orderDetails": "Dettagli ordine:",
+      "totalAmount": "Totale parziale:",
+      "discount": "Sconto:",
+      "tax": "Tasse:",
+      "finalAmount": "Importo totale:",
+      "cancel": "Annulla",
+      "confirmTransfer": "Bonifico effettuato"
+    },
+    "loginDialog": {
+      "title": "Accesso richiesto",
+      "confirmTitle": "Accedi per continuare",
+      "description": "È necessario accedere per procedere al pagamento e acquistare il corso.",
+      "registerInfo": "Se non hai ancora un account, puoi registrarti gratuitamente.",
+      "cancel": "Annulla",
+      "login": "Accedi",
+      "register": "Registrati"
+    }
+  }
+}
