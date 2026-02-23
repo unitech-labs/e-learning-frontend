@@ -110,11 +110,11 @@ function handleClick() {
         <!-- Order Info -->
         <div v-if="course.order" class="bg-orange-50 rounded-lg p-3 space-y-2">
           <div class="flex items-center justify-between text-sm">
-            <span class="text-orange-700 font-medium">Mã đơn hàng:</span>
+            <span class="text-orange-700 font-medium">{{ $t('enrolledCourse.orderCode') }}</span>
             <span class="font-mono text-orange-800">{{ course.order.invoice_code }}</span>
           </div>
           <div class="flex items-center justify-between text-sm">
-            <span class="text-orange-700 font-medium">Số tiền:</span>
+            <span class="text-orange-700 font-medium">{{ $t('enrolledCourse.amount') }}</span>
             <span class="font-bold text-orange-800">
               {{ formatCurrency(course.order.price_amount) }}
             </span>
@@ -124,11 +124,11 @@ function handleClick() {
         <!-- Classroom Info -->
         <div v-if="course.classroom" class="bg-blue-50 rounded-lg p-3 space-y-2">
           <div class="flex items-center justify-between text-sm">
-            <span class="text-blue-700 font-medium">Lớp học:</span>
+            <span class="text-blue-700 font-medium">{{ $t('enrolledCourse.classroom') }}</span>
             <span class="text-blue-800">{{ course.classroom.title }}</span>
           </div>
           <div class="text-sm">
-            <span class="text-blue-700 font-medium block mb-2">Lịch học:</span>
+            <span class="text-blue-700 font-medium block mb-2">{{ $t('enrolledCourse.schedule') }}</span>
             <div class="space-y-1">
               <div
                 v-for="(schedule) in course.classroom.schedules"

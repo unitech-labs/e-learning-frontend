@@ -11,6 +11,8 @@ import 'vue-cal/style'
 // Enable UTC plugin for dayjs
 dayjs.extend(utc)
 
+const { t } = useI18n()
+
 export interface CalendarEvent {
   start: Date
   end: Date
@@ -230,8 +232,8 @@ function openEventDetail(event: any) {
   if (!event.event.is_enrolled) {
     // show toast bạn không thuộc lớp này
     notification.error({
-      message: 'Bạn không thuộc lớp này',
-      description: 'Bạn không thuộc lớp này',
+      message: t('calendar.notInClass'),
+      description: t('calendar.notInClass'),
       duration: 5,
     })
     return

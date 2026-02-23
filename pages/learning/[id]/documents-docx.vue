@@ -6,6 +6,7 @@ definePageMeta({
   layout: 'default',
 })
 
+const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 
@@ -46,8 +47,8 @@ function loadDocumentFromQuery() {
     console.error('Error loading document from query:', err)
     error.value = 'Failed to load document'
     notification.error({
-      message: 'Error',
-      description: 'Failed to load document from query parameters',
+      message: t('learning.documents.loadError'),
+      description: t('learning.documents.loadErrorDesc'),
     })
   }
 }
@@ -113,8 +114,8 @@ async function loadDocxPreview() {
     docxError.value = err?.message || 'Failed to load DOCX document'
     docxLoading.value = false
     notification.error({
-      message: 'Error',
-      description: 'Failed to load DOCX document. Please try again or download the file.',
+      message: t('learning.documents.loadError'),
+      description: t('learning.documents.loadErrorDesc'),
     })
   }
 }
@@ -142,16 +143,16 @@ function _preventKeydown(event: KeyboardEvent) {
   if ((event.ctrlKey || event.metaKey) && (event.key === 's' || event.key === 'S')) {
     event.preventDefault()
     notification.warning({
-      message: 'Download Disabled',
-      description: 'Saving this document is not allowed',
+      message: t('learning.documents.downloadDisabled'),
+      description: t('learning.documents.downloadDisabledDesc'),
     })
   }
   // Disable print shortcut
   if ((event.ctrlKey || event.metaKey) && event.key === 'p') {
     event.preventDefault()
     notification.warning({
-      message: 'Print Disabled',
-      description: 'Printing this document is not allowed',
+      message: t('learning.documents.printDisabled'),
+      description: t('learning.documents.printDisabledDesc'),
     })
   }
 }

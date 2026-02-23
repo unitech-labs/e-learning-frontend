@@ -8,6 +8,8 @@ definePageMeta({
   layout: 'admin',
 })
 
+const { t } = useI18n()
+
 // Route params
 const route = useRoute()
 const selectedClassroomId = route.query.classroom as string
@@ -144,19 +146,19 @@ onMounted(async () => {
     <!-- Filters -->
     <div class="bg-white rounded-lg shadow-sm border p-6 mb-6">
       <h3 class="text-lg font-semibold text-gray-900 mb-4">
-        Bộ lọc
+        {{ $t('admin.essayGrading.filtersTitle') }}
       </h3>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Lớp học</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('admin.essayGrading.classroom') }}</label>
           <a-select
             v-model:value="selectedClassroom"
-            placeholder="Chọn lớp học"
+            :placeholder="$t('admin.essayGrading.selectClassroom')"
             class="w-full"
             @change="handleClassroomChange"
           >
             <a-select-option value="">
-              Tất cả lớp học
+              {{ $t('admin.essayGrading.allClassrooms') }}
             </a-select-option>
             <a-select-option
               v-for="classroom in classrooms"
@@ -169,10 +171,10 @@ onMounted(async () => {
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Tìm kiếm</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('admin.essayGrading.search') }}</label>
           <a-input
             v-model:value="searchQuery"
-            placeholder="Tìm theo tên học sinh, quiz, hoặc câu hỏi..."
+            :placeholder="$t('admin.essayGrading.searchPlaceholderEssays')"
             class="w-full"
           >
             <template #prefix>
@@ -183,7 +185,7 @@ onMounted(async () => {
 
         <div class="flex items-end">
           <a-button type="primary" :loading="loading" @click="loadEssayGradings">
-            Làm mới
+            {{ $t('admin.essayGrading.refresh') }}
           </a-button>
         </div>
       </div>
@@ -194,7 +196,7 @@ onMounted(async () => {
       <div class="p-6 border-b border-gray-200">
         <div class="flex items-center justify-between">
           <h3 class="text-lg font-semibold text-gray-900">
-            Danh sách bài cần chấm ({{ filteredEssays.length }})
+            {{ $t('admin.essayGrading.needsGradingListTitle') }} ({{ filteredEssays.length }})
           </h3>
         </div>
       </div>
@@ -203,7 +205,7 @@ onMounted(async () => {
       <div v-if="loading" class="p-6">
         <div class="flex items-center justify-center py-8">
           <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
-          <span class="ml-2 text-gray-600">Đang tải...</span>
+          <span class="ml-2 text-gray-600">{{ $t('admin.essayGrading.loading') }}</span>
         </div>
       </div>
 
@@ -215,7 +217,7 @@ onMounted(async () => {
             {{ error }}
           </p>
           <a-button type="primary" class="mt-4" @click="loadEssayGradings">
-            Thử lại
+            {{ $t('admin.essayGrading.retry') }}
           </a-button>
         </div>
       </div>
@@ -234,29 +236,29 @@ onMounted(async () => {
                   {{ essay.quiz_title }}
                 </h4>
                 <span class="px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                  Cần chấm
+                  {{ $t('admin.essayGrading.needsGrading') }}
                 </span>
               </div>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                   <p class="text-sm text-gray-600 mb-1">
-                    <span class="font-medium">Học sinh:</span> {{ essay.student_name }}
+                    <span class="font-medium">{{ $t('admin.essayGrading.student') }}</span> {{ essay.student_name }}
                   </p>
                   <p class="text-sm text-gray-600">
-                    <span class="font-medium">Điểm tối đa:</span> {{ essay.max_score }} điểm
+                    <span class="font-medium">{{ $t('admin.essayGrading.maxScore') }}</span> {{ essay.max_score }} {{ $t('admin.essayGradingTeacher.points') }}
                   </p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-600">
-                    <span class="font-medium">Ngày nộp:</span> {{ formatDate(essay.created_at) }}
+                    <span class="font-medium">{{ $t('admin.essayGrading.submittedAt') }}</span> {{ formatDate(essay.created_at) }}
                   </p>
                 </div>
               </div>
 
               <div class="mb-4">
                 <h5 class="text-sm font-medium text-gray-700 mb-2">
-                  Câu hỏi:
+                  {{ $t('admin.essayGrading.question') }}
                 </h5>
                 <p class="text-sm text-gray-900 bg-gray-50 p-3 rounded-lg">
                   {{ essay.question_prompt }}
@@ -265,7 +267,7 @@ onMounted(async () => {
 
               <div class="mb-4">
                 <h5 class="text-sm font-medium text-gray-700 mb-2">
-                  Câu trả lời của học sinh:
+                  {{ $t('admin.essayGrading.studentAnswer') }}
                 </h5>
                 <div class="bg-blue-50 border border-blue-200 p-3 rounded-lg">
                   <p class="text-sm text-gray-900 whitespace-pre-wrap">

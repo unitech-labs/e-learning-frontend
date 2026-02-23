@@ -83,11 +83,11 @@ onMounted(async () => {
           <div class="flex gap-2 flex-wrap">
             <a-button class="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" @click="collapseAll">
               <Icon name="solar:minimise-square-2-bold" size="14" class="sm:text-base" />
-              <span class="hidden sm:inline">Thu gọn tất cả</span>
+              <span class="hidden sm:inline">{{ $t('admin.quiz.collapseAll') }}</span>
             </a-button>
             <a-button class="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" @click="expandAll">
               <Icon name="solar:maximise-square-2-bold" size="14" class="sm:text-base" />
-              <span class="hidden sm:inline">Mở rộng tất cả</span>
+              <span class="hidden sm:inline">{{ $t('admin.quiz.expandAll') }}</span>
             </a-button>
           </div>
           <a-button
@@ -170,7 +170,7 @@ onMounted(async () => {
                   @click="switchToCreate(lesson.id, chapter.id)"
                 >
                   <Icon name="solar:add-circle-bold" size="12" class="sm:text-sm" />
-                  <span class="hidden sm:inline">Thêm Quiz</span>
+                  <span class="hidden sm:inline">{{ $t('admin.quiz.addQuiz') }}</span>
                 </a-button>
               </div>
             </div>

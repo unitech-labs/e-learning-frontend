@@ -267,7 +267,7 @@ async function loadCourseStudents() {
   }
   catch (err: any) {
     console.error('Error loading course classmates:', err)
-    studentsError.value = err.message || 'Failed to load classmates'
+    studentsError.value = err.message || t('learning.classmates.loadError')
   }
   finally {
     studentsLoading.value = false
@@ -1323,7 +1323,7 @@ onBeforeUnmount(() => {
     <!-- Expired enrollment dialog: cannot close, only Quay lại -->
     <a-modal
       v-model:open="showExpiredDialog"
-      title="Gói học tập đã Hết hạn, vui lòng đăng ký lại"
+      :title="$t('learning.expired.subscriptionExpired')"
       :closable="false"
       :mask-closable="false"
       centered
@@ -1333,31 +1333,23 @@ onBeforeUnmount(() => {
       <div class="py-2 space-y-3 text-gray-700 leading-relaxed">
         <!-- Course type: enrollment via classroom (tài khoản được cấp) -->
         <template v-if="enrollmentStatus?.course_type === 'course'">
-          <p>
-            Gói học của bạn với khoá học này đã <strong>hết hạn</strong>. Thời gian truy cập nội dung khoá đã kết thúc nên bạn không thể xem tiếp tại đây.
-          </p>
-          <p>
-            Đây là tài khoản học được cấp qua lớp (classroom), nên <strong>không thể tự mua lại khoá</strong> trực tiếp trên tài khoản này. Để tiếp tục học khoá này, bạn có thể:
-          </p>
+          <p v-html="$t('learning.expired.subscriptionExpired')" />
+          <p v-html="$t('learning.expired.generatedAccountNote')" />
           <ul class="list-disc pl-5 space-y-1">
-            <li>Đăng nhập bằng <strong>tài khoản khác</strong> (tài khoản cá nhân) để đăng ký hoặc mua lại khoá học.</li>
-            <li>Nếu không rõ cách làm hoặc cần hỗ trợ, hãy nhắn tin cho <strong>Phiên dịch viên Phan Tâm</strong> để được hướng dẫn.</li>
+            <li v-html="$t('learning.expired.useOtherAccount')" />
+            <li v-html="$t('learning.expired.contactTranslator')" />
           </ul>
         </template>
         <!-- Resource type: direct purchase -->
         <template v-else-if="enrollmentStatus?.course_type === 'resource'">
-          <p>
-            Thời gian sử dụng <strong>tài nguyên này đã hết hạn</strong>. Bạn không còn quyền truy cập nội dung tại đây.
-          </p>
-          <p>
-            Để tiếp tục học, vui lòng <strong>mua lại gói tài nguyên</strong> trên trang khoá học / tài nguyên. Sau khi thanh toán, bạn sẽ được cấp quyền truy cập mới và có thể vào lại khoá này để học.
-          </p>
+          <p v-html="$t('learning.expired.resourceExpired')" />
+          <p v-html="$t('learning.expired.repurchaseNote')" />
         </template>
       </div>
       <template #footer>
         <div class="flex justify-end">
           <a-button type="primary" @click="handleExpiredDialogBack">
-            Quay lại
+            {{ $t('common.back') }}
           </a-button>
         </div>
       </template>

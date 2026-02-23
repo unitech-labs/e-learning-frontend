@@ -245,7 +245,7 @@ onMounted(() => {
           <!-- Price Column -->
           <template v-else-if="column.key === 'price'">
             <div class="text-gray-900">
-              <span v-if="record.is_free" class="text-green-600 font-semibold">Miễn phí</span>
+              <span v-if="record.is_free" class="text-green-600 font-semibold">{{ $t('admin.classroom.card.free') }}</span>
               <span v-else>
                 <span v-if="record.discount_price && Number.parseFloat(record.discount_price) < Number.parseFloat(record.price)">
                   <span class="line-through text-gray-400">{{ formatPrice(record.price) }}</span>

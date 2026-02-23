@@ -77,19 +77,19 @@ function getStatusIcon(status: string) {
       <div class="mt-2 flex flex-wrap gap-3 text-[10px] text-gray-600">
         <div class="flex items-center gap-1">
           <div class="w-3 h-3 rounded bg-gray-100 border border-gray-300" />
-          <span>Chưa trả lời</span>
+          <span>{{ $t('quiz.notAnswered') }}</span>
         </div>
         <div class="flex items-center gap-1">
           <div class="w-3 h-3 rounded bg-green-500 border border-green-600" />
-          <span>Đúng</span>
+          <span>{{ $t('quiz.correct') }}</span>
         </div>
         <div class="flex items-center gap-1">
           <div class="w-3 h-3 rounded bg-red-500 border border-red-600" />
-          <span>Sai</span>
+          <span>{{ $t('quiz.incorrect') }}</span>
         </div>
         <div class="flex items-center gap-1">
           <div class="w-3 h-3 rounded bg-yellow-500 border border-yellow-600" />
-          <span>Đang chờ chấm</span>
+          <span>{{ $t('quiz.pendingGrading') }}</span>
         </div>
       </div>
     </div>

@@ -114,12 +114,14 @@ function handleCancel() {
   dialogVisible.value = false
 }
 
+const { t } = useI18n()
+
 // Handle OK button
 async function handleOk() {
   if (!formState.value.classroom_id) {
     notification.error({
-      message: 'Lỗi',
-      description: 'Vui lòng chọn lớp học',
+      message: t('common.error'),
+      description: t('admin.classroom.session.selectClassroomRequired'),
       duration: 3,
     })
     return
@@ -150,8 +152,8 @@ async function handleOk() {
 
     if (schedulesData.length === 0) {
       notification.error({
-        message: 'Lỗi',
-        description: 'Vui lòng thêm ít nhất một lịch học',
+        message: t('common.error'),
+        description: t('admin.classroom.session.addScheduleRequired'),
         duration: 3,
       })
       confirmLoading.value = false
@@ -185,16 +187,16 @@ async function handleOk() {
 
     // Show success message
     notification.success({
-      message: 'Thành công',
-      description: 'Đã tạo buổi học thành công',
+      message: t('admin.classroom.session.createSuccess'),
+      description: t('admin.classroom.session.createSuccessDesc'),
       duration: 3,
     })
   }
   catch (err: any) {
     console.error('Error creating sessions:', err)
     notification.error({
-      message: 'Lỗi khi tạo buổi học',
-      description: err.message || err.detail || 'Vui lòng thử lại',
+      message: t('admin.classroom.session.createError'),
+      description: err.message || err.detail || t('admin.classroom.session.createErrorDesc'),
       duration: 5,
     })
   }

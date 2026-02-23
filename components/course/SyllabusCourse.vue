@@ -7,6 +7,7 @@ defineProps<{
   syllabusData: Chapter[]
 }>()
 
+const { t } = useI18n()
 const activeKey = ref(['1'])
 const expandIconPosition = ref<CollapseProps['expandIconPosition']>('start')
 const expandedLessonId = ref<string | null>(null)
@@ -20,16 +21,16 @@ function handleLessonClick(lesson: Lesson, event: MouseEvent) {
 
   if (!lesson.is_unlocked) {
     notification.warning({
-      message: 'Lesson Locked',
-      description: 'This lesson is not available yet. Please complete previous lessons first.',
+      message: t('course.lessonLocked'),
+      description: t('course.lessonLockedDesc'),
     })
     return
   }
 
   if (!lesson.is_published) {
     notification.info({
-      message: 'Lesson Coming Soon',
-      description: 'This lesson is being prepared and will be available soon.',
+      message: t('course.lessonComingSoon'),
+      description: t('course.lessonComingSoonDesc'),
     })
     return
   }

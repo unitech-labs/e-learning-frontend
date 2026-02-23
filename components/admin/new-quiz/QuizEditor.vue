@@ -609,7 +609,7 @@ const totalScore = computed(() => {
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <Icon name="solar:star-bold-duotone" class="text-xl text-green-600" />
-                <span class="text-sm font-semibold text-gray-700">Tổng điểm:</span>
+                <span class="text-sm font-semibold text-gray-700">{{ $t('newQuiz.editor.totalScore') }}</span>
               </div>
               <span class="text-2xl font-bold text-green-600">{{ totalScore }}</span>
             </div>

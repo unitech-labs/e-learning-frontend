@@ -41,7 +41,7 @@ const { data: currentCourse, pending: isLoadingCourse, error: courseError, refre
       if (!response) {
         throw createError({
           statusCode: 404,
-          statusMessage: 'Course not found',
+          statusMessage: t('common.courseNotFound'),
         })
       }
       return response
@@ -176,25 +176,26 @@ async function loadMoreResources() {
 
 // Get asset type info
 function getAssetTypeInfo(type: string) {
-  const typeMap: Record<string, { icon: string, color: string, label: string }> = {
-    video: { icon: 'solar:videocamera-record-bold', color: 'text-red-600', label: 'Video' },
-    pdf: { icon: 'solar:document-text-bold', color: 'text-red-600', label: 'PDF' },
-    doc: { icon: 'solar:document-bold', color: 'text-blue-600', label: 'Document' },
-    ppt: { icon: 'solar:presentation-graph-bold', color: 'text-orange-600', label: 'PowerPoint' },
-    zip: { icon: 'solar:archive-bold', color: 'text-purple-600', label: 'ZIP' },
-    image: { icon: 'solar:gallery-bold', color: 'text-green-600', label: 'Image' },
-    audio: { icon: 'solar:music-note-bold', color: 'text-pink-600', label: 'Audio' },
-    other: { icon: 'solar:file-bold', color: 'text-gray-600', label: 'Other' },
+  const typeMap: Record<string, { icon: string, color: string, labelKey: string }> = {
+    video: { icon: 'solar:videocamera-record-bold', color: 'text-red-600', labelKey: 'classroomDetail.assetTypes.video' },
+    pdf: { icon: 'solar:document-text-bold', color: 'text-red-600', labelKey: 'classroomDetail.assetTypes.pdf' },
+    doc: { icon: 'solar:document-bold', color: 'text-blue-600', labelKey: 'classroomDetail.assetTypes.doc' },
+    ppt: { icon: 'solar:presentation-graph-bold', color: 'text-orange-600', labelKey: 'classroomDetail.assetTypes.ppt' },
+    zip: { icon: 'solar:archive-bold', color: 'text-purple-600', labelKey: 'classroomDetail.assetTypes.zip' },
+    image: { icon: 'solar:gallery-bold', color: 'text-green-600', labelKey: 'classroomDetail.assetTypes.image' },
+    audio: { icon: 'solar:music-note-bold', color: 'text-pink-600', labelKey: 'classroomDetail.assetTypes.audio' },
+    other: { icon: 'solar:file-bold', color: 'text-gray-600', labelKey: 'classroomDetail.assetTypes.other' },
   }
-  return typeMap[type] || typeMap.other
+  const entry = typeMap[type] || typeMap.other
+  return { ...entry, label: t(entry.labelKey) }
 }
 
 // Get classroom title from student_count
 const classroomTitle = computed(() => {
   if (studentCount.value) {
-    return `Lớp ${studentCount.value} học viên`
+    return t('classroomDetail.classroomTitleWithCount', { count: studentCount.value })
   }
-  return 'Lớp học'
+  return t('classroomDetail.classroomTitle')
 })
 
 const isLoading = computed(() => isLoadingCourse.value || isLoadingResources.value)
@@ -470,15 +471,15 @@ function handleEventClick(event: any) {
     }
     else {
       notification.warning({
-        message: 'Không tìm thấy lớp học',
-        description: 'Không thể tìm thấy thông tin lớp học cho lịch học này.',
+        message: t('classroomDetail.notifications.classroomNotFound'),
+        description: t('classroomDetail.notifications.classroomNotFoundDesc'),
       })
     }
   }
   else {
     notification.warning({
-      message: 'Không tìm thấy lớp học',
-      description: 'Không thể tìm thấy thông tin lớp học cho lịch học này.',
+      message: t('classroomDetail.notifications.classroomNotFound'),
+      description: t('classroomDetail.notifications.classroomNotFoundDesc'),
     })
   }
 }
@@ -492,8 +493,8 @@ function handleRegisterClassroom() {
   // Check if user is logged in
   if (!isLoggedIn.value) {
     notification.warning({
-      message: 'Vui lòng đăng nhập',
-      description: 'Bạn cần đăng nhập để đăng ký lớp học.',
+      message: t('classroomDetail.notifications.loginRequired'),
+      description: t('classroomDetail.notifications.loginRequiredDesc'),
     })
     navigateTo('/auth/login')
     return
@@ -502,8 +503,8 @@ function handleRegisterClassroom() {
   // Check if user is teacher
   if (isTeacher.value) {
     notification.info({
-      message: 'Giáo viên không thể đăng ký',
-      description: 'Bạn là giáo viên, không thể đăng ký lớp học này.',
+      message: t('classroomDetail.notifications.teacherCannotRegister'),
+      description: t('classroomDetail.notifications.teacherCannotRegisterDesc'),
     })
     return
   }
@@ -511,8 +512,8 @@ function handleRegisterClassroom() {
   // Check if generated account
   if (isGeneratedAccount.value) {
     notification.warning({
-      message: 'Không thể đăng ký',
-      description: 'Tài khoản được tạo tự động không thể mua khóa học.',
+      message: t('classroomDetail.notifications.generatedAccountCannotRegister'),
+      description: t('classroomDetail.notifications.generatedAccountCannotRegisterDesc'),
     })
     return
   }
@@ -557,8 +558,8 @@ async function confirmPayment() {
   catch (error: any) {
     console.error('Error creating order:', error)
     notification.error({
-      message: 'Lỗi thanh toán',
-      description: error?.data?.message || 'Có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại.',
+      message: t('classroomDetail.notifications.paymentError'),
+      description: error?.data?.message || t('classroomDetail.notifications.paymentErrorDesc'),
     })
   }
   finally {
@@ -728,9 +729,9 @@ function cancelPayment() {
           <div class="bg-white rounded-lg border border-gray-200 p-6">
             <h2 class="font-bold text-2xl mb-6 flex items-center gap-3">
               <Icon name="solar:calendar-bold" size="28" class="text-green-600" />
-              Chọn lịch đăng ký học
+              {{ $t('classroomDetail.schedule.selectRegistration') }}
               <span v-if="studentCount" class="text-lg font-normal text-gray-600">
-                - Lớp {{ studentCount }} học viên
+                - {{ $t('classroomDetail.classroomTitleWithCount', { count: studentCount }) }}
               </span>
             </h2>
 
@@ -798,7 +799,7 @@ function cancelPayment() {
                       class="!text-gray-500 cursor-pointer hover:!text-gray-700 transition-colors"
                       @click.stop.prevent="handleTodayClick"
                     >
-                      Hôm nay
+                      {{ $t('classroomDetail.schedule.today') }}
                     </button>
                   </template>
                 </VueCal>
@@ -856,7 +857,7 @@ function cancelPayment() {
             <div v-if="selectedClassroomForDialog.schedule_summary" class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <Icon name="solar:calendar-mark-bold" class="h-5 w-5 text-gray-400" />
-                <span class="text-sm font-medium text-gray-600">Lịch học</span>
+                <span class="text-sm font-medium text-gray-600">{{ $t('classroomDetail.classroomDialog.schedule') }}</span>
               </div>
               <span class="text-sm font-semibold text-gray-900">
                 {{ selectedClassroomForDialog.schedule_summary }}
@@ -867,10 +868,10 @@ function cancelPayment() {
             <div v-if="selectedClassroomForDialog.session_count" class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <Icon name="solar:document-text-bold" class="h-5 w-5 text-gray-400" />
-                <span class="text-sm font-medium text-gray-600">Số buổi học</span>
+                <span class="text-sm font-medium text-gray-600">{{ $t('classroomDetail.classroomDialog.sessionCount') }}</span>
               </div>
               <span class="text-sm font-semibold text-gray-900">
-                {{ selectedClassroomForDialog.session_count }} buổi
+                {{ $t('classroomDetail.classroomDialog.sessionCountUnit', { count: selectedClassroomForDialog.session_count }) }}
               </span>
             </div>
 
@@ -878,7 +879,7 @@ function cancelPayment() {
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <Icon name="solar:users-group-rounded-bold" class="h-5 w-5 text-gray-400" />
-                <span class="text-sm font-medium text-gray-600">Số lượng học viên</span>
+                <span class="text-sm font-medium text-gray-600">{{ $t('classroomDetail.classroomDialog.enrollmentCount') }}</span>
               </div>
               <span class="text-sm font-semibold text-gray-900">
                 {{ selectedClassroomForDialog.enrollment_count || 0 }}/{{ selectedClassroomForDialog.student_count }}
@@ -892,7 +893,7 @@ function cancelPayment() {
           <div class="flex items-center gap-3 justify-center">
             <!-- Free classroom -->
             <span v-if="classroomIsFree" class="text-green-600 font-bold text-3xl">
-              Miễn phí
+              {{ $t('classroomDetail.classroomDialog.free') }}
             </span>
             <!-- No discount or discount price is 0 -->
             <span v-else-if="!hasClassroomDiscount || !classroomDiscountPrice || parseFloat(classroomDiscountPrice) === 0" class="text-black font-bold text-3xl">
@@ -917,7 +918,7 @@ function cancelPayment() {
         <div v-if="isTeacher" class="mb-6 rounded-xl border border-yellow-200 bg-yellow-50 p-4">
           <div class="flex items-center gap-2">
             <Icon name="solar:info-circle-bold" class="h-5 w-5 text-yellow-600" />
-            <span class="text-sm font-medium text-yellow-800">Bạn là giáo viên, không thể đăng ký lớp học này.</span>
+            <span class="text-sm font-medium text-yellow-800">{{ $t('classroomDetail.classroomDialog.teacherWarning') }}</span>
           </div>
         </div>
 
@@ -925,7 +926,7 @@ function cancelPayment() {
         <div v-if="isGeneratedAccount" class="mb-6 rounded-xl border border-yellow-200 bg-yellow-50 p-4">
           <div class="flex items-center gap-2">
             <Icon name="solar:info-circle-bold" class="h-5 w-5 text-yellow-600" />
-            <span class="text-sm font-medium text-yellow-800">Tài khoản được tạo tự động không thể mua khóa học.</span>
+            <span class="text-sm font-medium text-yellow-800">{{ $t('classroomDetail.classroomDialog.generatedAccountWarning') }}</span>
           </div>
         </div>
 
@@ -933,7 +934,7 @@ function cancelPayment() {
         <div v-if="isClassroomFull" class="mb-6 rounded-xl border border-red-200 bg-red-50 p-4">
           <div class="flex items-center gap-2">
             <Icon name="solar:info-circle-bold" class="h-5 w-5 text-red-600" />
-            <span class="text-sm font-medium text-red-800">Lớp học đã đầy, không thể đăng ký thêm.</span>
+            <span class="text-sm font-medium text-red-800">{{ $t('classroomDetail.classroomDialog.classroomFullWarning') }}</span>
           </div>
         </div>
 
@@ -948,14 +949,14 @@ function cancelPayment() {
               @click="handleRegisterClassroom"
             >
               <Icon name="solar:wallet-bold" size="20" class="mr-2" />
-              Đăng ký lớp này ngay
+              {{ $t('classroomDetail.classroomDialog.registerNow') }}
             </a-button>
             <a-button
               size="large"
               class="!h-12 !rounded-lg !flex !items-center !justify-center !text-sm !font-semibold !bg-gray-100 hover:!bg-gray-200"
               @click="showClassroomDialog = false"
             >
-              Đóng
+              {{ $t('classroomDetail.classroomDialog.close') }}
             </a-button>
           </template>
           <template v-else>
@@ -965,7 +966,7 @@ function cancelPayment() {
               class="!h-12 !rounded-lg !flex !items-center !justify-center !text-sm !font-semibold !bg-gray-100 hover:!bg-gray-200"
               @click="showClassroomDialog = false"
             >
-              Đóng
+              {{ $t('classroomDetail.classroomDialog.close') }}
             </a-button>
           </template>
         </div>
@@ -985,12 +986,12 @@ function cancelPayment() {
       <div v-if="selectedClassroomForDialog" class="text-center py-6">
         <!-- Title -->
         <h3 class="text-xl font-semibold text-gray-900 mb-4">
-          Xác nhận đã thanh toán đơn hàng
+          {{ $t('classroomDetail.paymentDialog.confirmTitle') }}
         </h3>
 
         <!-- Description -->
         <p class="text-gray-600 mb-6 leading-relaxed">
-          Số tiền cần thanh toán:
+          {{ $t('classroomDetail.paymentDialog.amountToPay') }}
           <span class="font-semibold text-green-600">
             €{{ Number(classroomEffectivePrice || 0).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
           </span>
@@ -999,19 +1000,19 @@ function cancelPayment() {
         <!-- Order Summary -->
         <div class="bg-gray-50 rounded-lg p-4 mb-6 text-left">
           <h4 class="font-medium text-gray-900 mb-3">
-            Thông tin đơn hàng
+            {{ $t('classroomDetail.paymentDialog.orderInfo') }}
           </h4>
           <div class="space-y-2 text-sm">
             <div class="flex justify-between">
-              <span class="text-gray-600">Khóa học</span>
+              <span class="text-gray-600">{{ $t('classroomDetail.paymentDialog.course') }}</span>
               <span class="font-medium">{{ currentCourse?.title }}</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-gray-600">Lớp học</span>
+              <span class="text-gray-600">{{ $t('classroomDetail.paymentDialog.classroom') }}</span>
               <span class="font-medium">{{ selectedClassroomForDialog.title }}</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-gray-600">Số tiền</span>
+              <span class="text-gray-600">{{ $t('classroomDetail.paymentDialog.amount') }}</span>
               <span class="font-medium">€{{ Number(classroomEffectivePrice || 0).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</span>
             </div>
           </div>
@@ -1020,7 +1021,7 @@ function cancelPayment() {
         <!-- Payment Instructions -->
         <div class="bg-blue-50 rounded-lg p-4 mb-6 text-left">
           <p class="text-sm text-blue-800 leading-relaxed">
-            Sau khi nhắn tin và thanh toán khóa học cho phiên dịch viên <span class="font-semibold">Phan tâm</span> thì nhấn nút "Tôi đã chuyển tiền" để xác nhận đã thanh toán.
+            {{ $t('classroomDetail.paymentDialog.paymentInstructions') }}
           </p>
         </div>
 
@@ -1031,7 +1032,7 @@ function cancelPayment() {
             class="!h-11 !px-6 !rounded-lg !border-gray-300 !text-gray-700 hover:!bg-gray-50"
             @click="cancelPayment"
           >
-            Hủy
+            {{ $t('classroomDetail.paymentDialog.cancel') }}
           </a-button>
           <a-button
             type="primary"
@@ -1041,7 +1042,7 @@ function cancelPayment() {
             @click="confirmPayment"
           >
             <Icon name="solar:check-circle-bold" size="18" class="mr-2" />
-            Tôi đã chuyển tiền
+            {{ $t('classroomDetail.paymentDialog.confirmPaid') }}
           </a-button>
         </div>
       </div>

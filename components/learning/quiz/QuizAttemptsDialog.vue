@@ -177,7 +177,7 @@ function handleClose() {
               class="px-2 py-1 rounded-full text-white font-medium text-xs shadow-sm"
               :class="getScoreColorByPoints(attempt.total_score, attempt.max_score, hasPendingEssays(attempt))"
             >
-              <span v-if="hasPendingEssays(attempt)">Đang chờ chấm</span>
+              <span v-if="hasPendingEssays(attempt)">{{ $t('quiz.pendingGrading') }}</span>
               <span v-else>{{ attempt.total_score }}/{{ attempt.max_score }}</span>
             </div>
           </div>

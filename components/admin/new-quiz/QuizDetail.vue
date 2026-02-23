@@ -101,7 +101,7 @@ const questionTypes = {
               {{ question.prompt }}
             </p>
             <div v-if="question.explanation" class="text-sm text-gray-600 italic mt-2">
-              <span class="font-semibold">Giải thích:</span> {{ question.explanation }}
+              <span class="font-semibold">{{ $t('newQuiz.explanation') }}</span> {{ question.explanation }}
             </div>
 
             <!-- Multiple choice options -->
@@ -125,7 +125,7 @@ const questionTypes = {
             <!-- Text input sample answer -->
             <div v-if="question.question_type === 'text_input' && question.sample_answer" class="mt-3">
               <div class="bg-blue-50 border border-blue-200 rounded p-3">
-                <span class="text-sm font-semibold text-blue-800">Đáp án mẫu:</span>
+                <span class="text-sm font-semibold text-blue-800">{{ $t('newQuiz.sampleAnswer') }}</span>
                 <p class="text-blue-900 mt-1">
                   {{ question.sample_answer.text }}
                 </p>

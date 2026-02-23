@@ -22,6 +22,8 @@ interface Emits {
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
+const { t } = useI18n()
+
 // API composable
 const { createQuestionComment, updateQuestionComment } = useQuizApi()
 
@@ -77,8 +79,8 @@ async function handleSubmit() {
     }
 
     notification.success({
-      message: 'Thành công',
-      description: isEditing.value ? 'Đã cập nhật nhận xét!' : 'Đã thêm nhận xét!',
+      message: t('admin.quiz.comment.success'),
+      description: isEditing.value ? t('admin.quiz.comment.updateSuccess') : t('admin.quiz.comment.addSuccess'),
       duration: 3,
     })
 
@@ -87,8 +89,8 @@ async function handleSubmit() {
   }
   catch (err: any) {
     notification.error({
-      message: 'Lỗi',
-      description: err.message || 'Failed to save comment',
+      message: t('admin.quiz.comment.error'),
+      description: err.message || t('admin.quiz.comment.errorDesc'),
       duration: 4,
     })
     console.error('Error saving comment:', err)

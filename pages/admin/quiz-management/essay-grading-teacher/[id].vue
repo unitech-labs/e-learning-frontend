@@ -7,6 +7,8 @@ definePageMeta({
   layout: 'admin',
 })
 
+const { t } = useI18n()
+
 // Route params
 const route = useRoute()
 const gradingId = route.params.id as string
@@ -78,8 +80,8 @@ async function handleSubmit() {
     await gradeEssay(gradingId, formData)
 
     notification.success({
-      message: 'Thành công',
-      description: 'Đã chấm điểm bài tự luận thành công!',
+      message: t('admin.essayGradingTeacher.success'),
+      description: t('admin.essayGradingTeacher.successDesc'),
       duration: 3,
     })
 
@@ -88,8 +90,8 @@ async function handleSubmit() {
   }
   catch (err: any) {
     notification.error({
-      message: 'Lỗi',
-      description: err.message || 'Failed to grade essay',
+      message: t('admin.essayGradingTeacher.error'),
+      description: err.message || t('admin.essayGradingTeacher.errorDesc'),
       duration: 4,
     })
     console.error('Error grading essay:', err)
@@ -128,14 +130,14 @@ onMounted(() => {
           <template #icon>
             <Icon name="tabler:arrow-left" class="text-sm sm:text-base" />
           </template>
-          <span class="hidden sm:inline">Quay lại</span>
+          <span class="hidden sm:inline">{{ $t('admin.essayGradingTeacher.back') }}</span>
         </a-button>
         <div>
           <h1 class="text-xl sm:text-2xl font-bold text-gray-900">
-            Chấm điểm bài tự luận
+            {{ $t('admin.essayGradingTeacher.title') }}
           </h1>
           <p class="text-sm sm:text-base text-gray-600">
-            Đánh giá và phản hồi cho bài làm của học sinh
+            {{ $t('admin.essayGradingTeacher.description') }}
           </p>
         </div>
       </div>
@@ -146,7 +148,7 @@ onMounted(() => {
       <div class="text-center">
         <div class="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-blue-600 mx-auto mb-4" />
         <p class="text-sm sm:text-base text-gray-600">
-          Đang tải thông tin bài làm...
+          {{ $t('admin.essayGradingTeacher.loading') }}
         </p>
       </div>
     </div>
@@ -157,7 +159,7 @@ onMounted(() => {
         <Icon name="tabler:alert-circle" class="text-red-500 text-lg sm:text-xl mt-0.5" />
         <div>
           <h3 class="text-sm sm:text-base text-red-800 font-medium">
-            Lỗi
+            {{ $t('admin.essayGradingTeacher.error') }}
           </h3>
           <p class="text-xs sm:text-sm text-red-700">
             {{ error }}
@@ -171,12 +173,12 @@ onMounted(() => {
       <!-- Student Info -->
       <div class="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
         <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
-          Thông tin học sinh
+          {{ $t('admin.essayGradingTeacher.studentInfo') }}
         </h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <div>
             <p class="text-xs sm:text-sm text-gray-600 mb-1">
-              <span class="font-medium">Tên:</span> {{ essayGrading.student_name }}
+              <span class="font-medium">{{ $t('admin.essayGradingTeacher.name') }}</span> {{ essayGrading.student_name }}
             </p>
             <!-- <p class="text-xs sm:text-sm text-gray-600 mb-1">
               <span class="font-medium">Email:</span> {{ essayGrading.student_email }}
@@ -187,7 +189,7 @@ onMounted(() => {
               <span class="font-medium">Quiz:</span> {{ essayGrading.quiz_title }}
             </p> -->
             <p class="text-xs sm:text-sm text-gray-600">
-              <span class="font-medium">Ngày nộp:</span> {{ formatDate(essayGrading.created_at) }}
+              <span class="font-medium">{{ $t('admin.essayGradingTeacher.submittedAt') }}</span> {{ formatDate(essayGrading.created_at) }}
             </p>
           </div>
         </div>
@@ -196,7 +198,7 @@ onMounted(() => {
       <!-- Question -->
       <div class="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
         <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
-          Câu hỏi
+          {{ $t('admin.essayGradingTeacher.question') }}
         </h3>
         <div class="bg-gray-50 border border-gray-200 p-3 sm:p-4 rounded-lg">
           <p class="text-sm sm:text-base text-gray-900 whitespace-pre-wrap">
@@ -208,7 +210,7 @@ onMounted(() => {
       <!-- Student Answer -->
       <div class="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
         <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
-          Câu trả lời của học sinh
+          {{ $t('admin.essayGradingTeacher.studentAnswer') }}
         </h3>
         <div class="bg-blue-50 border border-blue-200 p-3 sm:p-4 rounded-lg">
           <p class="text-sm sm:text-base text-gray-900 whitespace-pre-wrap">
@@ -220,7 +222,7 @@ onMounted(() => {
       <!-- Grading Form -->
       <div class="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
         <h3 class="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
-          Chấm điểm
+          {{ $t('admin.essayGradingTeacher.gradingTitle') }}
         </h3>
 
         <a-form
@@ -233,7 +235,7 @@ onMounted(() => {
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 max-md:gap-1">
             <!-- Score Input -->
             <div>
-              <a-form-item label="Điểm số" name="score">
+              <a-form-item :label="$t('admin.essayGradingTeacher.scoreLabel')" name="score">
                 <div class="space-y-2">
                   <a-input-number
                     v-model:value="formData.score"
@@ -241,10 +243,10 @@ onMounted(() => {
                     :max="maxScore"
                     :step="0.1"
                     class="w-full"
-                    placeholder="Nhập điểm"
+                    :placeholder="$t('admin.essayGradingTeacher.scorePlaceholder')"
                   />
                   <div class="text-xs sm:text-sm text-gray-600">
-                    <span class="font-medium">Điểm tối đa:</span> {{ maxScore }} điểm
+                    <span class="font-medium">{{ $t('admin.essayGradingTeacher.maxScore') }}</span> {{ maxScore }} {{ $t('admin.essayGradingTeacher.points') }}
                   </div>
                 </div>
               </a-form-item>
@@ -252,7 +254,7 @@ onMounted(() => {
 
             <!-- Score Preview -->
             <div>
-              <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Xem trước điểm</label>
+              <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">{{ $t('admin.essayGradingTeacher.previewScore') }}</label>
               <div class="bg-gray-50 border border-gray-200 p-3 sm:p-4 rounded-lg">
                 <div class="text-center">
                   <div class="text-xl sm:text-2xl font-bold text-gray-900">
@@ -275,7 +277,7 @@ onMounted(() => {
           </div>
 
           <!-- Feedback -->
-          <a-form-item label="Phản hồi cho học sinh" name="feedback" class="mt-4 sm:mt-6">
+          <a-form-item :label="$t('admin.essayGradingTeacher.feedbackLabel')" name="feedback" class="mt-4 sm:mt-6">
             <a-textarea
               v-model:value="formData.feedback"
               :rows="3"

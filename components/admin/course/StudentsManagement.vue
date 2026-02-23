@@ -13,9 +13,11 @@ definePageMeta({
   middleware: 'admin',
 })
 
+const { t } = useI18n()
+
 // Set page title
 useHead({
-  title: 'Student Management',
+  title: () => t('admin.students.title'),
 })
 
 // Reactive data
@@ -62,44 +64,44 @@ const users = ref<User[]>([
 ])
 
 // Table columns
-const columns = [
+const columns = computed(() => [
   {
-    title: 'Id student',
+    title: t('admin.students.idStudent'),
     dataIndex: 'id',
     key: 'id',
     width: 200,
   },
   {
-    title: 'Name',
+    title: t('admin.students.name'),
     dataIndex: 'name',
     key: 'name',
     width: 200,
   },
   {
-    title: 'Email',
+    title: t('admin.students.email'),
     dataIndex: 'email',
     key: 'email',
     width: 200,
   },
   {
-    title: 'Check-in Time',
+    title: t('admin.students.checkInTime'),
     dataIndex: 'time',
     key: 'time',
     width: 200,
   },
   {
-    title: 'Classroom',
+    title: t('admin.students.classroom'),
     dataIndex: 'classroom',
     key: 'classroom',
     width: 200,
   },
   {
-    title: 'Actions',
+    title: t('admin.students.actions'),
     dataIndex: 'actions',
     key: 'actions',
     width: 150,
   },
-]
+])
 
 function formatDate(dateString: string | undefined) {
   if (!dateString)
@@ -114,7 +116,7 @@ function editUser(user: User) {
 function toggleUserStatus(user: User) {
   const action = user.is_verified ? 'suspend' : 'activate'
   Modal.confirm({
-    title: `Are you sure you want to ${action} this user?`,
+    title: t('admin.students.confirmAction', { action }),
     content: `This will ${action} ${user.first_name} ${user.last_name}`,
     onOk() {
       user.is_verified = !user.is_verified
@@ -125,7 +127,7 @@ function toggleUserStatus(user: User) {
 
 function deleteUser(user: User) {
   Modal.confirm({
-    title: 'Are you sure you want to delete this user?',
+    title: t('admin.students.confirmDelete'),
     content: `This will permanently delete ${user.first_name} ${user.last_name}`,
     okType: 'danger',
     onOk() {

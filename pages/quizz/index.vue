@@ -332,7 +332,7 @@ onMounted(() => {
       <div class="bg-white border border-slate-100 rounded-3xl shadow-sm p-6 sm:p-8 space-y-6">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-center">
           <div class="flex-1">
-            <label for="quiz-search" class="sr-only">Tìm kiếm quiz</label>
+            <label for="quiz-search" class="sr-only">{{ $t('quiz.searchPlaceholder') }}</label>
             <div class="relative">
               <Icon name="mdi:magnify" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
               <input

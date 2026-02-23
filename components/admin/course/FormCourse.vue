@@ -54,34 +54,16 @@ const showDeleteDialog = ref(false)
 const isDeleting = ref(false)
 const isInitializing = ref(false) // Flag to prevent watcher from resetting during initial load
 
-const courseTypeOptions = ref([
-  {
-    label: 'Khóa học',
-    value: 'course',
-  },
-  {
-    label: 'Tài nguyên',
-    value: 'resource',
-  },
+const courseTypeOptions = computed(() => [
+  { label: t('admin.formCourse.form.courseTypeOptions.course'), value: 'course' },
+  { label: t('admin.formCourse.form.courseTypeOptions.resource'), value: 'resource' },
 ])
 
-const courseLevelOptions = ref([
-  {
-    label: 'Cơ bản',
-    value: 'basic',
-  },
-  {
-    label: 'Trung cấp',
-    value: 'intermediate',
-  },
-  {
-    label: 'Nâng cao',
-    value: 'advanced',
-  },
-  {
-    label: 'Lý thuyết lái xe',
-    value: 'driving_theory',
-  },
+const courseLevelOptions = computed(() => [
+  { label: t('admin.formCourse.form.courseLevelOptions.basic'), value: 'basic' },
+  { label: t('admin.formCourse.form.courseLevelOptions.intermediate'), value: 'intermediate' },
+  { label: t('admin.formCourse.form.courseLevelOptions.advanced'), value: 'advanced' },
+  { label: t('admin.formCourse.form.courseLevelOptions.driving_theory'), value: 'driving_theory' },
 ])
 
 const courseSubLevelOptions = computed(() => {
@@ -310,7 +292,7 @@ async function handleSave() {
         }
         else {
           // File hasn't changed, no need to upload
-          console.error(t('admin.formCourse.upload.fileUnchanged'))
+          // Silently skip - no notification needed
         }
       }
       else {
@@ -811,7 +793,7 @@ async function confirmDeleteCourse() {
 
         <div class="bg-gray-50 rounded-lg p-4">
           <p class="text-sm text-gray-700 mb-2">
-            <strong>{{ t('admin.formCourse.deleteDialog.courseLabel') }}</strong> {{ formState.title || 'Untitled Course' }}
+            <strong>{{ t('admin.formCourse.deleteDialog.courseLabel') }}</strong> {{ formState.title || t('admin.formCourse.deleteDialog.untitledCourse') }}
           </p>
           <p class="text-sm text-gray-600">
             {{ t('admin.formCourse.deleteDialog.confirmDescription') }}

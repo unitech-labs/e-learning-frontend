@@ -125,7 +125,7 @@ const scoreDisplay = computed(() => {
             Đang chờ chấm điểm
           </h4>
           <p class="text-yellow-700 text-sm">
-            Giáo viên đang xem xét bài làm của bạn. Bạn sẽ nhận được điểm và nhận xét khi hoàn thành chấm bài.
+            {{ $t('quiz.teacherReviewing') }}
           </p>
         </div>
       </div>
@@ -180,7 +180,7 @@ const scoreDisplay = computed(() => {
             <div class="flex items-start justify-between mb-2">
               <div class="flex items-center gap-2">
                 <span class="text-sm font-medium text-gray-900">{{ comment.author_name }}</span>
-                <span class="text-xs text-blue-600 font-medium">Giáo viên</span>
+                <span class="text-xs text-blue-600 font-medium">{{ $t('quiz.teacher') }}</span>
               </div>
               <span class="text-xs text-gray-500">
                 {{ formatDate(comment.created_at) }}

@@ -8,6 +8,8 @@ definePageMeta({
   layout: 'admin',
 })
 
+const { t } = useI18n()
+
 // Route params
 const route = useRoute()
 const selectedClassroomId = route.query.classroom as string
@@ -56,12 +58,12 @@ const filteredSubmissions = computed(() => {
   return filtered
 })
 
-const statusOptions = [
-  { label: 'Tất cả', value: '' },
-  { label: 'Hoàn thành', value: 'completed' },
-  { label: 'Đang làm', value: 'in_progress' },
-  { label: 'Hết hạn', value: 'expired' },
-]
+const statusOptions = computed(() => [
+  { label: t('admin.essayGrading.allStatus'), value: '' },
+  { label: t('admin.quizManagement.status.completed'), value: 'completed' },
+  { label: t('admin.quizManagement.status.inProgress'), value: 'in_progress' },
+  { label: t('admin.quizManagement.status.expired'), value: 'expired' },
+])
 
 // Methods
 async function loadSubmissions() {
@@ -81,7 +83,7 @@ async function loadSubmissions() {
     total.value = response.count
   }
   catch (err: any) {
-    error.value = err.message || 'Failed to load submissions'
+    error.value = err.message || t('admin.quizManagement.errors.loadSubmissions')
     console.error('Error loading submissions:', err)
   }
   finally {
@@ -178,19 +180,19 @@ onMounted(async () => {
     <!-- Filters -->
     <div class="bg-white rounded-lg shadow-sm border p-6 mb-6">
       <h3 class="text-lg font-semibold text-gray-900 mb-4">
-        Bộ lọc
+        {{ $t('admin.essayGrading.filtersTitle') }}
       </h3>
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Lớp học</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('admin.essayGrading.classroom') }}</label>
           <a-select
             v-model:value="selectedClassroom"
-            placeholder="Chọn lớp học"
+            :placeholder="$t('admin.essayGrading.selectClassroom')"
             class="w-full"
             @change="handleClassroomChange"
           >
             <a-select-option value="">
-              Tất cả lớp học
+              {{ $t('admin.essayGrading.allClassrooms') }}
             </a-select-option>
             <a-select-option
               v-for="classroom in classrooms"
@@ -203,10 +205,10 @@ onMounted(async () => {
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Trạng thái</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('admin.essayGrading.status') }}</label>
           <a-select
             v-model:value="statusFilter"
-            placeholder="Chọn trạng thái"
+            :placeholder="$t('admin.essayGrading.selectStatus')"
             class="w-full"
             @change="handleStatusChange"
           >
@@ -221,10 +223,10 @@ onMounted(async () => {
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Tìm kiếm</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2">{{ $t('admin.essayGrading.search') }}</label>
           <a-input
             v-model:value="searchQuery"
-            placeholder="Tìm theo tên học sinh hoặc quiz..."
+            :placeholder="$t('admin.essayGrading.searchPlaceholder')"
             class="w-full"
           >
             <template #prefix>
@@ -235,7 +237,7 @@ onMounted(async () => {
 
         <div class="flex items-end">
           <a-button type="primary" :loading="loading" @click="loadSubmissions">
-            Làm mới
+            {{ $t('admin.essayGrading.refresh') }}
           </a-button>
         </div>
       </div>
@@ -246,7 +248,7 @@ onMounted(async () => {
       <div class="p-6 border-b border-gray-200">
         <div class="flex items-center justify-between">
           <h3 class="text-lg font-semibold text-gray-900">
-            Danh sách bài làm ({{ filteredSubmissions.length }})
+            {{ $t('admin.essayGrading.listTitle') }} ({{ filteredSubmissions.length }})
           </h3>
         </div>
       </div>
@@ -255,7 +257,7 @@ onMounted(async () => {
       <div v-if="loading" class="p-6">
         <div class="flex items-center justify-center py-8">
           <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
-          <span class="ml-2 text-gray-600">Đang tải...</span>
+          <span class="ml-2 text-gray-600">{{ $t('admin.essayGrading.loading') }}</span>
         </div>
       </div>
 
@@ -267,7 +269,7 @@ onMounted(async () => {
             {{ error }}
           </p>
           <a-button type="primary" class="mt-4" @click="loadSubmissions">
-            Thử lại
+            {{ $t('admin.essayGrading.retry') }}
           </a-button>
         </div>
       </div>

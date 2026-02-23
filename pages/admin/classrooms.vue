@@ -5,9 +5,11 @@ definePageMeta({
   middleware: 'admin',
 })
 
+const { t } = useI18n()
+
 // Set page title
 useHead({
-  title: 'Classroom Management',
+  title: () => t('admin.classrooms.title'),
 })
 
 // Mock classrooms data

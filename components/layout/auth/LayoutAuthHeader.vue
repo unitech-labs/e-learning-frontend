@@ -397,7 +397,7 @@ watch(resourceMenu, (newMenu) => {
           <!-- Brand name -->
           <div class="ml-3">
             <div class="text-lg font-bold">
-              <span class="text-red-600">Phiên Dịch Viên Phan Tâm</span>
+              <span class="text-red-600">{{ $t('layout.translatorName') }}</span>
             </div>
             <div class="text-xs text-green-600 font-medium">
               {{ $t('layoutAuthHeader.brand.tagline') }}

@@ -238,7 +238,7 @@ onBeforeUnmount(() => {
           @click="router.push('/video')"
         >
           <Icon name="solar:arrow-left-bold" class="text-xl" />
-          <span class="font-medium">Quay lại danh sách video</span>
+          <span class="font-medium">{{ $t('video.backToList') }}</span>
         </button>
       </div>
     </div>
@@ -262,7 +262,7 @@ onBeforeUnmount(() => {
           @close="error = null"
         />
         <a-button type="primary" @click="loadPost">
-          Thử lại
+          {{ $t('common.tryAgain') }}
         </a-button>
       </div>
     </div>

@@ -7,6 +7,8 @@ definePageMeta({
   layout: 'admin',
 })
 
+const { t } = useI18n()
+
 // Route params
 const route = useRoute()
 const attemptId = route.params.id as string
@@ -52,7 +54,7 @@ async function loadSubmission() {
     quiz.value = quizResponse
   }
   catch (err: any) {
-    error.value = err.message || 'Failed to load submission'
+    error.value = err.message || t('admin.quizSubmission.errors.loadFailed')
     console.error('Error loading submission:', err)
   }
   finally {
@@ -113,11 +115,11 @@ function getStatusColor(status: string) {
 function getStatusText(status: string) {
   switch (status) {
     case 'completed':
-      return 'Hoàn thành'
+      return t('admin.quizManagement.status.completed')
     case 'in_progress':
-      return 'Đang làm'
+      return t('admin.quizManagement.status.inProgress')
     case 'expired':
-      return 'Hết hạn'
+      return t('admin.quizManagement.status.expired')
     default:
       return status
   }
@@ -138,14 +140,14 @@ onMounted(() => {
           <template #icon>
             <Icon name="tabler:arrow-left" />
           </template>
-          Quay lại
+          {{ $t('admin.quizSubmission.back') }}
         </a-button>
         <div>
           <h1 class="text-2xl font-bold text-gray-900">
-            Chi tiết bài làm
+            {{ $t('admin.quizSubmission.title') }}
           </h1>
           <p class="text-gray-600">
-            Xem chi tiết bài làm của học sinh
+            {{ $t('admin.quizSubmission.description') }}
           </p>
         </div>
       </div>
@@ -156,7 +158,7 @@ onMounted(() => {
       <div class="text-center">
         <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4" />
         <p class="text-gray-600">
-          Đang tải thông tin bài làm...
+          {{ $t('admin.quizSubmission.loading') }}
         </p>
       </div>
     </div>
@@ -167,7 +169,7 @@ onMounted(() => {
         <Icon name="tabler:alert-circle" class="text-red-500 text-xl" />
         <div>
           <h3 class="text-red-800 font-medium">
-            Lỗi
+            {{ $t('admin.quizSubmission.error') }}
           </h3>
           <p class="text-red-700">
             {{ error }}
@@ -184,17 +186,17 @@ onMounted(() => {
           <!-- Student Info -->
           <div>
             <h3 class="text-lg font-semibold text-gray-900 mb-4">
-              Thông tin học sinh
+              {{ $t('admin.quizSubmission.studentInfo.title') }}
             </h3>
             <div class="space-y-2">
               <p class="text-sm text-gray-600">
-                <span class="font-medium">Tên:</span> {{ attempt.student_name }}
+                <span class="font-medium">{{ $t('admin.quizSubmission.studentInfo.name') }}:</span> {{ attempt.student_name }}
               </p>
               <p class="text-sm text-gray-600">
-                <span class="font-medium">Quiz:</span> {{ attempt.quiz_title }}
+                <span class="font-medium">{{ $t('admin.quizSubmission.studentInfo.quiz') }}:</span> {{ attempt.quiz_title }}
               </p>
               <p class="text-sm text-gray-600">
-                <span class="font-medium">Trạng thái:</span>
+                <span class="font-medium">{{ $t('admin.quizSubmission.studentInfo.status') }}:</span>
                 <span
                   :class="getStatusColor(attempt.status)"
                   class="ml-2 px-2 py-1 rounded-full text-xs font-medium"
@@ -203,10 +205,10 @@ onMounted(() => {
                 </span>
               </p>
               <p class="text-sm text-gray-600">
-                <span class="font-medium">Bắt đầu:</span> {{ formatDate(attempt.started_at) }}
+                <span class="font-medium">{{ $t('admin.quizSubmission.studentInfo.startedAt') }}:</span> {{ formatDate(attempt.started_at) }}
               </p>
               <p v-if="attempt.completed_at" class="text-sm text-gray-600">
-                <span class="font-medium">Hoàn thành:</span> {{ formatDate(attempt.completed_at) }}
+                <span class="font-medium">{{ $t('admin.quizSubmission.studentInfo.completedAt') }}:</span> {{ formatDate(attempt.completed_at) }}
               </p>
             </div>
           </div>
@@ -214,7 +216,7 @@ onMounted(() => {
           <!-- Score Summary -->
           <div>
             <h3 class="text-lg font-semibold text-gray-900 mb-4">
-              Kết quả
+              {{ $t('admin.quizSubmission.result.title') }}
             </h3>
             <div class="grid grid-cols-3 gap-4 text-center">
               <div class="bg-gray-50 rounded-lg p-4">
@@ -222,7 +224,7 @@ onMounted(() => {
                   {{ attempt.total_questions }}
                 </div>
                 <div class="text-sm text-gray-600">
-                  Tổng câu
+                  {{ $t('admin.quizSubmission.result.totalQuestions') }}
                 </div>
               </div>
               <div class="bg-gray-50 rounded-lg p-4">
@@ -230,7 +232,7 @@ onMounted(() => {
                   {{ attempt.correct_answers }}
                 </div>
                 <div class="text-sm text-gray-600">
-                  Đúng
+                  {{ $t('admin.quizSubmission.result.correct') }}
                 </div>
               </div>
               <div class="bg-gray-50 rounded-lg p-4">
@@ -238,12 +240,12 @@ onMounted(() => {
                   {{ attempt.total_score }}/{{ attempt.max_score }}
                 </div>
                 <div class="text-sm text-gray-600">
-                  Điểm
+                  {{ $t('admin.quizSubmission.result.score') }}
                 </div>
               </div>
             </div>
             <div class="mt-4 text-sm text-gray-600">
-              <p><span class="font-medium">Thời gian làm bài:</span> {{ formatTime(attempt.time_spent_seconds) }}</p>
+              <p><span class="font-medium">{{ $t('admin.quizSubmission.result.timeSpent') }}:</span> {{ formatTime(attempt.time_spent_seconds) }}</p>
             </div>
           </div>
         </div>
@@ -252,7 +254,7 @@ onMounted(() => {
       <!-- Questions & Answers -->
       <div class="space-y-4">
         <h3 class="text-lg font-semibold text-gray-900">
-          Câu hỏi và câu trả lời
+          {{ $t('admin.quizSubmission.questionsAndAnswers') }}
         </h3>
 
         <div
@@ -267,22 +269,22 @@ onMounted(() => {
                   Câu {{ index + 1 }}
                 </span>
                 <span class="bg-gray-100 text-gray-600 text-sm font-medium px-3 py-1 rounded-full">
-                  {{ answer.question_type === 'multiple_choice' ? 'Trắc nghiệm'
-                    : answer.question_type === 'text_input' ? 'Điền từ' : 'Tự luận' }}
+                  {{ answer.question_type === 'multiple_choice' ? $t('admin.quizSubmission.questionTypes.multipleChoice')
+                    : answer.question_type === 'text_input' ? $t('admin.quizSubmission.questionTypes.textInput') : $t('admin.quizSubmission.questionTypes.essay') }}
                 </span>
                 <span
                   v-if="answer.question_type !== 'essay'"
                   :class="answer.is_correct ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100'"
                   class="text-sm font-medium px-3 py-1 rounded-full"
                 >
-                  {{ answer.is_correct ? 'Đúng' : 'Sai' }}
+                  {{ answer.is_correct ? $t('admin.quizSubmission.answerStatus.correct') : $t('admin.quizSubmission.answerStatus.incorrect') }}
                 </span>
                 <span
                   v-else
                   :class="answer.essay_grading_status === 'graded' ? 'text-green-600 bg-green-100' : 'text-yellow-600 bg-yellow-100'"
                   class="text-sm font-medium px-3 py-1 rounded-full"
                 >
-                  {{ answer.essay_grading_status === 'graded' ? 'Đã chấm' : 'Chờ chấm' }}
+                  {{ answer.essay_grading_status === 'graded' ? $t('admin.quizSubmission.answerStatus.graded') : $t('admin.quizSubmission.answerStatus.pendingGrading') }}
                 </span>
               </div>
 
@@ -295,7 +297,7 @@ onMounted(() => {
           <!-- Student Answer -->
           <div class="mb-4">
             <h5 class="text-sm font-medium text-gray-700 mb-2">
-              Câu trả lời của học sinh:
+              {{ $t('admin.quizSubmission.studentAnswer') }}
             </h5>
             <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
               <p v-if="answer.question_type === 'multiple_choice'" class="text-gray-900">
@@ -310,7 +312,7 @@ onMounted(() => {
           <!-- Correct Answer (if available) -->
           <div v-if="answer.correct_answer" class="mb-4">
             <h5 class="text-sm font-medium text-gray-700 mb-2">
-              Đáp án đúng:
+              {{ $t('admin.quizSubmission.correctAnswer') }}
             </h5>
             <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
               <p v-if="answer.question_type === 'multiple_choice'" class="text-gray-900">

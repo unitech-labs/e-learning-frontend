@@ -148,7 +148,7 @@ async function saveProfile() {
     // Load cart to check if there are items
     await cartStore.loadCart()
 
-    notification.success({ message: 'Cập nhật thông tin thành công!' })
+    notification.success({ message: t('onboarding.updateSuccess') })
 
     // Redirect to checkout if cart has items, otherwise to learning page
     if (cartStore.totalItems > 0) {
@@ -160,7 +160,7 @@ async function saveProfile() {
   }
   catch (error: any) {
     console.error('Error updating profile:', error)
-    notification.error({ message: 'Cập nhật thông tin thất bại' })
+    notification.error({ message: t('onboarding.updateFailed') })
   }
   finally {
     loading.value = false
@@ -205,7 +205,7 @@ async function saveProfile() {
           <!-- Progress Section -->
           <div v-if="isUploading" class="mb-6">
             <div class="flex items-center justify-between text-sm text-gray-600 mb-2">
-              <span>Đang tải lên avatar...</span>
+              <span>{{ $t('onboarding.uploadingAvatar') }}</span>
               <span>{{ uploadProgress }}%</span>
             </div>
             <a-progress

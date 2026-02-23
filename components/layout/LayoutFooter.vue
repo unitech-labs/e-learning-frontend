@@ -120,7 +120,7 @@ const companyInfo = {
 
           <!-- Social Media Links -->
           <div class="flex items-center space-x-4">
-            <span class="text-green-100 text-sm mr-2">Theo dõi chúng tôi:</span>
+            <span class="text-green-100 text-sm mr-2">{{ $t('layout.followUs') }}</span>
             <div class="flex space-x-3">
               <a
                 v-for="social in socialMedia"

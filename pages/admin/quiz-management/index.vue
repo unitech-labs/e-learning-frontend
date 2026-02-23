@@ -8,6 +8,8 @@ definePageMeta({
   layout: 'admin',
 })
 
+const { t } = useI18n()
+
 // API composables
 const { getRecentSubmissions, getEssayGradingsNeedingGrading } = useQuizApi()
 const { getClassrooms } = useClassroomApi()
@@ -78,7 +80,7 @@ async function loadRecentSubmissions() {
     recentSubmissions.value = response.results
   }
   catch (err: any) {
-    error.value = err.message || 'Failed to load recent submissions'
+    error.value = err.message || t('admin.quizManagement.errors.loadSubmissions')
     console.error('Error loading recent submissions:', err)
   }
   finally {
@@ -137,12 +139,13 @@ function formatDate(dateString: string) {
 }
 
 function getStatusBadge(status: string) {
-  const statusMap: Record<string, { label: string, color: string }> = {
-    completed: { label: 'Hoàn thành', color: 'bg-green-100 text-green-800' },
-    in_progress: { label: 'Đang làm', color: 'bg-blue-100 text-blue-800' },
-    expired: { label: 'Hết hạn', color: 'bg-gray-100 text-gray-800' },
+  const statusMap: Record<string, { labelKey: string, color: string }> = {
+    completed: { labelKey: 'admin.quizManagement.status.completed', color: 'bg-green-100 text-green-800' },
+    in_progress: { labelKey: 'admin.quizManagement.status.inProgress', color: 'bg-blue-100 text-blue-800' },
+    expired: { labelKey: 'admin.quizManagement.status.expired', color: 'bg-gray-100 text-gray-800' },
   }
-  return statusMap[status] || { label: status, color: 'bg-gray-100 text-gray-800' }
+  const entry = statusMap[status] || { labelKey: '', color: 'bg-gray-100 text-gray-800' }
+  return { label: entry.labelKey ? t(entry.labelKey) : status, color: entry.color }
 }
 
 function formatScore(submission: RecentSubmission) {
@@ -170,10 +173,10 @@ onMounted(async () => {
     <!-- Header -->
     <div class="mb-4 sm:mb-6">
       <h1 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
-        Quản lý Quiz
+        {{ $t('admin.quizManagement.title') }}
       </h1>
       <p class="text-sm sm:text-base text-gray-600">
-        Theo dõi và chấm điểm các bài làm của học sinh
+        {{ $t('admin.quizManagement.description') }}
       </p>
     </div>
 
@@ -181,16 +184,16 @@ onMounted(async () => {
     <div class="bg-white rounded-lg shadow-sm border p-3 mb-4">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 items-end">
         <div>
-          <label class="block text-xs font-medium text-gray-700 mb-1.5">Lớp học</label>
+          <label class="block text-xs font-medium text-gray-700 mb-1.5">{{ $t('admin.quizManagement.filters.classroom') }}</label>
           <a-select
             v-model:value="selectedClassroom"
-            placeholder="Chọn lớp học"
+            :placeholder="$t('admin.quizManagement.filters.selectClassroom')"
             class="w-full"
             size="small"
             @change="handleClassroomChange"
           >
             <a-select-option value="">
-              Tất cả lớp học
+              {{ $t('admin.quizManagement.filters.allClassrooms') }}
             </a-select-option>
             <a-select-option
               v-for="classroom in classrooms"
@@ -204,13 +207,13 @@ onMounted(async () => {
 
         <div class="flex items-center">
           <a-checkbox v-model:checked="showNeedsGrading" class="text-xs" @change="handleNeedsGradingToggle">
-            Chỉ hiện bài cần chấm
+            {{ $t('admin.quizManagement.filters.onlyNeedsGrading') }}
           </a-checkbox>
         </div>
 
         <div class="flex items-center sm:col-span-2 lg:col-span-1">
           <a-button type="primary" :loading="loading" size="small" class="w-full sm:w-auto text-xs" @click="loadRecentSubmissions">
-            Làm mới
+            {{ $t('admin.quizManagement.filters.refresh') }}
           </a-button>
         </div>
       </div>
@@ -221,11 +224,11 @@ onMounted(async () => {
       <div class="p-4 sm:p-6 border-b border-gray-200">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <h3 class="text-base sm:text-lg font-semibold text-gray-900">
-            Danh sách bài làm
+            {{ $t('admin.quizManagement.table.title') }}
           </h3>
           <div class="flex items-center gap-2">
             <span class="text-xs sm:text-sm text-gray-500">
-              Tổng: {{ filteredSubmissions.length }} bài
+              {{ $t('admin.quizManagement.table.total', { count: filteredSubmissions.length }) }}
             </span>
           </div>
         </div>
@@ -235,7 +238,7 @@ onMounted(async () => {
       <div v-if="loading" class="p-4 sm:p-6">
         <div class="flex items-center justify-center py-6 sm:py-8">
           <div class="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-blue-600" />
-          <span class="ml-2 text-sm sm:text-base text-gray-600">Đang tải...</span>
+          <span class="ml-2 text-sm sm:text-base text-gray-600">{{ $t('admin.quizManagement.table.loading') }}</span>
         </div>
       </div>
 
@@ -247,7 +250,7 @@ onMounted(async () => {
             {{ error }}
           </p>
           <a-button type="primary" class="mt-4 text-xs sm:text-sm" @click="loadRecentSubmissions">
-            Thử lại
+            {{ $t('admin.quizManagement.table.retry') }}
           </a-button>
         </div>
       </div>
@@ -258,22 +261,22 @@ onMounted(async () => {
           <thead class="bg-gray-50 border-b border-gray-200">
             <tr>
               <th class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
-                Học sinh
+                {{ $t('admin.quizManagement.table.student') }}
               </th>
               <th class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
-                Quiz
+                {{ $t('admin.quizManagement.table.quiz') }}
               </th>
               <th class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
-                Trạng thái
+                {{ $t('admin.quizManagement.table.status') }}
               </th>
               <th class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
-                Điểm
+                {{ $t('admin.quizManagement.table.score') }}
               </th>
               <th class="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
-                Ngày làm
+                {{ $t('admin.quizManagement.table.date') }}
               </th>
               <th class="px-4 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider">
-                Hành động
+                {{ $t('admin.quizManagement.table.actions') }}
               </th>
             </tr>
           </thead>
@@ -309,7 +312,7 @@ onMounted(async () => {
                   v-if="needsGrading(submission)"
                   class="ml-2 px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800"
                 >
-                  Cần chấm
+                  {{ $t('admin.quizManagement.status.needsGrading') }}
                 </span>
               </td>
 
@@ -338,7 +341,7 @@ onMounted(async () => {
                       <template #icon>
                         <Icon name="tabler:edit" class="text-sm" />
                       </template>
-                      Chấm bài
+                      {{ $t('admin.quizManagement.table.grade') }}
                     </a-button>
                   </NuxtLink>
                   <NuxtLink
@@ -349,7 +352,7 @@ onMounted(async () => {
                       <template #icon>
                         <Icon name="tabler:eye" class="text-sm" />
                       </template>
-                      Xem
+                      {{ $t('admin.quizManagement.table.view') }}
                     </a-button>
                   </NuxtLink>
                 </div>
@@ -363,7 +366,7 @@ onMounted(async () => {
           <div class="text-center py-6 sm:py-8">
             <Icon name="tabler:file-text" class="text-gray-400 text-3xl sm:text-4xl mx-auto mb-4" />
             <p class="text-sm sm:text-base text-gray-500">
-              {{ showNeedsGrading ? 'Không có bài làm nào cần chấm' : 'Không có bài làm nào' }}
+              {{ showNeedsGrading ? $t('admin.quizManagement.empty.noSubmissionsNeedsGrading') : $t('admin.quizManagement.empty.noSubmissions') }}
             </p>
           </div>
         </div>

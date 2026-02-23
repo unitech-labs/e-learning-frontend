@@ -119,7 +119,7 @@ function getRelativeTime(dateString: string) {
     <!-- Loading State -->
     <div v-if="loading" class="flex items-center justify-center py-4">
       <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600" />
-      <span class="ml-2 text-sm text-gray-600">Đang tải nhận xét...</span>
+      <span class="ml-2 text-sm text-gray-600">{{ $t('admin.quiz.loadingComments') }}</span>
     </div>
 
     <!-- Comments List -->
@@ -136,7 +136,7 @@ function getRelativeTime(dateString: string) {
               :class="comment.role === 'teacher' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'"
               class="text-xs font-medium px-2 py-1 rounded-full"
             >
-              {{ comment.role === 'teacher' ? 'Giáo viên' : 'Học sinh' }}
+              {{ comment.role === 'teacher' ? $t('quiz.teacher') : $t('quiz.student') }}
             </span>
           </div>
           <div class="flex items-center gap-2">

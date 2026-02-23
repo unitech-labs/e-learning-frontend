@@ -95,7 +95,7 @@ function handleVideoChange(info: any) {
     // Validate file type
     const validTypes = ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime', 'video/x-msvideo']
     if (!validTypes.includes(file.type)) {
-      notification.error({ message: 'Định dạng video không được hỗ trợ. Vui lòng chọn file MP4, WebM, OGG, MOV hoặc AVI.' })
+      notification.error({ message: t('admin.video.unsupportedFormat') })
       videoFileList.value = []
       return
     }

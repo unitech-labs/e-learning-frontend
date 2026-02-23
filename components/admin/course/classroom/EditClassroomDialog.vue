@@ -397,10 +397,10 @@ async function confirmDeleteClassroom() {
               Khi xóa lớp học này, tất cả dữ liệu liên quan sẽ bị xóa vĩnh viễn, bao gồm:
             </p>
             <ul class="text-sm text-red-800 mt-2 space-y-1 list-disc list-inside">
-              <li>Tất cả các buổi học trong lớp</li>
-              <li>Tất cả các tài liệu đã upload</li>
-              <li>Tất cả các video record</li>
-              <li>Thông tin đăng ký của học sinh</li>
+              <li>{{ $t('admin.classroom.delete.willDeleteSessions') }}</li>
+              <li>{{ $t('admin.classroom.delete.willDeleteMaterials') }}</li>
+              <li>{{ $t('admin.classroom.delete.willDeleteVideos') }}</li>
+              <li>{{ $t('admin.classroom.delete.willDeleteEnrollments') }}</li>
             </ul>
           </div>
         </div>
