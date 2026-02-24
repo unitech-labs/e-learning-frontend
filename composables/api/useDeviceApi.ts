@@ -25,6 +25,23 @@ export interface DeviceRevokeResponse {
   message: string
 }
 
+// Admin device interface (full info visible to admins)
+export interface AdminDevice {
+  id: number
+  user_id: number
+  user_email: string
+  user_username: string
+  device_id: string
+  device_name: string
+  device_type: 'laptop' | 'tablet' | 'phone'
+  user_agent: string
+  ip_address: string
+  last_login_at: string
+  is_active: boolean
+  created_at: string
+  updated_at: string
+}
+
 export function useDeviceApi() {
   const apiClient = useApiClient()
 
@@ -45,5 +62,13 @@ export function useDeviceApi() {
         device_id: deviceId,
         delete: true,
       }),
+
+    // Admin: list all devices with search/filter
+    getAdminDevices: (params?: { search?: string, device_type?: string, is_active?: string }) =>
+      apiClient.get<AdminDevice[]>('/devices/admin/', { params }),
+
+    // Admin: delete device by id
+    deleteAdminDevice: (id: number) =>
+      apiClient.delete<{ code: string, message: string }>(`/devices/admin/${id}/delete/`),
   }
 }

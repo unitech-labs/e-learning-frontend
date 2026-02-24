@@ -114,6 +114,11 @@ export function useSidebar(isAdmin = false) {
       link: '/admin/orders',
     },
     {
+      name: t('adminMenu.devices'),
+      icon: 'solar:devices-bold',
+      link: '/admin/devices',
+    },
+    {
       name: t('adminMenu.videoPosts'),
       icon: 'solar:video-frame-play-vertical-bold',
       link: '/admin/video-posts',

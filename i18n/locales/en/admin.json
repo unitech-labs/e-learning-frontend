@@ -1460,6 +1460,49 @@
       "title": "CONTROL PANEL",
       "subtitle": "Learn Italian with",
       "author": "Phan Tam"
+    },
+    "devices": {
+      "title": "Device Management",
+      "subtitle": "Manage login devices of all users",
+      "search": {
+        "placeholder": "Search by email, username, device name..."
+      },
+      "filter": {
+        "allTypes": "All Types",
+        "laptop": "Laptop",
+        "tablet": "Tablet",
+        "phone": "Phone",
+        "allStatus": "All Status",
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "stats": {
+        "total": "Total Devices",
+        "active": "Active",
+        "laptop": "Laptop",
+        "tablet": "Tablet",
+        "phone": "Phone"
+      },
+      "table": {
+        "user": "User",
+        "deviceName": "Device Name",
+        "deviceType": "Type",
+        "ipAddress": "IP Address",
+        "lastLogin": "Last Login",
+        "status": "Status",
+        "actions": "Actions",
+        "createdAt": "Created At"
+      },
+      "messages": {
+        "deleteConfirm": "Are you sure you want to delete device \"{deviceName}\" of {userEmail}?",
+        "deleteSuccess": "Device deleted successfully",
+        "deleteFailed": "Failed to delete device",
+        "loadFailed": "Failed to load devices"
+      },
+      "empty": {
+        "title": "No devices found",
+        "description": "No devices match the current filters"
+      }
     }
   }
 }

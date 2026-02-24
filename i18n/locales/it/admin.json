@@ -1460,6 +1460,49 @@
       "title": "DASHBOARD",
       "subtitle": "Impara l'italiano con",
       "author": "Phan Tâm"
+    },
+    "devices": {
+      "title": "Gestione Dispositivi",
+      "subtitle": "Gestisci i dispositivi di accesso di tutti gli utenti",
+      "search": {
+        "placeholder": "Cerca per email, username, nome dispositivo..."
+      },
+      "filter": {
+        "allTypes": "Tutti i tipi",
+        "laptop": "Laptop",
+        "tablet": "Tablet",
+        "phone": "Telefono",
+        "allStatus": "Tutti gli stati",
+        "active": "Attivo",
+        "inactive": "Inattivo"
+      },
+      "stats": {
+        "total": "Dispositivi totali",
+        "active": "Attivi",
+        "laptop": "Laptop",
+        "tablet": "Tablet",
+        "phone": "Telefono"
+      },
+      "table": {
+        "user": "Utente",
+        "deviceName": "Nome dispositivo",
+        "deviceType": "Tipo",
+        "ipAddress": "Indirizzo IP",
+        "lastLogin": "Ultimo accesso",
+        "status": "Stato",
+        "actions": "Azioni",
+        "createdAt": "Data creazione"
+      },
+      "messages": {
+        "deleteConfirm": "Sei sicuro di voler eliminare il dispositivo \"{deviceName}\" dell'utente {userEmail}?",
+        "deleteSuccess": "Dispositivo eliminato con successo",
+        "deleteFailed": "Eliminazione dispositivo fallita",
+        "loadFailed": "Caricamento dispositivi fallito"
+      },
+      "empty": {
+        "title": "Nessun dispositivo trovato",
+        "description": "Nessun dispositivo corrisponde ai filtri attuali"
+      }
     }
   }
 }

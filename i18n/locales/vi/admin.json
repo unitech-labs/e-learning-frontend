@@ -1460,6 +1460,49 @@
       "title": "BẢNG ĐIỀU KHIỂN",
       "subtitle": "Học tiếng Ý cùng",
       "author": "Phan Tâm"
+    },
+    "devices": {
+      "title": "Quản lý thiết bị",
+      "subtitle": "Quản lý thiết bị đăng nhập của tất cả người dùng",
+      "search": {
+        "placeholder": "Tìm theo email, username, tên thiết bị..."
+      },
+      "filter": {
+        "allTypes": "Tất cả loại",
+        "laptop": "Laptop",
+        "tablet": "Tablet",
+        "phone": "Điện thoại",
+        "allStatus": "Tất cả trạng thái",
+        "active": "Đang hoạt động",
+        "inactive": "Không hoạt động"
+      },
+      "stats": {
+        "total": "Tổng thiết bị",
+        "active": "Đang hoạt động",
+        "laptop": "Laptop",
+        "tablet": "Tablet",
+        "phone": "Điện thoại"
+      },
+      "table": {
+        "user": "Người dùng",
+        "deviceName": "Tên thiết bị",
+        "deviceType": "Loại",
+        "ipAddress": "Địa chỉ IP",
+        "lastLogin": "Đăng nhập cuối",
+        "status": "Trạng thái",
+        "actions": "Thao tác",
+        "createdAt": "Ngày tạo"
+      },
+      "messages": {
+        "deleteConfirm": "Bạn có chắc chắn muốn xóa thiết bị \"{deviceName}\" của {userEmail}?",
+        "deleteSuccess": "Đã xóa thiết bị thành công",
+        "deleteFailed": "Xóa thiết bị thất bại",
+        "loadFailed": "Tải danh sách thiết bị thất bại"
+      },
+      "empty": {
+        "title": "Không tìm thấy thiết bị",
+        "description": "Không có thiết bị nào khớp với bộ lọc"
+      }
     }
   }
 }
