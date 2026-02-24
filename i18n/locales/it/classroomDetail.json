@@ -32,6 +32,8 @@
     },
     "resources": {
       "title": "Materiali",
+      "root": "Materiali",
+      "files": "file",
       "downloadable": "Scaricabile",
       "download": "Scarica",
       "empty": "Non ci sono ancora materiali per questa classe",

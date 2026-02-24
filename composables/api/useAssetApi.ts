@@ -3,6 +3,7 @@ import { useApiClient } from '~/api/apiClient'
 export interface CourseAsset {
   id: string
   course: string
+  folder?: string | null
   asset_type: 'video' | 'pdf' | 'doc' | 'ppt' | 'zip' | 'image' | 'audio' | 'other'
   title: string
   description: string
@@ -37,6 +38,30 @@ export interface CourseAssetPayload {
   order?: number
   is_downloadable?: boolean
   visible_classroom_ids?: string[]
+  folder?: string | null
+}
+
+export interface AssetFolder {
+  id: string
+  parent: string | null
+  name: string
+  order: number
+  subfolder_count: number
+  asset_count: number
+  created_at: string
+}
+
+export interface AssetFolderDetail extends AssetFolder {
+  course: string
+  created_by: number
+  created_by_name: string
+  updated_at: string
+}
+
+export interface BrowseFolderResponse {
+  folder: AssetFolderDetail | null
+  subfolders: AssetFolder[]
+  assets: CourseAsset[]
 }
 
 export interface UploadVideoUrlResponse {
@@ -142,6 +167,27 @@ export function useAssetApi() {
     return apiClient.delete(`/courses/${courseId}/assets/${assetId}/`)
   }
 
+  // Browse folder contents (root or specific folder)
+  function browseFolder(courseId: string, folderId?: string | null) {
+    const query = folderId ? `?folder=${folderId}` : ''
+    return apiClient.get<BrowseFolderResponse>(`/courses/${courseId}/asset-folders/${query}`)
+  }
+
+  // Create folder
+  function createFolder(courseId: string, payload: { name: string, parent?: string | null, order?: number }) {
+    return apiClient.post<AssetFolderDetail>(`/courses/${courseId}/asset-folders/`, payload)
+  }
+
+  // Rename / move folder
+  function updateFolder(courseId: string, folderId: string, payload: { name?: string, parent?: string | null, order?: number }) {
+    return apiClient.patch<AssetFolderDetail>(`/courses/${courseId}/asset-folders/${folderId}/`, payload)
+  }
+
+  // Delete folder (cascade)
+  function deleteFolder(courseId: string, folderId: string) {
+    return apiClient.delete(`/courses/${courseId}/asset-folders/${folderId}/`)
+  }
+
   return {
     getVideoUploadUrl,
     getAttachmentUploadUrl,
@@ -150,5 +196,9 @@ export function useAssetApi() {
     createAsset,
     updateAsset,
     deleteAsset,
+    browseFolder,
+    createFolder,
+    updateFolder,
+    deleteFolder,
   }
 }

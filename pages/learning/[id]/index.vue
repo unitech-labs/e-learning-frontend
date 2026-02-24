@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CourseAsset } from '~/composables/api/useAssetApi'
+import type { AssetFolder, CourseAsset } from '~/composables/api/useAssetApi'
 import type { CourseStudent } from '~/types/course.type'
 import { VideoPlayer } from '@videojs-player/vue'
 import { notification } from 'ant-design-vue'
@@ -64,11 +64,14 @@ const commentCount = ref(0)
 
 // Resources data
 const resources = ref<CourseAsset[]>([])
-const resourcesData = ref<{ count: number, next: string | null, previous: string | null } | null>(null)
+const resourceSubfolders = ref<AssetFolder[]>([])
 const isLoadingResources = ref(false)
-const isLoadingMoreResources = ref(false)
-const currentResourcePage = ref(1)
-const resourcePageSize = ref(10)
+
+// Resource folder browsing state
+const resourceBreadcrumbs = ref<{ id: string | null, name: string }[]>([
+  { id: null, name: t('classroomDetail.resources.root') },
+])
+const currentResourceFolderId = computed(() => resourceBreadcrumbs.value[resourceBreadcrumbs.value.length - 1].id)
 
 // Lesson materials data
 const lessonMaterials = ref<any[]>([])
@@ -76,11 +79,20 @@ const isLoadingLessonMaterials = ref(false)
 
 // Audio accordion state
 const AUDIO_EXTENSIONS = ['mp3', 'wav', 'm4a', 'ogg', 'aac', 'flac', 'wma']
+const IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg', 'bmp']
 function isAudioFile(item: any): boolean {
   return AUDIO_EXTENSIONS.includes(getFileExtension(item))
 }
+function isImageFile(item: any): boolean {
+  return IMAGE_EXTENSIONS.includes(getFileExtension(item))
+}
 const expandedAudioMaterialId = ref<string | null>(null)
 const expandedAudioResourceId = ref<string | null>(null)
+
+// Image preview state
+const imagePreviewOpen = ref(false)
+const imagePreviewUrl = ref('')
+const imagePreviewTitle = ref('')
 
 // Session videos data
 const sessionVideos = ref<any[]>([])
@@ -274,29 +286,13 @@ async function loadCourseStudents() {
   }
 }
 
-// Load resources/assets filtered by classroom
+// Load resources via folder browsing
 async function loadResources() {
   try {
-    const query = {
-      ordering: 'order',
-      // visible_classrooms: classroomId.value,
-      page: 1,
-      limit: resourcePageSize.value,
-    }
-    if (classroomId.value) {
-      (query as any).visible_classrooms = classroomId.value
-    }
     isLoadingResources.value = true
-    currentResourcePage.value = 1
-
-    const response = await assetApi.getAssets(courseId, query)
-
-    resources.value = response.results || []
-    resourcesData.value = {
-      count: response.count || 0,
-      next: response.next,
-      previous: response.previous,
-    }
+    const response = await assetApi.browseFolder(courseId, currentResourceFolderId.value)
+    resourceSubfolders.value = response.subfolders || []
+    resources.value = response.assets || []
   }
   catch (error: any) {
     console.error('Error loading resources:', error)
@@ -310,46 +306,17 @@ async function loadResources() {
   }
 }
 
-// Load more resources
-async function loadMoreResources() {
-  if (!classroomId.value || !resourcesData.value?.next || isLoadingMoreResources.value) {
-    return
-  }
-
-  try {
-    isLoadingMoreResources.value = true
-    currentResourcePage.value += 1
-
-    const response = await assetApi.getAssets(courseId, {
-      ordering: 'order',
-      visible_classrooms: classroomId.value,
-      page: currentResourcePage.value,
-      limit: resourcePageSize.value,
-    })
-
-    if (response.results && response.results.length > 0) {
-      resources.value = [...resources.value, ...response.results]
-      resourcesData.value = {
-        count: response.count || 0,
-        next: response.next,
-        previous: response.previous,
-      }
-    }
-  }
-  catch (error: any) {
-    console.error('Error loading more resources:', error)
-    notification.error({
-      message: t('classroomDetail.resources.loadMoreFailed'),
-      description: error?.data?.message || t('classroomDetail.resources.loadMoreFailedDescription'),
-    })
-  }
-  finally {
-    isLoadingMoreResources.value = false
-  }
+function navigateResourceFolder(folder: AssetFolder) {
+  resourceBreadcrumbs.value.push({ id: folder.id, name: folder.name })
+  loadResources()
 }
 
-// Check if there are more resource pages
-const hasMoreResources = computed(() => !!resourcesData.value?.next)
+function navigateResourceBreadcrumb(index: number) {
+  resourceBreadcrumbs.value = resourceBreadcrumbs.value.slice(0, index + 1)
+  loadResources()
+}
+
+const hasResourceContent = computed(() => resourceSubfolders.value.length > 0 || resources.value.length > 0)
 
 // Load lesson materials
 async function loadLessonMaterials() {
@@ -447,7 +414,7 @@ function getMaterialIcon(material: any): string {
 
   // Images
   if (['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg', 'bmp', 'ico'].includes(extLower)) {
-    return 'solar:file-image-bold-duotone'
+    return 'solar:smartphone-bold-duotone'
   }
 
   // Audio
@@ -536,6 +503,14 @@ function handleMaterialClick(material: any) {
     return
   }
 
+  // Image files: show preview dialog
+  if (isImageFile(material)) {
+    imagePreviewUrl.value = fileUrl
+    imagePreviewTitle.value = material.title
+    imagePreviewOpen.value = true
+    return
+  }
+
   // Encode file_url for URL
   const encodedFileUrl = encodeURIComponent(fileUrl)
 
@@ -586,6 +561,14 @@ function handleResourceClick(resource: CourseAsset) {
   // Audio files: toggle inline accordion instead of navigating
   if (isAudioFile(resource)) {
     expandedAudioResourceId.value = expandedAudioResourceId.value === resource.id ? null : resource.id
+    return
+  }
+
+  // Image files: show preview dialog
+  if (isImageFile(resource)) {
+    imagePreviewUrl.value = resource.file_url
+    imagePreviewTitle.value = resource.title
+    imagePreviewOpen.value = true
     return
   }
 
@@ -1064,41 +1047,62 @@ onBeforeUnmount(() => {
               </a-tab-pane>
 
               <a-tab-pane key="resources" :tab="`${t('classroomDetail.resources.title')}`">
-                <div class="bg-white rounded-2xl p-6 border border-gray-200">
-                  <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
-                    <Icon name="solar:document-text-bold" size="24" class="text-blue-600" />
-                    {{ $t('classroomDetail.resources.title') }}
-                  </h2>
-
-                  <!-- Loading State -->
-                  <div v-if="isLoadingResources" class="flex justify-center items-center py-12">
-                    <a-spin size="large" />
+                <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+                  <!-- Breadcrumbs -->
+                  <div class="flex items-center gap-1 px-5 py-3 border-b border-gray-100 text-sm">
+                    <template v-for="(crumb, index) in resourceBreadcrumbs" :key="index">
+                      <Icon v-if="index > 0" name="i-heroicons-chevron-right" size="14" class="text-gray-400 flex-shrink-0" />
+                      <button
+                        v-if="index < resourceBreadcrumbs.length - 1"
+                        class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 cursor-pointer rounded-md px-2 py-1 transition-colors truncate"
+                        @click="navigateResourceBreadcrumb(index)"
+                      >
+                        {{ crumb.name }}
+                      </button>
+                      <span v-else class="text-gray-900 font-semibold px-2 py-1 truncate">{{ crumb.name }}</span>
+                    </template>
                   </div>
 
-                  <!-- Resources List -->
-                  <div v-else-if="resources.length > 0" class="space-y-3">
+                  <!-- Loading State -->
+                  <div v-if="isLoadingResources" class="px-4 py-2">
+                    <div v-for="n in 4" :key="n" class="py-3 border-b border-gray-50">
+                      <a-skeleton active :paragraph="{ rows: 0 }" />
+                    </div>
+                  </div>
+
+                  <template v-else>
+                    <!-- Folders -->
+                    <div
+                      v-for="folder in resourceSubfolders"
+                      :key="folder.id"
+                      class="flex items-center gap-3 px-5 py-3 border-b border-gray-50 hover:bg-gray-50 cursor-pointer transition-colors"
+                      @click="navigateResourceFolder(folder)"
+                    >
+                      <Icon name="solar:folder-bold" size="22" class="text-gray-400 flex-shrink-0" />
+                      <span class="text-sm font-medium text-gray-800 truncate flex-1">{{ folder.name }}</span>
+                      <span class="text-xs text-gray-400">{{ folder.asset_count }} {{ t('classroomDetail.resources.files') }}</span>
+                      <Icon name="i-heroicons-chevron-right" size="16" class="text-gray-300 flex-shrink-0" />
+                    </div>
+
+                    <!-- Files -->
                     <div
                       v-for="resource in resources"
                       :key="resource.id"
                     >
                       <div
-                        class="flex items-center gap-4 p-4 border border-gray-200 hover:border-blue-300 hover:shadow-sm transition-all duration-200 group cursor-pointer"
-                        :class="isAudioFile(resource) && expandedAudioResourceId === resource.id ? 'rounded-t-lg border-b-0' : 'rounded-lg'"
+                        class="flex items-center gap-4 px-5 py-3 border-b border-gray-50 hover:bg-gray-50 cursor-pointer transition-colors group"
                         @click="handleResourceClick(resource)"
                       >
                         <div class="flex-shrink-0">
-                          <div class="p-3 rounded-lg bg-gray-50 group-hover:bg-blue-50 transition-colors">
-                            <Icon :name="getMaterialIcon(resource)" size="24" :class="getMaterialIconColor(resource)" />
+                          <div class="p-2 rounded-lg bg-gray-50 group-hover:bg-blue-50 transition-colors">
+                            <Icon :name="getMaterialIcon(resource)" size="22" :class="getMaterialIconColor(resource)" />
                           </div>
                         </div>
                         <div class="flex-1 min-w-0">
-                          <h3 class="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1">
+                          <h3 class="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1">
                             {{ resource.title }}
                           </h3>
-                          <p v-if="resource.description" class="text-sm text-gray-500 line-clamp-1 mt-1">
-                            {{ resource.description }}
-                          </p>
-                          <div class="flex items-center gap-3 mt-2 text-xs text-gray-400">
+                          <div class="flex items-center gap-3 mt-1 text-xs text-gray-400">
                             <span>{{ formatFileSize(resource.file_size) }}</span>
                             <span>•</span>
                             <span class="uppercase">{{ resource.asset_type }}</span>
@@ -1108,16 +1112,16 @@ onBeforeUnmount(() => {
                           <Icon
                             v-if="isAudioFile(resource)"
                             :name="expandedAudioResourceId === resource.id ? 'solar:alt-arrow-up-bold' : 'solar:alt-arrow-down-bold'"
-                            size="20"
+                            size="18"
                             class="text-indigo-400 group-hover:text-indigo-600 transition-colors"
                           />
-                          <Icon v-else name="solar:external-link-bold" size="20" class="text-gray-400 group-hover:text-blue-600 transition-colors" />
+                          <Icon v-else name="solar:external-link-bold" size="18" class="text-gray-300 group-hover:text-blue-500 transition-colors" />
                         </div>
                       </div>
                       <!-- Audio accordion player -->
                       <div
                         v-if="isAudioFile(resource) && expandedAudioResourceId === resource.id"
-                        class="border border-t-0 border-gray-200 rounded-b-lg bg-gray-50 px-4 pb-4 pt-3"
+                        class="border-b border-gray-50 bg-gray-50 px-5 pb-4 pt-3"
                       >
                         <audio
                           controls
@@ -1128,34 +1132,14 @@ onBeforeUnmount(() => {
                       </div>
                     </div>
 
-                    <!-- Load More Button -->
-                    <div v-if="hasMoreResources" class="flex justify-center pt-4">
-                      <a-button
-                        type="default"
-                        size="large"
-                        :loading="isLoadingMoreResources"
-                        class="!flex items-center gap-2"
-                        @click="loadMoreResources"
-                      >
-                        <Icon name="solar:download-bold" size="16" />
-                        {{ $t('classroomDetail.resources.loadMore') }}
-                      </a-button>
+                    <!-- Empty State -->
+                    <div v-if="!hasResourceContent" class="text-center py-16">
+                      <Icon name="solar:folder-open-bold-duotone" size="56" class="text-gray-200 mx-auto mb-3" />
+                      <p class="text-gray-400 text-sm">
+                        {{ $t('classroomDetail.resources.empty') }}
+                      </p>
                     </div>
-
-                    <!-- Loading More State -->
-                    <div v-if="isLoadingMoreResources" class="flex justify-center items-center py-4">
-                      <a-spin size="small" />
-                      <span class="ml-2 text-sm text-gray-500">{{ $t('classroomDetail.resources.loadingMore') }}</span>
-                    </div>
-                  </div>
-
-                  <!-- Empty State -->
-                  <div v-else-if="!isLoadingResources && resources.length === 0" class="text-center py-12">
-                    <Icon name="solar:document-text-bold-duotone" size="48" class="text-gray-300 mx-auto mb-4" />
-                    <p class="text-gray-500">
-                      {{ $t('classroomDetail.resources.empty') }}
-                    </p>
-                  </div>
+                  </template>
                 </div>
               </a-tab-pane>
             </a-tabs>
@@ -1353,6 +1337,25 @@ onBeforeUnmount(() => {
           </a-button>
         </div>
       </template>
+    </a-modal>
+
+    <!-- Image Preview Modal -->
+    <a-modal
+      v-model:open="imagePreviewOpen"
+      :title="imagePreviewTitle"
+      :footer="null"
+      :width="900"
+      :body-style="{ padding: 0 }"
+      :destroy-on-close="true"
+      centered
+    >
+      <div class="flex items-center justify-center bg-gray-100 p-4" style="max-height: 75vh; overflow: auto;">
+        <img
+          :src="imagePreviewUrl"
+          :alt="imagePreviewTitle"
+          class="max-w-full max-h-full object-contain"
+        >
+      </div>
     </a-modal>
   </div>
 </template>

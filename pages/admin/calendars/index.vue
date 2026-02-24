@@ -675,6 +675,7 @@ onMounted(() => {
           :events="calendarEvents"
           :views="['week']"
           time-at-cursor
+          :snap-to-interval="15"
           @ready="handleCalendarReady"
           @event-create="createEvent"
           @event-click="handleEventClick"

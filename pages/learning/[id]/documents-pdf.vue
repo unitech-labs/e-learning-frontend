@@ -2,10 +2,6 @@
 import { notification } from 'ant-design-vue'
 import { getFileExtension } from '~/utils/fileExtension'
 
-// Dynamically import VueOfficePdf component (client-side only)
-// @ts-expect-error - Dynamic import for @vue-office/pdf
-const VueOfficePdf = defineAsyncComponent(() => import('@vue-office/pdf').then(m => m.default))
-
 definePageMeta({
   layout: 'default',
 })
@@ -78,15 +74,15 @@ const documentUrl = computed(() => {
 })
 
 // PDF viewer handlers
-function handlePdfLoaded(_pdf: any) {
+function handlePdfLoaded() {
   pdfLoading.value = false
   pdfError.value = null
 }
 
-function handlePdfError(error: any) {
+function handlePdfError(message: string) {
   pdfLoading.value = false
-  pdfError.value = error?.message || 'Failed to load PDF'
-  console.error('PDF loading error:', error)
+  pdfError.value = message || 'Failed to load PDF'
+  console.error('PDF loading error:', message)
 }
 
 // Get initial element width (only used once to get base width)
@@ -152,6 +148,9 @@ const zoomPercentage = computed(() => {
   return Math.round((pdfWidth.value / base) * 100)
 })
 
+// PDF render scale (cho PdfViewer lazy load) - scale 1.2 = 100%, dpr nhân thêm trong component (clamp max 3)
+const pdfScale = computed(() => 1.2 * (zoomPercentage.value / 100))
+
 // Prevent download and save
 function preventDownload(event: Event) {
   event.preventDefault()
@@ -209,7 +208,7 @@ useHead({
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="bg-gray-50">
     <!-- Header -->
     <div class="bg-white border-b border-gray-200 sticky top-0 z-10">
       <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-2">
@@ -289,8 +288,8 @@ useHead({
     <!-- Document Viewer -->
     <div v-else-if="document && documentUrl" class="mx-auto">
       <!-- PDF Viewer -->
-      <div v-if="isPdf" class="">
         <div
+        v-if="isPdf" 
           class="pdf-viewer-container"
           @contextmenu.prevent="preventDownload"
           @click.prevent="preventDownload"
@@ -308,22 +307,15 @@ useHead({
             class="m-4"
           />
 
-          <!-- PDF Viewer: @vue-office/pdf -->
-          <div
-            v-if="!pdfError && VueOfficePdf"
-            ref="pdfWrapperRef"
-            class="pdf-embed-wrapper overflow-auto"
-            :style="pdfWidth != null ? { width: `${pdfWidth}px` } : undefined"
-          >
-            <VueOfficePdf
-              :src="documentUrl"
-              style="width: 100%; min-height: 600px; height: 100%;"
-              @rendered="handlePdfLoaded"
-              @error="handlePdfError"
-            />
-          </div>
+          <!-- PDF Viewer: lazy load với pdfjs-dist + IntersectionObserver -->
+              <LearningPdfViewer
+              v-if="!pdfError && documentUrl"
+                :url="documentUrl"
+                :scale="pdfScale"
+                @loaded="handlePdfLoaded"
+                @error="handlePdfError"
+              />
         </div>
-      </div>
 
       <!-- Document Info -->
       <div v-if="document.description" class="mt-6 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -357,25 +349,10 @@ useHead({
 <style scoped>
 .pdf-viewer-container {
   position: relative;
-  min-height: 600px;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-}
-
-.pdf-embed-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* padding: 2rem; */
-  background: #f5f5f5;
-  min-height: 600px;
-}
-
-.pdf-embed {
-  max-width: 100%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Prevent text selection */

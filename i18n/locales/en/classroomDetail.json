@@ -32,6 +32,8 @@
     },
     "resources": {
       "title": "Materials",
+      "root": "Materials",
+      "files": "files",
       "downloadable": "Downloadable",
       "download": "Download",
       "empty": "No materials yet for this classroom",

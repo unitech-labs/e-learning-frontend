@@ -44,6 +44,7 @@ interface FileItem {
 interface Props {
   open: boolean
   courseId: string
+  folderId?: string | null
 }
 
 interface Emits {
@@ -259,6 +260,7 @@ async function uploadSingleFile(fileItem: FileItem): Promise<void> {
         file_size: fileItem.size,
         order: undefined, // null/undefined as per requirement
         is_downloadable: true, // Default true
+        folder: props.folderId || null,
       }
 
       await createAsset(props.courseId, payload)

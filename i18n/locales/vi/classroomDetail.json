@@ -32,6 +32,8 @@
     },
     "resources": {
       "title": "Tài liệu",
+      "root": "Tài liệu",
+      "files": "tệp",
       "downloadable": "Có thể tải xuống",
       "download": "Tải xuống",
       "empty": "Chưa có tài liệu nào cho lớp học này",

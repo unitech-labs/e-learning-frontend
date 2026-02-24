@@ -98,7 +98,7 @@ function initializeEditForm() {
       last_name: profile.value.last_name || '',
       phone_number: profile.value.phone_number || '',
       gender: profile.value.gender || '',
-      date_of_birth: '',
+      date_of_birth: profile.value.date_of_birth || '',
       contact_address: profile.value.contact_address || '',
       headline: profile.value.headline || '',
       bio: profile.value.bio || '',
@@ -142,7 +142,7 @@ async function handleSave() {
       last_name: editForm.value.last_name,
       phone_number: editForm.value.phone_number,
       gender: editForm.value.gender || undefined,
-      date_of_birth: editForm.value.date_of_birth,
+      date_of_birth: editForm.value.date_of_birth || dayjs().format('YYYY-MM-DD'),
       contact_address: editForm.value.contact_address,
       headline: editForm.value.headline,
       bio: editForm.value.bio,
@@ -241,7 +241,7 @@ onMounted(() => {
           </a-avatar>
           <div class="flex-1 min-w-0 w-full sm:w-auto">
             <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 truncate">
-              {{ profile?.last_name }} {{ profile?.first_name }}
+              {{ profile?.first_name }} {{ profile?.last_name }}
             </h1>
             <p class="text-sm sm:text-base lg:text-lg text-gray-600 mb-2 sm:mb-3 truncate">
               {{ profile?.email }}
@@ -469,11 +469,11 @@ onMounted(() => {
                       <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">{{ t('profile.info.dateOfBirth') }}</label>
                         <a-date-picker
-                          :value="dayjs(editForm.date_of_birth, 'YYYY-MM-DD')"
+                          :value="editForm.date_of_birth ? dayjs(editForm.date_of_birth, 'YYYY-MM-DD') : null"
                           size="large"
                           class="w-full"
                           format="YYYY-MM-DD"
-                          @change="(date: any) => editForm.date_of_birth = dayjs(date).format('YYYY-MM-DD')"
+                          @change="(date: any) => editForm.date_of_birth = date ? dayjs(date).format('YYYY-MM-DD') : ''"
                         >
                           <template #prefix>
                             <Icon name="solar:calendar-bold" size="16" class="text-gray-400" />
