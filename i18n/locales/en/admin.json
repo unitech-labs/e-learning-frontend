@@ -269,12 +269,23 @@
         "eventClassPlaceholder": "Event Class",
         "background": "Background"
       },
+      "recurringEditDialog": {
+        "title": "Edit recurring event",
+        "thisEvent": "This event only",
+        "allEvents": "All events",
+        "fromThisEvent": "This and following events",
+        "sameWeekday": "This event weekly",
+        "save": "Save",
+        "cancel": "Cancel"
+      },
       "notifications": {
         "selectClassroomRequired": "Please select a classroom",
         "createSessionSuccess": "Session created",
         "createSessionFailed": "Could not create session",
         "updateSessionTimeSuccess": "Session time updated",
         "updateSessionTimeFailed": "Could not update time",
+        "bulkRescheduleSuccess": "Updated {count} sessions",
+        "bulkRescheduleFailed": "Could not bulk reschedule",
         "loadSessionsError": "An error occurred while loading the master calendar",
         "openSessionDetailError": "Could not open session details",
         "openSessionDetailErrorDesc": "Missing courseId/classroomId from API session detail.",

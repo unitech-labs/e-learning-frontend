@@ -51,7 +51,7 @@ function formatEventTime(dateTime: any): string {
   return dayjs(dateTime).format('HH:mm')
 }
 
-const { getSessions, getSessionDetail, rescheduleSession } = useGeneralSessionsApi()
+const { getSessions, getSessionDetail, rescheduleSession, bulkRescheduleSession } = useGeneralSessionsApi()
 const { getCourses } = useCourseApi()
 const { createClassroomSession } = useClassroomApi()
 
@@ -74,6 +74,11 @@ const creationForm = ref({
 })
 
 const isUpdatingSessionTime = ref(false)
+
+// Recurring event edit dialog state
+const showRecurringEditDialog = ref(false)
+const recurringEditOption = ref<'this_event' | 'all' | 'from_this' | 'same_weekday'>('this_event')
+const pendingEventChange = ref<{ sessionId: string, start: any, end: any } | null>(null)
 
 const sessionsData = ref<any[]>([])
 const calendarEvents = ref<CalendarEvent[]>([])
@@ -480,47 +485,110 @@ async function resolveSessionContextAndOpen(sessionId: string) {
   }
 }
 
-async function handleEventChange(payload: any) {
+function handleEventChange(payload: any) {
   // VueCal (v5) emits different shapes; handle both { event } and direct event object.
   const event = payload?.event || payload
   const sessionId = event?.sessionId || event?.id
   if (!sessionId)
     return
+
+  // Store pending change and show recurring edit dialog
+  pendingEventChange.value = {
+    sessionId,
+    start: event.start,
+    end: event.end,
+  }
+  recurringEditOption.value = 'this_event'
+  showRecurringEditDialog.value = true
+}
+
+async function handleRecurringEditSave() {
+  if (!pendingEventChange.value)
+    return
   if (isUpdatingSessionTime.value)
     return
 
+  const { sessionId, start, end } = pendingEventChange.value
+  const option = recurringEditOption.value
+
+  // "Chỉ sự kiện này" — just close dialog (single reschedule already applied by VueCal drag/resize)
+  if (option === 'this_event') {
+    try {
+      isUpdatingSessionTime.value = true
+      const startDate = dayjs(start)
+      const endDate = dayjs(end)
+
+      await rescheduleSession(sessionId, {
+        start_date: startDate.format('YYYY-MM-DD'),
+        start_time: startDate.format('HH:mm'),
+        end_date: endDate.format('YYYY-MM-DD'),
+        end_time: endDate.format('HH:mm'),
+      })
+
+      notification.success({
+        message: t('admin.calendars.notifications.updateSessionTimeSuccess'),
+        duration: 2,
+      })
+    }
+    catch (err: any) {
+      console.error('Error updating session time:', err)
+      notification.error({
+        message: t('admin.calendars.notifications.updateSessionTimeFailed'),
+        description: err?.message || err?.data?.detail || t('common.tryAgain'),
+        duration: 5,
+      })
+      loadSessionsForCurrentView()
+    }
+    finally {
+      isUpdatingSessionTime.value = false
+    }
+
+    showRecurringEditDialog.value = false
+    pendingEventChange.value = null
+    return
+  }
+
+  // Bulk reschedule for the other 3 options
   try {
     isUpdatingSessionTime.value = true
+    const startTime = dayjs(start).format('HH:mm')
+    const endTime = dayjs(end).format('HH:mm')
 
-    const startDate = dayjs(event.start)
-    const endDate = dayjs(event.end)
-
-    await rescheduleSession(sessionId, {
-      start_date: startDate.format('YYYY-MM-DD'),
-      start_time: startDate.format('HH:mm'),
-      end_date: endDate.format('YYYY-MM-DD'),
-      end_time: endDate.format('HH:mm'),
+    const result = await bulkRescheduleSession(sessionId, {
+      start_time: startTime,
+      end_time: endTime,
+      option: option as 'all' | 'from_this' | 'same_weekday',
     })
 
     notification.success({
-      message: t('admin.calendars.notifications.updateSessionTimeSuccess'),
-      duration: 2,
+      message: t('admin.calendars.notifications.bulkRescheduleSuccess', { count: result.updated_count }),
+      duration: 3,
     })
+
+    loadSessionsForCurrentView()
   }
   catch (err: any) {
-    console.error('Error updating session time:', err)
+    console.error('Error bulk rescheduling sessions:', err)
     notification.error({
-      message: t('admin.calendars.notifications.updateSessionTimeFailed'),
+      message: t('admin.calendars.notifications.bulkRescheduleFailed'),
       description: err?.message || err?.data?.detail || t('common.tryAgain'),
       duration: 5,
     })
-
-    // On error, reload to revert UI to backend truth.
     loadSessionsForCurrentView()
   }
   finally {
     isUpdatingSessionTime.value = false
   }
+
+  showRecurringEditDialog.value = false
+  pendingEventChange.value = null
+}
+
+function handleRecurringEditCancel() {
+  showRecurringEditDialog.value = false
+  pendingEventChange.value = null
+  // Revert UI to backend truth since user cancelled
+  loadSessionsForCurrentView()
 }
 
 function handleStudentChanged() {
@@ -716,6 +784,41 @@ onMounted(() => {
       @session-created="handleSessionCreatedFromDialog"
       @success="handleClassroomCreatedFromDialog"
     />
+
+    <!-- Recurring event edit dialog -->
+    <a-modal
+      v-model:open="showRecurringEditDialog"
+      :title="t('admin.calendars.recurringEditDialog.title')"
+      :footer="null"
+      :mask-closable="false"
+      @cancel="handleRecurringEditCancel"
+    >
+      <div class="py-4">
+        <a-radio-group v-model:value="recurringEditOption" class="flex flex-col gap-3">
+          <a-radio value="this_event">
+            {{ t('admin.calendars.recurringEditDialog.thisEvent') }}
+          </a-radio>
+          <a-radio value="all">
+            {{ t('admin.calendars.recurringEditDialog.allEvents') }}
+          </a-radio>
+          <a-radio value="from_this">
+            {{ t('admin.calendars.recurringEditDialog.fromThisEvent') }}
+          </a-radio>
+          <a-radio value="same_weekday">
+            {{ t('admin.calendars.recurringEditDialog.sameWeekday') }}
+          </a-radio>
+        </a-radio-group>
+
+        <div class="flex justify-end gap-2 mt-6">
+          <a-button @click="handleRecurringEditCancel">
+            {{ t('admin.calendars.recurringEditDialog.cancel') }}
+          </a-button>
+          <a-button type="primary" :loading="isUpdatingSessionTime" @click="handleRecurringEditSave">
+            {{ t('admin.calendars.recurringEditDialog.save') }}
+          </a-button>
+        </div>
+      </div>
+    </a-modal>
 
     <!-- VueCal editable-event creation dialog -->
     <a-modal

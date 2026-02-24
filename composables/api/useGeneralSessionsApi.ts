@@ -96,5 +96,11 @@ export function useGeneralSessionsApi() {
 
     bulkGenerateSessions: (payload: { course_id: string, classroom_id: string, number_of_sessions: number }) =>
       apiClient.post<BulkGenerateSessionsResponse>('/sessions/bulk-generate/', payload),
+
+    bulkRescheduleSession: (sessionId: string, payload: {
+      start_time: string
+      end_time: string
+      option: 'all' | 'from_this' | 'same_weekday'
+    }) => apiClient.post<{ updated_count: number, option: string, new_start_time: string, new_end_time: string }>(`/sessions/${sessionId}/bulk-reschedule/`, payload),
   }
 }

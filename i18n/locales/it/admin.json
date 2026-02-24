@@ -269,12 +269,23 @@
         "eventClassPlaceholder": "Categoria",
         "background": "Sfondo"
       },
+      "recurringEditDialog": {
+        "title": "Modifica evento ricorrente",
+        "thisEvent": "Solo questo evento",
+        "allEvents": "Tutti gli eventi",
+        "fromThisEvent": "Da questo evento in poi",
+        "sameWeekday": "Questo evento settimanale",
+        "save": "Salva",
+        "cancel": "Annulla"
+      },
       "notifications": {
         "selectClassroomRequired": "Seleziona una classe",
         "createSessionSuccess": "Sessione creata",
         "createSessionFailed": "Impossibile creare sessione",
         "updateSessionTimeSuccess": "Orario sessione aggiornato",
         "updateSessionTimeFailed": "Impossibile aggiornare l'orario",
+        "bulkRescheduleSuccess": "Aggiornate {count} sessioni",
+        "bulkRescheduleFailed": "Impossibile riprogrammare in blocco",
         "loadSessionsError": "Errore durante il caricamento del calendario",
         "openSessionDetailError": "Impossibile aprire i dettagli della sessione",
         "openSessionDetailErrorDesc": "Dati courseId/classroomId mancanti dal dettaglio sessione.",

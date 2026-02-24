@@ -269,12 +269,23 @@
         "eventClassPlaceholder": "Event Class",
         "background": "Background"
       },
+      "recurringEditDialog": {
+        "title": "Chỉnh sửa sự kiện lặp lại",
+        "thisEvent": "Chỉ sự kiện này",
+        "allEvents": "Tất cả sự kiện",
+        "fromThisEvent": "Từ sự kiện này trở đi",
+        "sameWeekday": "Sự kiện này hàng tuần",
+        "save": "Lưu",
+        "cancel": "Hủy"
+      },
       "notifications": {
         "selectClassroomRequired": "Vui lòng chọn lớp học",
         "createSessionSuccess": "Đã tạo buổi học",
         "createSessionFailed": "Không thể tạo buổi học",
         "updateSessionTimeSuccess": "Đã cập nhật thời gian buổi học",
         "updateSessionTimeFailed": "Không thể cập nhật thời gian",
+        "bulkRescheduleSuccess": "Đã cập nhật {count} buổi học",
+        "bulkRescheduleFailed": "Không thể cập nhật hàng loạt",
         "loadSessionsError": "Có lỗi xảy ra khi tải lịch tổng",
         "openSessionDetailError": "Không thể mở chi tiết buổi học",
         "openSessionDetailErrorDesc": "Thiếu courseId/classroomId từ API session detail.",
