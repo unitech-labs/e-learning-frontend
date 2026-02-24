@@ -7,6 +7,62 @@
     "notAnswered": "Nessuna risposta data",
     "correct": "Esatto",
     "incorrect": "Errato",
-    "pendingGrading": "In attesa di correzione"
+    "pendingGrading": "In attesa di correzione",
+    "messages": {
+      "deleteSuccess": "Quiz \"{title}\" eliminato con successo",
+      "deleteError": "Eliminazione quiz fallita",
+      "publishSuccess": "Quiz pubblicato con successo",
+      "unpublishSuccess": "Quiz annullato con successo",
+      "publishError": "Pubblicazione/Annullamento quiz fallito"
+    },
+    "management": {
+      "title": "Gestione quiz",
+      "description": "Crea e gestisci le domande del quiz",
+      "totalQuizzes": "domande totali",
+      "published": "Pubblicato",
+      "draft": "Bozza",
+      "createNewQuiz": "Crea nuova domanda",
+      "loading": "Caricamento...",
+      "tryAgain": "Riprova",
+      "noQuizzes": "Nessuna domanda ancora",
+      "createFirstQuiz": "Crea la prima domanda",
+      "unpublish": "Annulla pubblicazione",
+      "publish": "Pubblica",
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "deleteConfirm": {
+        "title": "Conferma eliminazione",
+        "cancel": "Annulla",
+        "confirm": "Elimina",
+        "message": "Sei sicuro di voler eliminare questa domanda?",
+        "warning": "Questa azione non può essere annullata."
+      }
+    },
+    "question": {
+      "questionRequired": "Inserisci il contenuto della domanda",
+      "scoreRequired": "Inserisci il punteggio",
+      "scoreMustBePositive": "Il punteggio deve essere maggiore di 0",
+      "answerRequired": "Inserisci la risposta",
+      "correctAnswerRequired": "Seleziona la risposta corretta",
+      "questionNumber": "Domanda {number}",
+      "question": "Contenuto domanda",
+      "questionPlaceholder": "Inserisci il contenuto della domanda...",
+      "explanation": "Spiegazione (opzionale)",
+      "explanationPlaceholder": "Spiega la risposta corretta...",
+      "explanationOptional": "Spiegazione (opzionale)",
+      "explanationHintPlaceholder": "Suggerimento per la spiegazione...",
+      "score": "Punteggio",
+      "sampleAnswer": "Risposta campione",
+      "sampleAnswerPlaceholder": "Inserisci la risposta campione...",
+      "answerOptions": "Opzioni di risposta",
+      "optionPlaceholder": "Opzione {label}",
+      "correctAnswer": "Risposta corretta",
+      "selectCorrectAnswer": "Seleziona la risposta corretta",
+      "essayQuestion": "Domanda a risposta aperta",
+      "manualGradingRequired": "Richiede correzione manuale",
+      "delete": "Elimina domanda",
+      "essayQuestionPlaceholder": "Inserisci la domanda a risposta aperta...",
+      "essayQuestionInfo": "Le domande a risposta aperta saranno corrette manualmente dall'insegnante."
+    }
   }
 }

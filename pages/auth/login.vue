@@ -2,6 +2,7 @@
 import type { LoginRequest } from '~/types/auth.type'
 import { notification } from 'ant-design-vue'
 import { GoogleSignInButton } from 'vue3-google-signin'
+import { getDeviceName, getDeviceProfile } from '~/plugins/auth.client'
 
 const { t } = useI18n()
 const { login, loginWithGoogle } = useAuth()
@@ -82,7 +83,7 @@ function translateErrorMessage(errorCode?: string, errorData?: any): string {
 async function handleGoogleSuccess(response: any) {
   if (response.credential) {
     googleLoading.value = true
-    const result = await loginWithGoogle(response.credential)
+    const result = await loginWithGoogle(response.credential, getDeviceProfile(), getDeviceName())
 
     if (result.success) {
       if (result.isNewUser) {
@@ -146,6 +147,8 @@ async function onFinish() {
 
     const payload: any = {
       password: formState.password,
+      device_profile: getDeviceProfile(),
+      device_name: getDeviceName(),
     }
 
     // If input is email, use email field; otherwise use username field

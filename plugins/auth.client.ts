@@ -1,85 +1,50 @@
 /**
- * Get location information from API
+ * Get raw hardware data for device identification.
+ * BE will hash this into a hardware_signature.
  */
-// async function getLocationInfo(): Promise<{
-//   countryCode: string
-//   country: string
-//   city: string
-//   continent: string
-//   ip: string
-// } | null> {
-//   try {
-//     const data = await $fetch<{
-//       countryCode?: string
-//       country?: string
-//       city?: string
-//       continent?: string
-//       ip?: string
-//     }>('https://ip.devmock.dev/')
-//     return {
-//       countryCode: data.countryCode || 'unknown',
-//       country: data.country || 'unknown',
-//       city: data.city || 'unknown',
-//       continent: data.continent || 'unknown',
-//       ip: data.ip || 'unknown',
-//     }
-//   }
-//   catch (error) {
-//     console.error('Error fetching location:', error)
-//     return null
-//   }
-// }
-
-import FingerprintJS from '@fingerprintjs/fingerprintjs'
-
-/**
- * Generate a device ID using FingerprintJS
- */
-async function generateDeviceId(): Promise<string> {
-  try {
-    const fp = await FingerprintJS.load()
-    const result = await fp.get()
-    return result.visitorId
-  }
-  catch (error) {
-    console.error('Error generating device ID with FingerprintJS:', error)
-    throw error
+export function getDeviceProfile() {
+  return {
+    platform: navigator.platform || '',
+    hardwareConcurrency: navigator.hardwareConcurrency || 0,
+    screenWidth: screen.width || 0,
+    screenHeight: screen.height || 0,
+    devicePixelRatio: window.devicePixelRatio || 1,
+    colorDepth: screen.colorDepth || 24,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
   }
 }
 
-export default defineNuxtPlugin(async () => {
-  // Generate and store device ID if not exists
-  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-    let deviceId = localStorage.getItem('device-id')
+/**
+ * Get a human-readable device name for display purposes.
+ */
+export function getDeviceName(): string {
+  const ua = navigator.userAgent
+  let device = 'Unknown'
+  let browser = 'Unknown'
 
-    if (!deviceId) {
-      try {
-        deviceId = await generateDeviceId()
-        localStorage.setItem('device-id', deviceId)
-      }
-      catch (error) {
-        console.error('Error generating device ID with FingerprintJS:', error)
-        // Fallback: generate simple ID based on browser info
-        const fingerprint = [
-          navigator.userAgent,
-          `${screen.width}x${screen.height}`,
-          new Date().getTimezoneOffset().toString(),
-          navigator.hardwareConcurrency?.toString() || 'unknown',
-        ].join('|')
-
-        // Simple hash function for fallback
-        let hash = 5381
-        for (let i = 0; i < fingerprint.length; i++) {
-          hash = ((hash << 5) + hash) + fingerprint.charCodeAt(i)
-          hash = hash & hash
-        }
-
-        deviceId = Math.abs(hash).toString(16).substring(0, 16).padStart(16, '0')
-        localStorage.setItem('device-id', deviceId)
-      }
-    }
+  // Detect device
+  if (/iPhone/.test(ua)) device = 'iPhone'
+  else if (/iPad/.test(ua)) device = 'iPad'
+  else if (/Android/.test(ua)) {
+    const match = ua.match(/;\s*([\w\s]+)\s*Build/)
+    device = match ? match[1].trim() : 'Android'
   }
+  else if (/Macintosh/.test(ua)) device = 'macOS'
+  else if (/Windows/.test(ua)) device = 'Windows'
+  else if (/Linux/.test(ua)) device = 'Linux'
 
+  // Detect browser
+  if (/Zalo/.test(ua)) browser = 'Zalo'
+  else if (/FBAN|FBAV/.test(ua)) browser = 'Facebook'
+  else if (/Chrome/.test(ua) && !/Edg/.test(ua)) browser = 'Chrome'
+  else if (/Safari/.test(ua) && !/Chrome/.test(ua)) browser = 'Safari'
+  else if (/Firefox/.test(ua)) browser = 'Firefox'
+  else if (/Edg/.test(ua)) browser = 'Edge'
+
+  return `${device} - ${browser}`
+}
+
+export default defineNuxtPlugin(async () => {
   // Initialize authentication state on client-side
   const { initAuth, fetchProfile, isLoggedIn } = useAuth()
 

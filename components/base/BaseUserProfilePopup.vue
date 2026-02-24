@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { notification } from 'ant-design-vue'
+import { getDeviceName, getDeviceProfile } from '~/plugins/auth.client'
 
 const { logout, user, profile, login } = useAuth()
 const { t } = useI18n()
@@ -102,6 +103,8 @@ async function switchToAccount(account: { email: string, password: string }) {
     const result = await login({
       email: account.email,
       password: account.password,
+      device_profile: getDeviceProfile(),
+      device_name: getDeviceName(),
     })
 
     if (result.success) {
@@ -178,6 +181,8 @@ async function handleLoginForm() {
     const result = await login({
       email: loginForm.value.email,
       password: loginForm.value.password,
+      device_profile: getDeviceProfile(),
+      device_name: getDeviceName(),
     })
 
     if (result.success) {

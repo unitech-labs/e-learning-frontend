@@ -7,6 +7,62 @@
     "notAnswered": "Not answered",
     "correct": "Correct",
     "incorrect": "Incorrect",
-    "pendingGrading": "Pending grading"
+    "pendingGrading": "Pending grading",
+    "messages": {
+      "deleteSuccess": "Successfully deleted quiz \"{title}\"",
+      "deleteError": "Failed to delete quiz",
+      "publishSuccess": "Successfully published quiz",
+      "unpublishSuccess": "Successfully unpublished quiz",
+      "publishError": "Failed to publish/unpublish quiz"
+    },
+    "management": {
+      "title": "Quiz Management",
+      "description": "Create and manage quiz questions",
+      "totalQuizzes": "total questions",
+      "published": "Published",
+      "draft": "Draft",
+      "createNewQuiz": "Create new question",
+      "loading": "Loading...",
+      "tryAgain": "Try again",
+      "noQuizzes": "No questions yet",
+      "createFirstQuiz": "Create first question",
+      "unpublish": "Unpublish",
+      "publish": "Publish",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteConfirm": {
+        "title": "Confirm Delete",
+        "cancel": "Cancel",
+        "confirm": "Delete",
+        "message": "Are you sure you want to delete this question?",
+        "warning": "This action cannot be undone."
+      }
+    },
+    "question": {
+      "questionRequired": "Please enter the question content",
+      "scoreRequired": "Please enter the score",
+      "scoreMustBePositive": "Score must be greater than 0",
+      "answerRequired": "Please enter the answer",
+      "correctAnswerRequired": "Please select the correct answer",
+      "questionNumber": "Question {number}",
+      "question": "Question content",
+      "questionPlaceholder": "Enter question content...",
+      "explanation": "Explanation (optional)",
+      "explanationPlaceholder": "Explain the correct answer...",
+      "explanationOptional": "Explanation (optional)",
+      "explanationHintPlaceholder": "Hint for the explanation...",
+      "score": "Score",
+      "sampleAnswer": "Sample answer",
+      "sampleAnswerPlaceholder": "Enter sample answer...",
+      "answerOptions": "Answer options",
+      "optionPlaceholder": "Option {label}",
+      "correctAnswer": "Correct answer",
+      "selectCorrectAnswer": "Select correct answer",
+      "essayQuestion": "Essay question",
+      "manualGradingRequired": "Requires manual grading",
+      "delete": "Delete question",
+      "essayQuestionPlaceholder": "Enter essay question...",
+      "essayQuestionInfo": "Essay questions will be manually graded by the teacher."
+    }
   }
 }

@@ -13,11 +13,11 @@ useHead({
 })
 
 const router = useRouter()
-const { getMyCourses } = useCourseApi()
+const { getCourses } = useCourseApi()
 
 const { data: allData, pending: isFetching } = useLazyAsyncData(
   'admin-courses',
-  () => getMyCourses().then(r => r?.results ?? []),
+  () => getCourses().then(r => r?.results ?? []),
   { default: () => [] },
 )
 

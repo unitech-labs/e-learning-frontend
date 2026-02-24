@@ -23,13 +23,26 @@ export interface ResetPasswordOTPRequest {
   new_password2: string
 }
 
+export interface DeviceProfile {
+  platform: string
+  hardwareConcurrency: number
+  screenWidth: number
+  screenHeight: number
+  devicePixelRatio: number
+  colorDepth: number
+  timezone: string
+}
+
 export interface LoginRequest {
   email: string
   password: string
+  device_profile: DeviceProfile
+  device_name: string
 }
 
 export interface LoginResponse {
   access: string
+  hardware_signature: string
   user: User
 }
 

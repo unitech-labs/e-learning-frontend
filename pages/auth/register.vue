@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RegisterRequest } from '~/types/auth.type'
 import { notification } from 'ant-design-vue'
+import { getDeviceName, getDeviceProfile } from '~/plugins/auth.client'
 
 definePageMeta({
   layout: 'auth',
@@ -144,6 +145,8 @@ async function onFinish() {
       const loginResult = await login({
         email: formState.email?.toLowerCase(),
         password: formState.password,
+        device_profile: getDeviceProfile(),
+        device_name: getDeviceName(),
       })
 
       if (loginResult.success) {
@@ -286,8 +289,8 @@ async function onFinish() {
                 { required: true, message: t('auth.register.form.emailRequired') },
                 { type: 'email', message: t('auth.register.form.emailInvalid') },
               ]"
-              :validate-status="validationErrors.email ? 'error' : ''"
-              :help="validationErrors.email ? validationErrors.email.join(', ') : ''"
+              :validate-status="validationErrors.email ? 'error' : undefined"
+              :help="validationErrors.email ? validationErrors.email.join(', ') : undefined"
               class="mb-0"
             >
               <a-input
@@ -310,8 +313,8 @@ async function onFinish() {
                 { required: true, message: t('auth.register.form.passwordRequired') },
                 { min: 8, message: t('auth.register.form.passwordMinLength') },
               ]"
-              :validate-status="validationErrors.password ? 'error' : ''"
-              :help="validationErrors.password ? validationErrors.password.join(', ') : ''"
+              :validate-status="validationErrors.password ? 'error' : undefined"
+              :help="validationErrors.password ? validationErrors.password.join(', ') : undefined"
               class="mb-0"
             >
               <a-input-password
@@ -334,8 +337,8 @@ async function onFinish() {
                 { required: true, message: t('auth.register.form.confirmPasswordRequired') },
                 { min: 8, message: t('auth.register.form.passwordMinLength') },
               ]"
-              :validate-status="validationErrors.password2 ? 'error' : ''"
-              :help="validationErrors.password2 ? validationErrors.password2.join(', ') : ''"
+              :validate-status="validationErrors.password2 ? 'error' : undefined"
+              :help="validationErrors.password2 ? validationErrors.password2.join(', ') : undefined"
               class="mb-0"
             >
               <a-input-password

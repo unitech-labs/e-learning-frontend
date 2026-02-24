@@ -7,6 +7,62 @@
     "notAnswered": "Chưa trả lời",
     "correct": "Đúng",
     "incorrect": "Sai",
-    "pendingGrading": "Đang chờ chấm"
+    "pendingGrading": "Đang chờ chấm",
+    "messages": {
+      "deleteSuccess": "Đã xóa quiz \"{title}\" thành công",
+      "deleteError": "Xóa quiz thất bại",
+      "publishSuccess": "Đã xuất bản quiz thành công",
+      "unpublishSuccess": "Đã hủy xuất bản quiz thành công",
+      "publishError": "Xuất bản/Hủy xuất bản quiz thất bại"
+    },
+    "management": {
+      "title": "Quản lý câu hỏi",
+      "description": "Tạo và quản lý các câu hỏi cho bài kiểm tra",
+      "totalQuizzes": "tổng câu hỏi",
+      "published": "Đã xuất bản",
+      "draft": "Bản nháp",
+      "createNewQuiz": "Tạo câu hỏi mới",
+      "loading": "Đang tải...",
+      "tryAgain": "Thử lại",
+      "noQuizzes": "Chưa có câu hỏi nào",
+      "createFirstQuiz": "Tạo câu hỏi đầu tiên",
+      "unpublish": "Hủy xuất bản",
+      "publish": "Xuất bản",
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa",
+      "deleteConfirm": {
+        "title": "Xác nhận xóa",
+        "cancel": "Hủy",
+        "confirm": "Xóa",
+        "message": "Bạn có chắc muốn xóa câu hỏi này?",
+        "warning": "Hành động này không thể hoàn tác."
+      }
+    },
+    "question": {
+      "questionRequired": "Vui lòng nhập nội dung câu hỏi",
+      "scoreRequired": "Vui lòng nhập điểm số",
+      "scoreMustBePositive": "Điểm số phải lớn hơn 0",
+      "answerRequired": "Vui lòng nhập đáp án",
+      "correctAnswerRequired": "Vui lòng chọn đáp án đúng",
+      "questionNumber": "Câu {number}",
+      "question": "Nội dung câu hỏi",
+      "questionPlaceholder": "Nhập nội dung câu hỏi...",
+      "explanation": "Giải thích (tùy chọn)",
+      "explanationPlaceholder": "Giải thích đáp án đúng...",
+      "explanationOptional": "Giải thích (tùy chọn)",
+      "explanationHintPlaceholder": "Gợi ý giải thích cho học viên...",
+      "score": "Điểm số",
+      "sampleAnswer": "Đáp án mẫu",
+      "sampleAnswerPlaceholder": "Nhập đáp án mẫu...",
+      "answerOptions": "Các đáp án",
+      "optionPlaceholder": "Đáp án {label}",
+      "correctAnswer": "Đáp án đúng",
+      "selectCorrectAnswer": "Chọn đáp án đúng",
+      "essayQuestion": "Câu hỏi tự luận",
+      "manualGradingRequired": "Cần chấm tay",
+      "delete": "Xóa câu hỏi",
+      "essayQuestionPlaceholder": "Nhập câu hỏi tự luận...",
+      "essayQuestionInfo": "Câu hỏi tự luận sẽ được giáo viên chấm điểm thủ công."
+    }
   }
 }

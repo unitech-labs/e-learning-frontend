@@ -70,6 +70,11 @@ export function useAuth() {
     isInitializing.value = false
     isFetchingUser.value = false
 
+    // Clear hardware_signature
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('hardware_signature')
+    }
+
     // Redirect to login page
     await navigateTo('/auth/login')
   }
@@ -82,6 +87,11 @@ export function useAuth() {
       if (response?.access && response?.user) {
         token.value = response.access
         user.value = response.user
+
+        // Save hardware_signature for subsequent requests
+        if (response.hardware_signature && typeof localStorage !== 'undefined') {
+          localStorage.setItem('hardware_signature', response.hardware_signature)
+        }
 
         if (user.value?.is_teacher) {
           window.location.href = '/admin'
@@ -107,15 +117,22 @@ export function useAuth() {
   }
 
   // Google OAuth login function
-  async function loginWithGoogle(idToken: string): Promise<{ success: boolean, error?: string, errorCode?: string, errorData?: any, isNewUser?: boolean }> {
+  async function loginWithGoogle(idToken: string, deviceProfile: LoginRequest['device_profile'], deviceName: string): Promise<{ success: boolean, error?: string, errorCode?: string, errorData?: any, isNewUser?: boolean }> {
     try {
       const response = await apiClient.post<LoginResponse & { is_new_user?: boolean }>('/auth/google/', {
         id_token: idToken,
+        device_profile: deviceProfile,
+        device_name: deviceName,
       })
 
       if (response?.access && response?.user) {
         token.value = response.access
         user.value = response.user
+
+        // Save hardware_signature for subsequent requests
+        if (response.hardware_signature && typeof localStorage !== 'undefined') {
+          localStorage.setItem('hardware_signature', response.hardware_signature)
+        }
 
         if (user.value?.is_teacher) {
           window.location.href = '/admin'
