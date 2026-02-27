@@ -7,10 +7,13 @@ const authApi = useAuthApi()
 export function useAuth() {
   const user = useState<User | null>('auth.user', () => null)
   const profile = useState<Profile | null>('auth.profile', () => null)
+
+  const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:'
+
   const token = useCookie<string | null>('auth.token', {
     default: () => null,
     httpOnly: false,
-    secure: true,
+    secure: isHttps,
     sameSite: 'strict',
     maxAge: 60 * 60 * 24 * 7, // 7 days
   })
@@ -88,7 +91,7 @@ export function useAuth() {
         token.value = response.access
         user.value = response.user
 
-        // Save hardware_signature for subsequent requests
+       
         if (response.hardware_signature && typeof localStorage !== 'undefined') {
           localStorage.setItem('hardware_signature', response.hardware_signature)
         }

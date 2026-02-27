@@ -21,6 +21,14 @@ const formState = reactive<LoginRequest>({
 })
 const passwordError = ref<string>('')
 
+onMounted(() => {
+  // Chỉ redirect lên HTTPS trên môi trường production (process.dev === false)
+  if (!process.dev && window.location.protocol === 'http:') {
+    const newUrl = `https://${window.location.host}${window.location.pathname}${window.location.search}${window.location.hash}`
+    window.location.replace(newUrl)
+  }
+})
+
 /**
  * Translate error message based on error code and details
  */
