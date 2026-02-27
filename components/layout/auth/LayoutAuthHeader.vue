@@ -1129,13 +1129,14 @@ watch(resourceMenu, (newMenu) => {
               <Icon name="solar:globe-bold" size="20" class="mr-2" />
               {{ $t('layoutAuthHeader.buttons.language') }}
             </button>
-            <button
+            <NuxtLink
+              to="/profile?tab=PROFILE"
               class="w-full flex items-center justify-center py-3 px-2 text-base font-medium text-gray-600 hover:text-[#16A34A] hover:bg-gray-50 rounded-md transition-colors"
               @click="isMobileMenuOpen = false"
             >
               <Icon name="solar:user-bold" size="20" class="mr-2" />
               {{ $t('layoutAuthHeader.navigation.profile') }}
-            </button>
+            </NuxtLink>
           </div>
         </div>
       </div>

@@ -1307,7 +1307,7 @@ onBeforeUnmount(() => {
     <!-- Expired enrollment dialog: cannot close, only Quay lại -->
     <a-modal
       v-model:open="showExpiredDialog"
-      :title="$t('learning.expired.subscriptionExpired')"
+      :title="$t('learning.expired.subscriptionExpired').replace('<strong>', '').replace('</strong>', '')"
       :closable="false"
       :mask-closable="false"
       centered

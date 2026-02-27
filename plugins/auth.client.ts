@@ -45,6 +45,13 @@ export function getDeviceName(): string {
 }
 
 export default defineNuxtPlugin(async () => {
+  // Force HTTPS in production (client-side) to ensure secure cookies work across browsers/in-app browsers
+  if (!import.meta.dev && window.location.protocol === 'http:') {
+    const newUrl = `https://${window.location.host}${window.location.pathname}${window.location.search}${window.location.hash}`
+    window.location.replace(newUrl)
+    return
+  }
+
   // Initialize authentication state on client-side
   const { initAuth, fetchProfile, isLoggedIn } = useAuth()
 
