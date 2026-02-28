@@ -666,7 +666,7 @@ onMounted(() => {
           editable-events
           :views-bar="false"
           class="custom-theme calendar w-full !h-full"
-          :time-from="1 * 60"
+          :time-from="0 * 60"
           :time-step="60"
           :time-cell-height="72"
           :events="calendarEvents"
