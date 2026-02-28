@@ -41,7 +41,7 @@ function closeSidebar() {
       :class="cn(isCollapsed ? 'lg:pl-[80px]' : 'lg:pl-[280px]')"
     >
       <LayoutHeader :show-hamburger="true" @hamburger-click="openSidebar" />
-      <div class="flex-1 p-4 overflow-x-hidden flex">
+      <div class="flex-1 p-4 overflow-x-hidden flex flex-col">
         <slot />
       </div>
     </div>
