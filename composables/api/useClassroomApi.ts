@@ -145,7 +145,7 @@ export function useClassroomApi() {
       start_date?: string
       end_date?: string
       page?: number
-      page_size?: number
+      limit?: number
     }) =>
       apiClient.get<ClassroomSessionsResponse>(`/courses/${courseId}/sessions/`, { params }),
 

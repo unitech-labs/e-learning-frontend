@@ -367,8 +367,7 @@ async function loadSessionsForCurrentView() {
     const response = await getSessions({
       start_date: startDate,
       end_date: endDate,
-      page: 1,
-      page_size: 500,
+      limit: 500,
     })
 
     sessionsData.value = response.results || []
