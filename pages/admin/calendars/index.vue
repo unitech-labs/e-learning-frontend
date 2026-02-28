@@ -612,7 +612,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative flex-1 flex">
+  <div class="relative flex-1 flex h-full">
       <!-- <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-4">
           <h2 class="font-bold text-2xl flex items-center gap-3">
