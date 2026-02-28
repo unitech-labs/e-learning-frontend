@@ -21,7 +21,7 @@ if (process.server) {
     <LayoutSideBar class="hidden lg:block" />
 
     <div
-      class="w-full bg-shade-1 flex flex-col pt-[80px] transition-all duration-300 ease-in-out"
+      class="w-full bg-shade-1 flex flex-col pt-[60px] transition-all duration-300 ease-in-out"
       :class="cn(isCollapsed ? 'lg:pl-[80px]' : 'lg:pl-[280px]')"
     >
       <LayoutHeader />

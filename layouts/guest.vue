@@ -14,7 +14,7 @@ if (process.server) {
 
 <template>
   <div class="min-h-screen bg-background transition-colors duration-300 flex flex-col">
-    <main class="flex-1 pt-[80px]">
+    <main class="flex-1 pt-[60px]">
       <slot />
     </main>
   </div>

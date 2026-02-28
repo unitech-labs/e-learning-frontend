@@ -612,9 +612,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative">
-    <div class="bg-white rounded-lg border border-gray-200 p-6">
-      <div class="flex items-center justify-between mb-6">
+  <div class="relative flex-1 flex">
+      <!-- <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-4">
           <h2 class="font-bold text-2xl flex items-center gap-3">
             <Icon name="solar:calendar-bold" size="28" class="text-green-600" />
@@ -637,9 +636,9 @@ onMounted(() => {
           <Icon name="i-heroicons-list-bullet" class="h-5 w-5 text-gray-300" />
           {{ t('admin.calendars.sessionsCount', { count: calendarEvents.length }) }}
         </div>
-      </div>
+      </div> -->
 
-      <div class="flex flex-col overflow-auto rounded-xl border border-gray-200 bg-white shadow-sm relative">
+      <div class="w-full rounded-sm border border-gray-200 bg-white relative">
         <div
           v-if="isLoading"
           class="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50 rounded-xl"
@@ -666,10 +665,9 @@ onMounted(() => {
           v-model:view="currentView"
           editable-events
           :views-bar="false"
-          class="custom-theme calendar w-full !h-auto"
+          class="custom-theme calendar w-full !h-full"
           :time-from="1 * 60"
           :time-step="60"
-          :time-to="24 * 60"
           :time-cell-height="72"
           :events="calendarEvents"
           :views="['week']"
@@ -729,7 +727,6 @@ onMounted(() => {
           </template>
         </VueCal>
       </div>
-    </div>
 
     <SessionDetailDialog
       v-model:open="openSessionDetailDialog"
