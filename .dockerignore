@@ -5,9 +5,6 @@
 # Build outputs
 .nuxt
 .output
-dist
-!lib/vue-cal/dist
-!lib/vue-cal/dist/**
 .nitro
 
 # Development files
