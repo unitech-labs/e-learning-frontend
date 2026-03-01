@@ -78,7 +78,7 @@ export function useGeneralSessionsApi() {
       start_date?: string
       end_date?: string
       page?: number
-      page_size?: number
+      limit?: number
     }) => apiClient.get<GeneralSessionsResponse>('/sessions/', { params }),
 
     getSessionDetail: (sessionId: string) =>

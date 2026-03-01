@@ -2,14 +2,19 @@
 import type { CalendarClassroom } from '~/types/course.type'
 import { notification } from 'ant-design-vue'
 import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { VueCal } from 'vue-cal'
 import EventDetailDialog from '~/components/calendar/EventDetailDialog.vue'
 import { useClassroomApi } from '~/composables/api/useClassroomApi'
 import 'vue-cal/style'
 
-// Enable UTC plugin for dayjs
+// Enable UTC and timezone plugins for dayjs
 dayjs.extend(utc)
+dayjs.extend(timezone)
+
+// Timezone selector (shared composable, persisted in localStorage)
+const { TIMEZONE_OPTIONS, selectedTimezone } = useTimezone()
 
 const { t } = useI18n()
 
@@ -85,12 +90,22 @@ const vueCalRef = ref<any>(null)
 // API composable
 const { getCalendarData, selfCheckInSession } = useClassroomApi()
 
+function convertSessionTime(isoString: string): Date {
+  const raw = isoString.replace('Z', '')
+  if (selectedTimezone.value === 'Asia/Ho_Chi_Minh') {
+    return new Date(raw)
+  }
+  const inVietnam = dayjs.tz(raw, 'Asia/Ho_Chi_Minh')
+  const inTarget = inVietnam.tz(selectedTimezone.value)
+  return new Date(inTarget.format('YYYY-MM-DDTHH:mm:ss'))
+}
+
 // Convert session data to calendar events
 function convertSessionToEvent(session: any): CalendarEvent {
   return {
     id: session.id,
-    start: new Date(session.start_time.replace('Z', '')),
-    end: new Date(session.end_time.replace('Z', '')),
+    start: convertSessionTime(session.start_time),
+    end: convertSessionTime(session.end_time),
     title: session.classroom_title || session.topic,
     classroom_id: session.classroom,
     course_title: session.course_title,
@@ -329,6 +344,11 @@ function handleCalendarReady({ view }: any) {
   }
 }
 
+// Re-render calendar events when timezone changes
+watch(selectedTimezone, () => {
+  fetchCalendarData()
+})
+
 onMounted(async () => {
   setTimeout(() => {
     ready.value = true
@@ -454,6 +474,14 @@ onMounted(async () => {
         </section>
 
         <section class="flex-auto flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+          <div class="p-2 flex items-center gap-2 border-b border-slate-200">
+            <span class="text-xs font-medium text-gray-500">Múi giờ:</span>
+            <a-segmented
+              v-model:value="selectedTimezone"
+              :options="TIMEZONE_OPTIONS.map(opt => ({ label: opt.label, value: opt.value }))"
+              size="small"
+            />
+          </div>
           <div class="p-4 flex-auto flex overflow-hidden">
             <VueCal
               ref="vueCalRef"
@@ -462,7 +490,7 @@ onMounted(async () => {
               v-model:view="currentView"
               :views-bar="false"
               class="custom-theme calendar w-full !h-auto"
-              :time-from="1 * 60"
+              :time-from="0 * 60"
               :time-step="60"
               :time-to="24 * 60"
               :time-cell-height="72"

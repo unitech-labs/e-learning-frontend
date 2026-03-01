@@ -1,3 +1,4 @@
+import { resolve } from 'node:path'
 import tailwindcss from '@tailwindcss/vite'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -68,6 +69,12 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss as any,
     ],
+    resolve: {
+      alias: [
+        { find: 'vue-cal/style', replacement: resolve(__dirname, 'lib/vue-cal/dist/vue-cal.css') },
+        { find: 'vue-cal', replacement: resolve(__dirname, 'lib/vue-cal/dist/vue-cal.es.js') },
+      ],
+    },
     css: {
       preprocessorOptions: {
         less: {

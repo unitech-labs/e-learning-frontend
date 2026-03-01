@@ -4,6 +4,7 @@ import type { ClassroomSession } from '~/composables/api/useClassroomApi'
 import type { Classroom } from '~/types/course.type'
 import { notification } from 'ant-design-vue'
 import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { VueCal } from 'vue-cal'
 import ResourceItem from '~/components/learning/ResourceItem.vue'
@@ -13,8 +14,12 @@ import { useCourseApi } from '~/composables/api/useCourseApi'
 import { useOrderApi } from '~/composables/api/useOrderApi'
 import 'vue-cal/style'
 
-// Enable UTC plugin for dayjs
+// Enable UTC and timezone plugins for dayjs
 dayjs.extend(utc)
+dayjs.extend(timezone)
+
+// Timezone selector (shared composable, persisted in localStorage)
+const { TIMEZONE_OPTIONS, selectedTimezone } = useTimezone()
 
 definePageMeta({
   layout: 'auth',
@@ -304,18 +309,25 @@ const isClassroomFull = computed(() => {
   return enrollmentCount >= studentCount
 })
 
+function convertSessionTime(isoString: string): Date {
+  const raw = isoString.replace('Z', '')
+  if (selectedTimezone.value === 'Asia/Ho_Chi_Minh') {
+    return new Date(raw)
+  }
+  const inVietnam = dayjs.tz(raw, 'Asia/Ho_Chi_Minh')
+  const inTarget = inVietnam.tz(selectedTimezone.value)
+  return new Date(inTarget.format('YYYY-MM-DDTHH:mm:ss'))
+}
+
 // Generate calendar events from sessions
 function generateCalendarEventsFromSessions(sessions: ClassroomSession[]): CalendarEvent[] {
   const events: CalendarEvent[] = []
 
   sessions.forEach((session) => {
-    // Parse date strings - backend can return UTC (2026-01-05T18:00:00.000Z) or timezone (2026-01-12T03:00:00+07:00)
-    // dayjs will automatically parse the timezone from the string
-
     events.push({
       id: session.id,
-      start: new Date(session.start_time.replace('Z', '')),
-      end: new Date(session.end_time.replace('Z', '')),
+      start: convertSessionTime(session.start_time),
+      end: convertSessionTime(session.end_time),
       title: session.classroom_title,
       sessionId: session.id,
       classroomId: session.classroom,
@@ -444,6 +456,13 @@ watch(viewDate, (newViewDate) => {
     const diff = firstDayOfWeek.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)
     firstDayOfWeek.setDate(diff)
     selectedDate.value = firstDayOfWeek
+  }
+})
+
+// Re-render calendar events when timezone changes
+watch(selectedTimezone, () => {
+  if (sessionsData.value.length > 0) {
+    calendarEvents.value = generateCalendarEventsFromSessions(sessionsData.value)
   }
 })
 
@@ -738,6 +757,15 @@ function cancelPayment() {
             <div class="flex flex-col lg:flex-row gap-6">
               <!-- Calendar View -->
               <div class="flex-1 flex flex-col overflow-auto rounded-xl border border-gray-200 bg-white shadow-sm relative">
+                <!-- Timezone selector -->
+                <div class="p-2 flex items-center gap-2 border-b border-gray-200">
+                  <span class="text-xs font-medium text-gray-500">Múi giờ:</span>
+                  <a-segmented
+                    v-model:value="selectedTimezone"
+                    :options="TIMEZONE_OPTIONS.map(opt => ({ label: opt.label, value: opt.value }))"
+                    size="small"
+                  />
+                </div>
                 <!-- Loading Overlay -->
                 <div
                   v-if="isLoadingSessions"
@@ -753,7 +781,7 @@ function cancelPayment() {
                   v-model:view="currentView"
                   :views-bar="false"
                   class="custom-theme calendar w-full !h-auto"
-                  :time-from="1 * 60"
+                  :time-from="0 * 60"
                   :time-step="60"
                   :time-to="24 * 60"
                   :time-cell-height="72"

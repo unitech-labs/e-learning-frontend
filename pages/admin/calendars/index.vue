@@ -2,6 +2,7 @@
 import type { Course } from '~/types/course.type'
 import { notification } from 'ant-design-vue'
 import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { VueCal } from 'vue-cal'
 import { useI18n } from 'vue-i18n'
@@ -24,6 +25,10 @@ useHead({
 })
 
 dayjs.extend(utc)
+dayjs.extend(timezone)
+
+// Timezone selector (shared composable, persisted in localStorage)
+const { TIMEZONE_OPTIONS, selectedTimezone } = useTimezone()
 
 interface CalendarEvent {
   start: string | Date
@@ -313,12 +318,27 @@ async function validateCreation() {
   }
 }
 
+function convertSessionTime(isoString: string): Date {
+  // Backend stores times as Vietnam local time with 'Z' suffix.
+  // Strip 'Z' and parse as Vietnam time, then convert to selected timezone.
+  const raw = isoString.replace('Z', '')
+  if (selectedTimezone.value === 'Asia/Ho_Chi_Minh') {
+    // Default: render as-is (current behavior)
+    return new Date(raw)
+  }
+  // Convert: parse as Vietnam time → convert to target timezone → extract local time
+  const inVietnam = dayjs.tz(raw, 'Asia/Ho_Chi_Minh')
+  const inTarget = inVietnam.tz(selectedTimezone.value)
+  // Create a Date using the target timezone's local values so VueCal renders at correct position
+  return new Date(inTarget.format('YYYY-MM-DDTHH:mm:ss'))
+}
+
 function generateCalendarEventsFromSessions(sessions: any[]): CalendarEvent[] {
   return sessions.map((session) => {
     return {
       id: session.id,
-      start: new Date(session.start_time.replace('Z', '')),
-      end: new Date(session.end_time.replace('Z', '')),
+      start: convertSessionTime(session.start_time),
+      end: convertSessionTime(session.end_time),
       title: session.classroom_title,
       sessionId: session.id,
       classroomId: session.classroom,
@@ -330,15 +350,6 @@ function generateCalendarEventsFromSessions(sessions: any[]): CalendarEvent[] {
       resizable: true,
       draggable: true,
       deletable: true,
-
-    // start: new Date(session.start_time.replace('Z', '')),
-    // end: new Date(session.end_time.replace('Z', '')),
-    // title: session.classroom_title,
-    // content: session.description,
-    // // class: session.classroom,
-    // deletable: true,
-    // resizable: true,
-    // draggable: true
     }
   })
 }
@@ -606,6 +617,13 @@ async function handleClassroomDeleted() {
   await loadSessionsForCurrentView()
 }
 
+// Re-render calendar events when timezone changes
+watch(selectedTimezone, () => {
+  if (sessionsData.value.length > 0) {
+    calendarEvents.value = generateCalendarEventsFromSessions(sessionsData.value)
+  }
+})
+
 onMounted(() => {
   fetchCourses()
 })
@@ -638,7 +656,17 @@ onMounted(() => {
         </div>
       </div> -->
 
+      <!-- Timezone selector -->
+      
       <div class="w-full rounded-sm border border-gray-200 bg-white relative">
+        <div class="p-2 flex items-center gap-2">
+          <span class="text-xs font-medium text-gray-500">Múi giờ:</span>
+          <a-segmented
+            v-model:value="selectedTimezone"
+            :options="TIMEZONE_OPTIONS.map(opt => ({ label: opt.label, value: opt.value }))"
+            size="small"
+          />
+        </div>
         <div
           v-if="isLoading"
           class="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50 rounded-xl"
@@ -665,7 +693,7 @@ onMounted(() => {
           v-model:view="currentView"
           editable-events
           :views-bar="false"
-          class="custom-theme calendar w-full !h-full"
+          class="custom-theme calendar w-full !h-[calc(100%-40px)]"
           :time-from="0 * 60"
           :time-step="60"
           :time-cell-height="72"
