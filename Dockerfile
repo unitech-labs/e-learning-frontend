@@ -5,8 +5,9 @@ FROM node:20-alpine AS deps
 RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
 WORKDIR /app
 
-# Copy package files
+# Copy package files and local dependencies
 COPY package.json pnpm-lock.yaml ./
+COPY lib/vue-cal ./lib/vue-cal
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
