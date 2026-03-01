@@ -278,6 +278,7 @@ async function validateCreation() {
       meeting_id: '',
       meeting_pass: '',
       limit: 1,
+      timezone: selectedTimezone.value,
     })
 
     const resolvedEvent: CalendarEvent = {
@@ -318,18 +319,14 @@ async function validateCreation() {
   }
 }
 
-function convertSessionTime(isoString: string): Date {
-  // Backend stores times as Vietnam local time with 'Z' suffix.
-  // Strip 'Z' and parse as Vietnam time, then convert to selected timezone.
+function convertSessionTime(isoString: string, eventTimezone?: string): Date {
   const raw = isoString.replace('Z', '')
-  if (selectedTimezone.value === 'Asia/Ho_Chi_Minh') {
-    // Default: render as-is (current behavior)
+  const sourceTz = eventTimezone || 'Asia/Ho_Chi_Minh'
+  if (sourceTz === selectedTimezone.value) {
     return new Date(raw)
   }
-  // Convert: parse as Vietnam time → convert to target timezone → extract local time
-  const inVietnam = dayjs.tz(raw, 'Asia/Ho_Chi_Minh')
-  const inTarget = inVietnam.tz(selectedTimezone.value)
-  // Create a Date using the target timezone's local values so VueCal renders at correct position
+  const inSource = dayjs.tz(raw, sourceTz)
+  const inTarget = inSource.tz(selectedTimezone.value)
   return new Date(inTarget.format('YYYY-MM-DDTHH:mm:ss'))
 }
 
@@ -337,8 +334,8 @@ function generateCalendarEventsFromSessions(sessions: any[]): CalendarEvent[] {
   return sessions.map((session) => {
     return {
       id: session.id,
-      start: convertSessionTime(session.start_time),
-      end: convertSessionTime(session.end_time),
+      start: convertSessionTime(session.start_time, session.timezone),
+      end: convertSessionTime(session.end_time, session.timezone),
       title: session.classroom_title,
       sessionId: session.id,
       classroomId: session.classroom,
@@ -533,6 +530,7 @@ async function handleRecurringEditSave() {
         start_time: startDate.format('HH:mm'),
         end_date: endDate.format('YYYY-MM-DD'),
         end_time: endDate.format('HH:mm'),
+        timezone: selectedTimezone.value,
       })
 
       notification.success({
@@ -568,6 +566,7 @@ async function handleRecurringEditSave() {
       start_time: startTime,
       end_time: endTime,
       option: option as 'all' | 'from_this' | 'same_weekday',
+      timezone: selectedTimezone.value,
     })
 
     notification.success({
@@ -617,11 +616,9 @@ async function handleClassroomDeleted() {
   await loadSessionsForCurrentView()
 }
 
-// Re-render calendar events when timezone changes
+// Re-fetch and re-render calendar events when timezone changes
 watch(selectedTimezone, () => {
-  if (sessionsData.value.length > 0) {
-    calendarEvents.value = generateCalendarEventsFromSessions(sessionsData.value)
-  }
+  loadSessionsForCurrentView()
 })
 
 onMounted(() => {

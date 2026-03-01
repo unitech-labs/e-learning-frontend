@@ -8,6 +8,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 const emit = defineEmits<Emits>()
 const { createBulkSessions } = useClassroomApi()
+const { selectedTimezone } = useTimezone()
 
 interface Props {
   open: boolean
@@ -162,6 +163,7 @@ async function handleOk() {
 
     const sessionsPayload: any = {
       schedules_data: schedulesData,
+      timezone: selectedTimezone.value,
     }
 
     // Add meeting fields if provided

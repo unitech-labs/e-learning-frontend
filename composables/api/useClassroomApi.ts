@@ -36,6 +36,7 @@ export interface ClassroomSession {
   attendance_count: number
   present_count: number
   background_color?: string
+  timezone?: string
   created_at: string
   updated_at: string
 }

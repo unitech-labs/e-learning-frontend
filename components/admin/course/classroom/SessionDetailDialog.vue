@@ -42,6 +42,7 @@ const {
   deleteSessionVideo,
 } = useClassroomApi()
 const { uploadFileWithProgress } = useFileUpload()
+const { selectedTimezone } = useTimezone()
 
 // State
 const isLoading = ref(false)
@@ -407,6 +408,8 @@ async function handleSaveEdit() {
     if (editFormState.value.meeting_pass) {
       updatePayload.meeting_pass = editFormState.value.meeting_pass
     }
+
+    updatePayload.timezone = selectedTimezone.value
 
     await updateClassroomSession(props.sessionId, updatePayload)
 

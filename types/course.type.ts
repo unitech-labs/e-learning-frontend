@@ -501,6 +501,7 @@ export interface CalendarApiResponse {
     classroom_title: string
     course_title: string
     background_color?: string | null
+    timezone?: string
     meeting_link?: string | null
     is_enrolled?: boolean
     attendance_count: number

@@ -309,13 +309,14 @@ const isClassroomFull = computed(() => {
   return enrollmentCount >= studentCount
 })
 
-function convertSessionTime(isoString: string): Date {
+function convertSessionTime(isoString: string, eventTimezone?: string): Date {
   const raw = isoString.replace('Z', '')
-  if (selectedTimezone.value === 'Asia/Ho_Chi_Minh') {
+  const sourceTz = eventTimezone || 'Asia/Ho_Chi_Minh'
+  if (sourceTz === selectedTimezone.value) {
     return new Date(raw)
   }
-  const inVietnam = dayjs.tz(raw, 'Asia/Ho_Chi_Minh')
-  const inTarget = inVietnam.tz(selectedTimezone.value)
+  const inSource = dayjs.tz(raw, sourceTz)
+  const inTarget = inSource.tz(selectedTimezone.value)
   return new Date(inTarget.format('YYYY-MM-DDTHH:mm:ss'))
 }
 
@@ -326,8 +327,8 @@ function generateCalendarEventsFromSessions(sessions: ClassroomSession[]): Calen
   sessions.forEach((session) => {
     events.push({
       id: session.id,
-      start: convertSessionTime(session.start_time),
-      end: convertSessionTime(session.end_time),
+      start: convertSessionTime(session.start_time, session.timezone),
+      end: convertSessionTime(session.end_time, session.timezone),
       title: session.classroom_title,
       sessionId: session.id,
       classroomId: session.classroom,
@@ -459,11 +460,9 @@ watch(viewDate, (newViewDate) => {
   }
 })
 
-// Re-render calendar events when timezone changes
+// Re-fetch and re-render calendar events when timezone changes
 watch(selectedTimezone, () => {
-  if (sessionsData.value.length > 0) {
-    calendarEvents.value = generateCalendarEventsFromSessions(sessionsData.value)
-  }
+  loadAllSessions()
 })
 
 // Watch for student_count query parameter changes

@@ -90,13 +90,14 @@ const vueCalRef = ref<any>(null)
 // API composable
 const { getCalendarData, selfCheckInSession } = useClassroomApi()
 
-function convertSessionTime(isoString: string): Date {
+function convertSessionTime(isoString: string, eventTimezone?: string): Date {
   const raw = isoString.replace('Z', '')
-  if (selectedTimezone.value === 'Asia/Ho_Chi_Minh') {
+  const sourceTz = eventTimezone || 'Asia/Ho_Chi_Minh'
+  if (sourceTz === selectedTimezone.value) {
     return new Date(raw)
   }
-  const inVietnam = dayjs.tz(raw, 'Asia/Ho_Chi_Minh')
-  const inTarget = inVietnam.tz(selectedTimezone.value)
+  const inSource = dayjs.tz(raw, sourceTz)
+  const inTarget = inSource.tz(selectedTimezone.value)
   return new Date(inTarget.format('YYYY-MM-DDTHH:mm:ss'))
 }
 
@@ -104,8 +105,8 @@ function convertSessionTime(isoString: string): Date {
 function convertSessionToEvent(session: any): CalendarEvent {
   return {
     id: session.id,
-    start: convertSessionTime(session.start_time),
-    end: convertSessionTime(session.end_time),
+    start: convertSessionTime(session.start_time, session.timezone),
+    end: convertSessionTime(session.end_time, session.timezone),
     title: session.classroom_title || session.topic,
     classroom_id: session.classroom,
     course_title: session.course_title,

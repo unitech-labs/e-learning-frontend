@@ -13,6 +13,7 @@ const emit = defineEmits<Emits>()
 const { t } = useI18n()
 const { createClassroom, createClassroomSession } = useClassroomApi()
 const { getCourses, getDetailCourses } = useCourseApi()
+const { selectedTimezone } = useTimezone()
 
 interface Props {
   open: boolean
@@ -350,6 +351,7 @@ async function handleOk() {
         meeting_link: sessionFormState.value.meeting_link,
         meeting_id: sessionFormState.value.meeting_id,
         meeting_pass: sessionFormState.value.meeting_pass,
+        timezone: selectedTimezone.value,
       })
 
       notification.success({
@@ -416,6 +418,8 @@ async function handleOk() {
       price: formState.value.price?.toString() || '0',
       // Background color
       background_color: formState.value.background_color,
+      // Timezone
+      timezone: selectedTimezone.value,
     }
 
     // Call API to create classroom

@@ -24,6 +24,7 @@ const emit = defineEmits<Emits>()
 
 const { t } = useI18n()
 const { createClassroomSession } = useClassroomApi()
+const { selectedTimezone } = useTimezone()
 
 // Internal loading state
 const internalLoading = ref(false)
@@ -168,6 +169,7 @@ async function handleSave() {
       meeting_id: formState.value.meeting_id,
       meeting_pass: formState.value.meeting_pass,
       limit: formState.value.limit,
+      timezone: selectedTimezone.value,
     }
 
     // Make API call to create session
