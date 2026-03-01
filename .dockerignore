@@ -1,11 +1,12 @@
 # Dependencies
-node_modules
+**/node_modules
 .pnpm-store
 
 # Build outputs
 .nuxt
 .output
 dist
+!lib/vue-cal/dist
 .nitro
 
 # Development files
