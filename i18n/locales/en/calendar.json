@@ -46,6 +46,7 @@
       "joining": "Joining..."
     },
     "loading": "Loading calendar...",
+    "enrolledOnlyFilter": "Only show my schedule",
     "notInClass": "You are not in this class",
     "error": {
       "cannotJoinClass": "Cannot join session",

@@ -137,7 +137,7 @@ export function useClassroomApi() {
       apiClient.get<SessionAttendance[]>(`/classrooms/sessions/${sessionId}/attendances/`),
 
     // Get calendar data
-    getCalendarData: (params?: { start_date?: string, end_date?: string }) =>
+    getCalendarData: (params?: { start_date?: string, end_date?: string, enrolled_only?: boolean }) =>
       apiClient.get<CalendarApiResponse>('/students/sessions/', { params }),
 
     // Get course sessions (all sessions of all classrooms in a course)

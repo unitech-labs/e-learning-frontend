@@ -46,6 +46,7 @@
       "joining": "Accesso in corso..."
     },
     "loading": "Caricamento calendario...",
+    "enrolledOnlyFilter": "Mostra solo le mie lezioni",
     "notInClass": "Non fai parte di questa classe",
     "error": {
       "cannotJoinClass": "Impossibile partecipare alla lezione",

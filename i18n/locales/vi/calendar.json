@@ -46,6 +46,7 @@
       "joining": "Đang vào học..."
     },
     "loading": "Đang tải lịch...",
+    "enrolledOnlyFilter": "Chỉ hiện lịch học của tôi",
     "notInClass": "Bạn không thuộc lớp này",
     "error": {
       "cannotJoinClass": "Không thể tham gia buổi học",

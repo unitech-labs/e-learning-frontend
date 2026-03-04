@@ -83,6 +83,7 @@ const data: Ref<DemoExample> = ref({
 const selectedDate: Ref<Date> = ref(new Date())
 const viewDate: Ref<Date> = ref(new Date())
 const currentView: Ref<string> = ref('week')
+const enrolledOnly: Ref<boolean> = ref(false)
 
 // VueCal template ref
 const vueCalRef = ref<any>(null)
@@ -140,10 +141,20 @@ async function fetchCalendarData() {
       endDate = lastCell.startFormatted // YYYY-MM-DD
     }
 
-    const response = await getCalendarData({
-      start_date: startDate,
-      end_date: endDate,
-    })
+    const todayStr = dayjs().format('YYYY-MM-DD')
+
+    const [response, todayResponse] = await Promise.all([
+      getCalendarData({
+        start_date: startDate,
+        end_date: endDate,
+        enrolled_only: enrolledOnly.value,
+      }),
+      getCalendarData({
+        start_date: todayStr,
+        end_date: todayStr,
+        enrolled_only: true,
+      }),
+    ])
 
     // Convert sessions to calendar events
     const events: CalendarEvent[] = []
@@ -153,17 +164,9 @@ async function fetchCalendarData() {
 
     data.value.events = events
 
-    // Find events happening today
-    const now = new Date()
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()) // Start of today
-    const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000) // Start of tomorrow
-
-    const todayEvents = response.results
+    // Lịch học hôm nay - từ API call riêng với start/end = hôm nay
+    const todayEvents = todayResponse.results
       .map((session: any) => convertSessionToEvent(session))
-      .filter((event: CalendarEvent) => {
-        const eventDate = new Date(event.start)
-        return eventDate >= today && eventDate < tomorrow
-      })
       .sort((a: CalendarEvent, b: CalendarEvent) => new Date(a.start).getTime() - new Date(b.start).getTime())
 
     upcomingEvents.value = todayEvents
@@ -350,6 +353,11 @@ watch(selectedTimezone, () => {
   fetchCalendarData()
 })
 
+// Re-fetch when enrolledOnly filter changes
+watch(enrolledOnly, () => {
+  fetchCalendarData()
+})
+
 onMounted(async () => {
   setTimeout(() => {
     ready.value = true
@@ -475,13 +483,18 @@ onMounted(async () => {
         </section>
 
         <section class="flex-auto flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-          <div class="p-2 flex items-center gap-2 border-b border-slate-200">
-            <span class="text-xs font-medium text-gray-500">Múi giờ:</span>
-            <a-segmented
-              v-model:value="selectedTimezone"
-              :options="TIMEZONE_OPTIONS.map(opt => ({ label: opt.label, value: opt.value }))"
-              size="small"
-            />
+          <div class="p-2 flex flex-wrap items-center gap-4 border-b border-slate-200">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-medium text-gray-500">Múi giờ:</span>
+              <a-segmented
+                v-model:value="selectedTimezone"
+                :options="TIMEZONE_OPTIONS.map(opt => ({ label: opt.label, value: opt.value }))"
+                size="small"
+              />
+            </div>
+            <a-checkbox v-model:checked="enrolledOnly" class="!m-0">
+              {{ $t('calendar.enrolledOnlyFilter') }}
+            </a-checkbox>
           </div>
           <div class="p-4 flex-auto flex overflow-hidden">
             <VueCal
