@@ -13,9 +13,14 @@
     "orderRegistered": "just registered for a course",
     "commented": "commented on a course",
     "replied": "replied to your comment",
+    "homeworkAssigned": "You have a new homework",
+    "homeworkGraded": "Your homework has been graded",
+    "homeworkDue": "Due:",
+    "homeworkGrade": "Grade:",
     "justNow": "Just now",
     "minutesAgo": "{n} minutes ago",
     "hoursAgo": "{n} hours ago",
-    "daysAgo": "{n} days ago"
+    "daysAgo": "{n} days ago",
+    "viewAll": "View all notifications"
   }
 }

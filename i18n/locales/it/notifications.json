@@ -1,0 +1,10 @@
+{
+  "notifications": {
+    "page": {
+      "title": "Notifiche",
+      "description": "Tutte le tue notifiche",
+      "loadMore": "Carica altro",
+      "loadingMore": "Caricamento..."
+    }
+  }
+}

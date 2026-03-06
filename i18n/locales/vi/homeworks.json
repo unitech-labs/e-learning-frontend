@@ -1,0 +1,80 @@
+{
+  "homeworks": {
+    "title": "Bài tập về nhà",
+    "description": "Xem và nộp bài tập được giao",
+    "stats": {
+      "total": "Tổng",
+      "pending": "Chưa nộp",
+      "submitted": "Đã nộp",
+      "graded": "Đã chấm",
+      "overdue": "Quá hạn"
+    },
+    "filters": {
+      "course": "Khóa học",
+      "selectCourse": "Chọn khóa học",
+      "allCourses": "Tất cả khóa học"
+    },
+    "status": {
+      "pending": "Chưa nộp",
+      "submitted": "Đã nộp",
+      "graded": "Đã chấm",
+      "overdue": "Quá hạn"
+    },
+    "actions": {
+      "refresh": "Làm mới",
+      "back": "Quay lại",
+      "view": "Xem",
+      "submit": "Nộp bài",
+      "editSubmission": "Chỉnh sửa bài nộp"
+    },
+    "dueDate": "Hạn nộp",
+    "grade": "Điểm",
+    "strictDeadline": "Hạn nghiêm ngặt",
+    "overdue": "Quá hạn",
+    "mySubmission": "Bài nộp của tôi",
+    "submittedAt": "Nộp lúc",
+    "description": "Mô tả",
+    "pagination": {
+      "total": "Tổng {total} bài"
+    },
+    "loadMore": {
+      "button": "Xem thêm",
+      "loading": "Đang tải..."
+    },
+    "emptyState": {
+      "title": "Chưa có bài tập",
+      "description": "Bạn chưa có bài tập về nhà nào."
+    },
+    "detail": {
+      "assignment": "Nội dung bài tập",
+      "assignmentFiles": "Tài liệu đính kèm",
+      "previewTitle": "Xem trước",
+      "openInNewTab": "Mở trong tab mới",
+      "download": "Tải xuống",
+      "previewUnsupported": "Không thể xem trước. Vui lòng tải xuống hoặc mở trong tab mới.",
+      "submissionSection": "Bài nộp của bạn",
+      "contentPlaceholder": "Nhập nội dung bài làm của bạn...",
+      "attachFiles": "Đính kèm tệp",
+      "attachedFiles": "Tệp đính kèm",
+      "dragOrClick": "Kéo thả hoặc nhấn để chọn tệp",
+      "maxFileSize": "Tối đa 20MB mỗi tệp",
+      "submitting": "Đang nộp...",
+      "uploadingFile": "Đang tải tệp...",
+      "deadlinePassed": "Đã hết hạn nộp bài",
+      "cannotEditGraded": "Bài đã chấm điểm, không thể chỉnh sửa",
+      "feedback": "Nhận xét từ giáo viên",
+      "noContent": "Chưa có nội dung",
+      "characters": "ký tự",
+      "contentTooLong": "Nội dung vượt quá giới hạn {max} ký tự (khoảng 1 bài văn ngắn)"
+    },
+    "messages": {
+      "loadError": "Không thể tải danh sách bài tập",
+      "loadDetailError": "Không thể tải chi tiết bài tập",
+      "refreshSuccess": "Đã làm mới thành công",
+      "submitSuccess": "Nộp bài thành công",
+      "submitError": "Nộp bài thất bại",
+      "uploadError": "Tải tệp thất bại",
+      "emptySubmission": "Vui lòng nhập nội dung hoặc đính kèm tệp"
+    }
+  }
+}

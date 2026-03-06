@@ -1,0 +1,10 @@
+{
+  "notifications": {
+    "page": {
+      "title": "Notifications",
+      "description": "All your notifications",
+      "loadMore": "Load more",
+      "loadingMore": "Loading..."
+    }
+  }
+}

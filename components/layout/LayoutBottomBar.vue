@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { useHomeworkCount } from '~/composables/useHomeworkCount'
+
 const route = useRoute()
 const { isLoggedIn } = useAuth()
 const { menu } = useSidebar()
 const { t } = useI18n()
 const cartStore = useCartStore()
+const { pendingCount: homeworkPendingCount } = useHomeworkCount({ enabled: true })
 
 // Settings submenu state
 const showSettingsMenu = ref(false)
@@ -46,6 +49,13 @@ const bottomBarItems = computed<BottomBarItem[]>(() => {
       type: 'link',
     },
     {
+      name: t('menu.homeworks'),
+      icon: 'solar:document-text-bold',
+      link: '/homeworks',
+      type: 'link',
+      badge: homeworkPendingCount.value > 0 ? homeworkPendingCount.value : undefined,
+    },
+    {
       name: t('menu.calendars'),
       icon: 'solar:calendar-bold',
       link: '/calendars',
@@ -83,6 +93,12 @@ function isActive(link: string) {
   }
   if (link === '/my-course') {
     return route.path === '/my-course'
+  }
+  if (link === '/homeworks') {
+    return route.path.startsWith('/homeworks')
+  }
+  if (link === '/calendars') {
+    return route.path.startsWith('/calendars')
   }
   if (link.includes('?tab=')) {
     const [path, query] = link.split('?')
@@ -130,7 +146,7 @@ watch(() => route.path, () => {
 <template>
   <!-- Bottom Navigation Bar - Only visible on mobile -->
   <div class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg safe-area-bottom">
-    <div class="grid grid-cols-4 h-16 relative">
+    <div class="grid grid-cols-5 h-16 relative">
       <template v-for="item in bottomBarItems" :key="item.name">
         <!-- Regular Link Item -->
         <NuxtLink

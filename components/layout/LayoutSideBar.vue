@@ -125,20 +125,33 @@ onMounted(() => {
               @click="item.subItems && item.subItems.length > 0 && !isCollapsed ? toggleExpand(item.name) : null"
             >
               <div class="flex items-center" :class="isCollapsed ? 'justify-center' : 'gap-3'">
-                <div class="size-8 flex justify-center items-center">
+                <div class="size-8 flex justify-center items-center relative shrink-0">
                   <Icon
                     :name="item.icon"
                     class="text-[20px]"
                     :class="isActiveRoute(item.link) ? 'text-white' : 'text-shade-6'"
                   />
+                  <span
+                    v-if="isCollapsed && item.badge && item.badge > 0"
+                    class="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 flex items-center justify-center rounded-full bg-red-500 text-white text-[10px] font-semibold px-1"
+                  >
+                    {{ item.badge > 99 ? '99+' : item.badge }}
+                  </span>
                 </div>
-                <p
-                  v-if="!isCollapsed"
-                  class="font-semibold text-sm"
-                  :class="isActiveRoute(item.link) ? 'text-white' : 'text-[#0A1B39]'"
-                >
-                  {{ item.name }}
-                </p>
+                <div v-if="!isCollapsed" class="flex items-center gap-2 min-w-0">
+                  <p
+                    class="font-semibold text-sm truncate"
+                    :class="isActiveRoute(item.link) ? 'text-white' : 'text-[#0A1B39]'"
+                  >
+                    {{ item.name }}
+                  </p>
+                  <span
+                    v-if="item.badge && item.badge > 0"
+                    class="shrink-0 min-w-[18px] h-[18px] flex items-center justify-center rounded-full bg-red-500 text-white text-xs font-semibold px-1"
+                  >
+                    {{ item.badge > 99 ? '99+' : item.badge }}
+                  </span>
+                </div>
               </div>
               <Icon
                 v-if="!isCollapsed && item.subItems && item.subItems.length > 0"

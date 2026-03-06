@@ -897,6 +897,7 @@
         "chapters": "Chapters",
         "resources": "Resources",
         "pricing": "Pricing",
+        "homework": "Homework",
         "detail": "Detail"
       },
       "breadcrumb": {
@@ -1460,6 +1461,155 @@
       "title": "CONTROL PANEL",
       "subtitle": "Learn Italian with",
       "author": "Phan Tam"
+    },
+    "homeworks": {
+      "title": "Homework Management",
+      "description": "Create and manage homework assignments for classrooms",
+      "stats": {
+        "total": "Total Assignments",
+        "submissions": "Total Submissions",
+        "graded": "Graded"
+      },
+      "filters": {
+        "course": "Course",
+        "selectCourse": "Select course",
+        "allCourses": "All courses",
+        "classroom": "Classroom",
+        "selectClassroom": "Select classroom",
+        "allClassrooms": "All classrooms"
+      },
+      "table": {
+        "columns": {
+          "title": "Title",
+          "classrooms": "Classrooms",
+          "dueDate": "Due Date",
+          "submissions": "Submissions",
+          "graded": "Graded",
+          "createdBy": "Created By",
+          "actions": "Actions"
+        },
+        "strictDeadline": "Strict deadline",
+        "totalItems": "assignments",
+        "emptyState": {
+          "title": "No homework yet",
+          "description": "Create your first homework assignment to get started."
+        }
+      },
+      "actions": {
+        "create": "Create Homework",
+        "refresh": "Refresh",
+        "deleteConfirm": {
+          "title": "Delete Homework",
+          "message": "Are you sure you want to delete \"{title}\"?",
+          "confirm": "Delete",
+          "cancel": "Cancel"
+        }
+      },
+      "messages": {
+        "loadError": "Could not load homework list",
+        "loadDetailError": "Could not load homework",
+        "refreshSuccess": "Refreshed successfully",
+        "deleteSuccess": "Homework \"{title}\" deleted successfully",
+        "deleteError": "Could not delete homework",
+        "createSuccess": "Homework created successfully",
+        "createError": "Could not create homework",
+        "updateSuccess": "Homework updated successfully",
+        "updateError": "Could not update homework",
+        "loadClassroomsError": "Could not load classrooms"
+      },
+      "form": {
+        "createTitle": "Create Homework",
+        "createDescription": "Create new homework assignment for students",
+        "editTitle": "Edit Homework",
+        "editDescription": "Update homework assignment",
+        "update": "Update",
+        "back": "Back",
+        "classrooms": "Classrooms",
+        "assignAllClassrooms": "Assign to all classrooms",
+        "classroomsPlaceholder": "Select classrooms",
+        "classroomsHint": "Select one or more classrooms to assign this homework to",
+        "classroomsRequired": "Please select at least one classroom",
+        "title": "Title",
+        "titlePlaceholder": "Enter homework title",
+        "titleRequired": "Please enter title",
+        "titleMaxLength": "Title must not exceed 255 characters",
+        "description": "Description",
+        "descriptionPlaceholder": "Enter homework description and instructions",
+        "descriptionRequired": "Please enter description",
+        "dueDate": "Due Date",
+        "dueDatePlaceholder": "Select due date and time",
+        "dueDateHint": "Students must submit before this date (Vietnam time)",
+        "dueDateRequired": "Please select due date",
+        "strictDeadline": "Strict deadline",
+        "strictDeadlineHint": "If enabled, students cannot submit after the due date",
+        "submit": "Create Homework",
+        "cancel": "Cancel",
+        "unknownCourse": "Unknown course",
+        "attachments": {
+          "label": "Attachments",
+          "uploadHint": "Click or drag file to upload",
+          "uploadDesc": "PDF, DOC, DOCX, PPT, PPTX, ZIP, images. Max 50MB per file.",
+          "extra": "Attach reference materials (e.g. assignment file, instructions)",
+          "fileTooLarge": "File too large",
+          "fileTooLargeDesc": "File size must not exceed 50MB",
+          "missingUrls": "Missing upload URLs",
+          "uploadFailed": "Upload failed"
+        }
+      }
+    },
+    "homeworkSubmissions": {
+      "title": "Homework submissions",
+      "description": "View and grade student homework submissions",
+      "stats": {
+        "total": "Total",
+        "pending": "Pending",
+        "graded": "Graded"
+      },
+      "filters": {
+        "homework": "Homework",
+        "allHomeworks": "All homeworks",
+        "status": "Status",
+        "allStatus": "All",
+        "studentName": "Search by student name..."
+      },
+      "status": {
+        "pending": "Pending",
+        "graded": "Graded"
+      },
+      "table": {
+        "homework": "Homework",
+        "student": "Student",
+        "classroom": "Classroom",
+        "status": "Status",
+        "grade": "Grade",
+        "submittedAt": "Submitted at"
+      },
+      "actions": {
+        "view": "View & grade",
+        "back": "Back",
+        "grade": "Grade",
+        "saveGrade": "Save grade",
+        "retry": "Retry"
+      },
+      "detail": {
+        "studentInfo": "Student information",
+        "submissionContent": "Submission content",
+        "attachments": "Attachments",
+        "grade": "Grade",
+        "feedback": "Feedback",
+        "gradePlaceholder": "Enter grade (0-10)",
+        "feedbackPlaceholder": "Enter feedback for student..."
+      },
+      "empty": {
+        "title": "No submissions",
+        "description": "No submissions match the current filters."
+      },
+      "messages": {
+        "loadError": "Failed to load submissions",
+        "loadDetailError": "Failed to load submission detail",
+        "gradeSuccess": "Graded successfully",
+        "gradeError": "Failed to grade"
+      }
     },
     "devices": {
       "title": "Device Management",

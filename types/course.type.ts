@@ -443,6 +443,22 @@ export interface StudentWithStats {
 // Course Students Response
 export interface CourseStudentsResponse extends ListApiResponse<CourseStudent> {}
 
+// Classmate (from GET /courses/{id}/classmates/) - students in same classroom
+export interface Classmate {
+  id: string | number
+  username: string
+  first_name: string
+  last_name: string
+  full_name: string
+  avatar: string | null
+  classroom: {
+    id: string
+    title: string
+  }
+}
+
+export interface ClassmatesResponse extends ListApiResponse<Classmate> {}
+
 // Course List Response
 export interface CourseListResponse extends ListApiResponse<CourseSummary> {}
 

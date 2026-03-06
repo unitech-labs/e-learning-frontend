@@ -35,7 +35,8 @@ export function useVideoUpload() {
       }
 
       // Step 1: Get presigned URL
-      const presignedResponse = await getVideoUploadUrl(file.name, file.type)
+      const sanitizedName = file.name.replace(/ /g, '_')
+      const presignedResponse = await getVideoUploadUrl(sanitizedName, file.type)
 
       // Extract URLs from response
       const uploadUrl = presignedResponse?.upload_url

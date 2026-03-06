@@ -1,0 +1,10 @@
+{
+  "notifications": {
+    "page": {
+      "title": "Thông báo",
+      "description": "Tất cả thông báo của bạn",
+      "loadMore": "Xem thêm",
+      "loadingMore": "Đang tải..."
+    }
+  }
+}

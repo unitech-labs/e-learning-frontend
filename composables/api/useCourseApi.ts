@@ -5,6 +5,7 @@ import type {
   AllStudentsResponse,
   Chapter,
   ChapterPayload,
+  ClassmatesResponse,
   Course,
   CourseEnrollment,
   CourseFilters,
@@ -356,9 +357,20 @@ export function useCourseApi() {
     getCourseStudents: (courseId: string) =>
       apiClient.get<CourseStudentsResponse>(`/courses/${courseId}/students/`),
 
-    // Get course classmates
-    getCourseClassmates: (courseId: string) =>
-      apiClient.get<CourseStudentsResponse>(`/courses/${courseId}/classmates/`),
+    // Get course classmates (GET /api/v1/courses/{id}/classmates/)
+    // Only enrolled students. Returns: id, username, first_name, last_name, full_name, avatar, classroom: { id, title }
+    getCourseClassmates: (
+      courseId: string,
+      params?: { page?: number, page_size?: number },
+    ) => {
+      const queryParams = new URLSearchParams()
+      if (params?.page != null) queryParams.append('page', String(params.page))
+      if (params?.page_size != null) queryParams.append('page_size', String(params.page_size))
+      const query = queryParams.toString()
+      return apiClient.get<ClassmatesResponse>(
+        `/courses/${courseId}/classmates/${query ? `?${query}` : ''}`,
+      )
+    },
 
     // Disable student from course
     disableStudent: (courseId: string, studentId: string) =>

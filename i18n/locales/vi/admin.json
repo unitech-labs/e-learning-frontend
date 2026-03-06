@@ -897,6 +897,7 @@
         "chapters": "Chương",
         "resources": "Tài liệu",
         "pricing": "Giá tiền",
+        "homework": "Bài tập về nhà",
         "detail": "Chi tiết"
       },
       "breadcrumb": {
@@ -1460,6 +1461,155 @@
       "title": "BẢNG ĐIỀU KHIỂN",
       "subtitle": "Học tiếng Ý cùng",
       "author": "Phan Tâm"
+    },
+    "homeworks": {
+      "title": "Quản lý bài tập về nhà",
+      "description": "Tạo và quản lý bài tập về nhà cho các lớp học",
+      "stats": {
+        "total": "Tổng bài tập",
+        "submissions": "Tổng bài nộp",
+        "graded": "Đã chấm"
+      },
+      "filters": {
+        "course": "Khóa học",
+        "selectCourse": "Chọn khóa học",
+        "allCourses": "Tất cả khóa học",
+        "classroom": "Lớp học",
+        "selectClassroom": "Chọn lớp học",
+        "allClassrooms": "Tất cả lớp học"
+      },
+      "table": {
+        "columns": {
+          "title": "Tiêu đề",
+          "classrooms": "Lớp học",
+          "dueDate": "Hạn nộp",
+          "submissions": "Bài nộp",
+          "graded": "Đã chấm",
+          "createdBy": "Người tạo",
+          "actions": "Thao tác"
+        },
+        "strictDeadline": "Không cho nộp khi hết hạn",
+        "totalItems": "bài tập",
+        "emptyState": {
+          "title": "Chưa có bài tập nào",
+          "description": "Tạo bài tập đầu tiên để bắt đầu."
+        }
+      },
+      "actions": {
+        "create": "Tạo bài tập",
+        "refresh": "Làm mới",
+        "deleteConfirm": {
+          "title": "Xóa bài tập",
+          "message": "Bạn có chắc muốn xóa \"{title}\"?",
+          "confirm": "Xóa",
+          "cancel": "Hủy"
+        }
+      },
+      "messages": {
+        "loadError": "Không thể tải danh sách bài tập",
+        "loadDetailError": "Không thể tải bài tập",
+        "refreshSuccess": "Đã làm mới thành công",
+        "deleteSuccess": "Đã xóa bài tập \"{title}\" thành công",
+        "deleteError": "Không thể xóa bài tập",
+        "createSuccess": "Tạo bài tập thành công",
+        "createError": "Không thể tạo bài tập",
+        "updateSuccess": "Cập nhật bài tập thành công",
+        "updateError": "Không thể cập nhật bài tập",
+        "loadClassroomsError": "Không thể tải danh sách lớp học"
+      },
+      "form": {
+        "createTitle": "Tạo bài tập về nhà",
+        "createDescription": "Tạo bài tập mới cho học viên",
+        "editTitle": "Chỉnh sửa bài tập",
+        "editDescription": "Cập nhật bài tập về nhà",
+        "update": "Cập nhật",
+        "back": "Quay lại",
+        "classrooms": "Lớp học",
+        "assignAllClassrooms": "Giao bài tập cho toàn bộ các lớp",
+        "classroomsPlaceholder": "Chọn lớp học",
+        "classroomsHint": "Chọn một hoặc nhiều lớp để giao bài tập",
+        "classroomsRequired": "Vui lòng chọn ít nhất một lớp học",
+        "title": "Tiêu đề",
+        "titlePlaceholder": "Nhập tiêu đề bài tập",
+        "titleRequired": "Vui lòng nhập tiêu đề",
+        "titleMaxLength": "Tiêu đề không quá 255 ký tự",
+        "description": "Mô tả",
+        "descriptionPlaceholder": "Nhập mô tả và hướng dẫn bài tập",
+        "descriptionRequired": "Vui lòng nhập mô tả",
+        "dueDate": "Hạn nộp",
+        "dueDatePlaceholder": "Chọn ngày và giờ hạn nộp",
+        "dueDateHint": "Học viên phải nộp trước thời gian này (giờ Việt Nam)",
+        "dueDateRequired": "Vui lòng chọn hạn nộp",
+        "strictDeadline": "Không cho nộp khi hết hạn",
+        "strictDeadlineHint": "Nếu bật, học viên không thể nộp sau hạn",
+        "submit": "Tạo bài tập",
+        "cancel": "Hủy",
+        "unknownCourse": "Khóa học không xác định",
+        "attachments": {
+          "label": "Tệp đính kèm",
+          "uploadHint": "Nhấp hoặc kéo thả tệp để tải lên",
+          "uploadDesc": "PDF, DOC, DOCX, PPT, PPTX, ZIP, ảnh. Tối đa 50MB mỗi tệp.",
+          "extra": "Đính kèm tài liệu tham khảo (đề bài, hướng dẫn...)",
+          "fileTooLarge": "Tệp quá lớn",
+          "fileTooLargeDesc": "Kích thước tệp không được vượt quá 50MB",
+          "missingUrls": "Thiếu URL tải lên",
+          "uploadFailed": "Tải lên thất bại"
+        }
+      }
+    },
+    "homeworkSubmissions": {
+      "title": "Quản lý bài nộp bài tập",
+      "description": "Xem và chấm điểm bài nộp của học sinh",
+      "stats": {
+        "total": "Tổng bài nộp",
+        "pending": "Chưa chấm",
+        "graded": "Đã chấm"
+      },
+      "filters": {
+        "homework": "Bài tập",
+        "allHomeworks": "Tất cả bài tập",
+        "status": "Trạng thái",
+        "allStatus": "Tất cả",
+        "studentName": "Tìm theo tên học sinh..."
+      },
+      "status": {
+        "pending": "Chưa chấm",
+        "graded": "Đã chấm"
+      },
+      "table": {
+        "homework": "Bài tập",
+        "student": "Học sinh",
+        "classroom": "Lớp học",
+        "status": "Trạng thái",
+        "grade": "Điểm",
+        "submittedAt": "Nộp lúc"
+      },
+      "actions": {
+        "view": "Xem & chấm",
+        "back": "Quay lại",
+        "grade": "Chấm điểm",
+        "saveGrade": "Lưu điểm",
+        "retry": "Thử lại"
+      },
+      "detail": {
+        "studentInfo": "Thông tin học sinh",
+        "submissionContent": "Nội dung bài làm",
+        "attachments": "Tệp đính kèm",
+        "grade": "Điểm",
+        "feedback": "Nhận xét",
+        "gradePlaceholder": "Nhập điểm (0-10)",
+        "feedbackPlaceholder": "Nhập nhận xét cho học sinh..."
+      },
+      "empty": {
+        "title": "Chưa có bài nộp nào",
+        "description": "Chưa có bài nộp nào phù hợp với bộ lọc."
+      },
+      "messages": {
+        "loadError": "Không thể tải danh sách bài nộp",
+        "loadDetailError": "Không thể tải chi tiết bài nộp",
+        "gradeSuccess": "Chấm điểm thành công",
+        "gradeError": "Chấm điểm thất bại"
+      }
     },
     "devices": {
       "title": "Quản lý thiết bị",

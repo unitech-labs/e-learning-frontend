@@ -13,9 +13,14 @@
     "orderRegistered": "si è appena iscritto a un corso",
     "commented": "ha commentato nel corso",
     "replied": "ha risposto al tuo commento",
+    "homeworkAssigned": "Hai un nuovo compito",
+    "homeworkGraded": "Il tuo compito è stato valutato",
+    "homeworkDue": "Scadenza:",
+    "homeworkGrade": "Voto:",
     "justNow": "Proprio ora",
     "minutesAgo": "{n} minuti fa",
     "hoursAgo": "{n} ore fa",
-    "daysAgo": "{n} giorni fa"
+    "daysAgo": "{n} giorni fa",
+    "viewAll": "Visualizza tutte le notifiche"
   }
 }

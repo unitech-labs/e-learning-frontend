@@ -897,6 +897,7 @@
         "chapters": "Capitoli",
         "resources": "Materiali",
         "pricing": "Prezzi",
+        "homework": "Compiti",
         "detail": "Dettagli"
       },
       "breadcrumb": {
@@ -1460,6 +1461,155 @@
       "title": "DASHBOARD",
       "subtitle": "Impara l'italiano con",
       "author": "Phan Tâm"
+    },
+    "homeworks": {
+      "title": "Gestione Compiti",
+      "description": "Crea e gestisci i compiti per le classi",
+      "stats": {
+        "total": "Compiti totali",
+        "submissions": "Consegne totali",
+        "graded": "Valutati"
+      },
+      "filters": {
+        "course": "Corso",
+        "selectCourse": "Seleziona corso",
+        "allCourses": "Tutti i corsi",
+        "classroom": "Classe",
+        "selectClassroom": "Seleziona classe",
+        "allClassrooms": "Tutte le classi"
+      },
+      "table": {
+        "columns": {
+          "title": "Titolo",
+          "classrooms": "Classi",
+          "dueDate": "Scadenza",
+          "submissions": "Consegne",
+          "graded": "Valutati",
+          "createdBy": "Creato da",
+          "actions": "Azioni"
+        },
+        "strictDeadline": "Scadenza rigorosa",
+        "totalItems": "compiti",
+        "emptyState": {
+          "title": "Nessun compito ancora",
+          "description": "Crea il tuo primo compito per iniziare."
+        }
+      },
+      "actions": {
+        "create": "Crea Compito",
+        "refresh": "Aggiorna",
+        "deleteConfirm": {
+          "title": "Elimina Compito",
+          "message": "Sei sicuro di voler eliminare \"{title}\"?",
+          "confirm": "Elimina",
+          "cancel": "Annulla"
+        }
+      },
+      "messages": {
+        "loadError": "Impossibile caricare l'elenco dei compiti",
+        "loadDetailError": "Impossibile caricare il compito",
+        "refreshSuccess": "Aggiornato con successo",
+        "deleteSuccess": "Compito \"{title}\" eliminato con successo",
+        "deleteError": "Impossibile eliminare il compito",
+        "createSuccess": "Compito creato con successo",
+        "createError": "Impossibile creare il compito",
+        "updateSuccess": "Compito aggiornato con successo",
+        "updateError": "Impossibile aggiornare il compito",
+        "loadClassroomsError": "Impossibile caricare le classi"
+      },
+      "form": {
+        "createTitle": "Crea Compito",
+        "createDescription": "Crea un nuovo compito per gli studenti",
+        "editTitle": "Modifica Compito",
+        "editDescription": "Aggiorna il compito",
+        "update": "Aggiorna",
+        "back": "Indietro",
+        "classrooms": "Classi",
+        "assignAllClassrooms": "Assegna a tutte le classi",
+        "classroomsPlaceholder": "Seleziona classi",
+        "classroomsHint": "Seleziona una o più classi per assegnare questo compito",
+        "classroomsRequired": "Seleziona almeno una classe",
+        "title": "Titolo",
+        "titlePlaceholder": "Inserisci il titolo del compito",
+        "titleRequired": "Inserisci il titolo",
+        "titleMaxLength": "Il titolo non deve superare 255 caratteri",
+        "description": "Descrizione",
+        "descriptionPlaceholder": "Inserisci descrizione e istruzioni",
+        "descriptionRequired": "Inserisci la descrizione",
+        "dueDate": "Scadenza",
+        "dueDatePlaceholder": "Seleziona data e ora di scadenza",
+        "dueDateHint": "Gli studenti devono consegnare prima di questa data (ora Vietnam)",
+        "dueDateRequired": "Seleziona la data di scadenza",
+        "strictDeadline": "Scadenza rigorosa",
+        "strictDeadlineHint": "Se abilitato, gli studenti non possono consegnare dopo la scadenza",
+        "submit": "Crea Compito",
+        "cancel": "Annulla",
+        "unknownCourse": "Corso sconosciuto",
+        "attachments": {
+          "label": "Allegati",
+          "uploadHint": "Clicca o trascina il file per caricare",
+          "uploadDesc": "PDF, DOC, DOCX, PPT, PPTX, ZIP, immagini. Max 50MB per file.",
+          "extra": "Allega materiali di riferimento (es. file compito, istruzioni)",
+          "fileTooLarge": "File troppo grande",
+          "fileTooLargeDesc": "La dimensione del file non deve superare 50MB",
+          "missingUrls": "URL di caricamento mancanti",
+          "uploadFailed": "Caricamento fallito"
+        }
+      }
+    },
+    "homeworkSubmissions": {
+      "title": "Consegne compiti",
+      "description": "Visualizza e valuta le consegne degli studenti",
+      "stats": {
+        "total": "Totale",
+        "pending": "In attesa",
+        "graded": "Valutato"
+      },
+      "filters": {
+        "homework": "Compito",
+        "allHomeworks": "Tutti i compiti",
+        "status": "Stato",
+        "allStatus": "Tutti",
+        "studentName": "Cerca per nome studente..."
+      },
+      "status": {
+        "pending": "In attesa",
+        "graded": "Valutato"
+      },
+      "table": {
+        "homework": "Compito",
+        "student": "Studente",
+        "classroom": "Classe",
+        "status": "Stato",
+        "grade": "Voto",
+        "submittedAt": "Inviato il"
+      },
+      "actions": {
+        "view": "Visualizza e valuta",
+        "back": "Indietro",
+        "grade": "Valuta",
+        "saveGrade": "Salva voto",
+        "retry": "Riprova"
+      },
+      "detail": {
+        "studentInfo": "Informazioni studente",
+        "submissionContent": "Contenuto consegna",
+        "attachments": "Allegati",
+        "grade": "Voto",
+        "feedback": "Feedback",
+        "gradePlaceholder": "Inserisci voto (0-10)",
+        "feedbackPlaceholder": "Inserisci feedback per lo studente..."
+      },
+      "empty": {
+        "title": "Nessuna consegna",
+        "description": "Nessuna consegna corrisponde ai filtri attuali."
+      },
+      "messages": {
+        "loadError": "Impossibile caricare le consegne",
+        "loadDetailError": "Impossibile caricare i dettagli della consegna",
+        "gradeSuccess": "Valutato con successo",
+        "gradeError": "Valutazione fallita"
+      }
     },
     "devices": {
       "title": "Gestione Dispositivi",

@@ -1,0 +1,80 @@
+{
+  "homeworks": {
+    "title": "Homework",
+    "description": "View and submit your homework assignments",
+    "stats": {
+      "total": "Total",
+      "pending": "Pending",
+      "submitted": "Submitted",
+      "graded": "Graded",
+      "overdue": "Overdue"
+    },
+    "filters": {
+      "course": "Course",
+      "selectCourse": "Select course",
+      "allCourses": "All courses"
+    },
+    "status": {
+      "pending": "Pending",
+      "submitted": "Submitted",
+      "graded": "Graded",
+      "overdue": "Overdue"
+    },
+    "actions": {
+      "refresh": "Refresh",
+      "back": "Back",
+      "view": "View",
+      "submit": "Submit",
+      "editSubmission": "Edit submission"
+    },
+    "dueDate": "Due date",
+    "grade": "Grade",
+    "strictDeadline": "Strict deadline",
+    "overdue": "Overdue",
+    "mySubmission": "My submission",
+    "submittedAt": "Submitted at",
+    "description": "Description",
+    "pagination": {
+      "total": "Total {total} items"
+    },
+    "loadMore": {
+      "button": "Load more",
+      "loading": "Loading..."
+    },
+    "emptyState": {
+      "title": "No homework",
+      "description": "You have no homework assignments at the moment."
+    },
+    "detail": {
+      "assignment": "Assignment",
+      "assignmentFiles": "Reference materials",
+      "previewTitle": "Preview",
+      "openInNewTab": "Open in new tab",
+      "download": "Download",
+      "previewUnsupported": "Preview not available. Please download or open in new tab.",
+      "submissionSection": "Your submission",
+      "contentPlaceholder": "Enter your answer here...",
+      "attachFiles": "Attach files",
+      "attachedFiles": "Attached files",
+      "dragOrClick": "Drag & drop or click to select files",
+      "maxFileSize": "Max 20MB per file",
+      "submitting": "Submitting...",
+      "uploadingFile": "Uploading file...",
+      "deadlinePassed": "Deadline has passed",
+      "cannotEditGraded": "Graded submissions cannot be edited",
+      "feedback": "Teacher feedback",
+      "noContent": "No content",
+      "characters": "characters",
+      "contentTooLong": "Content exceeds the limit of {max} characters (about 1 short essay)"
+    },
+    "messages": {
+      "loadError": "Failed to load homework",
+      "loadDetailError": "Failed to load homework details",
+      "refreshSuccess": "Refreshed successfully",
+      "submitSuccess": "Submitted successfully",
+      "submitError": "Failed to submit",
+      "uploadError": "Failed to upload file",
+      "emptySubmission": "Please enter content or attach a file"
+    }
+  }
+}

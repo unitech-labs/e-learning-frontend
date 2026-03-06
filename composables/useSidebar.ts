@@ -8,6 +8,7 @@ export interface MenuItem {
   icon: string
   link?: string
   subItems?: SubMenuItem[]
+  badge?: number
 }
 
 const STORAGE_KEY_USER = 'user-sidebar-collapsed'
@@ -28,6 +29,9 @@ export function useSidebar(isAdmin = false) {
   const { isCollapsed } = sidebarState
   const { t } = useI18n()
   const storageKey = isAdmin ? STORAGE_KEY_ADMIN : STORAGE_KEY_USER
+
+  const { pendingCount: homeworkPendingCount } = useHomeworkCount({ enabled: !isAdmin })
+  const { pendingCount: adminHomeworkSubmissionsPendingCount } = useAdminHomeworkSubmissionsCount({ enabled: isAdmin })
 
   // Initialize state from localStorage on client mount
   if (typeof window !== 'undefined' && !sidebarState._initialized) {
@@ -55,6 +59,12 @@ export function useSidebar(isAdmin = false) {
       name: t('menu.myCourses'),
       icon: 'solar:book-bookmark-bold',
       link: '/my-course',
+    },
+    {
+      name: t('menu.homeworks'),
+      icon: 'solar:document-text-bold',
+      link: '/homeworks',
+      badge: !isAdmin && homeworkPendingCount.value > 0 ? homeworkPendingCount.value : undefined,
     },
     {
       name: t('menu.calendars'),
@@ -93,6 +103,12 @@ export function useSidebar(isAdmin = false) {
     //   icon: 'i-heroicons-building-office-2',
     //   link: '/admin/classrooms',
     // },
+    {
+      name: t('adminMenu.homeworkSubmissions'),
+      icon: 'solar:document-text-bold',
+      link: '/admin/homework-submissions',
+      badge: isAdmin && adminHomeworkSubmissionsPendingCount.value > 0 ? adminHomeworkSubmissionsPendingCount.value : undefined,
+    },
     {
       name: t('adminMenu.quizManagement'),
       icon: 'i-heroicons-clipboard-document-list',

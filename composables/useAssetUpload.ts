@@ -28,13 +28,15 @@ export function useAssetUpload() {
       const isVideo = assetType === 'video'
       let presignedResponse
 
+      const sanitizedName = file.name.replace(/ /g, '_')
+
       if (isVideo) {
         // Use video upload endpoint
-        presignedResponse = await getVideoUploadUrl(courseId, file.name, file.type)
+        presignedResponse = await getVideoUploadUrl(courseId, sanitizedName, file.type)
       }
       else {
         // Use attachment upload endpoint
-        presignedResponse = await getAttachmentUploadUrl(file.name, file.type, 'attachments')
+        presignedResponse = await getAttachmentUploadUrl(sanitizedName, file.type, 'attachments')
       }
 
       // Extract URLs from response

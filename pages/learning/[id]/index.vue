@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { AssetFolder, CourseAsset } from '~/composables/api/useAssetApi'
-import type { CourseStudent } from '~/types/course.type'
+import type { Classmate } from '~/types/course.type'
 import { VideoPlayer } from '@videojs-player/vue'
 import { notification } from 'ant-design-vue'
 import CommentList from '~/components/learning/CommentList.vue'
@@ -54,10 +54,14 @@ const activeTab = computed({
   },
 })
 
-// Student data
-const courseStudents = ref<CourseStudent[]>([])
-const studentsLoading = ref(false)
-const studentsError = ref<string | null>(null)
+// Classmates data (GET /courses/{id}/classmates/)
+const classmates = ref<Classmate[]>([])
+const classmatesTotal = ref(0)
+const classmatesPage = ref(1)
+const classmatesLoading = ref(false)
+const classmatesLoadingMore = ref(false)
+const classmatesError = ref<string | null>(null)
+const CLASSMATES_PAGE_SIZE = 12
 
 // Comment data
 const commentCount = ref(0)
@@ -250,11 +254,11 @@ async function completeLessonAutomatically() {
   }
 }
 
-// Get classroom ID from course students (user's enrolled classroom)
+// Get classroom ID for resources (user's enrolled classroom)
 const classroomId = computed(() => {
-  // Try to get from courseStudents (user's enrollment)
-  if (courseStudents.value.length > 0 && courseStudents.value[0].enrollment?.classroom_id) {
-    return courseStudents.value[0].enrollment.classroom_id
+  // Try to get from classmates (all in same classroom)
+  if (classmates.value.length > 0 && classmates.value[0].classroom?.id) {
+    return classmates.value[0].classroom.id
   }
   // Fallback to course classrooms if available
   if (course.value?.classrooms && course.value.classrooms.length > 0) {
@@ -263,28 +267,50 @@ const classroomId = computed(() => {
   return null
 })
 
-// Load course classmates
-async function loadCourseStudents() {
-  // Only load classmates if course_type is 'course'
+// Load course classmates (append = load more)
+async function loadClassmates(append = false) {
+  console.log('loadClassmates', course.value?.course_type)
   if (course.value?.course_type !== 'course') {
-    courseStudents.value = []
+    classmates.value = []
     return
   }
 
   try {
-    studentsLoading.value = true
-    studentsError.value = null
-    const response = await courseApi.getCourseClassmates(courseId)
-    courseStudents.value = response.results
+    if (append) {
+      classmatesLoadingMore.value = true
+    }
+    else {
+      classmatesLoading.value = true
+      classmatesPage.value = 1
+    }
+    classmatesError.value = null
+
+    const pageToLoad = append ? classmatesPage.value : 1
+    const response = await courseApi.getCourseClassmates(courseId, {
+      page: pageToLoad,
+      page_size: CLASSMATES_PAGE_SIZE,
+    })
+
+    if (append) {
+      classmates.value = [...classmates.value, ...response.results]
+    }
+    else {
+      classmates.value = response.results
+    }
+    classmatesTotal.value = response.count
+    classmatesPage.value = pageToLoad + 1
   }
   catch (err: any) {
-    console.error('Error loading course classmates:', err)
-    studentsError.value = err.message || t('learning.classmates.loadError')
+    console.error('Error loading classmates:', err)
+    classmatesError.value = err.message || t('learning.classmates.loadError')
   }
   finally {
-    studentsLoading.value = false
+    classmatesLoading.value = false
+    classmatesLoadingMore.value = false
   }
 }
+
+const hasMoreClassmates = computed(() => classmates.value.length < classmatesTotal.value)
 
 // Load resources via folder browsing
 async function loadResources() {
@@ -686,12 +712,11 @@ function handleSessionVideoClick(video: any) {
 // Watch for course changes to load classmates and session videos when course_type is 'course'
 watch(course, (newCourse) => {
   if (newCourse?.course_type === 'course' && !auth.isTeacher) {
-    loadCourseStudents()
+    loadClassmates()
     loadSessionVideos()
   }
   else {
-    // Clear classmates and session videos if course_type is not 'course'
-    courseStudents.value = []
+    classmates.value = []
     sessionVideos.value = []
   }
 }, { immediate: true })
@@ -721,6 +746,12 @@ function handleExpiredDialogBack() {
 
 onMounted(async () => {
   await learnStore.loadCourse(courseId)
+
+  // Load classmates & session videos when course_type is 'course' (only for students)
+  if (learnStore.course?.course_type === 'course' && !auth.isTeacher.value) {
+    loadClassmates()
+    loadSessionVideos()
+  }
 
   // Check enrollment status for expired access
   await checkEnrollmentStatus()
@@ -1223,51 +1254,63 @@ onBeforeUnmount(() => {
             </div>
           </div>
 
-          <!-- Students Section -->
+          <!-- Classmates Section (GET /courses/{id}/classmates/) -->
           <div v-if="course?.course_type === 'course'" class="rounded-2xl p-4 mt-9">
             <div class="mb-4">
               <div class="text-xl font-semibold text-gray-900 mb-2 px-2">
-                {{ t('course.classmates', { count: courseStudents.length }) }}
+                {{ t('course.classmates', { count: classmatesTotal || classmates.length }) }}
               </div>
             </div>
 
             <!-- Loading State -->
-            <div v-if="studentsLoading" class="flex items-center justify-center py-8">
+            <div v-if="classmatesLoading" class="flex items-center justify-center py-8">
               <a-spin size="small" />
               <span class="ml-2 text-gray-600">{{ t('course.loadingClassmates') }}</span>
             </div>
 
             <!-- Error State -->
-            <div v-else-if="studentsError" class="text-center py-8">
+            <div v-else-if="classmatesError" class="text-center py-8">
               <Icon name="tabler:alert-circle" class="text-red-500 text-2xl mx-auto mb-2" />
               <p class="text-sm text-red-600 mb-2">
-                {{ studentsError }}
+                {{ classmatesError }}
               </p>
-              <a-button size="small" @click="loadCourseStudents">
+              <a-button size="small" @click="loadClassmates">
                 {{ t('common.tryAgain') }}
               </a-button>
             </div>
 
-            <!-- Students List -->
-            <div v-else-if="courseStudents.length > 0" class="space-y-1">
+            <!-- Classmates List -->
+            <div v-else-if="classmates.length > 0" class="space-y-1">
               <div
-                v-for="student in courseStudents" :key="student.id"
+                v-for="classmate in classmates"
+                :key="classmate.id"
                 class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors"
               >
-                <a-avatar :size="38" :alt="student.full_name" :src="student.avatar || '/assets/images/teacher.webp'">
-                  {{ student.full_name.charAt(0) }}
+                <a-avatar :size="38" :alt="classmate.full_name" :src="classmate.avatar || '/assets/images/teacher.webp'">
+                  {{ classmate.full_name?.charAt(0) || '?' }}
                 </a-avatar>
                 <div class="flex-1 min-w-0">
                   <div class="text-sm font-medium text-gray-900 truncate">
-                    {{ student.full_name }}
+                    {{ classmate.full_name }}
                   </div>
                   <div class="text-xs text-gray-500 truncate">
-                    {{ student.username }}
+                    {{ classmate.username }}
+                  </div>
+                  <div v-if="classmate.classroom" class="text-xs text-gray-400 truncate mt-0.5">
+                    {{ classmate.classroom.title }}
                   </div>
                 </div>
-                <div v-if="student.enrollment?.completion_percentage" class="text-xs text-gray-400">
-                  {{ Math.round(student.enrollment.completion_percentage) }}%
-                </div>
+              </div>
+
+              <!-- Load More -->
+              <div v-if="hasMoreClassmates" class="pt-2 text-center">
+                <a-button
+                  size="small"
+                  :loading="classmatesLoadingMore"
+                  @click="loadClassmates(true)"
+                >
+                  {{ t('classroomDetail.resources.loadMore') }}
+                </a-button>
               </div>
             </div>
 

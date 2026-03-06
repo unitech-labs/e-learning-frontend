@@ -13,9 +13,14 @@
     "orderRegistered": "vừa đăng ký khoá học",
     "commented": "đã bình luận trong khoá học",
     "replied": "đã trả lời bình luận của bạn",
+    "homeworkAssigned": "Bạn có bài tập mới",
+    "homeworkGraded": "Bài tập của bạn đã được chấm điểm",
+    "homeworkDue": "Hạn nộp:",
+    "homeworkGrade": "Điểm:",
     "justNow": "Vừa xong",
     "minutesAgo": "{n} phút trước",
     "hoursAgo": "{n} giờ trước",
-    "daysAgo": "{n} ngày trước"
+    "daysAgo": "{n} ngày trước",
+    "viewAll": "Xem tất cả thông báo"
   }
 }

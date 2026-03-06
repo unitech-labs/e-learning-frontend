@@ -27,12 +27,21 @@ export interface NotificationOrder {
   status: 'pending' | 'complete' | 'cancel'
 }
 
+export interface NotificationHomework {
+  id: string
+  title: string
+  due_date: string
+  grade?: number | null
+  feedback?: string
+}
+
 export interface Notification {
   id: string
-  notification_type: 'comment' | 'reply' | 'order'
+  notification_type: 'comment' | 'reply' | 'order' | 'homework_assigned' | 'homework_graded'
   sender: NotificationSender | null
   comment: NotificationComment | null
   order: NotificationOrder | null
+  homework: NotificationHomework | null
   is_read: boolean
   created_at: string
 }

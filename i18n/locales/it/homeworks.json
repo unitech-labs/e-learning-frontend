@@ -1,0 +1,80 @@
+{
+  "homeworks": {
+    "title": "Compiti",
+    "description": "Visualizza e invia i tuoi compiti",
+    "stats": {
+      "total": "Totale",
+      "pending": "In attesa",
+      "submitted": "Inviato",
+      "graded": "Valutato",
+      "overdue": "Scaduto"
+    },
+    "filters": {
+      "course": "Corso",
+      "selectCourse": "Seleziona corso",
+      "allCourses": "Tutti i corsi"
+    },
+    "status": {
+      "pending": "In attesa",
+      "submitted": "Inviato",
+      "graded": "Valutato",
+      "overdue": "Scaduto"
+    },
+    "actions": {
+      "refresh": "Aggiorna",
+      "back": "Indietro",
+      "view": "Visualizza",
+      "submit": "Invia",
+      "editSubmission": "Modifica invio"
+    },
+    "dueDate": "Scadenza",
+    "grade": "Voto",
+    "strictDeadline": "Scadenza rigorosa",
+    "overdue": "Scaduto",
+    "mySubmission": "Il mio invio",
+    "submittedAt": "Inviato il",
+    "description": "Descrizione",
+    "pagination": {
+      "total": "Totale {total} elementi"
+    },
+    "loadMore": {
+      "button": "Carica altro",
+      "loading": "Caricamento..."
+    },
+    "emptyState": {
+      "title": "Nessun compito",
+      "description": "Non hai compiti al momento."
+    },
+    "detail": {
+      "assignment": "Compito assegnato",
+      "assignmentFiles": "Materiali di riferimento",
+      "previewTitle": "Anteprima",
+      "openInNewTab": "Apri in nuova scheda",
+      "download": "Scarica",
+      "previewUnsupported": "Anteprima non disponibile. Scarica o apri in nuova scheda.",
+      "submissionSection": "La tua consegna",
+      "contentPlaceholder": "Inserisci la tua risposta qui...",
+      "attachFiles": "Allega file",
+      "attachedFiles": "File allegati",
+      "dragOrClick": "Trascina o clicca per selezionare i file",
+      "maxFileSize": "Max 20MB per file",
+      "submitting": "Invio in corso...",
+      "uploadingFile": "Caricamento file...",
+      "deadlinePassed": "Scadenza superata",
+      "cannotEditGraded": "Le consegne valutate non possono essere modificate",
+      "feedback": "Feedback dell'insegnante",
+      "noContent": "Nessun contenuto",
+      "characters": "caratteri",
+      "contentTooLong": "Il contenuto supera il limite di {max} caratteri (circa 1 breve tema)"
+    },
+    "messages": {
+      "loadError": "Impossibile caricare i compiti",
+      "loadDetailError": "Impossibile caricare i dettagli del compito",
+      "refreshSuccess": "Aggiornato con successo",
+      "submitSuccess": "Inviato con successo",
+      "submitError": "Invio fallito",
+      "uploadError": "Caricamento file fallito",
+      "emptySubmission": "Inserisci il contenuto o allega un file"
+    }
+  }
+}

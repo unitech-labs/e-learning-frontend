@@ -61,8 +61,9 @@ export function useFileUpload() {
   }
 
   async function getPresignedUrl(file: File) {
+    const sanitizedName = file.name.replace(/ /g, '_')
     const presignedResponse = await apiClient.post('/system/upload-image/', {
-      file_name: file.name,
+      file_name: sanitizedName,
       content_type: file.type,
       folder: 'covers',
     })

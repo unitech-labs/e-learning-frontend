@@ -40,6 +40,10 @@ const listOptions = computed(() => {
       path: 'classrooms/all-classrooms',
       name: t('admin.courses.tabs.classroom'),
     })
+    baseTabs.push({
+      path: 'homeworks',
+      name: t('admin.courses.tabs.homework'),
+    })
   }
 
   baseTabs.push({

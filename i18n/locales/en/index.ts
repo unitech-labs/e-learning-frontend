@@ -20,6 +20,7 @@ import errors from './errors.json'
 import footer from './footer.json'
 import global from './global.json'
 import homepage from './homepage.json'
+import homeworks from './homeworks.json'
 import layout from './layout.json'
 import layoutAuthHeader from './layoutAuthHeader.json'
 import learning from './learning.json'
@@ -28,6 +29,7 @@ import menu from './menu.json'
 import navigation from './navigation.json'
 import newQuiz from './newQuiz.json'
 import notificationBell from './notificationBell.json'
+import notifications from './notifications.json'
 import onboarding from './onboarding.json'
 import password from './password.json'
 import profile from './profile.json'
@@ -61,6 +63,7 @@ export default {
   ...footer,
   ...global,
   ...homepage,
+  ...homeworks,
   ...layout,
   ...layoutAuthHeader,
   ...learning,
@@ -69,6 +72,7 @@ export default {
   ...navigation,
   ...newQuiz,
   ...notificationBell,
+  ...notifications,
   ...onboarding,
   ...password,
   ...profile,

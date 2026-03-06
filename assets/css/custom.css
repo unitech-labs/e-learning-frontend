@@ -5,6 +5,11 @@
   display: flex !important;
   align-items: center !important;
 }
+.ant-select-selection-item {
+  align-items: center !important;
+  gap: 8px !important;
+}
+
 
 .ant-select-selection-item {
   font-size: 14px !important;

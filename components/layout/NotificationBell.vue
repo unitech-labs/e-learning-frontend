@@ -59,6 +59,9 @@ async function handleNotificationClick(notif: Notification) {
   if (notif.notification_type === 'order' && notif.order?.id) {
     router.push(`/admin/orders/`)
   }
+  else if (notif.notification_type === 'homework_assigned' || notif.notification_type === 'homework_graded') {
+    router.push('/homeworks')
+  }
   else if (notif.comment?.course_id && notif.comment?.lesson_id) {
     router.push(`/learning/${notif.comment.course_id}?lessonId=${notif.comment.lesson_id}&tab=comments`)
   }
@@ -180,6 +183,12 @@ onUnmounted(() => {
               <div v-if="notif.notification_type === 'order'" class="w-9 h-9 rounded-full bg-orange-100 flex items-center justify-center">
                 <Icon name="solar:bag-heart-bold-duotone" size="18" class="text-orange-500" />
               </div>
+              <div v-else-if="notif.notification_type === 'homework_assigned'" class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center">
+                <Icon name="solar:document-text-bold-duotone" size="18" class="text-blue-500" />
+              </div>
+              <div v-else-if="notif.notification_type === 'homework_graded'" class="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center">
+                <Icon name="solar:check-circle-bold-duotone" size="18" class="text-green-500" />
+              </div>
               <a-avatar
                 v-else
                 :size="36"
@@ -218,6 +227,34 @@ onUnmounted(() => {
                 </p>
               </template>
 
+              <!-- Homework assigned notification -->
+              <template v-else-if="notif.notification_type === 'homework_assigned'">
+                <p class="text-sm text-gray-800 leading-snug">
+                  {{ t('notificationBell.homeworkAssigned') }}
+                </p>
+                <p v-if="notif.homework?.title" class="text-xs text-gray-500 mt-0.5 line-clamp-1">
+                  <span class="font-medium text-gray-700">"{{ notif.homework.title }}"</span>
+                </p>
+                <p v-if="notif.homework?.due_date" class="text-xs text-gray-500 mt-0.5">
+                  {{ t('notificationBell.homeworkDue') }} {{ new Date(notif.homework.due_date).toLocaleDateString('vi-VN') }}
+                </p>
+              </template>
+
+              <!-- Homework graded notification -->
+              <template v-else-if="notif.notification_type === 'homework_graded'">
+                <p class="text-sm text-gray-800 leading-snug">
+                  {{ t('notificationBell.homeworkGraded') }}
+                </p>
+                <p v-if="notif.homework?.title" class="text-xs text-gray-500 mt-0.5 line-clamp-1">
+                  <span class="font-medium text-gray-700">"{{ notif.homework.title }}"</span>
+                </p>
+                <p v-if="notif.homework?.grade != null" class="text-xs mt-0.5">
+                  <span class="font-semibold" :class="notif.homework.grade >= 80 ? 'text-green-600' : notif.homework.grade >= 50 ? 'text-blue-600' : 'text-red-500'">
+                    {{ t('notificationBell.homeworkGrade') }} {{ notif.homework.grade }}/100
+                  </span>
+                </p>
+              </template>
+
               <!-- Reply notification -->
               <template v-else>
                 <p class="text-sm text-gray-800 leading-snug">
@@ -247,6 +284,18 @@ onUnmounted(() => {
           <p class="text-sm text-gray-500">
             {{ t('notificationBell.empty') }}
           </p>
+        </div>
+
+        <!-- Footer: View all -->
+        <div class="border-t border-gray-100 px-4 py-3">
+          <NuxtLink
+            to="/notifications"
+            class="flex items-center justify-center gap-2 w-full py-2 text-sm font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
+            @click="open = false"
+          >
+            <Icon name="solar:list-bold" size="18" />
+            {{ t('notificationBell.viewAll') }}
+          </NuxtLink>
         </div>
       </div>
     </template>
