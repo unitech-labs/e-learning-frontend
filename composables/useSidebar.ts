@@ -28,6 +28,7 @@ export function useSidebar(isAdmin = false) {
   const sidebarState = isAdmin ? globalAdminSidebarState : globalSidebarState
   const { isCollapsed } = sidebarState
   const { t } = useI18n()
+  const config = useRuntimeConfig()
   const storageKey = isAdmin ? STORAGE_KEY_ADMIN : STORAGE_KEY_USER
 
   const { pendingCount: homeworkPendingCount } = useHomeworkCount({ enabled: !isAdmin })
@@ -139,11 +140,13 @@ export function useSidebar(isAdmin = false) {
       icon: 'solar:video-frame-play-vertical-bold',
       link: '/admin/video-posts',
     },
-    {
-      name: t('adminMenu.sessionReminders'),
-      icon: 'solar:bell-bold',
-      link: '/admin/session-reminders',
-    },
+    ...(config.public.sessionReminderEnabled
+      ? [{
+          name: t('adminMenu.sessionReminders'),
+          icon: 'solar:bell-bold',
+          link: '/admin/session-reminders',
+        }]
+      : []),
     {
       name: t('adminMenu.settings'),
       icon: 'i-heroicons-cog-6-tooth',

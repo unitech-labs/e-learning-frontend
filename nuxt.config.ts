@@ -111,6 +111,7 @@ export default defineNuxtConfig({
     public: {
       apiBase: process.env.API_BASE_URL || 'https://api.hoctiengycungphantam.com/api/v1',
       googleClientId: process.env.GOOGLE_CLIENT_ID || '',
+      sessionReminderEnabled: process.env.SESSION_REMINDER_ENABLED !== 'false',
     },
   },
 
