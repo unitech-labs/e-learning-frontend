@@ -103,6 +103,7 @@ export function useGeneralSessionsApi() {
       end_time: string
       option: 'all' | 'from_this' | 'same_weekday'
       timezone?: string
-    }) => apiClient.post<{ updated_count: number, option: string, new_start_time: string, new_end_time: string }>(`/sessions/${sessionId}/bulk-reschedule/`, payload),
+      start_date?: string
+    }) => apiClient.post<{ updated_count: number, option: string, new_start_time: string, new_end_time: string, new_start_date?: string, day_offset?: number }>(`/sessions/${sessionId}/bulk-reschedule/`, payload),
   }
 }

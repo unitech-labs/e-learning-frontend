@@ -140,6 +140,11 @@ export function useSidebar(isAdmin = false) {
       link: '/admin/video-posts',
     },
     {
+      name: t('adminMenu.sessionReminders'),
+      icon: 'solar:bell-bold',
+      link: '/admin/session-reminders',
+    },
+    {
       name: t('adminMenu.settings'),
       icon: 'i-heroicons-cog-6-tooth',
       link: '/admin/settings',

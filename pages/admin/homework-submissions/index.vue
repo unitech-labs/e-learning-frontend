@@ -34,6 +34,20 @@ const filteredClassrooms = computed(() => {
   return classrooms.value.filter(c => c.course?.id === selectedCourseId.value)
 })
 
+// Options cho Select - dùng options prop + virtual để tránh giật khi scroll nhiều item
+const courseOptions = computed(() => [
+  { label: t('admin.homeworks.filters.allCourses'), value: '', key: '_all_courses' },
+  ...courses.value.map(c => ({ label: c.title, value: c.id, key: c.id })),
+])
+const classroomOptions = computed(() => [
+  { label: t('admin.homeworks.filters.allClassrooms'), value: '', key: '_all_classrooms' },
+  ...filteredClassrooms.value.map(c => ({ label: c.title, value: c.id, key: c.id })),
+])
+const homeworkOptions = computed(() => [
+  { label: t('admin.homeworkSubmissions.filters.allHomeworks'), value: '', key: '_all_homeworks' },
+  ...homeworks.value.map(h => ({ label: h.title, value: h.id, key: h.id })),
+])
+
 async function loadClassrooms() {
   try {
     const res = await getClassrooms()
@@ -190,34 +204,37 @@ onMounted(async () => {
       <div class="flex flex-wrap items-center gap-2">
         <a-select
           v-model:value="selectedCourseId"
+          :options="courseOptions"
           :placeholder="$t('admin.homeworks.filters.selectCourse')"
           allow-clear
+          :show-search="false"
           class="w-[180px]"
           size="small"
-        >
-          <a-select-option value="">{{ $t('admin.homeworks.filters.allCourses') }}</a-select-option>
-          <a-select-option v-for="c in courses" :key="c.id" :value="c.id">{{ c.title }}</a-select-option>
-        </a-select>
+          :virtual="false"
+          :dropdown-style="{ maxHeight: '256px', overflowY: 'auto', overflowAnchor: 'none' }"
+        />
         <a-select
           v-model:value="selectedClassroomId"
+          :options="classroomOptions"
           :placeholder="$t('admin.homeworks.filters.selectClassroom')"
           allow-clear
+          :show-search="false"
           class="w-[180px]"
           size="small"
-        >
-          <a-select-option value="">{{ $t('admin.homeworks.filters.allClassrooms') }}</a-select-option>
-          <a-select-option v-for="c in filteredClassrooms" :key="c.id" :value="c.id">{{ c.title }}</a-select-option>
-        </a-select>
+          :virtual="false"
+          :dropdown-style="{ maxHeight: '256px', overflowY: 'auto', overflowAnchor: 'none' }"
+        />
         <a-select
           v-model:value="selectedHomeworkId"
+          :options="homeworkOptions"
           :placeholder="$t('admin.homeworkSubmissions.filters.homework')"
           allow-clear
+          :show-search="false"
           class="w-[200px]"
           size="small"
-        >
-          <a-select-option value="">{{ $t('admin.homeworkSubmissions.filters.allHomeworks') }}</a-select-option>
-          <a-select-option v-for="h in homeworks" :key="h.id" :value="h.id">{{ h.title }}</a-select-option>
-        </a-select>
+          :virtual="false"
+          :dropdown-style="{ maxHeight: '256px', overflowY: 'auto', overflowAnchor: 'none' }"
+        />
         <a-select
           v-model:value="statusFilter"
           :placeholder="$t('admin.homeworkSubmissions.filters.status')"

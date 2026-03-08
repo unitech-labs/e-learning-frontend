@@ -562,12 +562,16 @@ async function handleRecurringEditSave() {
     const startTime = dayjs(start).format('HH:mm')
     const endTime = dayjs(end).format('HH:mm')
 
-    const result = await bulkRescheduleSession(sessionId, {
+    const bulkPayload: Parameters<typeof bulkRescheduleSession>[1] = {
       start_time: startTime,
       end_time: endTime,
       option: option as 'all' | 'from_this' | 'same_weekday',
       timezone: selectedTimezone.value,
-    })
+    }
+    if (option === 'same_weekday') {
+      bulkPayload.start_date = dayjs(start).format('YYYY-MM-DD')
+    }
+    const result = await bulkRescheduleSession(sessionId, bulkPayload)
 
     notification.success({
       message: t('admin.calendars.notifications.bulkRescheduleSuccess', { count: result.updated_count }),
@@ -816,18 +820,18 @@ onMounted(() => {
       @cancel="handleRecurringEditCancel"
     >
       <div class="py-4">
-        <a-radio-group v-model:value="recurringEditOption" class="flex flex-col gap-3">
+        <a-radio-group v-model:value="recurringEditOption" class="!flex !flex-col gap-3">
           <a-radio value="this_event">
             {{ t('admin.calendars.recurringEditDialog.thisEvent') }}
           </a-radio>
-          <a-radio value="all">
-            {{ t('admin.calendars.recurringEditDialog.allEvents') }}
+          <a-radio value="same_weekday">
+            {{ t('admin.calendars.recurringEditDialog.sameWeekday') }}
           </a-radio>
           <a-radio value="from_this">
             {{ t('admin.calendars.recurringEditDialog.fromThisEvent') }}
           </a-radio>
-          <a-radio value="same_weekday">
-            {{ t('admin.calendars.recurringEditDialog.sameWeekday') }}
+          <a-radio value="all">
+            {{ t('admin.calendars.recurringEditDialog.allEvents') }}
           </a-radio>
         </a-radio-group>
 
