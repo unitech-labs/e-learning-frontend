@@ -1,3 +1,87 @@
+<script setup>
+import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
+import { percentageToMinutes, pxToPercentage } from '@/vue-cal/utils/conversions'
+
+const vuecal = inject('vuecal')
+const { view, config, dateUtils, touch: globalTouchState, eventsManager } = vuecal
+
+const bodyEl = ref(null)
+const cursorYPercent = ref(null)
+
+// Use resizing state from events composable.
+const { resizeState } = eventsManager
+
+// These CSS variables must stay at this level and not at the root, because they need to be "dead"
+// and frozen with the animated container when leaving in a vue transition, for a successful smooth
+// transition. In other terms, there can be 2 vuecal__scrollable elements that are animated with
+// different values of these CSS variables at the same time. Beautiful :)
+const bodyStyles = computed(() => ({
+  '--vuecal-grid-columns': view.cols,
+  '--vuecal-grid-rows': view.rows,
+  '--vuecal-body-max-height': config.time ? `${config.timeCellHeight * (config.timeTo - config.timeFrom) / config.timeStep}px` : null,
+}))
+
+// Computes the time at the current cursor position.
+const timeAtCursor = computed(() => {
+  const time = dateUtils.formatTime(percentageToMinutes(cursorYPercent.value, config))
+  return {
+    style: { top: `${cursorYPercent.value}%` },
+    time,
+  }
+})
+
+function onBodyMousemove(e) {
+  if (view.isMonth || view.isYear || view.isYears)
+    return
+
+  const domEvent = e.touches?.[0] || e // Handle click or touch event.
+  const { clientX, clientY } = domEvent
+  const { top } = bodyEl.value.getBoundingClientRect()
+  cursorYPercent.value = pxToPercentage(clientY - top, bodyEl.value)
+
+  // When resizing an event horizontally, update the current hovered cell from the body element,
+  // so there is only one event listener and no need for cell coordinates calculation.
+  if (globalTouchState.isResizingEvent && config.editableEvents.resizeX) {
+    resizeState.cellEl = getCellUnderMouse(clientX, clientY)
+  }
+}
+
+function onBodyMouseleave() {
+  cursorYPercent.value = null
+}
+
+/**
+ * Get the cell element that the mouse is currently over.
+ *
+ * @param {number} mouseX - The mouse X position in document coordinates
+ * @param {number} mouseY - The mouse Y position in document coordinates
+ * @returns {HTMLElement|null} - The cell element or null if not over a cell
+ */
+function getCellUnderMouse(mouseX, mouseY) {
+  // Use elementFromPoint for better performance as it's optimized by the browser.
+  const element = document.elementFromPoint(mouseX, mouseY)
+  console.log(element?.closest('.vuecal__cell'))
+  // Check if the element or its parent is a cell.
+  return element?.closest('.vuecal__cell') || null
+}
+
+onMounted(() => {
+  bodyEl.value.addEventListener('mousemove', onBodyMousemove)
+  bodyEl.value.addEventListener('touchmove', onBodyMousemove)
+  bodyEl.value.addEventListener('mouseleave', onBodyMouseleave)
+  bodyEl.value.addEventListener('touchend', onBodyMouseleave)
+})
+
+onBeforeUnmount(() => {
+  if (bodyEl.value) {
+    bodyEl.value.removeEventListener('mousemove', onBodyMousemove)
+    bodyEl.value.removeEventListener('touchmove', onBodyMousemove)
+    bodyEl.value.removeEventListener('mouseleave', onBodyMouseleave)
+    bodyEl.value.removeEventListener('touchend', onBodyMouseleave)
+  }
+})
+</script>
+
 <template lang="pug">
 .vuecal__body(ref="bodyEl" :style="bodyStyles")
   transition(name="vuecal-shrink")
@@ -30,90 +114,6 @@
     template(v-if="$slots['now-line']" #now-line="params")
       slot(name="now-line" v-bind="params")
 </template>
-
-<script setup>
-import { computed, inject, onBeforeUnmount, onMounted, ref, reactive } from 'vue'
-import { percentageToMinutes, pxToPercentage } from '@/vue-cal/utils/conversions'
-import VueCalCell from './cell.vue'
-
-const vuecal = inject('vuecal')
-const { view, config, dateUtils, touch: globalTouchState, eventsManager } = vuecal
-
-const bodyEl = ref(null)
-const cursorYPercent = ref(null)
-
-// Use resizing state from events composable.
-const { resizeState } = eventsManager
-
-// These CSS variables must stay at this level and not at the root, because they need to be "dead"
-// and frozen with the animated container when leaving in a vue transition, for a successful smooth
-// transition. In other terms, there can be 2 vuecal__scrollable elements that are animated with
-// different values of these CSS variables at the same time. Beautiful :)
-const bodyStyles = computed(() => ({
-  '--vuecal-grid-columns': view.cols,
-  '--vuecal-grid-rows': view.rows,
-  '--vuecal-body-max-height': config.time ? `${config.timeCellHeight * (config.timeTo - config.timeFrom) / config.timeStep}px` : null
-}))
-
-// Computes the time at the current cursor position.
-const timeAtCursor = computed(() => {
-  const time = dateUtils.formatTime(percentageToMinutes(cursorYPercent.value, config))
-  return {
-    style: { top: `${cursorYPercent.value}%` },
-    time
-  }
-})
-
-const onBodyMousemove = e => {
-  if (view.isMonth || view.isYear || view.isYears) return
-
-  const domEvent = e.touches?.[0] || e // Handle click or touch event.
-  const { clientX, clientY } = domEvent
-  const { top } = bodyEl.value.getBoundingClientRect()
-  cursorYPercent.value = pxToPercentage(clientY - top, bodyEl.value)
-
-  // When resizing an event horizontally, update the current hovered cell from the body element,
-  // so there is only one event listener and no need for cell coordinates calculation.
-  if (globalTouchState.isResizingEvent && config.editableEvents.resizeX) {
-    resizeState.cellEl = getCellUnderMouse(clientX, clientY)
-  }
-}
-
-const onBodyMouseleave = () => {
-  cursorYPercent.value = null
-}
-
-/**
- * Get the cell element that the mouse is currently over.
- *
- * @param {number} mouseX - The mouse X position in document coordinates
- * @param {number} mouseY - The mouse Y position in document coordinates
- * @returns {HTMLElement|null} - The cell element or null if not over a cell
- */
-const getCellUnderMouse = (mouseX, mouseY) => {
-  // Use elementFromPoint for better performance as it's optimized by the browser.
-  const element = document.elementFromPoint(mouseX, mouseY)
-  console.log(element?.closest('.vuecal__cell'))
-  // Check if the element or its parent is a cell.
-  return element?.closest('.vuecal__cell') || null
-}
-
-onMounted(() => {
-  bodyEl.value.addEventListener('mousemove', onBodyMousemove)
-  bodyEl.value.addEventListener('touchmove', onBodyMousemove)
-  bodyEl.value.addEventListener('mouseleave', onBodyMouseleave)
-  bodyEl.value.addEventListener('touchend', onBodyMouseleave)
-})
-
-onBeforeUnmount(() => {
-  if (bodyEl.value) {
-    bodyEl.value.removeEventListener('mousemove', onBodyMousemove)
-    bodyEl.value.removeEventListener('touchmove', onBodyMousemove)
-    bodyEl.value.removeEventListener('mouseleave', onBodyMouseleave)
-    bodyEl.value.removeEventListener('touchend', onBodyMouseleave)
-  }
-})
-</script>
 
 <style lang="scss">
 .vuecal__body {

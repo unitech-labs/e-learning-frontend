@@ -43,10 +43,14 @@ const uploadFileList = ref<any[]>([])
 function getFileTypeFromFile(file: File): string {
   const ext = file.name.split('.').pop()?.toLowerCase()
   const mime = file.type?.toLowerCase()
-  if (ext === 'pdf' || mime === 'application/pdf') return 'pdf'
-  if (ext === 'doc' || mime === 'application/msword') return 'doc'
-  if (ext === 'docx' || mime?.includes('wordprocessingml')) return 'docx'
-  if (['png', 'jpg', 'jpeg', 'gif', 'webp'].includes(ext || '') || mime?.startsWith('image/')) return 'image'
+  if (ext === 'pdf' || mime === 'application/pdf')
+    return 'pdf'
+  if (ext === 'doc' || mime === 'application/msword')
+    return 'doc'
+  if (ext === 'docx' || mime?.includes('wordprocessingml'))
+    return 'docx'
+  if (['png', 'jpg', 'jpeg', 'gif', 'webp'].includes(ext || '') || mime?.startsWith('image/'))
+    return 'image'
   return 'other'
 }
 
@@ -110,8 +114,10 @@ function removeAttachment(index: number) {
 }
 
 function formatFileSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+  if (bytes < 1024)
+    return `${bytes} B`
+  if (bytes < 1024 * 1024)
+    return `${(bytes / 1024).toFixed(1)} KB`
   return `${(bytes / 1024 / 1024).toFixed(1)} MB`
 }
 
@@ -426,8 +432,12 @@ useHead({
                     >
                       {{ att.file_name }}
                     </a>
-                    <p v-else class="font-medium text-gray-900 truncate">{{ att.file_name }}</p>
-                    <p class="text-xs text-gray-500">{{ formatFileSize(att.file_size) }}</p>
+                    <p v-else class="font-medium text-gray-900 truncate">
+                      {{ att.file_name }}
+                    </p>
+                    <p class="text-xs text-gray-500">
+                      {{ formatFileSize(att.file_size) }}
+                    </p>
                   </div>
                 </div>
                 <a-button type="text" danger size="small" @click="removeAttachment(idx)">

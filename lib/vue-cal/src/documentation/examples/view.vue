@@ -1,3 +1,98 @@
+<script setup>
+import { computed, inject, onMounted, reactive, ref } from 'vue'
+import { useAppStore } from '@/store'
+
+const store = useAppStore()
+
+// Simplified hex color check and conversion
+const isHexColor = val => typeof val === 'string' && /^#([0-9A-F]{3}){1,2}$/i.test(val)
+function formatHex(hex) {
+  if (!isHexColor(hex))
+    return hex
+  return hex.length === 4 ? `#${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}` : hex
+}
+
+const exLayouts = ref({
+  size: 'normal',
+})
+
+const exViews = reactive({
+  views: [{ value: 'day', label: 'Day' }, { value: 'days', label: 'Days' }, { value: 'month', label: 'Month' }, { value: 'year', label: 'Year' }, { value: 'years', label: 'Years' }],
+  enabledViews: ref(['day', 'month']),
+})
+
+const exHideElements = reactive({
+  todayButton: ref(true),
+  viewsBar: ref(true),
+  titleBar: ref(true),
+  startOnSunday: ref(false),
+  hideWeekends: ref(false),
+  time: ref(true),
+  timeAtCursor: ref(false),
+  weekNumbers: ref(false),
+})
+
+const defaultColor = formatHex(store.darkMode ? '#316191' : '#1976d2')
+const exThemes = reactive({
+  default: true,
+  dark: store.darkMode,
+  pickColorSwitch: ref(false),
+  defaultColor,
+  color: defaultColor,
+  setThemeColor: (color, switchOn = false) => {
+    vuecalEl.value?.$el?.style.setProperty('--vuecal-primary-color', color)
+    if (switchOn)
+      exThemes.pickColorSwitch = true
+  },
+  onDefaultThemeSwitch: (bool) => {
+    exThemes.setThemeColor(exThemes.defaultColor)
+    if (!bool)
+      exThemes.pickColorSwitch = false
+  },
+  onColorPickSwitch: () => {
+    exThemes.setThemeColor(exThemes.pickColorSwitch ? exThemes.color : exThemes.defaultColor)
+  },
+})
+const vuecalEl = ref(null)
+
+const exI18n = reactive({
+  locales: inject('locales'),
+  locale: ref('zh-cn'),
+  preload: ref(''),
+  updateDateTexts: () => {
+    // In Vue Cal documentation Chinese texts are loaded last.
+    // Override Date texts with english for prototype formatting functions.
+    setTimeout(vuecalEl.value.updateTexts, 3000)
+  },
+})
+
+const exCssControl = reactive({
+  events: [
+    { start: new Date(), end: new Date().addHours(1), title: 'Event 1' },
+    { start: new Date().addDays(1).addHours(1), end: new Date().addDays(1).addHours(2), title: 'Event 2' },
+  ],
+  variables: [
+    { name: '--vuecal-primary-color', value: store.darkMode ? '#316191' : '#1976d2', type: 'color' },
+    { name: '--vuecal-secondary-color', value: store.darkMode ? '#2e2e2e' : '#ffffff', type: 'color' },
+    { name: '--vuecal-base-color', value: store.darkMode ? '#ffffff' : '#000000', type: 'color' },
+    { name: '--vuecal-contrast-color', value: store.darkMode ? '#000000' : '#ffffff', type: 'color' },
+    { name: '--vuecal-border-color', value: 'color-mix(in srgb, var(--vuecal-base-color) 8%, transparent)', type: 'color' },
+    { name: '--vuecal-header-color', value: store.darkMode ? 'var(--vuecal-base-color)' : 'var(--vuecal-secondary-color)', type: 'color' },
+    { name: '--vuecal-event-color', value: store.darkMode ? 'var(--vuecal-base-color)' : 'var(--vuecal-contrast-color)', type: 'color' },
+    { name: '--vuecal-event-border-color', value: 'currentColor', type: 'color' },
+    { name: '--vuecal-border-radius', value: 6, type: 'number', unit: 'px' },
+    { name: '--vuecal-height', value: 500, type: 'number', unit: 'px' },
+    { name: '--vuecal-min-schedule-width', value: 0, type: 'number', unit: 'px' },
+    { name: '--vuecal-min-cell-width', value: 0, type: 'number', unit: 'px' },
+    { name: '--vuecal-transition-duration', value: 0.25, type: 'number', unit: 's' },
+  ],
+  style: computed(() => exCssControl.variables.map(v => `${v.name}: ${v.value}${v.unit || ''};`).join('\n')),
+})
+
+// Initialize theme color.
+onMounted(() => exThemes.setThemeColor(exThemes.color))
+</script>
+
 <template lang="pug">
 //- Example.
 example(title="Layouts" anchor="layouts")
@@ -202,99 +297,6 @@ example(title="CSS Control" anchor="css-variables")
     :dark="store.darkMode"
     :style="exCssControl.style")
 </template>
-
-<script setup>
-import { computed, inject, reactive, ref, onMounted } from 'vue'
-import { useAppStore } from '@/store'
-import { VueCal } from '@/vue-cal'
-
-const store = useAppStore()
-
-// Simplified hex color check and conversion
-const isHexColor = val => typeof val === 'string' && /^#([0-9A-F]{3}){1,2}$/i.test(val)
-const formatHex = hex => {
-  if (!isHexColor(hex)) return hex
-  return hex.length === 4 ? `#${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}` : hex
-}
-
-const exLayouts = ref({
-  size: 'normal'
-})
-
-const exViews = reactive({
-  views: [{ value: 'day', label: 'Day' }, { value: 'days', label: 'Days' }, { value: 'month', label: 'Month' }, { value: 'year', label: 'Year' }, { value: 'years', label: 'Years' }],
-  enabledViews: ref(['day', 'month'])
-})
-
-const exHideElements = reactive({
-  todayButton: ref(true),
-  viewsBar: ref(true),
-  titleBar: ref(true),
-  startOnSunday: ref(false),
-  hideWeekends: ref(false),
-  time: ref(true),
-  timeAtCursor: ref(false),
-  weekNumbers: ref(false)
-})
-
-const defaultColor = formatHex(store.darkMode ? '#316191' : '#1976d2')
-const exThemes = reactive({
-  default: true,
-  dark: store.darkMode,
-  pickColorSwitch: ref(false),
-  defaultColor,
-  color: defaultColor,
-  setThemeColor: (color, switchOn = false) => {
-    vuecalEl.value?.$el?.style.setProperty('--vuecal-primary-color', color)
-    if (switchOn) exThemes.pickColorSwitch = true
-  },
-  onDefaultThemeSwitch: bool => {
-    exThemes.setThemeColor(exThemes.defaultColor)
-    if (!bool) exThemes.pickColorSwitch = false
-  },
-  onColorPickSwitch: () => {
-    exThemes.setThemeColor(exThemes.pickColorSwitch ? exThemes.color : exThemes.defaultColor)
-  }
-})
-const vuecalEl = ref(null)
-
-const exI18n = reactive({
-  locales: inject('locales'),
-  locale: ref('zh-cn'),
-  preload: ref(''),
-  updateDateTexts: () => {
-    // In Vue Cal documentation Chinese texts are loaded last.
-    // Override Date texts with english for prototype formatting functions.
-    setTimeout(vuecalEl.value.updateTexts, 3000)
-  }
-})
-
-const exCssControl = reactive({
-  events: [
-    { start: new Date(), end: new Date().addHours(1), title: 'Event 1' },
-    { start: new Date().addDays(1).addHours(1), end: new Date().addDays(1).addHours(2), title: 'Event 2' }
-  ],
-  variables: [
-    { name: '--vuecal-primary-color', value: store.darkMode ? '#316191' : '#1976d2', type: 'color' },
-    { name: '--vuecal-secondary-color', value: store.darkMode ? '#2e2e2e' : '#ffffff', type: 'color' },
-    { name: '--vuecal-base-color', value: store.darkMode ? '#ffffff' : '#000000', type: 'color' },
-    { name: '--vuecal-contrast-color', value: store.darkMode ? '#000000' : '#ffffff', type: 'color' },
-    { name: '--vuecal-border-color', value: 'color-mix(in srgb, var(--vuecal-base-color) 8%, transparent)', type: 'color' },
-    { name: '--vuecal-header-color', value: store.darkMode ? 'var(--vuecal-base-color)' : 'var(--vuecal-secondary-color)', type: 'color' },
-    { name: '--vuecal-event-color', value: store.darkMode ? 'var(--vuecal-base-color)' : 'var(--vuecal-contrast-color)', type: 'color' },
-    { name: '--vuecal-event-border-color', value: 'currentColor', type: 'color' },
-    { name: '--vuecal-border-radius', value: 6, type: 'number', unit: 'px' },
-    { name: '--vuecal-height', value: 500, type: 'number', unit: 'px' },
-    { name: '--vuecal-min-schedule-width', value: 0, type: 'number', unit: 'px' },
-    { name: '--vuecal-min-cell-width', value: 0, type: 'number', unit: 'px' },
-    { name: '--vuecal-transition-duration', value: 0.25, type: 'number', unit: 's' }
-  ],
-  style: computed(() => exCssControl.variables.map(v => `${v.name}: ${v.value}${v.unit || ''};`).join('\n'))
-})
-
-// Initialize theme color.
-onMounted(() => exThemes.setThemeColor(exThemes.color))
-</script>
 
 <style lang="scss" scoped>
 .example--css-variables {

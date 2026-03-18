@@ -1,9 +1,3 @@
-<template lang="pug">
-w-alert(:class="`w-alert--${type}`" :icon-outside="!!icon")
-  w-icon(v-if="icon") {{ icon }}
-  slot
-</template>
-
 <script setup>
 import { computed } from 'vue'
 
@@ -13,20 +7,26 @@ const props = defineProps({
   error: { type: Boolean, default: false },
   warning: { type: Boolean, default: false },
   tip: { type: Boolean, default: false },
-  info: { type: Boolean, default: false }
+  info: { type: Boolean, default: false },
 })
 
 const type = computed(() => {
-  if (props.success) return 'success'
-  else if (props.error) return 'error'
-  else if (props.warning) return 'warning'
-  else if (props.tip) return 'tip'
-  else if (props.info) return 'info'
+  if (props.success)
+    return 'success'
+  else if (props.error)
+    return 'error'
+  else if (props.warning)
+    return 'warning'
+  else if (props.tip)
+    return 'tip'
+  else if (props.info)
+    return 'info'
   return 'default'
 })
 
 const icon = computed(() => {
-  if (props.noIcon) return null
+  if (props.noIcon)
+    return null
 
   switch (type.value) {
     case 'success': return 'wi-check'
@@ -38,6 +38,12 @@ const icon = computed(() => {
   }
 })
 </script>
+
+<template lang="pug">
+w-alert(:class="`w-alert--${type}`" :icon-outside="!!icon")
+  w-icon(v-if="icon") {{ icon }}
+  slot
+</template>
 
 <style lang="scss" scoped>
 .w-alert {

@@ -9,7 +9,7 @@ const highlights = computed(() => t('levels.basic.highlights') as string[])
 
 const statIcons = ['solar:users-group-rounded-bold', 'solar:star-bold', 'solar:videocamera-record-line-duotone', 'solar:checklist-minimalistic-bold']
 const stats = computed(() => {
-  const items = t('levels.basic.stats') as Array<{ label: string; value: string }>
+  const items = t('levels.basic.stats') as Array<{ label: string, value: string }>
   return items.map((s, i) => ({ ...s, icon: statIcons[i] }))
 })
 
@@ -43,7 +43,7 @@ const beginnerCourses = computed(() => {
   ]
 })
 
-const learningJourney = computed(() => t('levels.basic.journey') as Array<{ title: string; description: string }>)
+const learningJourney = computed(() => t('levels.basic.journey') as Array<{ title: string, description: string }>)
 
 const benefitIcons = ['ph:chalkboard-teacher-duotone', 'ph:device-mobile-camera-duotone', 'solar:shield-check-bold', 'solar:chat-round-line-bold-duotone']
 const benefits = computed(() => {
@@ -210,23 +210,39 @@ const faqItems = computed(() => [
             </h4>
             <div class="grid grid-cols-2 gap-4 text-sm text-gray-600">
               <div class="p-4 rounded-xl border border-gray-100">
-                <p class="text-gray-400 mb-1">{{ t('levels.basic.overview.evening') }}</p>
-                <p class="font-semibold text-gray-900">18h30 - 21h</p>
+                <p class="text-gray-400 mb-1">
+                  {{ t('levels.basic.overview.evening') }}
+                </p>
+                <p class="font-semibold text-gray-900">
+                  18h30 - 21h
+                </p>
                 <p>{{ t('levels.basic.overview.monWedFri') }}</p>
               </div>
               <div class="p-4 rounded-xl border border-gray-100">
-                <p class="text-gray-400 mb-1">{{ t('levels.basic.overview.weekend') }}</p>
-                <p class="font-semibold text-gray-900">9h - 11h30</p>
+                <p class="text-gray-400 mb-1">
+                  {{ t('levels.basic.overview.weekend') }}
+                </p>
+                <p class="font-semibold text-gray-900">
+                  9h - 11h30
+                </p>
                 <p>{{ t('levels.basic.overview.satSun') }}</p>
               </div>
               <div class="p-4 rounded-xl border border-gray-100">
-                <p class="text-gray-400 mb-1">{{ t('levels.basic.overview.format') }}</p>
-                <p class="font-semibold text-gray-900">{{ t('levels.basic.overview.onlineLive') }}</p>
+                <p class="text-gray-400 mb-1">
+                  {{ t('levels.basic.overview.format') }}
+                </p>
+                <p class="font-semibold text-gray-900">
+                  {{ t('levels.basic.overview.onlineLive') }}
+                </p>
                 <p>{{ t('levels.basic.overview.viaZoom') }}</p>
               </div>
               <div class="p-4 rounded-xl border border-gray-100">
-                <p class="text-gray-400 mb-1">{{ t('levels.basic.overview.homework') }}</p>
-                <p class="font-semibold text-gray-900">{{ t('levels.basic.overview.homeworkDesc') }}</p>
+                <p class="text-gray-400 mb-1">
+                  {{ t('levels.basic.overview.homework') }}
+                </p>
+                <p class="font-semibold text-gray-900">
+                  {{ t('levels.basic.overview.homeworkDesc') }}
+                </p>
                 <p>{{ t('levels.basic.overview.appPractice') }}</p>
               </div>
             </div>

@@ -91,7 +91,6 @@ export function useAuth() {
         token.value = response.access
         user.value = response.user
 
-       
         if (response.hardware_signature && typeof localStorage !== 'undefined') {
           localStorage.setItem('hardware_signature', response.hardware_signature)
         }

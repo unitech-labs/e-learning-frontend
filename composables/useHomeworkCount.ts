@@ -15,7 +15,8 @@ export function useHomeworkCount(options?: { enabled?: boolean }) {
   const pendingCount = useState(HOMEWORK_COUNT_KEY, () => 0)
 
   async function fetchCount() {
-    if (!enabled || !isLoggedIn.value || !import.meta.client) return
+    if (!enabled || !isLoggedIn.value || !import.meta.client)
+      return
     try {
       const data = await getStudentHomeworkCount()
       pendingCount.value = data?.pending ?? 0

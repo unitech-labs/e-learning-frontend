@@ -3,6 +3,7 @@ import type { AdminDevice } from '~/composables/api/useDeviceApi'
 import { message, Modal } from 'ant-design-vue'
 
 import { useDeviceApi } from '~/composables/api/useDeviceApi'
+
 definePageMeta({
   layout: 'admin',
   middleware: 'admin',
@@ -97,7 +98,8 @@ const deviceTypeConfig: Record<string, { color: string, icon: string }> = {
 
 // Format date
 function formatDate(dateStr: string) {
-  if (!dateStr) return '-'
+  if (!dateStr)
+    return '-'
   return new Date(dateStr).toLocaleString()
 }
 

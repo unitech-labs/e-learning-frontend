@@ -632,7 +632,7 @@ onMounted(() => {
 
 <template>
   <div class="relative flex-1 flex h-full">
-      <!-- <div class="flex items-center justify-between mb-6">
+    <!-- <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-4">
           <h2 class="font-bold text-2xl flex items-center gap-3">
             <Icon name="solar:calendar-bold" size="28" class="text-green-600" />
@@ -657,105 +657,105 @@ onMounted(() => {
         </div>
       </div> -->
 
-      <!-- Timezone selector -->
-      
-      <div class="w-full rounded-sm border border-gray-200 bg-white relative">
-        <div class="p-2 flex items-center gap-2">
-          <span class="text-xs font-medium text-gray-500">Múi giờ:</span>
-          <a-segmented
-            v-model:value="selectedTimezone"
-            :options="TIMEZONE_OPTIONS.map(opt => ({ label: opt.label, value: opt.value }))"
-            size="small"
-          />
-        </div>
-        <div
-          v-if="isLoading"
-          class="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50 rounded-xl"
-        >
-          <a-spin size="large" />
-        </div>
+    <!-- Timezone selector -->
 
-        <div
-          v-if="error && !isLoading"
-          class="absolute inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center z-50 rounded-xl p-8"
-        >
-          <p class="text-red-500 mb-4 text-center">
-            {{ error }}
-          </p>
-          <a-button @click="loadSessionsForCurrentView">
-            {{ t('common.tryAgain') }}
-          </a-button>
-        </div>
-
-        <VueCal
-          ref="vueCalRef"
-          v-model:selected-date="selectedDate"
-          v-model:view-date="viewDate"
-          v-model:view="currentView"
-          editable-events
-          :views-bar="false"
-          class="custom-theme calendar w-full !h-[calc(100%-40px)]"
-          :time-from="0 * 60"
-          :time-step="60"
-          :time-cell-height="72"
-          :events="calendarEvents"
-          :views="['week']"
-          time-at-cursor
-          :snap-to-interval="15"
-          @ready="handleCalendarReady"
-          @event-create="createEvent"
-          @event-click="handleEventClick"
-          @event-drag-end="handleEventChange"
-          @event-resize-end="handleEventChange"
-        >
-          <template #event="{ event }">
-            <div
-              class="flex flex-col gap-1 text-white p-1 px-2 rounded-[5px] h-full"
-              :style="{ backgroundColor: event.backgroundColor || 'DEFAULT_BACKGROUND_COLOR' }"
-            >
-              <div class="text-sm font-medium text-white leading-tight">
-                {{ event.title }}
-              </div>
-              <div v-if="event.courseTitle" class="text-[11px] font-semibold text-white opacity-90 line-clamp-1">
-                {{ event.courseTitle }}
-              </div>
-              <div v-if="event.start && event.end" class="text-xs font-semibold text-white opacity-90">
-                {{ formatEventTime(event.start) }} - {{ formatEventTime(event.end) }}
-              </div>
-              <div v-if="event.limit" class="text-xs font-semibold text-white opacity-90">
-                {{ t('admin.calendars.eventDisplay.maxStudents', { limit: event.limit }) }}
-              </div>
-            </div>
-          </template>
-
-          <template #previous-button>
-            <button
-              class="!text-gray-500 cursor-pointer hover:!text-gray-700 transition-colors"
-              @click.stop.prevent="handlePreviousClick"
-            >
-              <Icon name="i-heroicons-chevron-left" class="text-[26px]" />
-            </button>
-          </template>
-
-          <template #next-button>
-            <button
-              class="!text-gray-500 cursor-pointer hover:!text-gray-700 transition-colors"
-              @click.stop.prevent="handleNextClick"
-            >
-              <Icon name="i-heroicons-chevron-right" class="text-[26px]" />
-            </button>
-          </template>
-
-          <template #today-button>
-            <button
-              class="!text-gray-500 cursor-pointer hover:!text-gray-700 transition-colors"
-              @click.stop.prevent="handleTodayClick"
-            >
-              {{ t('admin.calendars.today') }}
-            </button>
-          </template>
-        </VueCal>
+    <div class="w-full rounded-sm border border-gray-200 bg-white relative">
+      <div class="p-2 flex items-center gap-2">
+        <span class="text-xs font-medium text-gray-500">Múi giờ:</span>
+        <a-segmented
+          v-model:value="selectedTimezone"
+          :options="TIMEZONE_OPTIONS.map(opt => ({ label: opt.label, value: opt.value }))"
+          size="small"
+        />
       </div>
+      <div
+        v-if="isLoading"
+        class="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50 rounded-xl"
+      >
+        <a-spin size="large" />
+      </div>
+
+      <div
+        v-if="error && !isLoading"
+        class="absolute inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center z-50 rounded-xl p-8"
+      >
+        <p class="text-red-500 mb-4 text-center">
+          {{ error }}
+        </p>
+        <a-button @click="loadSessionsForCurrentView">
+          {{ t('common.tryAgain') }}
+        </a-button>
+      </div>
+
+      <VueCal
+        ref="vueCalRef"
+        v-model:selected-date="selectedDate"
+        v-model:view-date="viewDate"
+        v-model:view="currentView"
+        editable-events
+        :views-bar="false"
+        class="custom-theme calendar w-full !h-[calc(100%-40px)]"
+        :time-from="0 * 60"
+        :time-step="60"
+        :time-cell-height="72"
+        :events="calendarEvents"
+        :views="['week']"
+        time-at-cursor
+        :snap-to-interval="15"
+        @ready="handleCalendarReady"
+        @event-create="createEvent"
+        @event-click="handleEventClick"
+        @event-drag-end="handleEventChange"
+        @event-resize-end="handleEventChange"
+      >
+        <template #event="{ event }">
+          <div
+            class="flex flex-col gap-1 text-white p-1 px-2 rounded-[5px] h-full"
+            :style="{ backgroundColor: event.backgroundColor || 'DEFAULT_BACKGROUND_COLOR' }"
+          >
+            <div class="text-sm font-medium text-white leading-tight">
+              {{ event.title }}
+            </div>
+            <div v-if="event.courseTitle" class="text-[11px] font-semibold text-white opacity-90 line-clamp-1">
+              {{ event.courseTitle }}
+            </div>
+            <div v-if="event.start && event.end" class="text-xs font-semibold text-white opacity-90">
+              {{ formatEventTime(event.start) }} - {{ formatEventTime(event.end) }}
+            </div>
+            <div v-if="event.limit" class="text-xs font-semibold text-white opacity-90">
+              {{ t('admin.calendars.eventDisplay.maxStudents', { limit: event.limit }) }}
+            </div>
+          </div>
+        </template>
+
+        <template #previous-button>
+          <button
+            class="!text-gray-500 cursor-pointer hover:!text-gray-700 transition-colors"
+            @click.stop.prevent="handlePreviousClick"
+          >
+            <Icon name="i-heroicons-chevron-left" class="text-[26px]" />
+          </button>
+        </template>
+
+        <template #next-button>
+          <button
+            class="!text-gray-500 cursor-pointer hover:!text-gray-700 transition-colors"
+            @click.stop.prevent="handleNextClick"
+          >
+            <Icon name="i-heroicons-chevron-right" class="text-[26px]" />
+          </button>
+        </template>
+
+        <template #today-button>
+          <button
+            class="!text-gray-500 cursor-pointer hover:!text-gray-700 transition-colors"
+            @click.stop.prevent="handleTodayClick"
+          >
+            {{ t('admin.calendars.today') }}
+          </button>
+        </template>
+      </VueCal>
+    </div>
 
     <SessionDetailDialog
       v-model:open="openSessionDetailDialog"

@@ -1,3 +1,189 @@
+<script setup>
+import { reactive, ref, watch } from 'vue'
+import { useAppStore } from '@/store'
+import { countDays, stringToDate } from '@/vue-cal'
+
+const store = useAppStore()
+
+const cl = (...args) => console.log(...args)
+const exSlotsExampleEl = ref(null)
+const exSlots = reactive({
+  title: ref(false),
+  prevNextButtons: ref(false),
+  nextButton: ref(false),
+  todayButton: ref(false),
+  weekdayHeading: ref(false),
+  timeCell: ref(false),
+  cellContent: ref(false),
+  header: ref(false),
+  diy: ref(false),
+  view: ref('week'),
+})
+watch(
+  () => `${exSlots.title} ${exSlots.prevNextButtons} ${exSlots.nextButton} ${exSlots.todayButton} ${exSlots.weekdayHeading} ${exSlots.timeCell} ${exSlots.cellContent} ${exSlots.header} ${exSlots.diy}`,
+  () => exSlotsExampleEl.value?.refreshHeight?.(),
+)
+
+const customDayScheduleHeadings = [
+  { label: 'John', color: 'blue', class: 'schedule1' },
+  { label: 'Tom', color: 'green', class: 'schedule2' },
+  { label: 'Kate', color: 'orange', class: 'schedule3' },
+  { label: 'Jess', color: 'red', class: 'schedule4' },
+]
+const selectedDate = ref(null)
+const selectedEvent = ref({})
+const eventsCssClasses = ref([{ label: 'leisure' }, { label: 'sport' }, { label: 'health' }])
+
+const events = [
+  {
+    start: '2018-10-30 10:30',
+    end: '2018-10-30 11:30',
+    title: 'Doctor appointment',
+    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+  {
+    start: '2018-11-16 10:30',
+    end: '2018-11-16 11:30',
+    title: 'Doctor appointment',
+    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+  {
+    start: '2018-11-19 10:35',
+    end: '2018-11-19 11:30',
+    title: 'Doctor appointment',
+    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+  {
+    start: '2018-11-19 18:30',
+    end: '2018-11-19 19:15',
+    title: 'Dentist appointment',
+    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
+    class: 'health',
+    schedule: 2,
+  },
+  {
+    start: '2018-11-20 18:30',
+    end: '2018-11-20 20:30',
+    title: 'Cross-fit',
+    content: '<i class="w-icon mdi mdi-dumbbell"></i>',
+    class: 'sport',
+    schedule: 2,
+  },
+  {
+    start: '2018-11-21 11:00',
+    end: '2018-11-21 13:00',
+    title: 'Brunch with Jane',
+    content: '<i class="w-icon mdi mdi-coffee-outline"></i>',
+    class: 'leisure',
+    schedule: 1,
+    background: false,
+  },
+  {
+    start: '2018-11-21 19:30',
+    end: '2018-11-21 23:00',
+    title: 'Swimming lesson',
+    content: '<i class="w-icon mdi mdi-pool"></i>',
+    class: 'sport',
+    schedule: 2,
+  },
+  {
+    start: '2018-11-23 12:30',
+    end: '2018-11-23 13:00',
+    title: 'Macca\'s with Mark',
+    content: '<i class="w-icon mdi mdi-food"></i>',
+    class: 'leisure',
+    schedule: 2,
+  },
+  {
+    start: '2018-11-23 21:00',
+    end: '2018-11-23 23:30',
+    title: 'Movie time',
+    content: '<i class="w-icon mdi mdi-ticket"></i>',
+    class: 'leisure',
+    schedule: 1,
+  },
+  {
+    start: '2018-11-30 21:00',
+    end: '2018-11-30 23:30',
+    title: 'Another movie tonight',
+    content: '<i class="w-icon mdi mdi-ticket"></i>',
+    class: 'leisure',
+    schedule: 1,
+  },
+]
+const eventsCopy = events.slice(0)
+
+function cancelEventCreation() {
+  closeCreationDialog()
+  (deleteEventFunction.value || deleteDragEventFunction.value)()
+}
+const customEventCount = events => events ? events.filter(e => e.class === 'leisure').length : 0
+
+const exCustomTitlePerView = reactive({
+  view: ref('day'),
+})
+
+const exCustomEventRendering = reactive({
+  viewDate: new Date().subtractDays(2),
+  events: [
+    {
+      start: new Date(new Date().subtractDays(1).setHours(9, 0, 0, 0)),
+      end: new Date(new Date().subtractDays(1).setHours(12, 0, 0, 0)),
+      title: 'Golf with John',
+      icon: 'mdi mdi-golf',
+      class: 'text-center sport',
+    },
+    {
+      start: new Date(new Date().addDays(1).setHours(12, 0, 0, 0)),
+      end: new Date(new Date().addDays(1).setHours(15, 0, 0, 0)),
+      title: 'Shopping',
+      icon: 'mdi mdi-cart-outline',
+      class: 'text-center leisure',
+    },
+  ],
+})
+
+const exEventsMonthView = reactive({
+  events: [...events],
+  view: ref('month'),
+  onViewChange: (view) => {
+    exEventsMonthView.fetchEvents(view.start.format(), view.end.format())
+  },
+  fetchEvents: async (start, end) => {
+    const startDate = stringToDate(start)
+    const endDate = stringToDate(end)
+    exEventsMonthView.events = exEventsMonthView.generateRandomEvents(startDate, endDate)
+  },
+  /**
+   * Generate random events for a given date range as if they were returned from a backend.
+   *
+   * @param {Date} startDate - The start date.
+   * @param {Date} endDate - The end date.
+   * @returns {Array} The events.
+   */
+  generateRandomEvents: (startDate, endDate) => {
+    const daysRange = countDays(startDate, endDate)
+    const events = []
+    for (let i = 0; i < daysRange; i++) {
+      for (let j = 0; j < 10; j++) {
+        // Set random start and end time in the day, events last 1 hour.
+        // The random start and end time is between 9am and 5pm.
+        const start = new Date(startDate.addDays(i).setHours(Math.floor(Math.random() * 8) + 9, Math.floor(Math.random() * 60), 0, 0))
+        const end = start.addHours(1)
+        events.push({ title: `Event ${j}`, start, end })
+      }
+    }
+    return events
+  },
+})
+</script>
+
 <template lang="pug">
 alert.mb2
   | If you're not familiar with slots and scoped slots, first read about it in the
@@ -523,192 +709,6 @@ example(title="Events on Month View" anchor="events-on-month-view")
     @view-change="exEventsMonthView.onViewChange"
     style="height: 600px;")
 </template>
-
-<script setup>
-import { reactive, ref, watch } from 'vue'
-import { useAppStore } from '@/store'
-import { VueCal, stringToDate, countDays  } from '@/vue-cal'
-
-const store = useAppStore()
-
-const cl = (...args) => console.log(...args)
-const exSlotsExampleEl = ref(null)
-const exSlots = reactive({
-  title: ref(false),
-  prevNextButtons: ref(false),
-  nextButton: ref(false),
-  todayButton: ref(false),
-  weekdayHeading: ref(false),
-  timeCell: ref(false),
-  cellContent: ref(false),
-  header: ref(false),
-  diy: ref(false),
-  view: ref('week')
-})
-watch(
-  () => `${exSlots.title} ${exSlots.prevNextButtons} ${exSlots.nextButton} ${exSlots.todayButton} ${exSlots.weekdayHeading} ${exSlots.timeCell} ${exSlots.cellContent} ${exSlots.header} ${exSlots.diy}`,
-  () => exSlotsExampleEl.value?.refreshHeight?.()
-)
-
-const customDayScheduleHeadings = [
-  { label: 'John', color: 'blue', class: 'schedule1' },
-  { label: 'Tom', color: 'green', class: 'schedule2' },
-  { label: 'Kate', color: 'orange', class: 'schedule3' },
-  { label: 'Jess', color: 'red', class: 'schedule4' }
-]
-const selectedDate = ref(null)
-const selectedEvent = ref({})
-const eventsCssClasses = ref([{ label: 'leisure' }, { label: 'sport' }, { label: 'health' }])
-
-const events = [
-  {
-    start: '2018-10-30 10:30',
-    end: '2018-10-30 11:30',
-    title: 'Doctor appointment',
-    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
-    class: 'health',
-    schedule: 1
-  },
-  {
-    start: '2018-11-16 10:30',
-    end: '2018-11-16 11:30',
-    title: 'Doctor appointment',
-    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
-    class: 'health',
-    schedule: 1
-  },
-  {
-    start: '2018-11-19 10:35',
-    end: '2018-11-19 11:30',
-    title: 'Doctor appointment',
-    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
-    class: 'health',
-    schedule: 1
-  },
-  {
-    start: '2018-11-19 18:30',
-    end: '2018-11-19 19:15',
-    title: 'Dentist appointment',
-    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
-    class: 'health',
-    schedule: 2
-  },
-  {
-    start: '2018-11-20 18:30',
-    end: '2018-11-20 20:30',
-    title: 'Cross-fit',
-    content: '<i class="w-icon mdi mdi-dumbbell"></i>',
-    class: 'sport',
-    schedule: 2
-  },
-  {
-    start: '2018-11-21 11:00',
-    end: '2018-11-21 13:00',
-    title: 'Brunch with Jane',
-    content: '<i class="w-icon mdi mdi-coffee-outline"></i>',
-    class: 'leisure',
-    schedule: 1,
-    background: false
-  },
-  {
-    start: '2018-11-21 19:30',
-    end: '2018-11-21 23:00',
-    title: 'Swimming lesson',
-    content: '<i class="w-icon mdi mdi-pool"></i>',
-    class: 'sport',
-    schedule: 2
-  },
-  {
-    start: '2018-11-23 12:30',
-    end: '2018-11-23 13:00',
-    title: 'Macca\'s with Mark',
-    content: '<i class="w-icon mdi mdi-food"></i>',
-    class: 'leisure',
-    schedule: 2
-  },
-  {
-    start: '2018-11-23 21:00',
-    end: '2018-11-23 23:30',
-    title: 'Movie time',
-    content: '<i class="w-icon mdi mdi-ticket"></i>',
-    class: 'leisure',
-    schedule: 1
-  },
-  {
-    start: '2018-11-30 21:00',
-    end: '2018-11-30 23:30',
-    title: 'Another movie tonight',
-    content: '<i class="w-icon mdi mdi-ticket"></i>',
-    class: 'leisure',
-    schedule: 1
-  }
-]
-const eventsCopy = events.slice(0)
-
-const cancelEventCreation = () => {
-  closeCreationDialog()
-  (deleteEventFunction.value || deleteDragEventFunction.value)()
-}
-const customEventCount = events => events ? events.filter(e => e.class === 'leisure').length : 0
-
-const exCustomTitlePerView = reactive({
-  view: ref('day')
-})
-
-const exCustomEventRendering = reactive({
-  viewDate: new Date().subtractDays(2),
-  events: [
-    {
-      start: new Date(new Date().subtractDays(1).setHours(9, 0, 0, 0)),
-      end: new Date(new Date().subtractDays(1).setHours(12, 0, 0, 0)),
-      title: 'Golf with John',
-      icon: 'mdi mdi-golf',
-      class: 'text-center sport'
-    },
-    {
-      start: new Date(new Date().addDays(1).setHours(12, 0, 0, 0)),
-      end: new Date(new Date().addDays(1).setHours(15, 0, 0, 0)),
-      title: 'Shopping',
-      icon: 'mdi mdi-cart-outline',
-      class: 'text-center leisure'
-    }
-  ]
-})
-
-const exEventsMonthView = reactive({
-  events: [...events],
-  view: ref('month'),
-  onViewChange: view => {
-    exEventsMonthView.fetchEvents(view.start.format(), view.end.format())
-  },
-  fetchEvents: async (start, end) => {
-    const startDate = stringToDate(start)
-    const endDate = stringToDate(end)
-    exEventsMonthView.events = exEventsMonthView.generateRandomEvents(startDate, endDate)
-  },
-  /**
-   * Generate random events for a given date range as if they were returned from a backend.
-   *
-   * @param {Date} startDate - The start date.
-   * @param {Date} endDate - The end date.
-   * @returns {Array} The events.
-   */
-  generateRandomEvents: (startDate, endDate) => {
-    const daysRange = countDays(startDate, endDate)
-    const events = []
-    for (let i = 0; i < daysRange; i++) {
-      for (let j = 0; j < 10; j++) {
-        // Set random start and end time in the day, events last 1 hour.
-        // The random start and end time is between 9am and 5pm.
-        const start = new Date(startDate.addDays(i).setHours(Math.floor(Math.random() * 8) + 9, Math.floor(Math.random() * 60), 0, 0))
-        const end = start.addHours(1)
-        events.push({ title: `Event ${j}`, start, end })
-      }
-    }
-    return events
-  }
-})
-</script>
 
 <style lang="scss">
 .main--examples-customization {

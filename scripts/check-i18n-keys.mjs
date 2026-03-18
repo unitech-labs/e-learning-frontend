@@ -4,8 +4,9 @@
  * Usage: node scripts/check-i18n-keys.mjs
  */
 
-import { readFileSync, readdirSync } from 'node:fs'
-import { join, dirname } from 'node:path'
+import { readdirSync, readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -16,7 +17,7 @@ const LOCALES_DIR = join(__dirname, '../i18n/locales')
  */
 function loadLocaleFromFolder(locale) {
   const folder = join(LOCALES_DIR, locale)
-  const files = readdirSync(folder).filter((f) => f.endsWith('.json'))
+  const files = readdirSync(folder).filter(f => f.endsWith('.json'))
   const merged = {}
   for (const file of files) {
     const content = JSON.parse(readFileSync(join(folder, file), 'utf8'))
@@ -34,7 +35,8 @@ function getLeafKeyPaths(obj, prefix = '') {
     const path = prefix ? `${prefix}.${key}` : key
     if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
       paths.push(...getLeafKeyPaths(value, path))
-    } else {
+    }
+    else {
       paths.push(path)
     }
   }
@@ -64,8 +66,8 @@ function main() {
   const it = loadLocaleFromFolder('it')
 
   const viKeys = getLeafKeyPaths(vi)
-  const missingEn = viKeys.filter((key) => !hasKey(en, key))
-  const missingIt = viKeys.filter((key) => !hasKey(it, key))
+  const missingEn = viKeys.filter(key => !hasKey(en, key))
+  const missingIt = viKeys.filter(key => !hasKey(it, key))
 
   // Report
   if (missingEn.length === 0 && missingIt.length === 0) {
@@ -75,13 +77,13 @@ function main() {
 
   if (missingEn.length > 0) {
     console.log(`❌ Missing in EN (${missingEn.length} keys):`)
-    missingEn.sort().forEach((key) => console.log(`   - ${key}`))
+    missingEn.sort().forEach(key => console.log(`   - ${key}`))
     console.log()
   }
 
   if (missingIt.length > 0) {
     console.log(`❌ Missing in IT (${missingIt.length} keys):`)
-    missingIt.sort().forEach((key) => console.log(`   - ${key}`))
+    missingIt.sort().forEach(key => console.log(`   - ${key}`))
     console.log()
   }
 

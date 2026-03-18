@@ -364,8 +364,10 @@ export function useCourseApi() {
       params?: { page?: number, page_size?: number },
     ) => {
       const queryParams = new URLSearchParams()
-      if (params?.page != null) queryParams.append('page', String(params.page))
-      if (params?.page_size != null) queryParams.append('page_size', String(params.page_size))
+      if (params?.page != null)
+        queryParams.append('page', String(params.page))
+      if (params?.page_size != null)
+        queryParams.append('page_size', String(params.page_size))
       const query = queryParams.toString()
       return apiClient.get<ClassmatesResponse>(
         `/courses/${courseId}/classmates/${query ? `?${query}` : ''}`,

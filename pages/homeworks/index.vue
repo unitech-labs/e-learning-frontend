@@ -46,7 +46,8 @@ const tabs = computed(() => [
 ])
 
 const filteredHomeworks = computed(() => {
-  if (activeTab.value === 'all') return homeworks.value
+  if (activeTab.value === 'all')
+    return homeworks.value
   return homeworks.value.filter((hw) => {
     const status = getStatusType(hw)
     return status === activeTab.value
@@ -102,7 +103,8 @@ async function loadHomeworks(append = false) {
 const hasMore = computed(() => homeworks.value.length < totalCount.value)
 
 function handleLoadMore() {
-  if (loadingMore.value || !hasMore.value) return
+  if (loadingMore.value || !hasMore.value)
+    return
   currentPage.value += 1
   loadHomeworks(true)
 }

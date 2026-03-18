@@ -1,3 +1,100 @@
+<script setup>
+import { computed, nextTick, onBeforeUnmount, onMounted, provide, useAttrs, useId, useTemplateRef } from 'vue'
+import { useVueCal } from '../core/index'
+import { props as propsDefinitions } from '../core/props-definitions'
+import '../index.scss'
+import '../default-theme.scss'
+
+const props = defineProps(propsDefinitions)
+
+// In addition to the following emitted events, there are other manually-handled events that are forwarded
+// to specific components, allowing the user to have full flexibility and control on their own events:
+// cell-click, cell-xxxx, where xxxx is an existing DOM event name given by the end user;
+// event-click, event-xxxx, where xxxx is an existing DOM event name given by the end user.
+const emit = defineEmits([
+  'ready',
+  'view-change',
+  'update:view',
+  'update:selectedDate',
+  'update:viewDate',
+  'update:events',
+  'event-delete',
+  'event-created',
+  'event-dropped',
+  'event-drag-start',
+  'event-drag-end',
+])
+
+const vuecalEl = useTemplateRef('vuecal-el')
+const vuecal = useVueCal({ props, emit, attrs: useAttrs(), vuecalEl, uid: useId() })
+const { config, view, dateUtils, touch: touchState } = vuecal
+const hasTimeColumn = computed(() => config.time && (view.isDay || view.isDays || view.isWeek))
+
+const weekNumbers = computed(() => {
+  return new Array(view.rows).fill().map((v, i) => {
+    return dateUtils.getWeek(dateUtils.addDays(view.firstCellDate, 7 * i))
+  })
+})
+
+const wrapperClasses = computed(() => ({
+  'vuecal--ready': config.ready,
+  [`vuecal--${config.theme}-theme`]: config.theme,
+  [`vuecal--${config.size}`]: true,
+  'vuecal--date-picker': config.datePicker,
+  'vuecal--dark': config.dark,
+  'vuecal--light': !config.dark,
+  [`vuecal--${view.id}-view`]: true,
+  'vuecal--view-has-time': hasTimeColumn.value,
+  'vuecal--timeless': !config.time,
+  'vuecal--dragging-cell': touchState.isDraggingCell,
+  'vuecal--dragging-event': touchState.isDraggingEvent,
+  'vuecal--resizing-event': touchState.isResizingEvent,
+  'vuecal--has-schedules': config.schedules?.length,
+  'vuecal--horizontal': config.horizontal,
+}))
+
+const wrapperStyles = computed(() => ({
+  '--vuecal-time-cell-height': config.timeCellHeight && `${config.timeCellHeight}px`,
+}))
+
+const scrollableElClasses = computed(() => ({
+  'vuecal__scrollable--row': hasTimeColumn.value || (config.weekNumbers && view.isMonth),
+  // Keep the states inside the Vue transition wrapper for smooth CSS transitions.
+  [`vuecal__scrollable--${view.id}-view`]: true,
+  'vuecal__scrollable--has-schedules': config.schedules?.length,
+  'vuecal__scrollable--no-schedules': !config.schedules?.length,
+  'vuecal__scrollable--no-all-day-bar': !config.allDayEvents,
+  'vuecal__scrollable--has-all-day-bar': config.allDayEvents,
+}))
+
+function contextMenuHandler(e) {
+  if (e.target.closest('.vuecal__cell'))
+    e.preventDefault()
+}
+
+onMounted(async () => {
+  // If touch device, prevent contextmenu on the cell so we can scroll on the cell on touch devices
+  // or create an event on long press.
+  if (typeof window !== 'undefined' && window.hasOwnProperty('ontouchstart')) {
+    vuecalEl.value.addEventListener('contextmenu', contextMenuHandler)
+  }
+
+  await nextTick()
+  config.ready = true
+  emit('ready', { config, view })
+})
+
+onBeforeUnmount(() => {
+  vuecalEl?.value?.removeEventListener('contextmenu', contextMenuHandler)
+})
+
+// Share the vuecal object across all the Vue components.
+provide('vuecal', vuecal)
+provide('$vuecalEl', vuecalEl)
+
+defineExpose({ view: vuecal.view })
+</script>
+
 <template lang="pug">
 .vuecal(
   ref="vuecal-el"
@@ -78,103 +175,3 @@
               template(v-if="$slots['now-line']" #now-line="params")
                 slot(name="now-line" v-bind="params")
 </template>
-
-<script setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, provide, useAttrs, useId, useTemplateRef } from 'vue'
-import { props as propsDefinitions } from '../core/props-definitions'
-import { useVueCal } from '../core/index'
-import VueCalHeader from './header.vue'
-import HeadingsBar from './headings-bar.vue'
-import TimeColumn from './time-column.vue'
-import VueCalBody from './body.vue'
-import '../index.scss'
-import '../default-theme.scss'
-
-const props = defineProps(propsDefinitions)
-
-// In addition to the following emitted events, there are other manually-handled events that are forwarded
-// to specific components, allowing the user to have full flexibility and control on their own events:
-// cell-click, cell-xxxx, where xxxx is an existing DOM event name given by the end user;
-// event-click, event-xxxx, where xxxx is an existing DOM event name given by the end user.
-const emit = defineEmits([
-  'ready',
-  'view-change',
-  'update:view',
-  'update:selectedDate',
-  'update:viewDate',
-  'update:events',
-  'event-delete',
-  'event-created',
-  'event-dropped',
-  'event-drag-start',
-  'event-drag-end'
-])
-
-const vuecalEl = useTemplateRef('vuecal-el')
-const vuecal = useVueCal({ props, emit, attrs: useAttrs(), vuecalEl, uid: useId() })
-const { config, view, dateUtils, touch: touchState } = vuecal
-const hasTimeColumn = computed(() => config.time && (view.isDay || view.isDays || view.isWeek))
-
-const weekNumbers = computed(() => {
-  return Array(view.rows).fill().map((v, i) => {
-    return dateUtils.getWeek(dateUtils.addDays(view.firstCellDate, 7 * i))
-  })
-})
-
-const wrapperClasses = computed(() => ({
-  'vuecal--ready': config.ready,
-  [`vuecal--${config.theme}-theme`]: config.theme,
-  [`vuecal--${config.size}`]: true,
-  'vuecal--date-picker': config.datePicker,
-  'vuecal--dark': config.dark,
-  'vuecal--light': !config.dark,
-  [`vuecal--${view.id}-view`]: true,
-  'vuecal--view-has-time': hasTimeColumn.value,
-  'vuecal--timeless': !config.time,
-  'vuecal--dragging-cell': touchState.isDraggingCell,
-  'vuecal--dragging-event': touchState.isDraggingEvent,
-  'vuecal--resizing-event': touchState.isResizingEvent,
-  'vuecal--has-schedules': config.schedules?.length,
-  'vuecal--horizontal': config.horizontal
-}))
-
-const wrapperStyles = computed(() => ({
-  '--vuecal-time-cell-height': config.timeCellHeight && `${config.timeCellHeight}px`
-}))
-
-const scrollableElClasses = computed(() => ({
-  'vuecal__scrollable--row': hasTimeColumn.value || (config.weekNumbers && view.isMonth),
-  // Keep the states inside the Vue transition wrapper for smooth CSS transitions.
-  [`vuecal__scrollable--${view.id}-view`]: true,
-  'vuecal__scrollable--has-schedules': config.schedules?.length,
-  'vuecal__scrollable--no-schedules': !config.schedules?.length,
-  'vuecal__scrollable--no-all-day-bar': !config.allDayEvents,
-  'vuecal__scrollable--has-all-day-bar': config.allDayEvents
-}))
-
-const contextMenuHandler = e => {
-  if (e.target.closest('.vuecal__cell')) e.preventDefault()
-}
-
-onMounted(async () => {
-  // If touch device, prevent contextmenu on the cell so we can scroll on the cell on touch devices
-  // or create an event on long press.
-  if (typeof window !== 'undefined' && window.hasOwnProperty('ontouchstart')) {
-    vuecalEl.value.addEventListener('contextmenu', contextMenuHandler)
-  }
-
-  await nextTick()
-  config.ready = true
-  emit('ready', { config, view })
-})
-
-onBeforeUnmount(() => {
-  vuecalEl?.value?.removeEventListener('contextmenu', contextMenuHandler)
-})
-
-// Share the vuecal object across all the Vue components.
-provide('vuecal', vuecal)
-provide('$vuecalEl', vuecalEl)
-
-defineExpose({ view: vuecal.view })
-</script>

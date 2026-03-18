@@ -1,20 +1,3 @@
-<template lang="pug">
-.vuecal__time-column
-  .vuecal__all-day-label(v-if="config.allDayEvents")
-    slot(name="all-day-label") {{ vuecal.texts.allDay }}
-
-  .vuecal__time-cell(v-for="(time, i) in timeCells" :key="i" :style="{ height: time.height || null }")
-    slot(
-      name="time-cell"
-      :index="i"
-      :minutes="time.minutes"
-      :hours="time.hours"
-      :minutes-sum="time.minutesSum"
-      :format12="time.formatted12"
-      :format24="time.formatted24")
-      label {{ config.twelveHour ? time.formatted12 : time.formatted24 }}
-</template>
-
 <script setup>
 import { computed, inject } from 'vue'
 
@@ -45,12 +28,29 @@ const timeCells = computed(() => {
       minutes: mins,
       formatted12: `${!(hours % 12) ? 12 : (hours % 12)}${mins ? `:${mins.toString().padStart(2, 0)}` : ''}${amPm}`,
       formatted24: `${hours.toString().padStart(2, 0)}:${mins.toString().padStart(2, 0)}`,
-      height: cellHeight
+      height: cellHeight,
     })
   }
   return cells
 })
 </script>
+
+<template lang="pug">
+.vuecal__time-column
+  .vuecal__all-day-label(v-if="config.allDayEvents")
+    slot(name="all-day-label") {{ vuecal.texts.allDay }}
+
+  .vuecal__time-cell(v-for="(time, i) in timeCells" :key="i" :style="{ height: time.height || null }")
+    slot(
+      name="time-cell"
+      :index="i"
+      :minutes="time.minutes"
+      :hours="time.hours"
+      :minutes-sum="time.minutesSum"
+      :format12="time.formatted12"
+      :format24="time.formatted24")
+      label {{ config.twelveHour ? time.formatted12 : time.formatted24 }}
+</template>
 
 <style lang="scss">
 .vuecal__time-column {

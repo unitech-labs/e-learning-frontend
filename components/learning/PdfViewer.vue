@@ -2,7 +2,7 @@
 import * as pdfjsLib from 'pdfjs-dist'
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
 
-const props = withDefaults(defineProps<{ url: string; scale?: number }>(), {
+const props = withDefaults(defineProps<{ url: string, scale?: number }>(), {
   scale: 1,
 })
 
@@ -34,10 +34,12 @@ function setCanvasRef(page: number, el: any) {
 }
 
 async function renderPage(pageNumber: number) {
-  if (!pdfDoc || renderedPages.has(pageNumber) || renderingPages.has(pageNumber)) return
+  if (!pdfDoc || renderedPages.has(pageNumber) || renderingPages.has(pageNumber))
+    return
 
   const canvas = canvasMap.get(pageNumber)
-  if (!canvas) return
+  if (!canvas)
+    return
 
   renderingPages.add(pageNumber)
 
@@ -74,7 +76,8 @@ async function renderPage(pageNumber: number) {
 }
 
 function destroyPage(pageNumber: number) {
-  if (!renderedPages.has(pageNumber)) return
+  if (!renderedPages.has(pageNumber))
+    return
 
   const canvas = canvasMap.get(pageNumber)
   if (canvas) {
@@ -88,7 +91,8 @@ function destroyPage(pageNumber: number) {
 
 function getCurrentPage(): number {
   const el = container.value
-  if (!el) return 1
+  if (!el)
+    return 1
 
   const scrollTop = el.scrollTop
   const viewportMid = scrollTop + el.clientHeight / 2
@@ -98,7 +102,8 @@ function getCurrentPage(): number {
 }
 
 function updateVisiblePages() {
-  if (!pdfDoc || !container.value) return
+  if (!pdfDoc || !container.value)
+    return
 
   const currentPage = getCurrentPage()
   const start = Math.max(1, currentPage - 2)
@@ -123,7 +128,8 @@ function onScroll() {
 
 // Watch scale changes for zoom
 watch(() => props.scale, async (newScale) => {
-  if (!pdfDoc || newScale === currentScale) return
+  if (!pdfDoc || newScale === currentScale)
+    return
   currentScale = newScale
 
   // Update estimated page height for new scale

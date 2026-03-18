@@ -1,3 +1,17 @@
+<script setup>
+import { computed, inject } from 'vue'
+
+const vuecal = inject('vuecal')
+const { view, config } = vuecal
+
+function onTitleClick() {
+  if (config.clickToNavigate)
+    view.broader()
+}
+
+const titleEventHandlers = computed(() => config.clickToNavigate ? { click: onTitleClick } : {})
+</script>
+
 <template lang="pug">
 .vuecal__header
   slot(
@@ -54,19 +68,6 @@
         type="button")
         slot(name="next-button")
 </template>
-
-<script setup>
-import { computed, inject } from 'vue'
-
-const vuecal = inject('vuecal')
-const { view, config } = vuecal
-
-const onTitleClick = () => {
-  if (config.clickToNavigate) view.broader()
-}
-
-const titleEventHandlers = computed(() => config.clickToNavigate ? { click: onTitleClick } : {})
-</script>
 
 <style lang="scss">
 .vuecal__header {

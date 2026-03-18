@@ -1,3 +1,18 @@
+<script setup>
+import { computed, inject } from 'vue'
+import { useRoute } from 'vue-router'
+import { addDatePrototypes } from '@/vue-cal'
+
+addDatePrototypes()
+
+const route = useRoute()
+const $waveui = inject('$waveui')
+
+const showAside = computed(() => {
+  return !['examples-intro', 'playground'].includes(route.name) && $waveui.breakpoint.width >= 1400
+})
+</script>
+
 <template lang="pug">
 .examples-container.w-flex.grow.gap12(:class="{ 'examples-container--has-aside': showAside }")
   .grow.w-flex.grow.column
@@ -15,22 +30,6 @@
       .title.grey ON THIS PAGE
       examples-menu(only-active-page)
 </template>
-
-<script setup>
-import { computed, inject } from 'vue'
-import { useRoute } from 'vue-router'
-import { addDatePrototypes } from '@/vue-cal'
-import ExamplesMenu from '@/documentation/components/examples-menu.vue'
-
-addDatePrototypes()
-
-const route = useRoute()
-const $waveui = inject('$waveui')
-
-const showAside = computed(() => {
-  return !['examples-intro', 'playground'].includes(route.name) && $waveui.breakpoint.width >= 1400
-})
-</script>
 
 <style lang="scss">
 .main--playground .examples-container {

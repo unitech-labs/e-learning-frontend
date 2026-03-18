@@ -94,24 +94,32 @@ async function handleMarkAllRead() {
 function relativeTime(isoDate: string): string {
   const diff = Date.now() - new Date(isoDate).getTime()
   const mins = Math.floor(diff / 60000)
-  if (mins < 1) return t('notificationBell.justNow')
-  if (mins < 60) return t('notificationBell.minutesAgo', { n: mins })
+  if (mins < 1)
+    return t('notificationBell.justNow')
+  if (mins < 60)
+    return t('notificationBell.minutesAgo', { n: mins })
   const hours = Math.floor(mins / 60)
-  if (hours < 24) return t('notificationBell.hoursAgo', { n: hours })
+  if (hours < 24)
+    return t('notificationBell.hoursAgo', { n: hours })
   const days = Math.floor(hours / 24)
-  if (days < 7) return t('notificationBell.daysAgo', { n: days })
+  if (days < 7)
+    return t('notificationBell.daysAgo', { n: days })
   return new Date(isoDate).toLocaleDateString('vi-VN')
 }
 
 function orderStatusLabel(status: string): string {
-  if (status === 'complete') return t('notificationBell.statusComplete')
-  if (status === 'cancel') return t('notificationBell.statusCancel')
+  if (status === 'complete')
+    return t('notificationBell.statusComplete')
+  if (status === 'cancel')
+    return t('notificationBell.statusCancel')
   return t('notificationBell.statusPending')
 }
 
 function orderStatusClass(status: string): string {
-  if (status === 'complete') return 'text-green-600'
-  if (status === 'cancel') return 'text-red-500'
+  if (status === 'complete')
+    return 'text-green-600'
+  if (status === 'cancel')
+    return 'text-red-500'
   return 'text-yellow-600'
 }
 

@@ -1,3 +1,84 @@
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  const categories = document.querySelectorAll('.category')
+
+  for (const category of categories) {
+    let rect = {}
+    let width = 0
+    let height = 0
+
+    // Track mouse movement on the card.
+    category.addEventListener('mouseenter', () => {
+      // Get dimensions on enter to handle possible resize.
+      rect = category.getBoundingClientRect()
+      width = rect.width
+      height = rect.height
+
+      // Add initial transition for smooth entry.
+      category.style.transition = 'transform 2s ease-out, box-shadow 2s ease-out'
+
+      // Add depth with shadow.
+      category.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)'
+    })
+
+    category.addEventListener('mousemove', (e) => {
+      // Remove transition during movement for responsive tracking.
+      category.style.transition = 'none'
+
+      // Calculate mouse position relative to the card (0-1).
+      const x = (e.clientX - rect.left) / width
+      const y = (e.clientY - rect.top) / height
+
+      // Convert to -20 to +20 degree range for tilt.
+      const tiltX = (y - 0.5) * 20
+      const tiltY = (0.5 - x) * 20
+
+      // Apply transform with perspective.
+      category.style.transform = `perspective(500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(20px)`
+
+      // Create subtle, consistent light reflection.
+      const intensity = 0.06 + Math.min(0.08, (((x - 0.5) ** 2) + ((y - 0.5) ** 2)) * 0.5)
+
+      // Add a spotlight effect at the mouse position.
+      category.style.background = `
+        radial-gradient(
+          circle at ${x * 100}% ${y * 100}%,
+          rgba(255, 255, 255, ${intensity + 0.05}),
+          rgba(255, 255, 255, ${intensity}) 40%,
+          rgba(255, 255, 255, 0.03) 80%
+        )
+      `
+
+      // Create 3D effect for child elements.
+      const childTransform = 'translateZ(10px)'
+      const icon = category.querySelector('.w-icon')
+      if (icon)
+        icon.style.transform = childTransform
+    })
+
+    category.addEventListener('mouseleave', () => {
+      // Reset transform and background on mouse leave.
+      category.style.transition = 'transform 1.7s cubic-bezier(0.2, 0.8, 0.3, 1), background 0.7s ease, box-shadow 0.7s ease'
+      category.style.transform = 'perspective(500px) rotateX(0) rotateY(0) scale(1) translateZ(0)'
+      category.style.background = ''
+      category.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.05)'
+
+      // Reset icon transform.
+      const icon = category.querySelector('.w-icon')
+      if (icon)
+        icon.style.transform = ''
+
+      // Remove the transition after it's complete to prevent affecting future mousemove.
+      setTimeout(() => {
+        category.style.transition = ''
+      }, 700)
+    })
+  }
+})
+</script>
+
 <template lang="pug">
 title-link.mt4(h2 anchor="categories") Categories
 w-grid.gap4.mt8(:columns="{ xs: 2, sm: 3, md: 3, lg: 4, xl: 5 }")
@@ -130,85 +211,6 @@ p.
           strong Browse the full Vue Cal Codepen collection
           w-icon.ml2(sm style="margin-top: -2px") mdi mdi-open-in-new
 </template>
-
-<script setup>
-import { onMounted } from 'vue'
-
-onMounted(() => {
-  const categories = document.querySelectorAll('.category')
-
-  for (const category of categories) {
-    let rect = {}
-    let width = 0
-    let height = 0
-
-    // Track mouse movement on the card.
-    category.addEventListener('mouseenter', () => {
-      // Get dimensions on enter to handle possible resize.
-      rect = category.getBoundingClientRect()
-      width = rect.width
-      height = rect.height
-
-      // Add initial transition for smooth entry.
-      category.style.transition = 'transform 2s ease-out, box-shadow 2s ease-out'
-
-      // Add depth with shadow.
-      category.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)'
-    })
-
-    category.addEventListener('mousemove', e => {
-      // Remove transition during movement for responsive tracking.
-      category.style.transition = 'none'
-
-      // Calculate mouse position relative to the card (0-1).
-      const x = (e.clientX - rect.left) / width
-      const y = (e.clientY - rect.top) / height
-
-      // Convert to -20 to +20 degree range for tilt.
-      const tiltX = (y - 0.5) * 20
-      const tiltY = (0.5 - x) * 20
-
-      // Apply transform with perspective.
-      category.style.transform = `perspective(500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(20px)`
-
-      // Create subtle, consistent light reflection.
-      const intensity = 0.06 + Math.min(0.08, (((x - 0.5) ** 2) + ((y - 0.5) ** 2)) * 0.5)
-
-      // Add a spotlight effect at the mouse position.
-      category.style.background = `
-        radial-gradient(
-          circle at ${x * 100}% ${y * 100}%,
-          rgba(255, 255, 255, ${intensity + 0.05}),
-          rgba(255, 255, 255, ${intensity}) 40%,
-          rgba(255, 255, 255, 0.03) 80%
-        )
-      `
-
-      // Create 3D effect for child elements.
-      const childTransform = 'translateZ(10px)'
-      const icon = category.querySelector('.w-icon')
-      if (icon) icon.style.transform = childTransform
-    })
-
-    category.addEventListener('mouseleave', () => {
-      // Reset transform and background on mouse leave.
-      category.style.transition = 'transform 1.7s cubic-bezier(0.2, 0.8, 0.3, 1), background 0.7s ease, box-shadow 0.7s ease'
-      category.style.transform = 'perspective(500px) rotateX(0) rotateY(0) scale(1) translateZ(0)'
-      category.style.background = ''
-      category.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.05)'
-
-      // Reset icon transform.
-      const icon = category.querySelector('.w-icon')
-      if (icon) icon.style.transform = ''
-
-      // Remove the transition after it's complete to prevent affecting future mousemove.
-      setTimeout(() => {
-        category.style.transition = ''
-      }, 700)
-    })
-  }
-})
-</script>
 
 <style lang="scss">
 main.main--examples-intro {

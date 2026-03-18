@@ -1,3 +1,174 @@
+<script setup>
+import { computed, reactive, ref } from 'vue'
+import { useAppStore } from '@/store'
+import { addDatePrototypes } from '@/vue-cal'
+
+addDatePrototypes()
+
+const store = useAppStore()
+const vueCalRef = ref(null)
+
+const locales = [
+  { value: 'ko', label: 'ko' },
+  { value: 'en-gb', label: 'en-gb' },
+  { value: 'en-us', label: 'en-us' },
+  { value: 'ja', label: 'ja' },
+  { value: 'zh-cn', label: 'zh-cn' },
+  { value: 'ar', label: 'ar' },
+  { value: 'fr', label: 'fr' },
+  { value: 'ca', label: 'ca' },
+  { value: 'ru', label: 'ru' },
+]
+
+const views = {
+  day: { label: 'Day' },
+  days: { label: 'Days', cols: 365, rows: 1 },
+  week: { label: 'Week' },
+  month: { label: 'Month' },
+  year: { label: 'Year' },
+  years: { label: 'Years' },
+}
+const viewsArray = Object.entries(views).map(([viewId, obj]) => ({ ...obj, value: viewId }))
+
+const size = ref(null)
+const sizes = [
+  { value: null, label: 'Normal' },
+  { value: 'sm', label: 'small' },
+  { value: 'xs', label: 'Extra small' },
+]
+
+const weekdays = [{ label: 'mon' }, { label: 'tue' }, { label: 'wed' }, { label: 'thu' }, { label: 'fri' }, { label: 'sat' }, { label: 'sun' }]
+const hideWeekdays = ref([])
+
+const eventClasses = [
+  { value: 'leisure', label: 'Leisure' },
+  { value: 'health', label: 'Health' },
+  { value: 'sport', label: 'Sport' },
+]
+
+const pickerConfig = reactive({
+  datePicker: true,
+  dark: computed(() => store.darkMode),
+  selectedDate: computed(() => mainVuecalConfig.selectedDate),
+  locale: computed(() => mainVuecalConfig.locale),
+  startWeekOnSunday: computed(() => mainVuecalConfig.startWeekOnSunday),
+  todayButton: computed(() => mainVuecalConfig.todayButton),
+  hideWeekends: computed(() => mainVuecalConfig.hideWeekends),
+  hideWeekdays: computed(() => mainVuecalConfig.hideWeekdays),
+  viewDayOffset: computed(() => mainVuecalConfig.viewDayOffset),
+})
+
+const mainVuecalConfig = reactive({
+  views,
+  view: ref('week'),
+  dark: computed(() => store.darkMode),
+  selectedDate: ref(null),
+  viewDate: ref(new Date()),
+  locale: ref(''),
+  startWeekOnSunday: ref(false),
+  todayButton: ref(true),
+  xs: computed(() => size.value === 'xs'),
+  sm: computed(() => size.value === 'sm'),
+  // timeFrom: 7 * 60,
+  // timeTo: 20 * 60,
+  timeStep: 60,
+  twelveHour: ref(false),
+  hideWeekends: ref(false),
+  hideWeekdays,
+  viewDayOffset: ref(0),
+  clickToNavigate: ref(false),
+  watchRealTime: ref(true),
+  events: ref([
+    { title: 'Event 1', start: new Date(new Date().setHours(8, 0, 0, 0)), end: new Date(new Date().setHours(8, 30, 0, 0)) },
+    { title: 'Event 2', start: new Date(new Date().setHours(9, 0, 0, 0)), end: new Date(new Date().setHours(9, 30, 0, 0)) },
+  ]),
+  showSchedules: ref(false),
+  schedules: computed(() => {
+    return mainVuecalConfig.showSchedules
+      ? [
+          { label: 'Dr 1', class: 'dr-1', style: 'background-color: rgba(255, 0, 0, 0.1)' },
+          { label: 'Dr 2', class: 'dr-2' },
+        ]
+      : undefined
+  }),
+  eventsOnMonthView: true,
+  showSpecialHours: ref(false),
+  specialHours: computed(() => {
+    return mainVuecalConfig.showSpecialHours
+      ? {
+          mon: { from: 0 * 60, to: 23 * 60, class: 'doctor-1', label: '<strong>Doctor 1</strong><em>Full day shift</em>' },
+          tue: { from: 4 * 60, to: 5 * 60, class: 'doctor-2', label: '<strong>Doctor 2</strong><em>Full day shift</em>' },
+          wed: [
+            { from: 8 * 60, to: 12 * 60, class: 'doctor-1', label: '<strong>Doctor 1</strong><em>Morning shift</em>' },
+            { from: 14 * 60, to: 19 * 60, class: 'doctor-3', label: '<strong>Doctor 3</strong><em>Afternoon shift</em>' },
+          ],
+          thu: { from: 8 * 60, to: 17 * 60, class: 'doctor-1', label: '<strong>Doctor 1</strong><em>Full day shift</em>' },
+          fri: { from: 9 * 60, to: 18 * 60, class: 'doctor-3', label: '<strong>Doctor 3</strong><em>Full day shift</em>' },
+          sat: { from: 9 * 60, to: 18 * 60, class: 'doctor-2', label: '<strong>Doctor 2</strong><em>Full day shift</em>' },
+          sun: { from: 7 * 60, to: 20 * 60, class: 'closed', label: '<strong>Closed</strong>' },
+        }
+      : undefined
+  }),
+  editableEvents: ref(false),
+})
+
+let eventCounter = 2 // Starts with 2 events in the array.
+function addEventFromOutside() {
+  mainVuecalConfig.events.push({
+    title: `Event ${++eventCounter}`,
+    start: (new Date()).subtractHours(2),
+    end: (new Date()).subtractHours(1),
+    schedule: ((eventCounter - 1) % 2) + 1,
+  })
+}
+
+function addEventFromVueCal() {
+  vueCalRef.value.view.createEvent({
+    title: `Event ${++eventCounter}`,
+    start: new Date(),
+    end: (new Date()).addHours(1),
+    schedule: ((eventCounter - 1) % 2) + 1,
+  })
+}
+
+const log = (...args) => console.log(...args)
+
+const eventSelection = reactive({
+  onEventDelayedClick: (e) => {
+    log('event-delayed-click', e)
+
+    eventSelection.event = e.event
+    eventSelection.showDialog = true
+  },
+  showDialog: ref(false),
+  event: ref(null),
+})
+
+const eventCreation = reactive({
+  show: ref(false),
+  resolve: null,
+  event: {
+    title: '',
+    background: false,
+    class: '',
+  },
+  open: ({ event, resolve }) => {
+    eventCreation.show = true
+    eventCreation.event = event
+    eventCreation.resolve = resolve
+    log('event-create', { event, resolve })
+  },
+  cancel: () => {
+    eventCreation.resolve(false)
+    eventCreation.show = false
+  },
+  save: () => {
+    eventCreation.resolve(eventCreation.event)
+    eventCreation.show = false
+  },
+})
+</script>
+
 <template lang="pug">
 .config-panel.w-flex.gap6.no-grow
   .w-flex.column.gap1.no-grow
@@ -134,173 +305,6 @@ w-dialog(
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil inventore expedita veniam deleniti,
     labore corporis quas, aspernatur praesentium quia nisi, omnis quod autem.
 </template>
-
-<script setup>
-import { ref, reactive, computed } from 'vue'
-import { VueCal, addDatePrototypes } from '@/vue-cal'
-import { useAppStore } from '@/store'
-
-addDatePrototypes()
-
-const store = useAppStore()
-const vueCalRef = ref(null)
-
-const locales = [
-  { value: 'ko', label: 'ko' },
-  { value: 'en-gb', label: 'en-gb' },
-  { value: 'en-us', label: 'en-us' },
-  { value: 'ja', label: 'ja' },
-  { value: 'zh-cn', label: 'zh-cn' },
-  { value: 'ar', label: 'ar' },
-  { value: 'fr', label: 'fr' },
-  { value: 'ca', label: 'ca' },
-  { value: 'ru', label: 'ru' }
-]
-
-const views = {
-  day: { label: 'Day' },
-  days: { label: 'Days', cols: 365, rows: 1 },
-  week: { label: 'Week' },
-  month: { label: 'Month' },
-  year: { label: 'Year' },
-  years: { label: 'Years' }
-}
-const viewsArray = Object.entries(views).map(([viewId, obj]) => ({ ...obj, value: viewId }))
-
-const size = ref(null)
-const sizes = [
-  { value: null, label: 'Normal' },
-  { value: 'sm', label: 'small' },
-  { value: 'xs', label: 'Extra small' }
-]
-
-const weekdays = [{ label: 'mon' }, { label: 'tue' }, { label: 'wed' }, { label: 'thu' }, { label: 'fri' }, { label: 'sat' }, { label: 'sun' }]
-const hideWeekdays = ref([])
-
-const eventClasses = [
-  { value: 'leisure', label: 'Leisure' },
-  { value: 'health', label: 'Health' },
-  { value: 'sport', label: 'Sport' }
-]
-
-const pickerConfig = reactive({
-  datePicker: true,
-  dark: computed(() => store.darkMode),
-  selectedDate: computed(() => mainVuecalConfig.selectedDate),
-  locale: computed(() => mainVuecalConfig.locale),
-  startWeekOnSunday: computed(() => mainVuecalConfig.startWeekOnSunday),
-  todayButton: computed(() => mainVuecalConfig.todayButton),
-  hideWeekends: computed(() => mainVuecalConfig.hideWeekends),
-  hideWeekdays: computed(() => mainVuecalConfig.hideWeekdays),
-  viewDayOffset: computed(() => mainVuecalConfig.viewDayOffset)
-})
-
-const mainVuecalConfig = reactive({
-  views,
-  view: ref('week'),
-  dark: computed(() => store.darkMode),
-  selectedDate: ref(null),
-  viewDate: ref(new Date()),
-  locale: ref(''),
-  startWeekOnSunday: ref(false),
-  todayButton: ref(true),
-  xs: computed(() => size.value === 'xs'),
-  sm: computed(() => size.value === 'sm'),
-  // timeFrom: 7 * 60,
-  // timeTo: 20 * 60,
-  timeStep: 60,
-  twelveHour: ref(false),
-  hideWeekends: ref(false),
-  hideWeekdays,
-  viewDayOffset: ref(0),
-  clickToNavigate: ref(false),
-  watchRealTime: ref(true),
-  events: ref([
-    { title: 'Event 1', start: new Date(new Date().setHours(8, 0, 0, 0)), end: new Date(new Date().setHours(8, 30, 0, 0)) },
-    { title: 'Event 2', start: new Date(new Date().setHours(9, 0, 0, 0)), end: new Date(new Date().setHours(9, 30, 0, 0)) }
-  ]),
-  showSchedules: ref(false),
-  schedules: computed(() => {
-    return mainVuecalConfig.showSchedules ? [
-      { label: 'Dr 1', class: 'dr-1', style: 'background-color: rgba(255, 0, 0, 0.1)' },
-      { label: 'Dr 2', class: 'dr-2' }
-    ] : undefined
-  }),
-  eventsOnMonthView: true,
-  showSpecialHours: ref(false),
-  specialHours: computed(() => {
-    return mainVuecalConfig.showSpecialHours ? {
-      mon: { from: 0 * 60, to: 23 * 60, class: 'doctor-1', label: '<strong>Doctor 1</strong><em>Full day shift</em>' },
-      tue: { from: 4 * 60, to: 5 * 60, class: 'doctor-2', label: '<strong>Doctor 2</strong><em>Full day shift</em>' },
-      wed: [
-        { from: 8 * 60, to: 12 * 60, class: 'doctor-1', label: '<strong>Doctor 1</strong><em>Morning shift</em>' },
-        { from: 14 * 60, to: 19 * 60, class: 'doctor-3', label: '<strong>Doctor 3</strong><em>Afternoon shift</em>' }
-      ],
-      thu: { from: 8 * 60, to: 17 * 60, class: 'doctor-1', label: '<strong>Doctor 1</strong><em>Full day shift</em>' },
-      fri: { from: 9 * 60, to: 18 * 60, class: 'doctor-3', label: '<strong>Doctor 3</strong><em>Full day shift</em>' },
-      sat: { from: 9 * 60, to: 18 * 60, class: 'doctor-2', label: '<strong>Doctor 2</strong><em>Full day shift</em>' },
-      sun: { from: 7 * 60, to: 20 * 60, class: 'closed', label: '<strong>Closed</strong>' }
-    } : undefined
-  }),
-  editableEvents: ref(false)
-})
-
-let eventCounter = 2 // Starts with 2 events in the array.
-const addEventFromOutside = () => {
-  mainVuecalConfig.events.push({
-    title: 'Event ' + ++eventCounter,
-    start: (new Date()).subtractHours(2),
-    end: (new Date()).subtractHours(1),
-    schedule: ((eventCounter - 1) % 2) + 1
-  })
-}
-
-const addEventFromVueCal = () => {
-  vueCalRef.value.view.createEvent({
-    title: 'Event ' + ++eventCounter,
-    start: new Date(),
-    end: (new Date()).addHours(1),
-    schedule: ((eventCounter - 1) % 2) + 1
-  })
-}
-
-const log = (...args) => console.log(...args)
-
-const eventSelection = reactive({
-  onEventDelayedClick: e => {
-    log('event-delayed-click', e)
-
-    eventSelection.event = e.event
-    eventSelection.showDialog = true
-  },
-  showDialog: ref(false),
-  event: ref(null)
-})
-
-const eventCreation = reactive({
-  show: ref(false),
-  resolve: null,
-  event: {
-    title: '',
-    background: false,
-    class: ''
-  },
-  open: ({ event, resolve }) => {
-    eventCreation.show = true
-    eventCreation.event = event
-    eventCreation.resolve = resolve
-    log('event-create', { event, resolve })
-  },
-  cancel: () => {
-    eventCreation.resolve(false)
-    eventCreation.show = false
-  },
-  save: () => {
-    eventCreation.resolve(eventCreation.event)
-    eventCreation.show = false
-  }
-})
-</script>
 
 <style lang="scss">
 .page--playground {

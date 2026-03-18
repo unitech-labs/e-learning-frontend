@@ -1,3 +1,9 @@
+<script setup>
+import { ref } from 'vue'
+
+const seeOldReleaseNotes = ref(false)
+</script>
+
 <template lang="pug">
 h1.title1 Release Notes
 
@@ -796,13 +802,6 @@ w-transition-expand(y)
     li.minor #[strong.version 1.1.0] Allow event resizing + Spanish &amp; Portuguese-Brasil languages.
     li.major #[strong.version 1.0.0] First public release
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import IssueLink from './components/issue-link.vue'
-
-const seeOldReleaseNotes = ref(false)
-</script>
 
 <style lang="scss">
 .main--release-notes {

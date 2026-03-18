@@ -1,3 +1,24 @@
+<script setup>
+import { onMounted, ref } from 'vue'
+
+defineProps({
+  offsetTop: { type: Number },
+})
+
+const ready = ref(false)
+const navItems = ref([
+  { title: 'Getting Started', path: '/getting-started' },
+  { title: 'API', path: '/api' },
+  { title: 'Date Prototypes', path: '/date-prototypes' },
+  { title: 'Examples', path: '/examples' },
+  { title: 'Migration Guide', path: '/migration-guide' },
+  { title: 'Road Map', path: '/road-map' },
+  { title: 'Release Notes', path: '/release-notes' },
+])
+
+onMounted(() => setTimeout(() => (ready.value = true), 300))
+</script>
+
 <template lang="pug">
 div(:class="{ ready }")
   top-bar(:fixed="offsetTop > 130")
@@ -75,29 +96,6 @@ hero
             w-icon.ml2(sm) mdi mdi-open-in-new
           div
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue'
-import TopBar from '@/documentation/components/top-bar.vue'
-import Hero from './hero.vue'
-
-defineProps({
-  offsetTop: { type: Number }
-})
-
-const ready = ref(false)
-const navItems = ref([
-  { title: 'Getting Started', path: '/getting-started' },
-  { title: 'API', path: '/api' },
-  { title: 'Date Prototypes', path: '/date-prototypes' },
-  { title: 'Examples', path: '/examples' },
-  { title: 'Migration Guide', path: '/migration-guide' },
-  { title: 'Road Map', path: '/road-map' },
-  { title: 'Release Notes', path: '/release-notes' }
-])
-
-onMounted(() => setTimeout(() => (ready.value = true), 300))
-</script>
 
 <style lang="scss">
 .page--home {

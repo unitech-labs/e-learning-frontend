@@ -1,3 +1,154 @@
+<script setup>
+import { nextTick, onMounted, provide, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { useSectionObserver } from '@/composables/section-observer'
+import { useAppStore } from '@/store'
+import '@/scss/index.scss'
+
+const route = useRoute()
+const store = useAppStore()
+const offsetTop = ref(0)
+const goTopHidden = ref(true)
+const dataStreamStyle = ref({})
+const resetAnimation = ref(false)
+const animationKey = ref(0)
+const routeReady = ref(false)
+
+const navItems = ref([
+  { title: 'Getting Started', path: '/getting-started' },
+  { title: 'API', path: '/api' },
+  { title: 'Date Prototypes', path: '/date-prototypes' },
+  { title: 'Examples', path: '/examples', id: 'examples' },
+  { title: 'Migration Guide', path: '/migration-guide' },
+  { title: 'Road Map', path: '/road-map' },
+  { title: 'Release Notes', path: '/release-notes' },
+])
+
+// Initialize section observer.
+useSectionObserver({
+  onSectionChange: section => (store.activeSection = section),
+})
+
+// Update data stream position.
+async function updateDataStreamPosition() {
+  // Wait for DOM to update.
+  await nextTick()
+
+  // Find active nav item.
+  const activeNavItem = document.querySelector('aside .nav .router-link-exact-active')
+  if (activeNavItem) {
+    // Get top position relative to viewport.
+    const activeRect = activeNavItem.getBoundingClientRect()
+    // Get the position relative to the document.
+    const topPosition = activeRect.top + window.scrollY
+
+    // Calculate the position relative to the main element.
+    // Reference to the main element.
+    const mainElement = document.querySelector('main.main')
+    if (mainElement) {
+      const mainRect = mainElement.getBoundingClientRect()
+      const mainTop = mainRect.top + window.scrollY
+
+      // Position relative to main element.
+      const relativeTop = topPosition - mainTop + activeRect.height / 2
+
+      // Set CSS variables for the data stream.
+      dataStreamStyle.value = {
+        '--data-stream-origin-top': `${relativeTop}px`,
+      }
+    }
+  }
+}
+
+// Function to restart animation - simply increment the animation key to force Vue to recreate the element.
+function restartAnimation() {
+  animationKey.value++
+}
+
+// Update position on route change.
+// Wait a bit for navigation to complete.
+watch(() => route.path, () => {
+  setTimeout(() => {
+    updateDataStreamPosition()
+    restartAnimation() // Increment key to restart animation.
+  }, 100)
+})
+
+onMounted(() => {
+  updateDataStreamPosition() // Initial position update.
+  setTimeout(() => (routeReady.value = true), 150)
+})
+
+const scrollToTop = () => document.querySelector('#top').scrollIntoView()
+
+// Directives.
+const vScroll = {
+  mounted: (el, binding) => {
+    const f = (evt) => {
+      if (binding.value(evt, el))
+        window.removeEventListener('scroll', f)
+    }
+    window.addEventListener('scroll', f)
+  },
+}
+
+function onScroll() {
+  const { scrollTop, offsetHeight } = document.documentElement
+  offsetTop.value = window.scrollY || scrollTop
+  goTopHidden.value = offsetTop.value < 200
+
+  updateDataStreamPosition() // Update data stream position while scrolling.
+}
+
+provide('locales', [
+  { code: 'sq', label: 'Albanian' },
+  { code: 'ar', label: 'Arabic' },
+  { code: 'bn', label: 'Bangla' },
+  { code: 'bs', label: 'Bosnian' },
+  { code: 'bg', label: 'Bulgarian' },
+  { code: 'ca', label: 'Catalan' },
+  { code: 'cs', label: 'Czech' },
+  { code: 'zh-cn', label: 'Chinese (Simplified)' },
+  { code: 'zh-hk', label: 'Chinese (Traditional)' },
+  { code: 'hr', label: 'Croatian' },
+  { code: 'da', label: 'Danish' },
+  { code: 'nl', label: 'Dutch' },
+  { code: 'en-us', label: 'English' },
+  { code: 'et', label: 'Estonian' },
+  { code: 'fa', label: 'Farsi' },
+  { code: 'fr', label: 'French' },
+  { code: 'ka', label: 'Georgian' },
+  { code: 'kaa', label: 'Qaraqalpaq' },
+  { code: 'kk', label: 'Kazakh' },
+  { code: 'ky', label: 'Kyrgyz' },
+  { code: 'de', label: 'German' },
+  { code: 'el', label: 'Greek' },
+  { code: 'he', label: 'Hebrew' },
+  { code: 'hu', label: 'Hungarian' },
+  { code: 'is', label: 'Icelandic' },
+  { code: 'it', label: 'Italian' },
+  { code: 'id', label: 'Indonesian' },
+  { code: 'ja', label: 'Japanese' },
+  { code: 'ko', label: 'Korean' },
+  { code: 'lt', label: 'Lithuanian' },
+  { code: 'mn', label: 'Mongolian' },
+  { code: 'no', label: 'Norwegian' },
+  { code: 'pl', label: 'Polish' },
+  { code: 'pt-br', label: 'Portuguese Brasilian' },
+  { code: 'ro', label: 'Romanian' },
+  { code: 'ru', label: 'Russian' },
+  { code: 'sr', label: 'Serbian' },
+  { code: 'sk', label: 'Slovak' },
+  { code: 'sl', label: 'Slovenian' },
+  { code: 'es', label: 'Spanish' },
+  { code: 'sv', label: 'Swedish' },
+  { code: 'tr', label: 'Turkish' },
+  { code: 'uk', label: 'Ukrainian' },
+  { code: 'uz', label: 'Uzbek' },
+  { code: 'vi', label: 'Vietnamese' },
+])
+</script>
+
 <template lang="pug">
 top-bar(v-if="routeReady && $route.name !== 'home'" fixed)
 .page.w-flex.grow.page-container(
@@ -74,157 +225,6 @@ footer.page-container.grey-dark1.smd-column.smd-justify-center.gap4(v-if="routeR
         | Love
     | View project on #[a(href="https://github.com/antoniandre/vue-cal" target="_blank") #[w-icon mdi mdi-github] Github].
 </template>
-
-<script setup>
-import { provide, ref, onMounted, nextTick, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import { useAppStore } from '@/store'
-import { useSectionObserver } from '@/composables/section-observer'
-import TopBar from '@/documentation/components/top-bar.vue'
-import '@/scss/index.scss'
-
-const route = useRoute()
-const store = useAppStore()
-const offsetTop = ref(0)
-const goTopHidden = ref(true)
-const dataStreamStyle = ref({})
-const resetAnimation = ref(false)
-const animationKey = ref(0)
-const routeReady = ref(false)
-
-const navItems = ref([
-  { title: 'Getting Started', path: '/getting-started' },
-  { title: 'API', path: '/api' },
-  { title: 'Date Prototypes', path: '/date-prototypes' },
-  { title: 'Examples', path: '/examples', id: 'examples' },
-  { title: 'Migration Guide', path: '/migration-guide' },
-  { title: 'Road Map', path: '/road-map' },
-  { title: 'Release Notes', path: '/release-notes' }
-])
-
-// Initialize section observer.
-useSectionObserver({
-  onSectionChange: section => (store.activeSection = section)
-})
-
-// Update data stream position.
-const updateDataStreamPosition = async () => {
-  // Wait for DOM to update.
-  await nextTick()
-
-  // Find active nav item.
-  const activeNavItem = document.querySelector('aside .nav .router-link-exact-active')
-  if (activeNavItem) {
-    // Get top position relative to viewport.
-    const activeRect = activeNavItem.getBoundingClientRect()
-    // Get the position relative to the document.
-    const topPosition = activeRect.top + window.scrollY
-
-    // Calculate the position relative to the main element.
-    // Reference to the main element.
-    const mainElement = document.querySelector('main.main')
-    if (mainElement) {
-      const mainRect = mainElement.getBoundingClientRect()
-      const mainTop = mainRect.top + window.scrollY
-
-      // Position relative to main element.
-      const relativeTop = topPosition - mainTop + activeRect.height / 2
-
-      // Set CSS variables for the data stream.
-      dataStreamStyle.value = {
-        '--data-stream-origin-top': `${relativeTop}px`
-      }
-    }
-  }
-}
-
-// Function to restart animation - simply increment the animation key to force Vue to recreate the element.
-const restartAnimation = () => {
-  animationKey.value++
-}
-
-// Update position on route change.
-// Wait a bit for navigation to complete.
-watch(() => route.path, () => {
-  setTimeout(() => {
-    updateDataStreamPosition()
-    restartAnimation() // Increment key to restart animation.
-  }, 100)
-})
-
-onMounted(() => {
-  updateDataStreamPosition() // Initial position update.
-  setTimeout(() => (routeReady.value = true), 150)
-})
-
-const scrollToTop = () => document.querySelector('#top').scrollIntoView()
-
-// Directives.
-const vScroll = {
-  mounted: (el, binding) => {
-    const f = evt => {
-      if (binding.value(evt, el)) window.removeEventListener('scroll', f)
-    }
-    window.addEventListener('scroll', f)
-  }
-}
-
-const onScroll = () => {
-  const { scrollTop, offsetHeight } = document.documentElement
-  offsetTop.value = window.scrollY || scrollTop
-  goTopHidden.value = offsetTop.value < 200
-
-  updateDataStreamPosition() // Update data stream position while scrolling.
-}
-
-provide('locales', [
-  { code: 'sq', label: 'Albanian' },
-  { code: 'ar', label: 'Arabic' },
-  { code: 'bn', label: 'Bangla' },
-  { code: 'bs', label: 'Bosnian' },
-  { code: 'bg', label: 'Bulgarian' },
-  { code: 'ca', label: 'Catalan' },
-  { code: 'cs', label: 'Czech' },
-  { code: 'zh-cn', label: 'Chinese (Simplified)' },
-  { code: 'zh-hk', label: 'Chinese (Traditional)' },
-  { code: 'hr', label: 'Croatian' },
-  { code: 'da', label: 'Danish' },
-  { code: 'nl', label: 'Dutch' },
-  { code: 'en-us', label: 'English' },
-  { code: 'et', label: 'Estonian' },
-  { code: 'fa', label: 'Farsi' },
-  { code: 'fr', label: 'French' },
-  { code: 'ka', label: 'Georgian' },
-  { code: 'kaa', label: 'Qaraqalpaq' },
-  { code: 'kk', label: 'Kazakh' },
-  { code: 'ky', label: 'Kyrgyz' },
-  { code: 'de', label: 'German' },
-  { code: 'el', label: 'Greek' },
-  { code: 'he', label: 'Hebrew' },
-  { code: 'hu', label: 'Hungarian' },
-  { code: 'is', label: 'Icelandic' },
-  { code: 'it', label: 'Italian' },
-  { code: 'id', label: 'Indonesian' },
-  { code: 'ja', label: 'Japanese' },
-  { code: 'ko', label: 'Korean' },
-  { code: 'lt', label: 'Lithuanian' },
-  { code: 'mn', label: 'Mongolian' },
-  { code: 'no', label: 'Norwegian' },
-  { code: 'pl', label: 'Polish' },
-  { code: 'pt-br', label: 'Portuguese Brasilian' },
-  { code: 'ro', label: 'Romanian' },
-  { code: 'ru', label: 'Russian' },
-  { code: 'sr', label: 'Serbian' },
-  { code: 'sk', label: 'Slovak' },
-  { code: 'sl', label: 'Slovenian' },
-  { code: 'es', label: 'Spanish' },
-  { code: 'sv', label: 'Swedish' },
-  { code: 'tr', label: 'Turkish' },
-  { code: 'uk', label: 'Ukrainian' },
-  { code: 'uz', label: 'Uzbek' },
-  { code: 'vi', label: 'Vietnamese' }
-])
-</script>
 
 <style lang="scss">
 main.main {

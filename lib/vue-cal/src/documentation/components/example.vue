@@ -1,3 +1,39 @@
+<script setup>
+import { nextTick, onMounted, ref } from 'vue'
+import { useAppStore } from '@/store'
+
+defineProps({
+  title: { type: String },
+  codeClass: { type: String },
+  anchor: { type: String, required: true },
+})
+
+const store = useAppStore()
+
+const expanded = ref(false)
+const sourceInnerEl = ref(null)
+const sourceInnerNoScroll = ref(false)
+
+// If the example source code is dynamic, the height of the source-wrap will change,
+// so we need to refresh it for the expand button to show up correctly.
+async function refreshSourceInnerHeight() {
+  await nextTick()
+  if (!sourceInnerEl.value)
+    return
+  sourceInnerNoScroll.value = !expanded.value && (sourceInnerEl.value.scrollHeight <= sourceInnerEl.value.clientHeight)
+}
+function onExpandClick() {
+  expanded.value = !expanded.value
+  sourceInnerEl.value.scrollTop = 0 // Scroll to top when toggling.
+}
+
+onMounted(() => {
+  refreshSourceInnerHeight()
+})
+
+defineExpose({ refreshHeight: refreshSourceInnerHeight })
+</script>
+
 <template lang="pug">
 .example(:class="`example--${anchor}`")
   title-link.mb2(h2 :anchor="`ex--${anchor}`")
@@ -37,41 +73,6 @@
     slot(name="desc2")
     p.caption.mt1 For all the options details, refer to the #[router-link(to="/api") API] section.
 </template>
-
-<script setup>
-import { nextTick, onMounted, ref } from 'vue'
-import { useAppStore } from '@/store'
-
-const store = useAppStore()
-
-defineProps({
-  title: { type: String },
-  codeClass: { type: String },
-  anchor: { type: String, required: true }
-})
-
-const expanded = ref(false)
-const sourceInnerEl = ref(null)
-const sourceInnerNoScroll = ref(false)
-
-// If the example source code is dynamic, the height of the source-wrap will change,
-// so we need to refresh it for the expand button to show up correctly.
-const refreshSourceInnerHeight = async () => {
-  await nextTick()
-  if (!sourceInnerEl.value) return
-  sourceInnerNoScroll.value = !expanded.value && (sourceInnerEl.value.scrollHeight <= sourceInnerEl.value.clientHeight)
-}
-const onExpandClick = () => {
-  expanded.value = !expanded.value
-  sourceInnerEl.value.scrollTop = 0 // Scroll to top when toggling.
-}
-
-onMounted(() => {
-  refreshSourceInnerHeight()
-})
-
-defineExpose({ refreshHeight: refreshSourceInnerHeight })
-</script>
 
 <style lang="scss">
 .example {

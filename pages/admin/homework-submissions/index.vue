@@ -30,7 +30,8 @@ const countStats = ref<{ total: number, pending: number, graded: number } | null
 const { refreshCount } = useAdminHomeworkSubmissionsCount({ enabled: true })
 
 const filteredClassrooms = computed(() => {
-  if (!selectedCourseId.value) return classrooms.value
+  if (!selectedCourseId.value)
+    return classrooms.value
   return classrooms.value.filter(c => c.course?.id === selectedCourseId.value)
 })
 
@@ -67,7 +68,8 @@ async function loadClassrooms() {
 async function loadHomeworks() {
   try {
     const params: Record<string, any> = { page_size: 100 }
-    if (selectedCourseId.value) params.course_id = selectedCourseId.value
+    if (selectedCourseId.value)
+      params.course_id = selectedCourseId.value
     const res = await getAdminHomeworks(params)
     homeworks.value = (res.results || []).map(h => ({ id: h.id, title: h.title }))
   }
@@ -83,11 +85,16 @@ async function loadSubmissions() {
       page: currentPage.value,
       page_size: pageSize.value,
     }
-    if (selectedCourseId.value) params.course_id = selectedCourseId.value
-    if (selectedClassroomId.value) params.classroom_id = selectedClassroomId.value
-    if (selectedHomeworkId.value) params.homework_id = selectedHomeworkId.value
-    if (statusFilter.value) params.status = statusFilter.value
-    if (studentNameSearch.value.trim()) params.student_name = studentNameSearch.value.trim()
+    if (selectedCourseId.value)
+      params.course_id = selectedCourseId.value
+    if (selectedClassroomId.value)
+      params.classroom_id = selectedClassroomId.value
+    if (selectedHomeworkId.value)
+      params.homework_id = selectedHomeworkId.value
+    if (statusFilter.value)
+      params.status = statusFilter.value
+    if (studentNameSearch.value.trim())
+      params.student_name = studentNameSearch.value.trim()
 
     const res = await getAdminHomeworkSubmissions(params)
     submissions.value = res.results || []
@@ -106,8 +113,10 @@ async function loadSubmissions() {
 async function loadCountStats() {
   try {
     const params: Record<string, string> = {}
-    if (selectedCourseId.value) params.course_id = selectedCourseId.value
-    if (selectedClassroomId.value) params.classroom_id = selectedClassroomId.value
+    if (selectedCourseId.value)
+      params.course_id = selectedCourseId.value
+    if (selectedClassroomId.value)
+      params.classroom_id = selectedClassroomId.value
     countStats.value = await getAdminHomeworkSubmissionCount(params)
   }
   catch {
@@ -242,9 +251,15 @@ onMounted(async () => {
           class="w-[140px]"
           size="small"
         >
-          <a-select-option value="">{{ $t('admin.homeworkSubmissions.filters.allStatus') }}</a-select-option>
-          <a-select-option value="pending">{{ $t('admin.homeworkSubmissions.status.pending') }}</a-select-option>
-          <a-select-option value="graded">{{ $t('admin.homeworkSubmissions.status.graded') }}</a-select-option>
+          <a-select-option value="">
+            {{ $t('admin.homeworkSubmissions.filters.allStatus') }}
+          </a-select-option>
+          <a-select-option value="pending">
+            {{ $t('admin.homeworkSubmissions.status.pending') }}
+          </a-select-option>
+          <a-select-option value="graded">
+            {{ $t('admin.homeworkSubmissions.status.graded') }}
+          </a-select-option>
         </a-select>
         <a-input
           v-model:value="studentNameSearch"
@@ -302,13 +317,19 @@ onMounted(async () => {
                 {{ record.student?.full_name?.charAt(0) }}
               </a-avatar>
               <div>
-                <div class="font-medium text-gray-900 text-sm">{{ record.student?.full_name || record.student?.username || '-' }}</div>
+                <div class="font-medium text-gray-900 text-sm">
+                  {{ record.student?.full_name || record.student?.username || '-' }}
+                </div>
               </div>
             </div>
           </template>
           <template v-else-if="column.key === 'classroom'">
-            <div class="text-gray-600 text-sm">{{ record.classroom?.title || '-' }}</div>
-            <div class="text-xs text-gray-400">{{ record.classroom?.course?.title }}</div>
+            <div class="text-gray-600 text-sm">
+              {{ record.classroom?.title || '-' }}
+            </div>
+            <div class="text-xs text-gray-400">
+              {{ record.classroom?.course?.title }}
+            </div>
           </template>
           <template v-else-if="column.key === 'status'">
             <span
@@ -338,8 +359,12 @@ onMounted(async () => {
         <template #emptyText>
           <div class="py-12 text-center">
             <Icon name="solar:document-text-bold" size="48" class="text-gray-300 mx-auto mb-4" />
-            <h3 class="text-lg font-medium text-gray-900 mb-2">{{ $t('admin.homeworkSubmissions.empty.title') }}</h3>
-            <p class="text-gray-500">{{ $t('admin.homeworkSubmissions.empty.description') }}</p>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">
+              {{ $t('admin.homeworkSubmissions.empty.title') }}
+            </h3>
+            <p class="text-gray-500">
+              {{ $t('admin.homeworkSubmissions.empty.description') }}
+            </p>
           </div>
         </template>
       </a-table>

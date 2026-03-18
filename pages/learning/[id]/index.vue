@@ -269,7 +269,6 @@ const classroomId = computed(() => {
 
 // Load course classmates (append = load more)
 async function loadClassmates(append = false) {
-  console.log('loadClassmates', course.value?.course_type)
   if (course.value?.course_type !== 'course') {
     classmates.value = []
     return

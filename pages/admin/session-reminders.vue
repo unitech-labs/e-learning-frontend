@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { SessionReminder, ReminderConfig, ReminderRunLog } from '~/composables/api/useReminderApi'
-import { useReminderApi } from '~/composables/api/useReminderApi'
+import type { ReminderConfig, ReminderRunLog, SessionReminder } from '~/composables/api/useReminderApi'
 import { notification } from 'ant-design-vue'
+import { useReminderApi } from '~/composables/api/useReminderApi'
 
 definePageMeta({
   layout: 'admin',
@@ -58,7 +58,8 @@ async function loadConfig() {
 
 // Toggle reminder on/off
 async function toggleEnabled() {
-  if (!config.value) return
+  if (!config.value)
+    return
   try {
     configSaving.value = true
     const newValue = !config.value.is_enabled
@@ -78,7 +79,8 @@ async function toggleEnabled() {
 
 // Save config (minutes before + run frequency)
 async function saveConfig() {
-  if (!config.value) return
+  if (!config.value)
+    return
   try {
     configSaving.value = true
     config.value = await updateConfig({
@@ -177,29 +179,38 @@ function clearFilters() {
 
 // Format datetime for display
 function formatDateTime(iso: string) {
-  if (!iso) return ''
+  if (!iso)
+    return ''
   const d = new Date(iso)
   return d.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })
 }
 
 function statusLabel(status: string) {
-  if (status === 'success') return 'Thành công'
-  if (status === 'skipped') return 'Bỏ qua'
-  if (status === 'error') return 'Lỗi'
+  if (status === 'success')
+    return 'Thành công'
+  if (status === 'skipped')
+    return 'Bỏ qua'
+  if (status === 'error')
+    return 'Lỗi'
   return status
 }
 
 function statusColor(status: string) {
-  if (status === 'success') return 'bg-green-100 text-green-700'
-  if (status === 'skipped') return 'bg-yellow-100 text-yellow-700'
-  if (status === 'error') return 'bg-red-100 text-red-700'
+  if (status === 'success')
+    return 'bg-green-100 text-green-700'
+  if (status === 'skipped')
+    return 'bg-yellow-100 text-yellow-700'
+  if (status === 'error')
+    return 'bg-red-100 text-red-700'
   return 'bg-gray-100 text-gray-700'
 }
 
 function durationMs(startedAt: string, finishedAt: string) {
-  if (!startedAt || !finishedAt) return ''
+  if (!startedAt || !finishedAt)
+    return ''
   const ms = new Date(finishedAt).getTime() - new Date(startedAt).getTime()
-  if (ms < 1000) return `${ms}ms`
+  if (ms < 1000)
+    return `${ms}ms`
   return `${(ms / 1000).toFixed(1)}s`
 }
 
@@ -385,12 +396,24 @@ onMounted(() => {
             <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
               <tr>
                 <th class="px-6 py-3 text-left w-8" />
-                <th class="px-6 py-3 text-left">Thời gian chạy</th>
-                <th class="px-6 py-3 text-left">Trạng thái</th>
-                <th class="px-6 py-3 text-left">Session quét</th>
-                <th class="px-6 py-3 text-left">Session khớp</th>
-                <th class="px-6 py-3 text-left">Email gửi</th>
-                <th class="px-6 py-3 text-left">Thời lượng</th>
+                <th class="px-6 py-3 text-left">
+                  Thời gian chạy
+                </th>
+                <th class="px-6 py-3 text-left">
+                  Trạng thái
+                </th>
+                <th class="px-6 py-3 text-left">
+                  Session quét
+                </th>
+                <th class="px-6 py-3 text-left">
+                  Session khớp
+                </th>
+                <th class="px-6 py-3 text-left">
+                  Email gửi
+                </th>
+                <th class="px-6 py-3 text-left">
+                  Thời lượng
+                </th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
@@ -437,7 +460,9 @@ onMounted(() => {
                     <div class="space-y-4">
                       <!-- Error message -->
                       <div v-if="log.error_message" class="p-3 bg-red-50 border border-red-200 rounded-lg">
-                        <p class="text-sm font-medium text-red-700">Lỗi:</p>
+                        <p class="text-sm font-medium text-red-700">
+                          Lỗi:
+                        </p>
                         <p class="text-sm text-red-600 mt-1">
                           {{ log.error_message }}
                         </p>
@@ -452,16 +477,28 @@ onMounted(() => {
                           <table class="w-full text-xs border border-gray-200 rounded">
                             <thead class="bg-gray-100">
                               <tr>
-                                <th class="px-3 py-2 text-left">Buổi học</th>
-                                <th class="px-3 py-2 text-left">Lớp</th>
-                                <th class="px-3 py-2 text-left">Giờ học</th>
+                                <th class="px-3 py-2 text-left">
+                                  Buổi học
+                                </th>
+                                <th class="px-3 py-2 text-left">
+                                  Lớp
+                                </th>
+                                <th class="px-3 py-2 text-left">
+                                  Giờ học
+                                </th>
                               </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100">
                               <tr v-for="s in log.sessions_scanned" :key="s.session_id">
-                                <td class="px-3 py-2">{{ s.topic }}</td>
-                                <td class="px-3 py-2">{{ s.classroom }}</td>
-                                <td class="px-3 py-2">{{ s.start_time }}</td>
+                                <td class="px-3 py-2">
+                                  {{ s.topic }}
+                                </td>
+                                <td class="px-3 py-2">
+                                  {{ s.classroom }}
+                                </td>
+                                <td class="px-3 py-2">
+                                  {{ s.start_time }}
+                                </td>
                               </tr>
                             </tbody>
                           </table>
@@ -477,18 +514,34 @@ onMounted(() => {
                           <table class="w-full text-xs border border-gray-200 rounded">
                             <thead class="bg-gray-100">
                               <tr>
-                                <th class="px-3 py-2 text-left">Buổi học</th>
-                                <th class="px-3 py-2 text-left">Lớp</th>
-                                <th class="px-3 py-2 text-left">Giờ học</th>
-                                <th class="px-3 py-2 text-left">Số email</th>
+                                <th class="px-3 py-2 text-left">
+                                  Buổi học
+                                </th>
+                                <th class="px-3 py-2 text-left">
+                                  Lớp
+                                </th>
+                                <th class="px-3 py-2 text-left">
+                                  Giờ học
+                                </th>
+                                <th class="px-3 py-2 text-left">
+                                  Số email
+                                </th>
                               </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100">
                               <tr v-for="s in log.sessions_matched" :key="s.session_id">
-                                <td class="px-3 py-2">{{ s.topic }}</td>
-                                <td class="px-3 py-2">{{ s.classroom }}</td>
-                                <td class="px-3 py-2">{{ s.start_time }}</td>
-                                <td class="px-3 py-2 font-medium">{{ s.emails_count }}</td>
+                                <td class="px-3 py-2">
+                                  {{ s.topic }}
+                                </td>
+                                <td class="px-3 py-2">
+                                  {{ s.classroom }}
+                                </td>
+                                <td class="px-3 py-2">
+                                  {{ s.start_time }}
+                                </td>
+                                <td class="px-3 py-2 font-medium">
+                                  {{ s.emails_count }}
+                                </td>
                               </tr>
                             </tbody>
                           </table>
@@ -504,16 +557,28 @@ onMounted(() => {
                           <table class="w-full text-xs border border-gray-200 rounded">
                             <thead class="bg-gray-100">
                               <tr>
-                                <th class="px-3 py-2 text-left">Email</th>
-                                <th class="px-3 py-2 text-left">Tài khoản</th>
-                                <th class="px-3 py-2 text-left">Buổi học</th>
+                                <th class="px-3 py-2 text-left">
+                                  Email
+                                </th>
+                                <th class="px-3 py-2 text-left">
+                                  Tài khoản
+                                </th>
+                                <th class="px-3 py-2 text-left">
+                                  Buổi học
+                                </th>
                               </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100">
                               <tr v-for="(e, idx) in log.emails_queued" :key="idx">
-                                <td class="px-3 py-2">{{ e.email }}</td>
-                                <td class="px-3 py-2">{{ e.username }}</td>
-                                <td class="px-3 py-2">{{ e.session_topic }}</td>
+                                <td class="px-3 py-2">
+                                  {{ e.email }}
+                                </td>
+                                <td class="px-3 py-2">
+                                  {{ e.username }}
+                                </td>
+                                <td class="px-3 py-2">
+                                  {{ e.session_topic }}
+                                </td>
                               </tr>
                             </tbody>
                           </table>
@@ -613,12 +678,24 @@ onMounted(() => {
         <table v-else-if="reminders.length > 0" class="w-full text-sm">
           <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
             <tr>
-              <th class="px-6 py-3 text-left">Học sinh</th>
-              <th class="px-6 py-3 text-left">Email gửi đến</th>
-              <th class="px-6 py-3 text-left">Buổi học</th>
-              <th class="px-6 py-3 text-left">Lớp</th>
-              <th class="px-6 py-3 text-left">Giờ học</th>
-              <th class="px-6 py-3 text-left">Gửi lúc</th>
+              <th class="px-6 py-3 text-left">
+                Học sinh
+              </th>
+              <th class="px-6 py-3 text-left">
+                Email gửi đến
+              </th>
+              <th class="px-6 py-3 text-left">
+                Buổi học
+              </th>
+              <th class="px-6 py-3 text-left">
+                Lớp
+              </th>
+              <th class="px-6 py-3 text-left">
+                Giờ học
+              </th>
+              <th class="px-6 py-3 text-left">
+                Gửi lúc
+              </th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">

@@ -1,3 +1,69 @@
+<script setup>
+import { computed, reactive, ref, watch } from 'vue'
+import { useAppStore } from '@/store'
+
+const store = useAppStore()
+
+const exTimeline = reactive({
+  timeFrom: ref(7),
+  timeTo: ref(18),
+  timeStep: ref(30),
+  onReady: ({ view }) => setTimeout(() => view.scrollToCurrentTime(), 350),
+})
+
+const exTodayCurrentTime = reactive({
+  watchRealTime: ref(false),
+  now: ref(new Date()),
+  timeBeforeUpdate: computed(() => 60 - exTodayCurrentTime.now.getSeconds()),
+  timeTickerId: null,
+  onReady: ({ view }) => {
+    view.scrollToCurrentTime()
+  },
+  timeTick: () => {
+    exTodayCurrentTime.now = new Date()
+    exTodayCurrentTime.timeTickerId = setTimeout(exTodayCurrentTime.timeTick, 1000)
+  },
+})
+watch(() => exTodayCurrentTime.watchRealTime, () => {
+  if (exTodayCurrentTime.watchRealTime)
+    exTodayCurrentTime.timeTick()
+  else clearTimeout(exTodayCurrentTime.timeTickerId)
+})
+
+const exScrollToTime = reactive({
+  timeCellHeight: 26,
+  scrollTop: null,
+  scrollToTime: null,
+  scrollToCurrentTime: null,
+  onReady: ({ view }) => {
+    exScrollToTime.scrollTop = view.scrollTop
+    exScrollToTime.scrollToTime = view.scrollToTime
+    exScrollToTime.scrollToCurrentTime = view.scrollToCurrentTime
+    view.scrollToCurrentTime()
+  },
+})
+
+const exMinMaxDates = reactive({
+  minDate: computed(() => new Date().subtractDays(10)),
+  maxDate: computed(() => new Date().addDays(10)),
+})
+
+const exDisableDays = reactive({
+  disableDays: ref(true),
+  disabledDates: [
+    new Date().subtractDays(2).format(),
+    new Date().format(),
+    new Date().addDays(2).format(),
+  ],
+  computedDisabledDays: computed(() => exDisableDays.disableDays ? exDisableDays.disabledDates : []),
+})
+
+const exHideWeekDays = reactive({
+  weekdays: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+  weekdaysToHide: ref(['tue', 'wed', 'fri']),
+})
+</script>
+
 <template lang="pug">
 //- Example.
 example(title="Timeline" anchor="timeline")
@@ -260,72 +326,6 @@ example(title="Hide Particular Week Days" anchor="hiding-particular-week-days")
     :hide-weekdays="exHideWeekDays.weekdaysToHide"
     :dark="store.darkMode")
 </template>
-
-<script setup>
-import { computed, reactive, ref, watch } from 'vue'
-import { useAppStore } from '@/store'
-import { VueCal } from '@/vue-cal'
-
-const store = useAppStore()
-
-const exTimeline = reactive({
-  timeFrom: ref(7),
-  timeTo: ref(18),
-  timeStep: ref(30),
-  onReady: ({ view }) => setTimeout(() => view.scrollToCurrentTime(), 350)
-})
-
-const exTodayCurrentTime = reactive({
-  watchRealTime: ref(false),
-  now: ref(new Date()),
-  timeBeforeUpdate: computed(() => 60 - exTodayCurrentTime.now.getSeconds()),
-  timeTickerId: null,
-  onReady: ({ view }) => {
-    view.scrollToCurrentTime()
-  },
-  timeTick: () => {
-    exTodayCurrentTime.now = new Date()
-    exTodayCurrentTime.timeTickerId = setTimeout(exTodayCurrentTime.timeTick, 1000)
-  }
-})
-watch(() => exTodayCurrentTime.watchRealTime, () => {
-  if (exTodayCurrentTime.watchRealTime) exTodayCurrentTime.timeTick()
-  else clearTimeout(exTodayCurrentTime.timeTickerId)
-})
-
-const exScrollToTime = reactive({
-  timeCellHeight: 26,
-  scrollTop: null,
-  scrollToTime: null,
-  scrollToCurrentTime: null,
-  onReady: ({ view }) => {
-    exScrollToTime.scrollTop = view.scrollTop
-    exScrollToTime.scrollToTime = view.scrollToTime
-    exScrollToTime.scrollToCurrentTime = view.scrollToCurrentTime
-    view.scrollToCurrentTime()
-  }
-})
-
-const exMinMaxDates = reactive({
-  minDate: computed(() => new Date().subtractDays(10)),
-  maxDate: computed(() => new Date().addDays(10))
-})
-
-const exDisableDays = reactive({
-  disableDays: ref(true),
-  disabledDates: [
-    new Date().subtractDays(2).format(),
-    new Date().format(),
-    new Date().addDays(2).format()
-  ],
-  computedDisabledDays: computed(() => exDisableDays.disableDays ? exDisableDays.disabledDates : [])
-})
-
-const exHideWeekDays = reactive({
-  weekdays: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
-  weekdaysToHide: ref(['tue', 'wed', 'fri'])
-})
-</script>
 
 <style lang="scss">
 // Today-current-time example.

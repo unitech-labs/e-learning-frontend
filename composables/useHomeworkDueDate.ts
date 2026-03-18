@@ -15,7 +15,8 @@ const VIETNAM_TZ = 'Asia/Ho_Chi_Minh'
  * - If no timezone, treat as Vietnam time (Asia/Ho_Chi_Minh)
  */
 function parseDueDate(dueDate: string): dayjs.Dayjs {
-  if (!dueDate) return dayjs().add(1, 'year') // far future if missing
+  if (!dueDate)
+    return dayjs().add(1, 'year') // far future if missing
   const s = String(dueDate).trim()
   // Has explicit timezone: Z, +HH:mm, -HH:mm
   if (/Z$|[-+]\d{2}:?\d{2}$/.test(s)) {
@@ -48,6 +49,7 @@ export function formatHomeworkDueDate(dueDate: string, format = 'DD/MM/YYYY HH:m
 export function getHomeworkTimeRemaining(dueDate: string): string | null {
   const due = parseDueDate(dueDate).local()
   const now = dayjs()
-  if (due.isBefore(now)) return null
+  if (due.isBefore(now))
+    return null
   return due.from(now, true)
 }

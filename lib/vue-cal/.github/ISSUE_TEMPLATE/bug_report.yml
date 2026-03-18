@@ -1,7 +1,7 @@
 name: Bug Report
 description: Report a bug to help us improve.
-title: "[Bug] "
-labels: ["bug"]
+title: '[Bug] '
+labels: [bug]
 body:
   - type: markdown
     attributes:
@@ -12,43 +12,43 @@ body:
   - type: input
     id: vue-cal-version
     attributes:
-      label: "Vue Cal Version"
-      description: "Specify the version of Vue Cal you are using (e.g., 5.0.0)."
-      placeholder: "e.g., 5.0.0"
+      label: Vue Cal Version
+      description: 'Specify the version of Vue Cal you are using (e.g., 5.0.0).'
+      placeholder: 'e.g., 5.0.0'
     validations:
       required: true
 
   - type: input
     id: vue-version
     attributes:
-      label: "Vue Version"
-      description: "Specify the version of Vue you are using (e.g., 3.3.0)."
-      placeholder: "e.g., 3.3.0"
+      label: Vue Version
+      description: 'Specify the version of Vue you are using (e.g., 3.3.0).'
+      placeholder: 'e.g., 3.3.0'
     validations:
       required: true
 
   - type: checkboxes
     id: additional-settings
     attributes:
-      label: "Additional Settings"
-      description: "Check all that apply."
+      label: Additional Settings
+      description: Check all that apply.
       options:
-        - label: "Using Composition API"
-        - label: "Using SSR"
+        - label: Using Composition API
+        - label: Using SSR
 
   - type: textarea
     id: bug-description
     attributes:
-      label: "Describe the Bug & Expected Behavior"
-      description: "Provide a clear and concise description of the bug and what you expected to happen. Add screenshots if helpful."
-      placeholder: "Describe the bug and expected behavior here..."
+      label: 'Describe the Bug & Expected Behavior'
+      description: Provide a clear and concise description of the bug and what you expected to happen. Add screenshots if helpful.
+      placeholder: Describe the bug and expected behavior here...
     validations:
       required: true
 
   - type: textarea
     id: reproduction-link
     attributes:
-      label: "Provide a Reproduction Link"
+      label: Provide a Reproduction Link
       description: |
         Provide a link to reproduce the issue by forking one of our examples on StackBlitz:
 
@@ -59,6 +59,6 @@ body:
           1. Go to '...'
           2. Click on '...'
           3. See error
-      placeholder: "Paste reproduction link here"
+      placeholder: Paste reproduction link here
     validations:
       required: true

@@ -1,3 +1,104 @@
+<script setup>
+import { computed, onMounted, ref } from 'vue'
+import { useAppStore } from '@/store'
+import { addDays, formatDate } from '@/vue-cal'
+
+const store = useAppStore()
+const ready = ref(false)
+
+const demoExample = ref({
+  schedules: [{ label: 'Dr. John', class: 'john' }, { label: 'Dr. Kate', class: 'kate' }],
+  editable: { drag: true, resize: true, create: true, delete: true },
+  events: [],
+})
+
+const selectedDate = ref(new Date())
+const viewDate = ref(new Date())
+
+// Get the Monday of the real time current week.
+const previousFirstDayOfWeek = computed(() => {
+  return new Date(new Date().setDate(new Date().getDate() - (new Date().getDay() + 6) % 7))
+})
+
+// Place all the events in the real time current week.
+for (let i = 0; i < 5; i++) {
+  const day = formatDate(addDays(previousFirstDayOfWeek.value, i))
+
+  demoExample.value.events.push(
+    {
+      start: `${day} 12:00`,
+      end: `${day} 13:00`,
+      title: 'LUNCH',
+      class: 'lunch',
+      background: true,
+      deletable: false,
+      resizable: false,
+      schedule: 1,
+    },
+    {
+      start: `${day} 12:00`,
+      end: `${day} 13:00`,
+      title: 'LUNCH',
+      class: 'lunch',
+      background: true,
+      deletable: false,
+      resizable: false,
+      schedule: 2,
+    },
+  )
+}
+
+const monday = formatDate(previousFirstDayOfWeek.value)
+const tuesday = formatDate(addDays(previousFirstDayOfWeek.value, 1))
+const thursday = formatDate(addDays(previousFirstDayOfWeek.value, 3))
+const friday = formatDate(addDays(previousFirstDayOfWeek.value, 4))
+
+demoExample.value.events.push(
+  {
+    start: `${monday} 15:30`,
+    end: `${monday} 17:30`,
+    title: 'Health Checkup',
+    content: '<i class="w-icon mdi mdi-stethoscope mt1"></i>',
+    resizable: false,
+    schedule: 1,
+  },
+  {
+    start: `${monday} 14:30`,
+    end: `${monday} 16:30`,
+    title: 'Hip Surgery',
+    content: '<i class="w-icon mdi mdi-knife mt1"></i>',
+    resizable: false,
+    schedule: 2,
+  },
+  {
+    start: `${tuesday} 08:00`,
+    end: `${tuesday} 10:00`,
+    title: 'Eye Surgery',
+    content: '<i class="w-icon mdi mdi-knife mt1"></i>',
+    resizable: false,
+    schedule: 2,
+  },
+  {
+    start: `${thursday} 09:00`,
+    end: `${thursday} 11:30`,
+    title: 'Follow Up',
+    content: '<i class="w-icon mdi mdi-stethoscope mt2"></i>',
+    resizable: false,
+    schedule: 1,
+  },
+  {
+    start: `${friday} 16:30`,
+    end: `${friday} 18:30`,
+    title: 'Eye Surgery',
+    content: '<i class="w-icon mdi mdi-knife mt1"></i>',
+    resizable: false,
+    schedule: 2,
+  },
+)
+
+onMounted(() => setTimeout(() => (ready.value = ready), 400))
+</script>
+
 <template lang="pug">
 .hero(:class="{ ready }")
   .mb10.tagline
@@ -43,107 +144,6 @@
           w-icon.ml1(color="grey lighten-1") mdi mdi-open-in-new
   .bg
 </template>
-
-<script setup>
-import { computed, onMounted, ref } from 'vue'
-import { useAppStore } from '@/store'
-import { VueCal, formatDate, addDays } from '@/vue-cal'
-
-const store = useAppStore()
-const ready = ref(false)
-
-const demoExample = ref({
-  schedules: [{ label: 'Dr. John', class: 'john' }, { label: 'Dr. Kate', class: 'kate' }],
-  editable: { drag: true, resize: true, create: true, delete: true },
-  events: []
-})
-
-const selectedDate = ref(new Date())
-const viewDate = ref(new Date())
-
-// Get the Monday of the real time current week.
-const previousFirstDayOfWeek = computed(() => {
-  return new Date(new Date().setDate(new Date().getDate() - (new Date().getDay() + 6) % 7))
-})
-
-// Place all the events in the real time current week.
-for (let i = 0; i < 5; i++) {
-  const day = formatDate(addDays(previousFirstDayOfWeek.value, i))
-
-  demoExample.value.events.push(
-    {
-      start: `${day} 12:00`,
-      end: `${day} 13:00`,
-      title: 'LUNCH',
-      class: 'lunch',
-      background: true,
-      deletable: false,
-      resizable: false,
-      schedule: 1
-    },
-    {
-      start: `${day} 12:00`,
-      end: `${day} 13:00`,
-      title: 'LUNCH',
-      class: 'lunch',
-      background: true,
-      deletable: false,
-      resizable: false,
-      schedule: 2
-    }
-  )
-}
-
-const monday = formatDate(previousFirstDayOfWeek.value)
-const tuesday = formatDate(addDays(previousFirstDayOfWeek.value, 1))
-const thursday = formatDate(addDays(previousFirstDayOfWeek.value, 3))
-const friday = formatDate(addDays(previousFirstDayOfWeek.value, 4))
-
-demoExample.value.events.push(
-  {
-    start: `${monday} 15:30`,
-    end: `${monday} 17:30`,
-    title: 'Health Checkup',
-    content: '<i class="w-icon mdi mdi-stethoscope mt1"></i>',
-    resizable: false,
-    schedule: 1
-  },
-  {
-    start: `${monday} 14:30`,
-    end: `${monday} 16:30`,
-    title: 'Hip Surgery',
-    content: '<i class="w-icon mdi mdi-knife mt1"></i>',
-    resizable: false,
-    schedule: 2
-  },
-  {
-    start: `${tuesday} 08:00`,
-    end: `${tuesday} 10:00`,
-    title: 'Eye Surgery',
-    content: '<i class="w-icon mdi mdi-knife mt1"></i>',
-    resizable: false,
-    schedule: 2
-  },
-  {
-    start: `${thursday} 09:00`,
-    end: `${thursday} 11:30`,
-    title: 'Follow Up',
-    content: '<i class="w-icon mdi mdi-stethoscope mt2"></i>',
-    resizable: false,
-    schedule: 1
-  },
-  {
-    start: `${friday} 16:30`,
-    end: `${friday} 18:30`,
-    title: 'Eye Surgery',
-    content: '<i class="w-icon mdi mdi-knife mt1"></i>',
-    resizable: false,
-    schedule: 2
-  }
-)
-
-onMounted(() => setTimeout(() => (ready.value = ready), 400))
-</script>
 
 <style lang="scss">
 @use 'sass:color';

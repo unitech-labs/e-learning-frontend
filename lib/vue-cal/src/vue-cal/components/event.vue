@@ -1,43 +1,17 @@
-<template lang="pug">
-.vuecal__event(
-  v-on="eventListeners"
-  ref="eventEl"
-  :class="classes"
-  :style="styles"
-  :draggable="isDraggable ? 'true' : undefined"
-  @dragstart="isDraggable && dnd.eventDragStart($event, event)"
-  @dragend="isDraggable && dnd.eventDragEnd($event, event)")
-  .vuecal__event-details
-    slot(v-if="$slots['event.all-day']" name="event.all-day" :event="event")
-    slot(v-else-if="$slots[`event.${view.id}`]" :name="`event.${view.id}`" :event="event")
-    slot(v-else name="event" :event="event")
-      .vuecal__event-title {{ event.title }}
-      .vuecal__event-time(v-if="config.time && !inAllDayBar && !(event._.multiday && !eventStartsInThisCell)")
-        span.vuecal__event-comma(v-if="view.isMonth") ,
-        span.vuecal__event-start {{ event._[`startTimeFormatted${config.twelveHour ? 12 : 24}`] }}
-        span.vuecal__event-end(v-if="!view.isMonth")
-          | &nbsp;-&nbsp;{{ event._[`endTimeFormatted${config.twelveHour ? 12 : 24}`] }}
-          span(v-if="event._.multiday && eventStartsInThisCell") +{{ plusDaysIndicator }}d
-      .vuecal__event-content(v-if="!inAllDayBar" v-html="event.content")
-  .vuecal__event-resizer(v-if="isResizable" @dragstart.prevent.stop)
-  transition(name="vuecal-delete-btn")
-    .vuecal__event-delete(v-if="event._.deleting" @click.stop="event.delete(3)") Delete
-</template>
-
 <script setup>
 /**
  * This component renders an event in full in a cell if the event is not multi-day.
  * If the event is multi-day, it renders a fragment of the event only.
  */
 
-import { computed, inject, onMounted, reactive, ref, onBeforeUnmount } from 'vue'
-import { minutesToPercentage, percentageToMinutes } from '@/vue-cal/utils/conversions'
+import { computed, inject, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+import { minutesToPercentage } from '@/vue-cal/utils/conversions'
 
 const props = defineProps({
   event: { type: Object, required: true },
   inAllDayBar: { type: Boolean, default: false },
   cellStart: { type: Date, required: true },
-  cellEnd: { type: Date, required: true }
+  cellEnd: { type: Date, required: true },
 })
 
 const emit = defineEmits(['event-drag-start', 'event-drag-end', 'event-resize-start', 'event-resize-end'])
@@ -68,7 +42,7 @@ const touch = reactive({
   resizingOriginalEvent: null, // Store the original event details while resizing.
   resizingLastAcceptedEvent: null, // Store the last accepted event details while resizing.
   cellEl: null, // Store the cell DOM node for a more efficient resizing calc in mousemove/touchmove.
-  schedule: null
+  schedule: null,
 })
 
 const isDraggable = computed(() => {
@@ -76,8 +50,10 @@ const isDraggable = computed(() => {
 })
 
 const isResizable = computed(() => {
-  if (view.isMonth || view.isYear || view.isYears || props.inAllDayBar) return false
-  if (event._.multiday && !eventEndsInThisCell.value) return false
+  if (view.isMonth || view.isYear || view.isYears || props.inAllDayBar)
+    return false
+  if (event._.multiday && !eventEndsInThisCell.value)
+    return false
   return config.time && config.editableEvents.resize && event.resizable !== false && !event.background
 })
 
@@ -104,7 +80,7 @@ const classes = computed(() => {
     // after event deletion (event._.dragging is already false) so the event ghost does not flash in before
     // deletion.
     'vuecal__event--dragging-ghost': event._.draggingGhost,
-    'vuecal__event--resizing': globalTouchState.isResizingEvent
+    'vuecal__event--resizing': globalTouchState.isResizingEvent,
   }
 })
 
@@ -132,11 +108,12 @@ const styles = computed(() => {
   const hasPosition = (view.isDay || view.isDays || view.isWeek) && config.time && !props.inAllDayBar
   const isHzl = config.horizontal
 
-  if (!hasPosition && !event.backgroundColor && !event.color) return false
+  if (!hasPosition && !event.backgroundColor && !event.color)
+    return false
 
   const styles = {
     backgroundColor: event.backgroundColor || null,
-    color: event.color || null
+    color: event.color || null,
   }
 
   if (hasPosition) {
@@ -144,8 +121,10 @@ const styles = computed(() => {
     let endMinutes = event._.endMinutes
 
     if (event._.multiday) {
-      if (!eventStartsInThisCell.value) startMinutes = 0
-      if (!eventEndsInThisCell.value) endMinutes = 24 * 60
+      if (!eventStartsInThisCell.value)
+        startMinutes = 0
+      if (!eventEndsInThisCell.value)
+        endMinutes = 24 * 60
     }
 
     // Ensure that the event start and end stay in range.
@@ -170,7 +149,7 @@ const eventListeners = computed(() => {
   for (const [eventListener, handler] of Object.entries(eventListeners)) {
     // `event-resize-end` is handled in `onDocMouseup` in this file.
     if (!['resize-end'].includes(eventListener)) {
-      eventListeners[eventListener] = e => {
+      eventListeners[eventListener] = (e) => {
         // SHOULD NOT PREVENT BUBBLING UP TO THE CELL WHEN INTERACTING WITH THE EVENT:
         // if we stop bubbling, we will not receive the onMouseup listened from document if releasing
         // on the event. Instead, in the cell don't call the mouseup handler if releasing on the event.
@@ -178,7 +157,8 @@ const eventListeners = computed(() => {
 
         // Check if e.type to not rewrap the DOM event in an object if already done.
         // `event-drop` is handled in the drag-and-drop composable.
-        if (e.type !== 'drop') handler(e.type ? { e, event } : e)
+        if (e.type !== 'drop')
+          handler(e.type ? { e, event } : e)
       }
     }
   }
@@ -187,7 +167,7 @@ const eventListeners = computed(() => {
   // touchstart, mousedown.
   const externalHandlers = { ...eventListeners }
 
-  eventListeners.touchstart = e => {
+  eventListeners.touchstart = (e) => {
     e.stopPropagation()
     touch.touchAndDragTimer = setTimeout(() => {
       touch.canTouchAndDrag = true
@@ -196,7 +176,7 @@ const eventListeners = computed(() => {
 
     externalHandlers.touchstart?.({ e, event })
   }
-  eventListeners.mousedown = e => {
+  eventListeners.mousedown = (e) => {
     e.stopPropagation()
     onMousedown(e)
 
@@ -205,11 +185,13 @@ const eventListeners = computed(() => {
 
   // `event-delayed-click` is only fired after 400ms if there was no dblclick.
   let clickTimeout = null
-  eventListeners.click = e => {
+  eventListeners.click = (e) => {
     externalHandlers.click?.({ e, event }) // Handle single click.
 
     // Handle double click in eventListeners.dblclick.
-    if (clickTimeout) clickTimeout = clearTimeout(clickTimeout)
+    if (clickTimeout) {
+      clickTimeout = clearTimeout(clickTimeout)
+    }
     else {
       clickTimeout = setTimeout(() => {
         clickTimeout = null
@@ -217,8 +199,9 @@ const eventListeners = computed(() => {
       }, 400)
     }
   }
-  eventListeners.dblclick = e => {
-    if (externalHandlers.dblclick) externalHandlers.dblclick({ e, event })
+  eventListeners.dblclick = (e) => {
+    if (externalHandlers.dblclick)
+      externalHandlers.dblclick({ e, event })
     // Show delete button on event on double click by default except if dblclick is used externally.
     else event.delete(1)
   }
@@ -232,7 +215,7 @@ let rectCacheTime = 0
 const RECT_CACHE_DURATION = 16 // ~60fps
 
 // On mousedown OR TOUCHSTART on the event.
-const onMousedown = e => {
+function onMousedown(e) {
   const domEvent = e.touches?.[0] || e // Handle click or touch event.
 
   // If the event target is the resizer, set the resizing flag.
@@ -255,7 +238,8 @@ const onMousedown = e => {
   // Store the event start to apply on event end when resizing and end < start.
   touch.resizeStartDate = event.start
 
-  if (touch.fromResizer) handleEventResize(e, event, eventEl.value)
+  if (touch.fromResizer)
+    handleEventResize(e, event, eventEl.value)
 
   touch.holdTimer = setTimeout(() => {
     touch.holding = true
@@ -269,12 +253,40 @@ onMounted(() => event._.register(eventEl.value))
 
 onBeforeUnmount(() => {
   // Clean up timers to prevent memory leaks.
-  if (touch.holdTimer) touch.holdTimer = clearTimeout(touch.holdTimer)
-  if (touch.touchAndDragTimer) touch.touchAndDragTimer = clearTimeout(touch.touchAndDragTimer)
+  if (touch.holdTimer)
+    touch.holdTimer = clearTimeout(touch.holdTimer)
+  if (touch.touchAndDragTimer)
+    touch.touchAndDragTimer = clearTimeout(touch.touchAndDragTimer)
 
   event._.unregister()
 })
 </script>
+
+<template lang="pug">
+.vuecal__event(
+  v-on="eventListeners"
+  ref="eventEl"
+  :class="classes"
+  :style="styles"
+  :draggable="isDraggable ? 'true' : undefined"
+  @dragstart="isDraggable && dnd.eventDragStart($event, event)"
+  @dragend="isDraggable && dnd.eventDragEnd($event, event)")
+  .vuecal__event-details
+    slot(v-if="$slots['event.all-day']" name="event.all-day" :event="event")
+    slot(v-else-if="$slots[`event.${view.id}`]" :name="`event.${view.id}`" :event="event")
+    slot(v-else name="event" :event="event")
+      .vuecal__event-title {{ event.title }}
+      .vuecal__event-time(v-if="config.time && !inAllDayBar && !(event._.multiday && !eventStartsInThisCell)")
+        span.vuecal__event-comma(v-if="view.isMonth") ,
+        span.vuecal__event-start {{ event._[`startTimeFormatted${config.twelveHour ? 12 : 24}`] }}
+        span.vuecal__event-end(v-if="!view.isMonth")
+          | &nbsp;-&nbsp;{{ event._[`endTimeFormatted${config.twelveHour ? 12 : 24}`] }}
+          span(v-if="event._.multiday && eventStartsInThisCell") +{{ plusDaysIndicator }}d
+      .vuecal__event-content(v-if="!inAllDayBar" v-html="event.content")
+  .vuecal__event-resizer(v-if="isResizable" @dragstart.prevent.stop)
+  transition(name="vuecal-delete-btn")
+    .vuecal__event-delete(v-if="event._.deleting" @click.stop="event.delete(3)") Delete
+</template>
 
 <style lang="scss">
 .vuecal__event {

@@ -1,3 +1,316 @@
+<script setup>
+import { computed, onBeforeUnmount, reactive, ref } from 'vue'
+import { useAppStore } from '@/store'
+
+const store = useAppStore()
+
+const baseUrl = computed(() => import.meta.env.BASE_URL)
+const events = [
+  {
+    start: new Date(new Date().setHours(11, 0)).subtractDays(2),
+    end: new Date(new Date().setHours(13, 0)).subtractDays(2),
+    title: 'Salsa Dance Class',
+    content: '<i class="w-icon mdi mdi-dance-ballroom"></i>',
+    class: 'sport',
+    schedule: 2,
+  },
+  {
+    start: new Date(new Date().setHours(12, 30)),
+    end: new Date(new Date().setHours(13, 30)),
+    title: 'Doctor Appt.',
+    content: '<i class="w-icon mdi mdi-stethoscope"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+  {
+    start: new Date(new Date().setHours(11, 30)).addDays(1),
+    end: new Date(new Date().setHours(12, 30)).addDays(1),
+    title: 'Dentist Appt.',
+    content: '<i class="w-icon mdi mdi-tooth"></i>',
+    class: 'health',
+    schedule: 2,
+  },
+  {
+    start: new Date(new Date().setHours(13, 0)).addDays(1),
+    end: new Date(new Date().setHours(14, 0)).addDays(1),
+    title: 'Cross-fit',
+    content: '<i class="w-icon mdi mdi-dumbbell"></i>',
+    class: 'sport',
+    schedule: 2,
+  },
+  {
+    start: new Date(new Date().setHours(10, 0)).addDays(3),
+    end: new Date(new Date().setHours(11, 30)).addDays(3),
+    title: 'Swimming Class',
+    content: '<i class="w-icon mdi mdi-swim"></i>',
+    class: 'sport',
+    schedule: 2,
+  },
+  {
+    start: new Date(new Date().setHours(11, 35)).addDays(3),
+    end: new Date(new Date().setHours(12, 30)).addDays(3),
+    title: 'Brunch with Jane',
+    content: '<i class="w-icon mdi mdi-food-croissant"></i>',
+    class: 'leisure',
+    schedule: 1,
+    background: false,
+  },
+  {
+    start: new Date(new Date().setHours(9, 0)).addDays(4),
+    end: new Date(new Date().setHours(10, 0)).addDays(4),
+    title: 'Doctor Appt.',
+    content: '<i class="w-icon mdi mdi-stethoscope"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+  {
+    start: new Date(new Date().setHours(11, 30)).addDays(4),
+    end: new Date(new Date().setHours(12, 25)).addDays(4),
+    title: 'BK with Mark',
+    content: '<i class="w-icon mdi mdi-food"></i>',
+    class: 'leisure',
+    schedule: 2,
+  },
+  {
+    start: new Date(new Date().setHours(12, 30)).addDays(4),
+    end: new Date(new Date().setHours(14, 30)).addDays(4),
+    title: 'Movie Theater',
+    content: '<i class="w-icon mdi mdi-ticket"></i>',
+    class: 'leisure',
+    schedule: 1,
+  },
+  {
+    start: new Date(new Date().setHours(11, 30, 21, 0)).addDays(5),
+    end: new Date(new Date().setHours(12, 30, 23, 30)).addDays(5),
+    title: 'Movie Night',
+    content: '<i class="w-icon mdi mdi-popcorn"></i>',
+    class: 'leisure',
+    schedule: 1,
+  },
+  {
+    start: new Date(new Date().setHours(10, 0)).addDays(7),
+    end: new Date(new Date().setHours(11, 0)).addDays(7),
+    title: 'Doctor Appt.',
+    content: '<i class="w-icon mdi mdi-stethoscope"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+]
+
+const exCreateEventsExampleEl = ref(null)
+const exCreateEventsVueCalEl = ref(null)
+const exCreateEvents = reactive({
+  createMethods: [
+    { value: 'event-create', label: 'Click & Drag' },
+    { value: 'cell-dblclick', label: 'Double Click' },
+    { value: 'cell-contextmenu', label: 'Right Click' },
+    { value: 'cell-hold', label: 'Click & Hold' },
+  ],
+  createMethod: ref('event-create'),
+  createEvent: ({ e, event, cell, resolve, cursor }) => {
+    e.preventDefault()
+    event = {
+      ...(event || {}),
+      title: 'New Event! 🎉',
+      start: event?.start || cursor.date,
+      end: event?.end || cursor.date.addHours(1),
+      class: 'blue-event',
+    }
+    resolve = resolve || exCreateEventsVueCalEl.value.view.createEvent
+    if (exCreateEvents.skipCreationDialog)
+      resolve(event)
+    else exCreateEvents.openCreationDialog({ e, event, cell, resolve, cursor })
+  },
+  skipCreationDialog: ref(true),
+  showCreationDialog: ref(false),
+  snapToInterval: ref(false),
+  eventCreateMinDrag: ref(false),
+  resolve: null,
+  events: ref([]),
+  newEvent: {
+    title: '',
+    background: false,
+    class: '',
+  },
+  openCreationDialog: ({ event, resolve }) => {
+    exCreateEvents.showCreationDialog = true
+    exCreateEvents.newEvent = event
+    exCreateEvents.resolve = resolve
+  },
+  cancel: () => {
+    if (exCreateEvents.createMethod === 'event-create')
+      exCreateEvents.resolve(false)
+    exCreateEvents.showCreationDialog = false
+  },
+  save: () => {
+    exCreateEvents.resolve(exCreateEvents.newEvent)
+    exCreateEvents.showCreationDialog = false
+  },
+})
+
+const exExternalEventCreateVuecalRef = ref(null)
+const exExternalEventCreate = reactive({
+  createEvent: () => {
+    exExternalEventCreateVuecalRef.value.view.createEvent({
+      start: new Date(),
+      end: new Date().addHours(1),
+      title: 'New Event 🎉',
+    })
+  },
+})
+
+const exDeleteEvents = reactive({
+  events: [
+    ...events.map(e => ({ ...e })), // Clone events when reusing, so events are independent.
+  ],
+  deleteEvent: ({ e, event }) => {
+    exEditEventsVuecalRef.value.view.deleteEvent(event._.id)
+  },
+  viewDate: new Date(),
+  editableEvents: ref(true),
+  deleteMethod: ref('dblclick'),
+  deleteMethods: [{ label: 'dblclick' }, { label: 'hold' }],
+  eventListeners: computed(() => {
+    let listeners = {
+      'event-dblclick': event => event.event.delete(exDeleteEvents.skipDeleteButton ? 3 : 1),
+    }
+    if (exDeleteEvents.deleteMethod === 'hold') {
+      listeners = {
+        'event-hold': event => event.event.delete(exDeleteEvents.skipDeleteButton ? 3 : 1),
+        'event-dblclick': () => {},
+      }
+    }
+    return listeners
+  }),
+  skipDeleteButton: ref(false),
+})
+
+const exEditEventsVuecalRef = ref(null)
+const exEditEvents = reactive({
+  events: [
+    ...events.map(e => ({ ...e })), // Clone events when reusing, so events are independent.
+    {
+      start: new Date(new Date().addDays(2).setHours(11, 0, 0, 0)), // Using Vue Cal's Date prototypes.
+      end: new Date(new Date().addDays(2).setHours(13, 0, 0, 0)), // Using Vue Cal's Date prototypes.
+      title: 'Boring Event',
+      content: '<i class="w-icon mdi mdi-cancel"></i><br>Can&rsquo;t drag, resize or delete me!',
+      class: 'blue-event',
+      deletable: false,
+      resizable: false,
+      resizableX: false,
+      draggable: false,
+    },
+  ],
+  deletable: ref(false),
+  resizable: ref(false),
+  resizableX: ref(false),
+  draggable: ref(false),
+  creatable: ref(false),
+})
+
+const exEventsVModel = reactive({
+  counter: 1,
+  events: ref([
+    {
+      start: new Date(),
+      end: new Date().addHours(1),
+      title: 'Event 1',
+    },
+  ]),
+  onEventCreate: ({ event, resolve }) => resolve({ ...event, title: `Event ${++exEventsVModel.counter}` }),
+  addEvent: () => exEventsVModel.events.push({
+    start: new Date(),
+    end: new Date().addHours(1),
+    title: `Event ${++exEventsVModel.counter}`,
+  }),
+})
+
+const exDragAndDrop = reactive({
+  events: events.map(e => ({ ...e })), // Clone events when reusing, so events are independent.
+  onEventDrop: ({ e, event, cell, overlaps }) => {
+    return !overlaps.length || (overlaps.length && exDragAndDrop.overlappableEvents)
+  },
+  draggableEvents: ref(true),
+  overlappableEvents: ref(true),
+})
+
+const exExternalEventsDragDropEl1 = ref(null)
+const exExternalEventsDragDropEl2 = ref(null)
+const exExternalEventsDragDrop = reactive({
+  events: ref([
+    { id: 1, title: 'Ext. Event 1', duration: 60 },
+    { id: 2, title: 'Ext. Event 2', duration: 30 },
+    { id: 3, title: 'Ext. Event 3' },
+  ]),
+  onEventDragStart: (e, draggable) => {
+    e.dataTransfer.setData('event', JSON.stringify(draggable))
+    e.dataTransfer.setData('cursor-grab-at', e.offsetY)
+  },
+  onEventDrop: ({ e, event, cell, overlaps, external }) => {
+    if (external) {
+      // When dropping an external event into Vue Cal, remove it from the external events list.
+      const extEventToDeletePos = exExternalEventsDragDrop.events.findIndex(item => item.id === event.id)
+      if (extEventToDeletePos > -1)
+        exExternalEventsDragDrop.events.splice(extEventToDeletePos, 1)
+    }
+  },
+  onEventDropInBank: (e) => {
+    const incomingEvent = JSON.parse(e.dataTransfer.getData('event') || '{}')
+    exExternalEventsDragDrop.events.push({
+      ...incomingEvent,
+      duration: incomingEvent.end ? (incomingEvent.end - incomingEvent.start) / 60000 : 60,
+    })
+    // When dropping a Vue Cal event into the external events bank, remove it from the Vue Cal events list.
+    const srcCal = document.querySelector('.vuecal--dragging-event')
+    const src = srcCal.isSameNode(exExternalEventsDragDropEl1.value.$el) ? exExternalEventsDragDropEl1 : exExternalEventsDragDropEl2
+    src.value.view.deleteEvent(incomingEvent._.id, 3)
+  },
+})
+
+const exRejectDndOrResize = reactive({
+  events: events.map(e => ({ ...e })), // Clone events when reusing, so events are independent.
+  preventOverlapOnDrop: ref(true),
+  preventOverlapWhileResizing: ref(true),
+  preventOverlapAfterResizing: ref(false),
+  onEventDrop: ({ e, event, cell, overlaps }) => {
+    return !overlaps.length || (overlaps.length && !exRejectDndOrResize.preventOverlapOnDrop)
+  },
+  onEventResize: ({ e, event, overlaps }) => {
+    return !overlaps.length || (overlaps.length && !exRejectDndOrResize.preventOverlapWhileResizing)
+  },
+  onEventResizeEnd: ({ e, event, overlaps }) => {
+    return !overlaps.length || (overlaps.length && !exRejectDndOrResize.preventOverlapAfterResizing)
+  },
+})
+
+const exEventsReactivity = reactive({
+  events: [
+    {
+      start: new Date(new Date().setHours(12, 30)),
+      end: new Date(new Date().setHours(13, 30)),
+      title: 'Event 1',
+    },
+    {
+      start: new Date(new Date().setHours(11, 30)).addDays(1),
+      end: new Date(new Date().setHours(12, 30)).addDays(1),
+      title: 'Event 2',
+    },
+  ],
+  interval: null,
+  onReady: () => {
+    exEventsReactivity.interval = setInterval(() => {
+      const colors = ['crimson', 'cornflowerblue', 'darkgreen', 'blueviolet', 'darkmagenta', 'teal']
+      exEventsReactivity.events[0].backgroundColor = colors[Math.floor(Math.random() * colors.length)]
+      exEventsReactivity.events[1].backgroundColor = colors[Math.floor(Math.random() * colors.length)]
+    }, 1000)
+  },
+})
+
+onBeforeUnmount(() => {
+  clearInterval(exEventsReactivity.interval)
+})
+</script>
+
 <template lang="pug">
 alert.py3(info)
   p.mb2.
@@ -859,318 +1172,6 @@ example(title="Events Reactivity" anchor="events-reactivity")
     :time-to="15 * 60"
     :dark="store.darkMode")
 </template>
-
-<script setup>
-import { computed, reactive, ref, onBeforeUnmount } from 'vue'
-import { useAppStore } from '@/store'
-import { VueCal, stringToDate } from '@/vue-cal'
-
-const store = useAppStore()
-
-const baseUrl = computed(() => import.meta.env.BASE_URL)
-const events = [
-  {
-    start: new Date(new Date().setHours(11, 0)).subtractDays(2),
-    end: new Date(new Date().setHours(13, 0)).subtractDays(2),
-    title: 'Salsa Dance Class',
-    content: '<i class="w-icon mdi mdi-dance-ballroom"></i>',
-    class: 'sport',
-    schedule: 2
-  },
-  {
-    start: new Date(new Date().setHours(12, 30)),
-    end: new Date(new Date().setHours(13, 30)),
-    title: 'Doctor Appt.',
-    content: '<i class="w-icon mdi mdi-stethoscope"></i>',
-    class: 'health',
-    schedule: 1
-  },
-  {
-    start: new Date(new Date().setHours(11, 30)).addDays(1),
-    end: new Date(new Date().setHours(12, 30)).addDays(1),
-    title: 'Dentist Appt.',
-    content: '<i class="w-icon mdi mdi-tooth"></i>',
-    class: 'health',
-    schedule: 2
-  },
-  {
-    start: new Date(new Date().setHours(13, 0)).addDays(1),
-    end: new Date(new Date().setHours(14, 0)).addDays(1),
-    title: 'Cross-fit',
-    content: '<i class="w-icon mdi mdi-dumbbell"></i>',
-    class: 'sport',
-    schedule: 2
-  },
-  {
-    start: new Date(new Date().setHours(10, 0)).addDays(3),
-    end: new Date(new Date().setHours(11, 30)).addDays(3),
-    title: 'Swimming Class',
-    content: '<i class="w-icon mdi mdi-swim"></i>',
-    class: 'sport',
-    schedule: 2
-  },
-  {
-    start: new Date(new Date().setHours(11, 35)).addDays(3),
-    end: new Date(new Date().setHours(12, 30)).addDays(3),
-    title: 'Brunch with Jane',
-    content: '<i class="w-icon mdi mdi-food-croissant"></i>',
-    class: 'leisure',
-    schedule: 1,
-    background: false
-  },
-  {
-    start: new Date(new Date().setHours(9, 0)).addDays(4),
-    end: new Date(new Date().setHours(10, 0)).addDays(4),
-    title: 'Doctor Appt.',
-    content: '<i class="w-icon mdi mdi-stethoscope"></i>',
-    class: 'health',
-    schedule: 1
-  },
-  {
-    start: new Date(new Date().setHours(11, 30)).addDays(4),
-    end: new Date(new Date().setHours(12, 25)).addDays(4),
-    title: 'BK with Mark',
-    content: '<i class="w-icon mdi mdi-food"></i>',
-    class: 'leisure',
-    schedule: 2
-  },
-  {
-    start: new Date(new Date().setHours(12, 30)).addDays(4),
-    end: new Date(new Date().setHours(14, 30)).addDays(4),
-    title: 'Movie Theater',
-    content: '<i class="w-icon mdi mdi-ticket"></i>',
-    class: 'leisure',
-    schedule: 1
-  },
-  {
-    start: new Date(new Date().setHours(11, 30, 21, 0)).addDays(5),
-    end: new Date(new Date().setHours(12, 30, 23, 30)).addDays(5),
-    title: 'Movie Night',
-    content: '<i class="w-icon mdi mdi-popcorn"></i>',
-    class: 'leisure',
-    schedule: 1
-  },
-  {
-    start: new Date(new Date().setHours(10, 0)).addDays(7),
-    end: new Date(new Date().setHours(11, 0)).addDays(7),
-    title: 'Doctor Appt.',
-    content: '<i class="w-icon mdi mdi-stethoscope"></i>',
-    class: 'health',
-    schedule: 1
-  }
-]
-
-const exCreateEventsExampleEl = ref(null)
-const exCreateEventsVueCalEl = ref(null)
-const exCreateEvents = reactive({
-  createMethods: [
-    { value: 'event-create', label: 'Click & Drag' },
-    { value: 'cell-dblclick', label: 'Double Click' },
-    { value: 'cell-contextmenu', label: 'Right Click' },
-    { value: 'cell-hold', label: 'Click & Hold' }
-  ],
-  createMethod: ref('event-create'),
-  createEvent: ({ e, event, cell, resolve, cursor }) => {
-    e.preventDefault()
-    event = {
-      ...(event || {}),
-      title: 'New Event! 🎉',
-      start: event?.start || cursor.date,
-      end: event?.end || cursor.date.addHours(1),
-      class: 'blue-event'
-    }
-    resolve = resolve || exCreateEventsVueCalEl.value.view.createEvent
-    if (exCreateEvents.skipCreationDialog) resolve(event)
-    else exCreateEvents.openCreationDialog({ e, event, cell, resolve, cursor })
-  },
-  skipCreationDialog: ref(true),
-  showCreationDialog: ref(false),
-  snapToInterval: ref(false),
-  eventCreateMinDrag: ref(false),
-  resolve: null,
-  events: ref([]),
-  newEvent: {
-    title: '',
-    background: false,
-    class: ''
-  },
-  openCreationDialog: ({ event, resolve }) => {
-    exCreateEvents.showCreationDialog = true
-    exCreateEvents.newEvent = event
-    exCreateEvents.resolve = resolve
-  },
-  cancel: () => {
-    if (exCreateEvents.createMethod === 'event-create') exCreateEvents.resolve(false)
-    exCreateEvents.showCreationDialog = false
-  },
-  save: () => {
-    exCreateEvents.resolve(exCreateEvents.newEvent)
-    exCreateEvents.showCreationDialog = false
-  }
-})
-
-const exExternalEventCreateVuecalRef = ref(null)
-const exExternalEventCreate = reactive({
-  createEvent: () => {
-    exExternalEventCreateVuecalRef.value.view.createEvent({
-      start: new Date(),
-      end: new Date().addHours(1),
-      title: 'New Event 🎉'
-    })
-  }
-})
-
-const exDeleteEvents = reactive({
-  events: [
-    ...events.map(e => ({ ...e })), // Clone events when reusing, so events are independent.
-  ],
-  deleteEvent: ({ e, event }) => {
-    exEditEventsVuecalRef.value.view.deleteEvent(event._.id)
-  },
-  viewDate: new Date(),
-  editableEvents: ref(true),
-  deleteMethod: ref('dblclick'),
-  deleteMethods: [{ label: 'dblclick' }, { label: 'hold' }],
-  eventListeners: computed(() => {
-    let listeners = {
-      'event-dblclick': event => event.event.delete(exDeleteEvents.skipDeleteButton ? 3 : 1)
-    }
-    if (exDeleteEvents.deleteMethod === 'hold') {
-      listeners = {
-        'event-hold': event => event.event.delete(exDeleteEvents.skipDeleteButton ? 3 : 1),
-        'event-dblclick': () => {}
-      }
-    }
-    return listeners
-  }),
-  skipDeleteButton: ref(false)
-})
-
-const exEditEventsVuecalRef = ref(null)
-const exEditEvents = reactive({
-  events: [
-    ...events.map(e => ({ ...e })), // Clone events when reusing, so events are independent.
-    {
-      start: new Date(new Date().addDays(2).setHours(11, 0, 0, 0)), // Using Vue Cal's Date prototypes.
-      end: new Date(new Date().addDays(2).setHours(13, 0, 0, 0)), // Using Vue Cal's Date prototypes.
-      title: 'Boring Event',
-      content: '<i class="w-icon mdi mdi-cancel"></i><br>Can&rsquo;t drag, resize or delete me!',
-      class: 'blue-event',
-      deletable: false,
-      resizable: false,
-      resizableX: false,
-      draggable: false
-    }
-  ],
-  deletable: ref(false),
-  resizable: ref(false),
-  resizableX: ref(false),
-  draggable: ref(false),
-  creatable: ref(false)
-})
-
-const exEventsVModel = reactive({
-  counter: 1,
-  events: ref([
-    {
-      start: new Date(),
-      end: new Date().addHours(1),
-      title: 'Event 1'
-    }
-  ]),
-  onEventCreate: ({ event, resolve }) => resolve({ ...event, title: 'Event ' + ++exEventsVModel.counter }),
-  addEvent: () => exEventsVModel.events.push({
-    start: new Date(),
-    end: new Date().addHours(1),
-    title: 'Event ' + ++exEventsVModel.counter
-  })
-})
-
-
-const exDragAndDrop = reactive({
-  events: events.map(e => ({ ...e })), // Clone events when reusing, so events are independent.
-  onEventDrop: ({ e, event, cell, overlaps }) => {
-    return !overlaps.length || (overlaps.length && exDragAndDrop.overlappableEvents)
-  },
-  draggableEvents: ref(true),
-  overlappableEvents: ref(true)
-})
-
-const exExternalEventsDragDropEl1 = ref(null)
-const exExternalEventsDragDropEl2 = ref(null)
-const exExternalEventsDragDrop = reactive({
-  events: ref([
-    { id: 1, title: 'Ext. Event 1', duration: 60 },
-    { id: 2, title: 'Ext. Event 2', duration: 30 },
-    { id: 3, title: 'Ext. Event 3' }
-  ]),
-  onEventDragStart: (e, draggable) => {
-    e.dataTransfer.setData('event', JSON.stringify(draggable))
-    e.dataTransfer.setData('cursor-grab-at', e.offsetY)
-  },
-  onEventDrop: ({ e, event, cell, overlaps, external }) => {
-    if (external) {
-      // When dropping an external event into Vue Cal, remove it from the external events list.
-      const extEventToDeletePos = exExternalEventsDragDrop.events.findIndex(item => item.id === event.id)
-      if (extEventToDeletePos > -1) exExternalEventsDragDrop.events.splice(extEventToDeletePos, 1)
-    }
-  },
-  onEventDropInBank: e => {
-    const incomingEvent = JSON.parse(e.dataTransfer.getData('event') || '{}')
-    exExternalEventsDragDrop.events.push({
-      ...incomingEvent,
-      duration: incomingEvent.end ? (incomingEvent.end - incomingEvent.start) / 60000 : 60
-    })
-    // When dropping a Vue Cal event into the external events bank, remove it from the Vue Cal events list.
-    const srcCal = document.querySelector('.vuecal--dragging-event')
-    const src = srcCal.isSameNode(exExternalEventsDragDropEl1.value.$el) ? exExternalEventsDragDropEl1 : exExternalEventsDragDropEl2
-    src.value.view.deleteEvent(incomingEvent._.id, 3)
-  }
-})
-
-const exRejectDndOrResize = reactive({
-  events: events.map(e => ({ ...e })), // Clone events when reusing, so events are independent.
-  preventOverlapOnDrop: ref(true),
-  preventOverlapWhileResizing: ref(true),
-  preventOverlapAfterResizing: ref(false),
-  onEventDrop: ({ e, event, cell, overlaps }) => {
-    return !overlaps.length || (overlaps.length && !exRejectDndOrResize.preventOverlapOnDrop)
-  },
-  onEventResize: ({ e, event, overlaps }) => {
-    return !overlaps.length || (overlaps.length && !exRejectDndOrResize.preventOverlapWhileResizing)
-  },
-  onEventResizeEnd: ({ e, event, overlaps }) => {
-    return !overlaps.length || (overlaps.length && !exRejectDndOrResize.preventOverlapAfterResizing)
-  }
-})
-
-const exEventsReactivity = reactive({
-  events: [
-    {
-      start: new Date(new Date().setHours(12, 30)),
-      end: new Date(new Date().setHours(13, 30)),
-      title: 'Event 1'
-    },
-    {
-      start: new Date(new Date().setHours(11, 30)).addDays(1),
-      end: new Date(new Date().setHours(12, 30)).addDays(1),
-      title: 'Event 2'
-    }
-  ],
-  interval: null,
-  onReady: () => {
-    exEventsReactivity.interval = setInterval(() => {
-      const colors = ['crimson', 'cornflowerblue', 'darkgreen', 'blueviolet', 'darkmagenta', 'teal']
-      exEventsReactivity.events[0].backgroundColor = colors[Math.floor(Math.random() * colors.length)]
-      exEventsReactivity.events[1].backgroundColor = colors[Math.floor(Math.random() * colors.length)]
-    }, 1000)
-  }
-})
-
-onBeforeUnmount(() => {
-  clearInterval(exEventsReactivity.interval)
-})
-</script>
 
 <style lang="scss">
 .main--examples-events-interactions {

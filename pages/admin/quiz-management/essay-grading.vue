@@ -8,8 +8,6 @@ definePageMeta({
   layout: 'admin',
 })
 
-const { t } = useI18n()
-
 // Route params
 const route = useRoute()
 const selectedClassroomId = route.query.classroom as string

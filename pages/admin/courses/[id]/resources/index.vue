@@ -404,10 +404,18 @@ onMounted(async () => {
       <template v-else>
         <!-- List header -->
         <div class="drive-list-header">
-          <div class="flex-1 min-w-0">{{ t('admin.resources.table.columns.title') }}</div>
-          <div v-if="isCourseType" class="w-24 hidden lg:block">{{ t('admin.resources.table.columns.classrooms') }}</div>
-          <div class="w-24 hidden sm:block text-right">{{ t('admin.resources.table.columns.size') }}</div>
-          <div class="w-28 hidden md:block text-right">{{ t('admin.resources.table.columns.uploadedAt') }}</div>
+          <div class="flex-1 min-w-0">
+            {{ t('admin.resources.table.columns.title') }}
+          </div>
+          <div v-if="isCourseType" class="w-24 hidden lg:block">
+            {{ t('admin.resources.table.columns.classrooms') }}
+          </div>
+          <div class="w-24 hidden sm:block text-right">
+            {{ t('admin.resources.table.columns.size') }}
+          </div>
+          <div class="w-28 hidden md:block text-right">
+            {{ t('admin.resources.table.columns.uploadedAt') }}
+          </div>
           <div class="w-10" />
         </div>
 

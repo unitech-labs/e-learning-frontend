@@ -1,3 +1,163 @@
+<script setup>
+import { reactive, ref } from 'vue'
+import { useAppStore } from '@/store'
+
+const store = useAppStore()
+
+const events = [
+  {
+    start: '2018-10-30 10:30',
+    end: '2018-10-30 11:30',
+    title: 'Doctor appointment',
+    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+  {
+    start: '2018-11-16 10:30',
+    end: '2018-11-16 11:30',
+    title: 'Doctor appointment',
+    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+  {
+    start: '2018-11-19 10:35',
+    end: '2018-11-19 11:30',
+    title: 'Doctor appointment',
+    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+  {
+    start: '2018-11-19 18:30',
+    end: '2018-11-19 19:15',
+    title: 'Dentist appointment',
+    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
+    class: 'health',
+    schedule: 2,
+  },
+  {
+    start: '2018-11-20 18:30',
+    end: '2018-11-20 20:30',
+    title: 'Cross-fit',
+    content: '<i class="w-icon mdi mdi-dumbbell"></i>',
+    class: 'sport',
+    schedule: 2,
+  },
+  {
+    start: '2018-11-21 11:00',
+    end: '2018-11-21 13:00',
+    title: 'Brunch with Jane',
+    content: '<i class="w-icon mdi mdi-coffee-outline"></i>',
+    class: 'leisure',
+    schedule: 1,
+    background: false,
+  },
+  {
+    start: '2018-11-21 19:30',
+    end: '2018-11-21 23:00',
+    title: 'Swimming lesson',
+    content: '<i class="w-icon mdi mdi-pool"></i>',
+    class: 'sport',
+    schedule: 2,
+  },
+  {
+    start: '2018-11-23 12:30',
+    end: '2018-11-23 13:00',
+    title: 'Macca\'s with Mark',
+    content: '<i class="w-icon mdi mdi-food"></i>',
+    class: 'leisure',
+    schedule: 2,
+  },
+  {
+    start: '2018-11-23 21:00',
+    end: '2018-11-23 23:30',
+    title: 'Movie time',
+    content: '<i class="w-icon mdi mdi-ticket"></i>',
+    class: 'leisure',
+    schedule: 1,
+  },
+  {
+    start: '2018-11-30 21:00',
+    end: '2018-11-30 23:30',
+    title: 'Another movie tonight',
+    content: '<i class="w-icon mdi mdi-ticket"></i>',
+    class: 'leisure',
+    schedule: 1,
+  },
+]
+
+const exSpecialHours = reactive({
+  doctorHours: {
+    mon: { from: 8 * 60, to: 17 * 60, class: 'doctor-1', label: '<strong>Doctor 1</strong><br><em>Full day shift</em>' },
+    tue: { from: 9 * 60, to: 18 * 60, class: 'doctor-2', label: '<strong>Doctor 2</strong><br><em>Full day shift</em>' },
+    wed: [
+      { from: 8 * 60, to: 12 * 60, class: 'doctor-1', label: '<strong>Doctor 1</strong><br><em>Morning shift</em>' },
+      { from: 14 * 60, to: 19 * 60, class: 'doctor-3', label: '<strong>Doctor 3</strong><br><em>Afternoon shift</em>' },
+    ],
+    thu: { from: 8 * 60, to: 17 * 60, class: 'doctor-1', label: '<strong>Doctor 1</strong><br><em>Full day shift</em>' },
+    fri: { from: 9 * 60, to: 18 * 60, class: 'doctor-3', label: '<strong>Doctor 3</strong><br><em>Full day shift</em>' },
+    sat: { from: 9 * 60, to: 18 * 60, class: 'doctor-2', label: '<strong>Doctor 2</strong><br><em>Full day shift</em>' },
+    sun: { from: 7 * 60, to: 20 * 60, class: 'closed', label: '<strong>Closed</strong>' },
+  },
+  simpleBusinessHours: {
+    mon: { from: 9 * 60, to: 18 * 60, class: 'business-hours' },
+    tue: { from: 9 * 60, to: 18 * 60, class: 'business-hours' },
+    wed: [
+      { from: 9 * 60, to: 12 * 60, class: 'business-hours' },
+      { from: 14 * 60, to: 18 * 60, class: 'business-hours' },
+    ],
+    thu: { from: 9 * 60, to: 18 * 60, class: 'business-hours' },
+    fri: { from: 9 * 60, to: 18 * 60, class: 'business-hours' },
+  },
+  choices: [
+    { value: 'simpleBusinessHours', label: 'Simple Business Hours' },
+    { value: 'doctorHours', label: 'Doctor\'s Hours' },
+  ],
+  businessHoursType: ref('simpleBusinessHours'),
+})
+
+const exSchedules = reactive({
+  minCellWidth: 400,
+  minScheduleWidth: 0,
+  schedules: [
+    { id: 1, class: 'mom', label: 'Mom' },
+    { id: 2, class: 'dad', label: 'Dad', hide: false },
+    { id: 3, class: 'kid1', label: 'Kid 1' },
+    { id: 4, class: 'kid2', label: 'Kid 2' },
+    { id: 5, class: 'kid3', label: 'Kid 3' },
+  ],
+  scheduleEvents: [
+    ...events.map(e => ({ ...e })), // Clone events when reusing, so events are independent.
+    {
+      start: '2018-11-21 12:00',
+      end: '2018-11-21 12:30',
+      title: 'Recall Dave',
+      content: '<i class="w-icon mdi mdi-coffee-outline"></i>',
+      class: 'leisure',
+      schedule: 1,
+    },
+    {
+      start: '2018-11-21 20:00',
+      end: '2018-11-21 22:00',
+      title: 'Salsa',
+      content: '<i class="w-icon mdi mdi-walk"></i>',
+      class: 'sport',
+      schedule: 1,
+    },
+    {
+      start: '2018-11-23 21:00',
+      end: '2018-11-23 23:30',
+      title: 'Movie time',
+      content: '<i class="w-icon mdi mdi-ticket"></i>',
+      class: 'leisure',
+      schedule: 2,
+    },
+  ],
+})
+</script>
+
 <template lang="pug">
 //- Example.
 example(title="Special Hours (or Business Hours)" anchor="special-hours")
@@ -246,167 +406,6 @@ example(title="Schedules & Schedule Events" anchor="schedules")
 
 .todo-tag.d-iflex.mt6 ADD EXAMPLE WITH SCHEDULE EVENTS
 </template>
-
-<script setup>
-import { computed, reactive, ref } from 'vue'
-import { useAppStore } from '@/store'
-import { VueCal, stringToDate } from '@/vue-cal'
-
-const store = useAppStore()
-
-const events = [
-  {
-    start: '2018-10-30 10:30',
-    end: '2018-10-30 11:30',
-    title: 'Doctor appointment',
-    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
-    class: 'health',
-    schedule: 1
-  },
-  {
-    start: '2018-11-16 10:30',
-    end: '2018-11-16 11:30',
-    title: 'Doctor appointment',
-    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
-    class: 'health',
-    schedule: 1
-  },
-  {
-    start: '2018-11-19 10:35',
-    end: '2018-11-19 11:30',
-    title: 'Doctor appointment',
-    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
-    class: 'health',
-    schedule: 1
-  },
-  {
-    start: '2018-11-19 18:30',
-    end: '2018-11-19 19:15',
-    title: 'Dentist appointment',
-    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
-    class: 'health',
-    schedule: 2
-  },
-  {
-    start: '2018-11-20 18:30',
-    end: '2018-11-20 20:30',
-    title: 'Cross-fit',
-    content: '<i class="w-icon mdi mdi-dumbbell"></i>',
-    class: 'sport',
-    schedule: 2
-  },
-  {
-    start: '2018-11-21 11:00',
-    end: '2018-11-21 13:00',
-    title: 'Brunch with Jane',
-    content: '<i class="w-icon mdi mdi-coffee-outline"></i>',
-    class: 'leisure',
-    schedule: 1,
-    background: false
-  },
-  {
-    start: '2018-11-21 19:30',
-    end: '2018-11-21 23:00',
-    title: 'Swimming lesson',
-    content: '<i class="w-icon mdi mdi-pool"></i>',
-    class: 'sport',
-    schedule: 2
-  },
-  {
-    start: '2018-11-23 12:30',
-    end: '2018-11-23 13:00',
-    title: 'Macca\'s with Mark',
-    content: '<i class="w-icon mdi mdi-food"></i>',
-    class: 'leisure',
-    schedule: 2
-  },
-  {
-    start: '2018-11-23 21:00',
-    end: '2018-11-23 23:30',
-    title: 'Movie time',
-    content: '<i class="w-icon mdi mdi-ticket"></i>',
-    class: 'leisure',
-    schedule: 1
-  },
-  {
-    start: '2018-11-30 21:00',
-    end: '2018-11-30 23:30',
-    title: 'Another movie tonight',
-    content: '<i class="w-icon mdi mdi-ticket"></i>',
-    class: 'leisure',
-    schedule: 1
-  }
-]
-
-const exSpecialHours = reactive({
-  doctorHours: {
-    mon: { from: 8 * 60, to: 17 * 60, class: 'doctor-1', label: '<strong>Doctor 1</strong><br><em>Full day shift</em>' },
-    tue: { from: 9 * 60, to: 18 * 60, class: 'doctor-2', label: '<strong>Doctor 2</strong><br><em>Full day shift</em>' },
-    wed: [
-      { from: 8 * 60, to: 12 * 60, class: 'doctor-1', label: '<strong>Doctor 1</strong><br><em>Morning shift</em>' },
-      { from: 14 * 60, to: 19 * 60, class: 'doctor-3', label: '<strong>Doctor 3</strong><br><em>Afternoon shift</em>' }
-    ],
-    thu: { from: 8 * 60, to: 17 * 60, class: 'doctor-1', label: '<strong>Doctor 1</strong><br><em>Full day shift</em>' },
-    fri: { from: 9 * 60, to: 18 * 60, class: 'doctor-3', label: '<strong>Doctor 3</strong><br><em>Full day shift</em>' },
-    sat: { from: 9 * 60, to: 18 * 60, class: 'doctor-2', label: '<strong>Doctor 2</strong><br><em>Full day shift</em>' },
-    sun: { from: 7 * 60, to: 20 * 60, class: 'closed', label: '<strong>Closed</strong>' }
-  },
-  simpleBusinessHours: {
-    mon: { from: 9 * 60, to: 18 * 60, class: 'business-hours' },
-    tue: { from: 9 * 60, to: 18 * 60, class: 'business-hours' },
-    wed: [
-      { from: 9 * 60, to: 12 * 60, class: 'business-hours' },
-      { from: 14 * 60, to: 18 * 60, class: 'business-hours' }
-    ],
-    thu: { from: 9 * 60, to: 18 * 60, class: 'business-hours' },
-    fri: { from: 9 * 60, to: 18 * 60, class: 'business-hours' }
-  },
-  choices: [
-    { value: 'simpleBusinessHours', label: 'Simple Business Hours' },
-    { value: 'doctorHours', label: 'Doctor\'s Hours' }
-  ],
-  businessHoursType: ref('simpleBusinessHours')
-})
-
-const exSchedules = reactive({
-  minCellWidth: 400,
-  minScheduleWidth: 0,
-  schedules: [
-    { id: 1, class: 'mom', label: 'Mom' },
-    { id: 2, class: 'dad', label: 'Dad', hide: false },
-    { id: 3, class: 'kid1', label: 'Kid 1' },
-    { id: 4, class: 'kid2', label: 'Kid 2' },
-    { id: 5, class: 'kid3', label: 'Kid 3' }
-  ],
-  scheduleEvents: [
-    ...events.map(e => ({ ...e })), // Clone events when reusing, so events are independent.
-    {
-      start: '2018-11-21 12:00',
-      end: '2018-11-21 12:30',
-      title: 'Recall Dave',
-      content: '<i class="w-icon mdi mdi-coffee-outline"></i>',
-      class: 'leisure',
-      schedule: 1
-    },
-    {
-      start: '2018-11-21 20:00',
-      end: '2018-11-21 22:00',
-      title: 'Salsa',
-      content: '<i class="w-icon mdi mdi-walk"></i>',
-      class: 'sport',
-      schedule: 1
-    },
-    {
-      start: '2018-11-23 21:00',
-      end: '2018-11-23 23:30',
-      title: 'Movie time',
-      content: '<i class="w-icon mdi mdi-ticket"></i>',
-      class: 'leisure',
-      schedule: 2
-    }
-  ]
-})
-</script>
 
 <style lang="scss">
 .main--examples-schedules {

@@ -18,24 +18,33 @@ const visible = computed({
 })
 
 const previewType = computed(() => {
-  if (!props.resource) return 'unsupported'
+  if (!props.resource)
+    return 'unsupported'
   const type = props.resource.asset_type
-  if (type === 'pdf') return 'pdf'
-  if (type === 'image') return 'image'
-  if (type === 'audio') return 'audio'
-  if (type === 'video') return 'video'
-  if (type === 'ppt') return 'office'
-  if (type === 'doc') return 'office'
+  if (type === 'pdf')
+    return 'pdf'
+  if (type === 'image')
+    return 'image'
+  if (type === 'audio')
+    return 'audio'
+  if (type === 'video')
+    return 'video'
+  if (type === 'ppt')
+    return 'office'
+  if (type === 'doc')
+    return 'office'
   return 'unsupported'
 })
 
 const officeViewerUrl = computed(() => {
-  if (!props.resource?.file_url) return ''
+  if (!props.resource?.file_url)
+    return ''
   return `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(props.resource.file_url)}`
 })
 
 function formatFileSize(bytes: number): string {
-  if (bytes === 0) return '0 B'
+  if (bytes === 0)
+    return '0 B'
   const k = 1024
   const sizes = ['B', 'KB', 'MB', 'GB']
   const i = Math.floor(Math.log(bytes) / Math.log(k))

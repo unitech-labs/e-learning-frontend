@@ -1,3 +1,11 @@
+<script setup>
+import { useAppStore } from '@/store'
+import { addDatePrototypes } from '@/vue-cal'
+
+const store = useAppStore()
+addDatePrototypes()
+</script>
+
 <template lang="pug">
 h1.title1 Migration Guide
 
@@ -167,14 +175,6 @@ ul
   li #[code eventCount] was added in order to toggle the event count display on the month view.
   li #[code transitions] was removed and moved to the CSS var #[code --vuecal-transition-duration].
 </template>
-
-<script setup>
-import { useAppStore } from '@/store'
-import { addDatePrototypes } from '@/vue-cal'
-
-const store = useAppStore()
-addDatePrototypes()
-</script>
 
 <style lang="scss">
 </style>

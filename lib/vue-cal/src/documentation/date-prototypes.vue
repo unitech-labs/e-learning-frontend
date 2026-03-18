@@ -1,3 +1,14 @@
+<script setup>
+import { ref } from 'vue'
+import { useAppStore } from '@/store'
+import { addDatePrototypes } from '@/vue-cal'
+
+addDatePrototypes()
+
+const store = useAppStore()
+const expandedPrototypes = ref(Array.from({ length: 15 }).fill(false))
+</script>
+
 <template lang="pug">
 h1.title1 Date Prototypes
 
@@ -236,17 +247,6 @@ alert.mt4(info)
       #[span.code new Date().format?.()], or from template
       #[span.code Date.prototype.format &amp;&amp; new Date().format()].
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import { useAppStore } from '@/store'
-import { addDatePrototypes } from '@/vue-cal'
-
-addDatePrototypes()
-
-const store = useAppStore()
-const expandedPrototypes = ref(Array(15).fill(false))
-</script>
 
 <style lang="scss">
 .main--date-prototypes {

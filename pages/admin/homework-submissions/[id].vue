@@ -197,7 +197,7 @@ onMounted(() => loadSubmission())
           v-if="submission.content"
           class="text-gray-700 prose prose-sm max-w-none"
           v-html="submission.content"
-        ></div>
+        />
         <p v-else class="text-gray-400 italic">
           {{ $t('homeworks.detail.noContent') }}
         </p>

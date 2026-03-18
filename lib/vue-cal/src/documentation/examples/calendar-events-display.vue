@@ -1,3 +1,317 @@
+<script setup>
+import { computed, reactive, ref } from 'vue'
+import { useAppStore } from '@/store'
+
+const store = useAppStore()
+
+const events = [
+  {
+    start: new Date(new Date().setHours(11, 0)).subtractDays(2),
+    end: new Date(new Date().setHours(13, 0)).subtractDays(2),
+    title: 'Salsa Dance Class',
+    content: '<i class="w-icon mdi mdi-dance-ballroom"></i>',
+    class: 'sport',
+    schedule: 2,
+  },
+  {
+    start: new Date(new Date().setHours(12, 30)),
+    end: new Date(new Date().setHours(13, 30)),
+    title: 'Doctor Appt.',
+    content: '<i class="w-icon mdi mdi-stethoscope"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+  {
+    start: new Date(new Date().setHours(11, 30)).addDays(1),
+    end: new Date(new Date().setHours(12, 30)).addDays(1),
+    title: 'Dentist Appt.',
+    content: '<i class="w-icon mdi mdi-tooth"></i>',
+    class: 'health',
+    schedule: 2,
+  },
+  {
+    start: new Date(new Date().setHours(13, 0)).addDays(1),
+    end: new Date(new Date().setHours(14, 0)).addDays(1),
+    title: 'Cross-fit',
+    content: '<i class="w-icon mdi mdi-dumbbell"></i>',
+    class: 'sport',
+    schedule: 2,
+  },
+  {
+    start: new Date(new Date().setHours(10, 0)).addDays(3),
+    end: new Date(new Date().setHours(11, 30)).addDays(3),
+    title: 'Swimming Class',
+    content: '<i class="w-icon mdi mdi-swim"></i>',
+    class: 'sport',
+    schedule: 2,
+  },
+  {
+    start: new Date(new Date().setHours(11, 35)).addDays(3),
+    end: new Date(new Date().setHours(12, 30)).addDays(3),
+    title: 'Brunch with Jane',
+    content: '<i class="w-icon mdi mdi-food-croissant"></i>',
+    class: 'leisure',
+    schedule: 1,
+    background: false,
+  },
+  {
+    start: new Date(new Date().setHours(9, 0)).addDays(4),
+    end: new Date(new Date().setHours(10, 0)).addDays(4),
+    title: 'Doctor Appt.',
+    content: '<i class="w-icon mdi mdi-stethoscope"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+  {
+    start: new Date(new Date().setHours(11, 30)).addDays(4),
+    end: new Date(new Date().setHours(12, 25)).addDays(4),
+    title: 'BK with Mark',
+    content: '<i class="w-icon mdi mdi-food"></i>',
+    class: 'leisure',
+    schedule: 2,
+  },
+  {
+    start: new Date(new Date().setHours(12, 30)).addDays(4),
+    end: new Date(new Date().setHours(14, 30)).addDays(4),
+    title: 'Movie Theater',
+    content: '<i class="w-icon mdi mdi-ticket"></i>',
+    class: 'leisure',
+    schedule: 1,
+  },
+  {
+    start: new Date(new Date().setHours(11, 30, 21, 0)).addDays(5),
+    end: new Date(new Date().setHours(12, 30, 23, 30)).addDays(5),
+    title: 'Movie Night',
+    content: '<i class="w-icon mdi mdi-popcorn"></i>',
+    class: 'leisure',
+    schedule: 1,
+  },
+  {
+    start: new Date(new Date().setHours(10, 0)).addDays(7),
+    end: new Date(new Date().setHours(11, 0)).addDays(7),
+    title: 'Doctor Appt.',
+    content: '<i class="w-icon mdi mdi-stethoscope"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+]
+
+const exEvents = reactive({
+  showBgEvents: ref(false),
+  initEvents: () => {
+    const evts = [
+      ...events,
+      ...Array.from({ length: 5 }).fill({}).map((event, i) => ({
+        start: new Date(new Date().setHours(12, 0)).addDays(i),
+        end: new Date(new Date().setHours(14, 0)).addDays(i),
+        class: 'lunch',
+        background: true,
+      })),
+    ]
+    evts[2] = { ...evts[2], backgroundColor: 'rgb(158 199 237)', color: '#0e5597' }
+    delete evts[2].class
+
+    return evts
+  },
+  allEvents: [],
+  // Filter background events on demand.
+  events: computed(() => exEvents.allEvents.filter(e => exEvents.showBgEvents || !e.background)),
+})
+exEvents.allEvents = exEvents.initEvents()
+
+const exTimelessEvents = reactive({
+  events: [
+    {
+      start: new Date(),
+      end: new Date(),
+      title: 'Salsa Dance Class',
+      content: '<i class="w-icon mdi mdi-dance-ballroom"></i>',
+      class: 'sport',
+    },
+    {
+      start: new Date(),
+      end: new Date(),
+      title: 'Dentist Appt.',
+      content: '<i class="w-icon mdi mdi-tooth"></i>',
+      class: 'health',
+    },
+    {
+      start: new Date().addDays(1),
+      end: new Date().addDays(1),
+      title: 'Golf with John',
+      content: '<i class="w-icon mdi mdi-golf"></i>',
+      class: 'sport',
+    },
+    {
+      start: new Date().addDays(2),
+      end: new Date().addDays(2),
+      title: 'Grocery Shopping',
+      content: '<i class="w-icon mdi mdi-cart-outline"></i>',
+      class: 'leisure',
+    },
+    {
+      start: new Date().addDays(2),
+      end: new Date().addDays(2),
+      title: 'Dad\'s Birthday!',
+      content: '<i class="w-icon mdi mdi-cake-variant-outline"></i>',
+      class: 'sport',
+    },
+    {
+      start: new Date().addDays(3),
+      end: new Date().addDays(3),
+      title: 'Doctor Appt.',
+      content: '<i class="w-icon mdi mdi-stethoscope"></i>',
+      class: 'health',
+    },
+    {
+      start: new Date().addDays(4),
+      end: new Date().addDays(4),
+      title: 'Burger King',
+      content: '<i class="w-icon mdi mdi-food"></i>',
+      class: 'leisure',
+    },
+  ],
+})
+
+const exOpenEventDetails = reactive({
+  showDialog: false,
+  openDialog: ({ event }) => {
+    exOpenEventDetails.event = event
+    exOpenEventDetails.showDialog = true
+  },
+  events: [...events],
+})
+
+const exEventsVModel = reactive({
+  counter: 0,
+  events: ref([]),
+  onEventCreate: ({ event, resolve }) => resolve({ ...event, title: `Event ${++exEventsVModel.counter}` }),
+  addEvent: () => exEventsVModel.events.push({
+    start: new Date(),
+    end: new Date().addHours(1),
+    title: `Event ${++exEventsVModel.counter}`,
+  }),
+})
+
+const exEventsMonthView = reactive({
+  showEvents: ref(true),
+  showEventCount: ref(false),
+  highlightCells: ref(false),
+  eventCountStyle: ref('dot'),
+  eventCountStyleOptions: [
+    { label: 'Dot', value: 'dot' },
+    { label: 'Dash', value: 'dash' },
+    { label: 'Caption', value: 'caption' },
+    { label: 'Use slot', value: 'slot' },
+  ],
+  classes: computed(() => ({
+    [`event-count--${exEventsMonthView.eventCountStyle}`]: exEventsMonthView.showEventCount,
+    'vuecal--highlight-cells': exEventsMonthView.highlightCells,
+  })),
+})
+
+const exOverlappingEvents = reactive({
+  events: ref([
+    ...events.map(e => ({ ...e })), // Clone events when reusing, so events are independent.
+    {
+      start: new Date(new Date().setHours(12, 0)).addDays(1),
+      end: new Date(new Date().setHours(14, 0)).addDays(1),
+      title: 'Event 1',
+      class: 'event-1',
+    },
+    {
+      start: new Date(new Date().setHours(12, 0)).addDays(1),
+      end: new Date(new Date().setHours(14, 0)).addDays(1),
+      title: 'Event 2',
+      class: 'event-2',
+    },
+    {
+      start: new Date(new Date().setHours(11, 0)).addDays(2),
+      end: new Date(new Date().setHours(13, 0)).addDays(2),
+      title: 'Event 3',
+      class: 'event-3',
+    },
+    {
+      start: new Date(new Date().setHours(12, 0)).addDays(2),
+      end: new Date(new Date().setHours(14, 0)).addDays(2),
+      title: 'Event 4',
+      class: 'event-4',
+    },
+  ]),
+  minEventWidth: ref(0),
+  stackEvents: ref(false),
+})
+
+const exAllDayEvents = reactive({
+  allDayEvents: ref(0),
+  allDayBarOn: ref(true),
+  allDayEventsOn: ref(true),
+  events: computed(() => [
+    {
+      start: new Date().format(),
+      end: new Date().addDays(1).format(),
+      title: 'Day off!',
+      content: '<i class="w-icon mdi mdi-umbrella-beach-outline"></i>',
+      class: 'yellow-event',
+      allDay: exAllDayEvents.allDayEventsOn,
+    },
+    {
+      start: new Date().addDays(1).format(),
+      end: new Date().addDays(2).format(),
+      title: 'Anniversary ❤️',
+      content: '<i class="w-icon mdi mdi-heart-outline"></i>',
+      class: 'pink-event',
+      allDay: exAllDayEvents.allDayEventsOn,
+    },
+    {
+      start: new Date().addDays(1).format(),
+      end: new Date().addDays(2).format(),
+      title: 'Grocery Shopping',
+      content: '<i class="w-icon mdi mdi-cart-outline"></i>',
+      class: 'leisure',
+      allDay: exAllDayEvents.allDayEventsOn,
+    },
+    {
+      start: new Date(new Date().addDays(1).setHours(10, 35)),
+      end: new Date(new Date().addDays(1).setHours(11, 30)),
+      title: 'Doctor Appt.',
+      content: '<i class="w-icon mdi mdi-stethoscope"></i>',
+      class: 'health',
+      schedule: 1,
+    },
+  ]),
+})
+
+const exMultipleDayEvents = reactive({
+  events: [
+    {
+      start: new Date(new Date().setMinutes(0, 0, 0)),
+      end: new Date(new Date().setHours(23, 0, 0, 0)).addDays(1),
+      title: 'Running Marathon',
+      content: '<i class="w-icon mdi mdi-run"></i>',
+      class: 'sport',
+    },
+    {
+      start: new Date().addDays(1),
+      end: new Date().addDays(1).addHours(1),
+      title: 'Drink water!',
+      content: '<i class="w-icon mdi mdi-glass-cocktail"></i>',
+      class: 'health drink-water',
+    },
+    {
+      start: new Date(new Date().setHours(6, 0, 0, 0)).addDays(2),
+      end: new Date(new Date().setHours(21, 0, 0, 0)).addDays(4),
+      title: 'Trip to India',
+      content: '<i class="w-icon mdi mdi-airplane"></i>',
+      class: 'leisure',
+    },
+  ],
+})
+
+const exRecurringEvents = reactive({
+})
+</script>
+
 <template lang="pug">
 alert(info)
   h3.mt-2.mb2 Read First
@@ -650,321 +964,6 @@ example(title="Multiple Day Events" anchor="multiple-day-events")
         ]
       })
 </template>
-
-<script setup>
-import { computed, reactive, ref } from 'vue'
-import { useAppStore } from '@/store'
-import { VueCal } from '@/vue-cal'
-
-const store = useAppStore()
-
-const events = [
-  {
-    start: new Date(new Date().setHours(11, 0)).subtractDays(2),
-    end: new Date(new Date().setHours(13, 0)).subtractDays(2),
-    title: 'Salsa Dance Class',
-    content: '<i class="w-icon mdi mdi-dance-ballroom"></i>',
-    class: 'sport',
-    schedule: 2
-  },
-  {
-    start: new Date(new Date().setHours(12, 30)),
-    end: new Date(new Date().setHours(13, 30)),
-    title: 'Doctor Appt.',
-    content: '<i class="w-icon mdi mdi-stethoscope"></i>',
-    class: 'health',
-    schedule: 1
-  },
-  {
-    start: new Date(new Date().setHours(11, 30)).addDays(1),
-    end: new Date(new Date().setHours(12, 30)).addDays(1),
-    title: 'Dentist Appt.',
-    content: '<i class="w-icon mdi mdi-tooth"></i>',
-    class: 'health',
-    schedule: 2
-  },
-  {
-    start: new Date(new Date().setHours(13, 0)).addDays(1),
-    end: new Date(new Date().setHours(14, 0)).addDays(1),
-    title: 'Cross-fit',
-    content: '<i class="w-icon mdi mdi-dumbbell"></i>',
-    class: 'sport',
-    schedule: 2
-  },
-  {
-    start: new Date(new Date().setHours(10, 0)).addDays(3),
-    end: new Date(new Date().setHours(11, 30)).addDays(3),
-    title: 'Swimming Class',
-    content: '<i class="w-icon mdi mdi-swim"></i>',
-    class: 'sport',
-    schedule: 2
-  },
-  {
-    start: new Date(new Date().setHours(11, 35)).addDays(3),
-    end: new Date(new Date().setHours(12, 30)).addDays(3),
-    title: 'Brunch with Jane',
-    content: '<i class="w-icon mdi mdi-food-croissant"></i>',
-    class: 'leisure',
-    schedule: 1,
-    background: false
-  },
-  {
-    start: new Date(new Date().setHours(9, 0)).addDays(4),
-    end: new Date(new Date().setHours(10, 0)).addDays(4),
-    title: 'Doctor Appt.',
-    content: '<i class="w-icon mdi mdi-stethoscope"></i>',
-    class: 'health',
-    schedule: 1
-  },
-  {
-    start: new Date(new Date().setHours(11, 30)).addDays(4),
-    end: new Date(new Date().setHours(12, 25)).addDays(4),
-    title: 'BK with Mark',
-    content: '<i class="w-icon mdi mdi-food"></i>',
-    class: 'leisure',
-    schedule: 2
-  },
-  {
-    start: new Date(new Date().setHours(12, 30)).addDays(4),
-    end: new Date(new Date().setHours(14, 30)).addDays(4),
-    title: 'Movie Theater',
-    content: '<i class="w-icon mdi mdi-ticket"></i>',
-    class: 'leisure',
-    schedule: 1
-  },
-  {
-    start: new Date(new Date().setHours(11, 30, 21, 0)).addDays(5),
-    end: new Date(new Date().setHours(12, 30, 23, 30)).addDays(5),
-    title: 'Movie Night',
-    content: '<i class="w-icon mdi mdi-popcorn"></i>',
-    class: 'leisure',
-    schedule: 1
-  },
-  {
-    start: new Date(new Date().setHours(10, 0)).addDays(7),
-    end: new Date(new Date().setHours(11, 0)).addDays(7),
-    title: 'Doctor Appt.',
-    content: '<i class="w-icon mdi mdi-stethoscope"></i>',
-    class: 'health',
-    schedule: 1
-  }
-]
-
-const exEvents = reactive({
-  showBgEvents: ref(false),
-  initEvents: () => {
-    const evts = [
-      ...events,
-      ...Array(5).fill({}).map((event, i) => ({
-        start: new Date(new Date().setHours(12, 0)).addDays(i),
-        end: new Date(new Date().setHours(14, 0)).addDays(i),
-        class: 'lunch',
-        background: true
-      }))
-    ]
-    evts[2] = { ...evts[2], backgroundColor: 'rgb(158 199 237)', color: '#0e5597' }
-    delete evts[2].class
-
-    return evts
-  },
-  allEvents: [],
-  // Filter background events on demand.
-  events: computed(() => exEvents.allEvents.filter(e => exEvents.showBgEvents || !e.background))
-})
-exEvents.allEvents = exEvents.initEvents()
-
-const exTimelessEvents = reactive({
-  events: [
-    {
-      start: new Date(),
-      end: new Date(),
-      title: 'Salsa Dance Class',
-      content: '<i class="w-icon mdi mdi-dance-ballroom"></i>',
-      class: 'sport'
-    },
-    {
-      start: new Date(),
-      end: new Date(),
-      title: 'Dentist Appt.',
-      content: '<i class="w-icon mdi mdi-tooth"></i>',
-      class: 'health'
-    },
-    {
-      start: new Date().addDays(1),
-      end: new Date().addDays(1),
-      title: 'Golf with John',
-      content: '<i class="w-icon mdi mdi-golf"></i>',
-      class: 'sport'
-    },
-    {
-      start: new Date().addDays(2),
-      end: new Date().addDays(2),
-      title: 'Grocery Shopping',
-      content: '<i class="w-icon mdi mdi-cart-outline"></i>',
-      class: 'leisure'
-    },
-    {
-      start: new Date().addDays(2),
-      end: new Date().addDays(2),
-      title: 'Dad\'s Birthday!',
-      content: '<i class="w-icon mdi mdi-cake-variant-outline"></i>',
-      class: 'sport'
-    },
-    {
-      start: new Date().addDays(3),
-      end: new Date().addDays(3),
-      title: 'Doctor Appt.',
-      content: '<i class="w-icon mdi mdi-stethoscope"></i>',
-      class: 'health'
-    },
-    {
-      start: new Date().addDays(4),
-      end: new Date().addDays(4),
-      title: 'Burger King',
-      content: '<i class="w-icon mdi mdi-food"></i>',
-      class: 'leisure'
-    }
-  ]
-})
-
-const exOpenEventDetails = reactive({
-  showDialog: false,
-  openDialog: ({ event }) => {
-    exOpenEventDetails.event = event
-    exOpenEventDetails.showDialog = true
-  },
-  events: [...events]
-})
-
-const exEventsVModel = reactive({
-  counter: 0,
-  events: ref([]),
-  onEventCreate: ({ event, resolve }) => resolve({ ...event, title: 'Event ' + ++exEventsVModel.counter }),
-  addEvent: () => exEventsVModel.events.push({
-    start: new Date(),
-    end: new Date().addHours(1),
-    title: 'Event ' + ++exEventsVModel.counter
-  })
-})
-
-const exEventsMonthView = reactive({
-  showEvents: ref(true),
-  showEventCount: ref(false),
-  highlightCells: ref(false),
-  eventCountStyle: ref('dot'),
-  eventCountStyleOptions: [
-    { label: 'Dot', value: 'dot' },
-    { label: 'Dash', value: 'dash' },
-    { label: 'Caption', value: 'caption' },
-    { label: 'Use slot', value: 'slot' }
-  ],
-  classes: computed(() => ({
-    [`event-count--${exEventsMonthView.eventCountStyle}`]: exEventsMonthView.showEventCount,
-    'vuecal--highlight-cells': exEventsMonthView.highlightCells
-  }))
-})
-
-const exOverlappingEvents = reactive({
-  events: ref([
-    ...events.map(e => ({ ...e })), // Clone events when reusing, so events are independent.
-    {
-      start: new Date(new Date().setHours(12, 0)).addDays(1),
-      end: new Date(new Date().setHours(14, 0)).addDays(1),
-      title: 'Event 1',
-      class: 'event-1'
-    },
-    {
-      start: new Date(new Date().setHours(12, 0)).addDays(1),
-      end: new Date(new Date().setHours(14, 0)).addDays(1),
-      title: 'Event 2',
-      class: 'event-2'
-    },
-    {
-      start: new Date(new Date().setHours(11, 0)).addDays(2),
-      end: new Date(new Date().setHours(13, 0)).addDays(2),
-      title: 'Event 3',
-      class: 'event-3'
-    },
-    {
-      start: new Date(new Date().setHours(12, 0)).addDays(2),
-      end: new Date(new Date().setHours(14, 0)).addDays(2),
-      title: 'Event 4',
-      class: 'event-4'
-    }
-  ]),
-  minEventWidth: ref(0),
-  stackEvents: ref(false)
-})
-
-const exAllDayEvents = reactive({
-  allDayEvents: ref(0),
-  allDayBarOn: ref(true),
-  allDayEventsOn: ref(true),
-  events: computed(() => [
-    {
-      start: new Date().format(),
-      end: new Date().addDays(1).format(),
-      title: 'Day off!',
-      content: '<i class="w-icon mdi mdi-umbrella-beach-outline"></i>',
-      class: 'yellow-event',
-      allDay: exAllDayEvents.allDayEventsOn
-    },
-    {
-      start: new Date().addDays(1).format(),
-      end: new Date().addDays(2).format(),
-      title: 'Anniversary ❤️',
-      content: '<i class="w-icon mdi mdi-heart-outline"></i>',
-      class: 'pink-event',
-      allDay: exAllDayEvents.allDayEventsOn
-    },
-    {
-      start: new Date().addDays(1).format(),
-      end: new Date().addDays(2).format(),
-      title: 'Grocery Shopping',
-      content: '<i class="w-icon mdi mdi-cart-outline"></i>',
-      class: 'leisure',
-      allDay: exAllDayEvents.allDayEventsOn
-    },
-    {
-      start: new Date(new Date().addDays(1).setHours(10, 35)),
-      end: new Date(new Date().addDays(1).setHours(11, 30)),
-      title: 'Doctor Appt.',
-      content: '<i class="w-icon mdi mdi-stethoscope"></i>',
-      class: 'health',
-      schedule: 1
-    }
-  ])
-})
-
-const exMultipleDayEvents = reactive({
-  events: [
-    {
-      start: new Date(new Date().setMinutes(0, 0, 0)),
-      end: new Date(new Date().setHours(23, 0, 0, 0)).addDays(1),
-      title: 'Running Marathon',
-      content: '<i class="w-icon mdi mdi-run"></i>',
-      class: 'sport'
-    },
-    {
-      start: new Date().addDays(1),
-      end: new Date().addDays(1).addHours(1),
-      title: 'Drink water!',
-      content: '<i class="w-icon mdi mdi-glass-cocktail"></i>',
-      class: 'health drink-water'
-    },
-    {
-      start: new Date(new Date().setHours(6, 0, 0, 0)).addDays(2),
-      end: new Date(new Date().setHours(21, 0, 0, 0)).addDays(4),
-      title: 'Trip to India',
-      content: '<i class="w-icon mdi mdi-airplane"></i>',
-      class: 'leisure'
-    }
-  ]
-})
-
-const exRecurringEvents = reactive({
-})
-</script>
 
 <style lang="scss">
 .main--examples-events-display {

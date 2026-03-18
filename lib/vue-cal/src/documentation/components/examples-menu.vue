@@ -1,21 +1,10 @@
-<template lang="pug">
-w-list.examples-menu(:items="filteredExamples" item-class="pa0")
-  template(#item="{ item }")
-    w-divider.grow.pa0(v-if="(item.class || '').startsWith('divider')" color="grey-light1")
-    router-link.w-flex.grow.align-center.px5.py2(
-      :to="item.route"
-      :class="{ active: store.activeSection === item.route.hash }")
-      w-icon.mr2(v-if="item.icon" lg) {{ item.icon }}
-      span(v-html="item.label")
-</template>
-
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAppStore } from '@/store'
 
 const props = defineProps({
-  onlyActivePage: { type: Boolean }
+  onlyActivePage: { type: Boolean },
 })
 
 const route = useRoute()
@@ -64,31 +53,43 @@ const examples = [
   { route: { name: 'examples-events-interactions', hash: '#ex--reject-event-dnd-or-resizing' }, label: 'Reject Event D&amp;D or Resizing' },
   { route: { name: 'examples-events-interactions', hash: '#ex--events-reactivity' }, label: 'Events Reactivity' },
 
-  { class: 'heading', route: '/examples/dom-events', label:'DOM EVENTS', icon: 'mdi mdi-gesture-double-tap' },
+  { class: 'heading', route: '/examples/dom-events', label: 'DOM EVENTS', icon: 'mdi mdi-gesture-double-tap' },
   { route: { name: 'examples-dom-events', hash: '#ex--emitted-events' }, label: 'Vue Cal Emitted Events' },
   { route: { name: 'examples-dom-events', hash: '#ex--loading-events-from-backend' }, label: 'Loading Events from a Backend' },
   { route: { name: 'examples-dom-events', hash: '#ex--external-controls' }, label: 'External Controls & View Methods' },
   { route: { name: 'examples-dom-events', hash: '#ex--sync-two-calendars' }, label: 'Sync Two Vue Cal Instances' },
 
-  { class: 'heading', route: '/examples/customization', label:'CUSTOMIZATION', icon: 'mdi mdi-tune' },
+  { class: 'heading', route: '/examples/customization', label: 'CUSTOMIZATION', icon: 'mdi mdi-tune' },
   { route: { name: 'examples-customization', hash: '#ex--slots' }, label: 'Simple Slots' },
   { route: { name: 'examples-customization', hash: '#ex--custom-title-per-view' }, label: 'Custom Title Per View' },
   { route: { name: 'examples-customization', hash: '#ex--custom-cells' }, label: 'Custom Cells' },
   { route: { name: 'examples-customization', hash: '#ex--custom-event-rendering' }, label: 'Custom Event Rendering' },
   { route: { name: 'examples-customization', hash: '#ex--custom-schedules-headings' }, label: 'Custom Day Schedules Headings' },
   { route: { name: 'examples-customization', hash: '#ex--external-controls' }, label: 'External Controls' },
-  { route: { name: 'examples-customization', hash: '#ex--events-on-month-view' }, label: 'Events on Month View' }
+  { route: { name: 'examples-customization', hash: '#ex--events-on-month-view' }, label: 'Events on Month View' },
 
   // w-tag.ml2(color="primary" outline) NEW
   // w-tag.ml2(color="blue" outline) UPDATED
 ]
 
 const filteredExamples = computed(() => {
-  if (!props.onlyActivePage) return examples
+  if (!props.onlyActivePage)
+    return examples
 
   return examples.filter(item => item.class !== 'heading' && item.route.name === route.name)
 })
 </script>
+
+<template lang="pug">
+w-list.examples-menu(:items="filteredExamples" item-class="pa0")
+  template(#item="{ item }")
+    w-divider.grow.pa0(v-if="(item.class || '').startsWith('divider')" color="grey-light1")
+    router-link.w-flex.grow.align-center.px5.py2(
+      :to="item.route"
+      :class="{ active: store.activeSection === item.route.hash }")
+      w-icon.mr2(v-if="item.icon" lg) {{ item.icon }}
+      span(v-html="item.label")
+</template>
 
 <style lang="scss">
 .examples-menu {

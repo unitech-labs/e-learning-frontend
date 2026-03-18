@@ -1,3 +1,29 @@
+<script setup>
+import { inject, ref } from 'vue'
+import { useAppStore } from '@/store'
+import { addDatePrototypes } from '@/vue-cal'
+
+addDatePrototypes()
+
+const store = useAppStore()
+const locales = inject('locales')
+
+const views = [
+  { label: 'day', content: 'Displays a given single day in a a single cell.' },
+  { label: 'days', content: 'Displays a given custom unlimited range of days, from 1 to x. Be aware that the more days displayed, the heavier work for the calendar and consumed API.' },
+  { label: 'week', content: 'Displays a given 7-day week in 7 cells by default and at most, starting from Monday by default.<br>Other options can modify the order or number of days.' },
+  { label: 'month', content: 'Displays a given month in a 6x7 cell grid by default and at most.' },
+  { label: 'year', content: 'Displays a given year\'s months in a 4x3 cell grid. Usually for a date picker.<br>No event can be displayed on this view by default - only events counter - but you could use slots to build a custom UI.' },
+  { label: 'years', content: 'Displays a range of 25 years in a 5x5 cell grid. Usually for date pickers.' },
+]
+const expandedViews = ref([...views].fill(false))
+const expandedViewObject = ref(Array.from({ length: 10 }).fill(false))
+const expandedEventObject = ref(Array.from({ length: 15 }).fill(false))
+const expandedOptions = ref(Array.from({ length: 99 }).fill(false))
+const expandedEmittedEvents = ref(Array.from({ length: 50 }).fill(false))
+const expandedSlots = ref(Array.from({ length: 50 }).fill(false))
+</script>
+
 <template lang="pug">
 h1.title1 API
 
@@ -1693,32 +1719,6 @@ w-accordion(
           &lt;/div&gt;
         &lt;/template&gt;
 </template>
-
-<script setup>
-import { inject, ref } from 'vue'
-import { useAppStore } from '@/store'
-import { addDatePrototypes } from '@/vue-cal'
-
-addDatePrototypes()
-
-const store = useAppStore()
-const locales = inject('locales')
-
-const views = [
-  { label: 'day', content: 'Displays a given single day in a a single cell.' },
-  { label: 'days', content: 'Displays a given custom unlimited range of days, from 1 to x. Be aware that the more days displayed, the heavier work for the calendar and consumed API.' },
-  { label: 'week', content: 'Displays a given 7-day week in 7 cells by default and at most, starting from Monday by default.<br>Other options can modify the order or number of days.' },
-  { label: 'month', content: 'Displays a given month in a 6x7 cell grid by default and at most.' },
-  { label: 'year', content: 'Displays a given year\'s months in a 4x3 cell grid. Usually for a date picker.<br>No event can be displayed on this view by default - only events counter - but you could use slots to build a custom UI.' },
-  { label: 'years', content: 'Displays a range of 25 years in a 5x5 cell grid. Usually for date pickers.' }
-]
-const expandedViews = ref([...views].fill(false))
-const expandedViewObject = ref(Array(10).fill(false))
-const expandedEventObject = ref(Array(15).fill(false))
-const expandedOptions = ref(Array(99).fill(false))
-const expandedEmittedEvents = ref(Array(50).fill(false))
-const expandedSlots = ref(Array(50).fill(false))
-</script>
 
 <style lang="scss">
 .main--api {

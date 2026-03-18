@@ -1,3 +1,33 @@
+<script setup>
+import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useAppStore } from '@/store'
+
+const props = defineProps({
+  fixed: { type: Boolean },
+})
+
+const store = useAppStore()
+const route = useRoute()
+const todayDate = ref((new Date()).getDate())
+const isProduction = import.meta.env.PROD
+
+// Example sections for the menu.
+const docs = [
+  { route: '/getting-started', label: 'Getting Started' },
+  { class: 'divider pa0' },
+  { route: '/api', label: 'API' },
+  { route: '/date-prototypes', label: 'Date Prototypes' },
+  { route: '/migration-guide', label: 'Migration Guide' },
+  { route: '/road-map', label: 'Road Map' },
+  { class: 'divider pa0' },
+  { route: '/release-notes', label: 'Release Notes' },
+]
+
+// Compute version dynamically.
+const version = computed(() => process.env.VITE_APP_VERSION)
+</script>
+
 <template lang="pug">
 w-switch.theme-switch(
   :model-value="store.darkMode"
@@ -79,37 +109,6 @@ w-toolbar.top-bar.pa0(:class="{ fixed }")
       examples-menu.mt0.pa0.sh2.base-color--bg.bdrs1(
         style="max-height: 90vh;overflow: auto;white-space: nowrap")
 </template>
-
-<script setup>
-import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
-import { useAppStore } from '@/store'
-import ExamplesMenu from './examples-menu.vue'
-
-const props = defineProps({
-  fixed: { type: Boolean }
-})
-
-const store = useAppStore()
-const route = useRoute()
-const todayDate = ref((new Date()).getDate())
-const isProduction = import.meta.env.PROD
-
-// Example sections for the menu.
-const docs = [
-  { route: '/getting-started', label: 'Getting Started' },
-  { class: 'divider pa0' },
-  { route: '/api', label: 'API' },
-  { route: '/date-prototypes', label: 'Date Prototypes' },
-  { route: '/migration-guide', label: 'Migration Guide' },
-  { route: '/road-map', label: 'Road Map' },
-  { class: 'divider pa0' },
-  { route: '/release-notes', label: 'Release Notes' }
-]
-
-// Compute version dynamically.
-const version = computed(() => process.env.VITE_APP_VERSION)
-</script>
 
 <style lang="scss">
 $secondary: #2c3e50;

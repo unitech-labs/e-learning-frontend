@@ -12,6 +12,7 @@ export default antfu({
     'specs/**',
     'server/README.md',
     '**/*.md',
+    'lib/**',
   ],
 }, {
   files: ['nuxt.config.ts', 'nuxt.config.js'],

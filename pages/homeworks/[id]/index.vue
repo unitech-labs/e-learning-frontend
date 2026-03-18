@@ -40,8 +40,10 @@ const uploadingFiles = ref<Map<string, number>>(new Map())
 const SUBMISSION_MAX_LENGTH = 2500
 
 function getPlainTextLength(html: string): number {
-  if (!html || typeof html !== 'string') return 0
-  if (typeof document === 'undefined') return html.replace(/<[^>]*>/g, '').length
+  if (!html || typeof html !== 'string')
+    return 0
+  if (typeof document === 'undefined')
+    return html.replace(/<[^>]*>/g, '').length
   const div = document.createElement('div')
   div.innerHTML = html
   return div.textContent?.length ?? 0
@@ -51,26 +53,34 @@ const submissionCharCount = computed(() => getPlainTextLength(submissionContent.
 const isOverCharLimit = computed(() => submissionCharCount.value > SUBMISSION_MAX_LENGTH)
 
 const canSubmit = computed(() => {
-  if (!homework.value) return false
-  if (homework.value.strict_deadline && isHomeworkOverdue(homework.value.due_date)) return false
-  if (homework.value.my_submission?.status === 'graded') return false
+  if (!homework.value)
+    return false
+  if (homework.value.strict_deadline && isHomeworkOverdue(homework.value.due_date))
+    return false
+  if (homework.value.my_submission?.status === 'graded')
+    return false
   return true
 })
 
 const canEdit = computed(() => {
-  if (!homework.value) return false
-  if (!homework.value.my_submission) return true
+  if (!homework.value)
+    return false
+  if (!homework.value.my_submission)
+    return true
   return homework.value.my_submission.status === 'pending'
 })
 
 const showForm = computed(() => {
-  if (!canSubmit.value) return false
-  if (!homework.value?.my_submission) return true
+  if (!canSubmit.value)
+    return false
+  if (!homework.value?.my_submission)
+    return true
   return isEditing.value
 })
 
 const statusType = computed(() => {
-  if (!homework.value) return 'pending'
+  if (!homework.value)
+    return 'pending'
   if (homework.value.my_submission) {
     return homework.value.my_submission.status === 'graded' ? 'graded' : 'submitted'
   }
@@ -114,16 +124,22 @@ function formatDate(dateString: string) {
 }
 
 function formatFileSize(bytes: number) {
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+  if (bytes < 1024)
+    return `${bytes} B`
+  if (bytes < 1024 * 1024)
+    return `${(bytes / 1024).toFixed(1)} KB`
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 }
 
 function getFileIcon(fileType: string) {
-  if (fileType === 'pdf') return 'solar:document-bold'
-  if (fileType === 'image') return 'solar:gallery-bold'
-  if (['doc', 'docx'].includes(fileType)) return 'solar:document-text-bold'
-  if (['ppt', 'pptx'].includes(fileType)) return 'solar:presentation-graph-bold'
+  if (fileType === 'pdf')
+    return 'solar:document-bold'
+  if (fileType === 'image')
+    return 'solar:gallery-bold'
+  if (['doc', 'docx'].includes(fileType))
+    return 'solar:document-text-bold'
+  if (['ppt', 'pptx'].includes(fileType))
+    return 'solar:presentation-graph-bold'
   return 'solar:file-bold'
 }
 
@@ -135,7 +151,8 @@ function openPreview(att: { file_url: string, file_name: string, file_size: numb
 async function handleFileSelect(event: Event) {
   const input = event.target as HTMLInputElement
   const files = input.files
-  if (!files?.length) return
+  if (!files?.length)
+    return
 
   for (const file of Array.from(files)) {
     if (file.size > 20 * 1024 * 1024) {
@@ -161,7 +178,8 @@ async function handleFileSelect(event: Event) {
           }
         })
         xhr.addEventListener('load', () => {
-          if (xhr.status >= 200 && xhr.status < 300) resolve()
+          if (xhr.status >= 200 && xhr.status < 300)
+            resolve()
           else reject(new Error(`Upload failed: ${xhr.status}`))
         })
         xhr.addEventListener('error', () => reject(new Error('Upload failed')))
@@ -172,10 +190,14 @@ async function handleFileSelect(event: Event) {
 
       let fileType = 'other'
       const ext = sanitizedName.split('.').pop()?.toLowerCase()
-      if (ext === 'pdf') fileType = 'pdf'
-      else if (['doc', 'docx'].includes(ext || '')) fileType = ext!
-      else if (['ppt', 'pptx'].includes(ext || '')) fileType = ext!
-      else if (file.type.startsWith('image/')) fileType = 'image'
+      if (ext === 'pdf')
+        fileType = 'pdf'
+      else if (['doc', 'docx'].includes(ext || ''))
+        fileType = ext!
+      else if (['ppt', 'pptx'].includes(ext || ''))
+        fileType = ext!
+      else if (file.type.startsWith('image/'))
+        fileType = 'image'
 
       pendingAttachments.value.push({
         file_url,
@@ -282,7 +304,9 @@ onMounted(() => {
       <!-- Error -->
       <div v-else-if="error" class="bg-white rounded-xl border border-red-200 p-6 text-center">
         <Icon name="solar:danger-triangle-bold" size="32" class="text-red-400 mx-auto mb-2" />
-        <p class="text-sm text-red-600">{{ error }}</p>
+        <p class="text-sm text-red-600">
+          {{ error }}
+        </p>
       </div>
 
       <template v-else-if="homework">

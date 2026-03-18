@@ -23,23 +23,40 @@ export function getDeviceName(): string {
   let browser = 'Unknown'
 
   // Detect device
-  if (/iPhone/.test(ua)) device = 'iPhone'
-  else if (/iPad/.test(ua)) device = 'iPad'
+  if (/iPhone/.test(ua)) {
+    device = 'iPhone'
+  }
+  else if (/iPad/.test(ua)) {
+    device = 'iPad'
+  }
   else if (/Android/.test(ua)) {
+    // eslint-disable-next-line regexp/no-super-linear-backtracking, regexp/optimal-quantifier-concatenation -- UA string is bounded, trim() used
     const match = ua.match(/;\s*([\w\s]+)\s*Build/)
     device = match ? match[1].trim() : 'Android'
   }
-  else if (/Macintosh/.test(ua)) device = 'macOS'
-  else if (/Windows/.test(ua)) device = 'Windows'
-  else if (/Linux/.test(ua)) device = 'Linux'
+  else if (/Macintosh/.test(ua)) {
+    device = 'macOS'
+  }
+  else if (/Windows/.test(ua)) {
+    device = 'Windows'
+  }
+  else if (/Linux/.test(ua)) {
+    device = 'Linux'
+  }
 
   // Detect browser
-  if (/Zalo/.test(ua)) browser = 'Zalo'
-  else if (/FBAN|FBAV/.test(ua)) browser = 'Facebook'
-  else if (/Chrome/.test(ua) && !/Edg/.test(ua)) browser = 'Chrome'
-  else if (/Safari/.test(ua) && !/Chrome/.test(ua)) browser = 'Safari'
-  else if (/Firefox/.test(ua)) browser = 'Firefox'
-  else if (/Edg/.test(ua)) browser = 'Edge'
+  if (/Zalo/.test(ua))
+    browser = 'Zalo'
+  else if (/FBAN|FBAV/.test(ua))
+    browser = 'Facebook'
+  else if (/Chrome/.test(ua) && !/Edg/.test(ua))
+    browser = 'Chrome'
+  else if (/Safari/.test(ua) && !/Chrome/.test(ua))
+    browser = 'Safari'
+  else if (/Firefox/.test(ua))
+    browser = 'Firefox'
+  else if (/Edg/.test(ua))
+    browser = 'Edge'
 
   return `${device} - ${browser}`
 }

@@ -1,3 +1,6 @@
+<script setup>
+</script>
+
 <template lang="pug">
 h1.title1.mb4 Road Map
 
@@ -103,9 +106,6 @@ ul.kanban
       .task Improve multiple day events Month view
       .task Horizontal timeline
 </template>
-
-<script setup>
-</script>
 
 <style lang="scss">
 .page--road-map {

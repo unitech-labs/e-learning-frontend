@@ -288,34 +288,34 @@ useHead({
     <!-- Document Viewer -->
     <div v-else-if="document && documentUrl" class="mx-auto">
       <!-- PDF Viewer -->
-        <div
-        v-if="isPdf" 
-          class="pdf-viewer-container"
-          @contextmenu.prevent="preventDownload"
-          @click.prevent="preventDownload"
-        >
-          <div v-if="pdfLoading" class="flex items-center justify-center py-20">
-            <a-spin size="large" />
-            <span class="ml-3 text-gray-600">Loading PDF...</span>
-          </div>
-
-          <a-alert
-            v-if="pdfError"
-            type="error"
-            :message="pdfError"
-            show-icon
-            class="m-4"
-          />
-
-          <!-- PDF Viewer: lazy load với pdfjs-dist + IntersectionObserver -->
-              <LearningPdfViewer
-              v-if="!pdfError && documentUrl"
-                :url="documentUrl"
-                :scale="pdfScale"
-                @loaded="handlePdfLoaded"
-                @error="handlePdfError"
-              />
+      <div
+        v-if="isPdf"
+        class="pdf-viewer-container"
+        @contextmenu.prevent="preventDownload"
+        @click.prevent="preventDownload"
+      >
+        <div v-if="pdfLoading" class="flex items-center justify-center py-20">
+          <a-spin size="large" />
+          <span class="ml-3 text-gray-600">Loading PDF...</span>
         </div>
+
+        <a-alert
+          v-if="pdfError"
+          type="error"
+          :message="pdfError"
+          show-icon
+          class="m-4"
+        />
+
+        <!-- PDF Viewer: lazy load với pdfjs-dist + IntersectionObserver -->
+        <LearningPdfViewer
+          v-if="!pdfError && documentUrl"
+          :url="documentUrl"
+          :scale="pdfScale"
+          @loaded="handlePdfLoaded"
+          @error="handlePdfError"
+        />
+      </div>
 
       <!-- Document Info -->
       <div v-if="document.description" class="mt-6 bg-white rounded-lg shadow-sm border border-gray-200 p-6">

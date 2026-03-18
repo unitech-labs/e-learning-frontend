@@ -40,21 +40,27 @@ function getExtFromFileName(fileName: string): string {
 }
 
 function getPreviewType(): 'pdf' | 'docx' | 'pptx' | 'image' | 'other' {
-  if (!props.file) return 'other'
+  if (!props.file)
+    return 'other'
   const fileName = props.file.file_name || ''
   const ext = getExtFromFileName(fileName)
   const type = (props.file.file_type || ext).toLowerCase()
-  if (type === 'pdf' || ext === 'pdf') return 'pdf'
-  if (['doc', 'docx'].includes(type) || ['doc', 'docx'].includes(ext)) return 'docx'
-  if (['ppt', 'pptx'].includes(type) || ['ppt', 'pptx'].includes(ext)) return 'pptx'
-  if (type === 'image' || /^(?:png|jpg|jpeg|gif|webp)$/.test(ext)) return 'image'
+  if (type === 'pdf' || ext === 'pdf')
+    return 'pdf'
+  if (['doc', 'docx'].includes(type) || ['doc', 'docx'].includes(ext))
+    return 'docx'
+  if (['ppt', 'pptx'].includes(type) || ['ppt', 'pptx'].includes(ext))
+    return 'pptx'
+  if (type === 'image' || /^(?:png|jpg|jpeg|gif|webp)$/.test(ext))
+    return 'image'
   return 'other'
 }
 
 const previewType = computed(() => getPreviewType())
 
 const modalWidth = computed(() => {
-  if (!props.file) return 700
+  if (!props.file)
+    return 700
   return ['pdf', 'docx', 'pptx'].includes(previewType.value) ? 960 : 700
 })
 
@@ -64,13 +70,15 @@ function preventDownload(event: Event) {
 }
 
 async function loadDocxPreview() {
-  if (!props.file || previewType.value !== 'docx' || !import.meta.client) return
+  if (!props.file || previewType.value !== 'docx' || !import.meta.client)
+    return
   try {
     docxLoading.value = true
     docxError.value = null
     const { renderAsync } = await import('docx-preview')
     const response = await fetch(props.file.file_url)
-    if (!response.ok) throw new Error('Failed to fetch document')
+    if (!response.ok)
+      throw new Error('Failed to fetch document')
     const arrayBuffer = await response.arrayBuffer()
     await nextTick()
     const container = docxContainerRef.value

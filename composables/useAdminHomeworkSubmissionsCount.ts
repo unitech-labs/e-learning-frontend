@@ -15,7 +15,8 @@ export function useAdminHomeworkSubmissionsCount(options?: { enabled?: boolean }
   const pendingCount = useState(ADMIN_HOMEWORK_SUBMISSIONS_COUNT_KEY, () => 0)
 
   async function fetchCount() {
-    if (!enabled || !isAdmin.value || !import.meta.client) return
+    if (!enabled || !isAdmin.value || !import.meta.client)
+      return
     try {
       const data = await getAdminHomeworkSubmissionCount()
       pendingCount.value = data?.pending ?? 0

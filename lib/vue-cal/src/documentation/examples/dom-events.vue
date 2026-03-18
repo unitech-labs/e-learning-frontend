@@ -1,3 +1,190 @@
+<script setup>
+import { nextTick, reactive, ref } from 'vue'
+import { useAppStore } from '@/store'
+import { countDays, stringToDate } from '@/vue-cal'
+
+const store = useAppStore()
+const view = ref('week')
+const selectedDate = ref(null)
+const viewDate = ref(null)
+
+const events = [
+  {
+    start: '2018-10-30 10:30',
+    end: '2018-10-30 11:30',
+    title: 'Doctor appointment',
+    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+  {
+    start: '2018-11-16 10:30',
+    end: '2018-11-16 11:30',
+    title: 'Doctor appointment',
+    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+  {
+    start: '2018-11-19 10:35',
+    end: '2018-11-19 11:30',
+    title: 'Doctor appointment',
+    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
+    class: 'health',
+    schedule: 1,
+  },
+  {
+    start: '2018-11-19 18:30',
+    end: '2018-11-19 19:15',
+    title: 'Dentist appointment',
+    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
+    class: 'health',
+    schedule: 2,
+  },
+  {
+    start: '2018-11-20 18:30',
+    end: '2018-11-20 20:30',
+    title: 'Cross-fit',
+    content: '<i class="w-icon mdi mdi-dumbbell"></i>',
+    class: 'sport',
+    schedule: 2,
+  },
+  {
+    start: '2018-11-21 11:00',
+    end: '2018-11-21 13:00',
+    title: 'Brunch with Jane',
+    content: '<i class="w-icon mdi mdi-coffee-outline"></i>',
+    class: 'leisure',
+    schedule: 1,
+    background: false,
+  },
+  {
+    start: '2018-11-21 19:30',
+    end: '2018-11-21 23:00',
+    title: 'Swimming lesson',
+    content: '<i class="w-icon mdi mdi-pool"></i>',
+    class: 'sport',
+    schedule: 2,
+  },
+  {
+    start: '2018-11-23 12:30',
+    end: '2018-11-23 13:00',
+    title: 'Macca\'s with Mark',
+    content: '<i class="w-icon mdi mdi-food"></i>',
+    class: 'leisure',
+    schedule: 2,
+  },
+  {
+    start: '2018-11-23 21:00',
+    end: '2018-11-23 23:30',
+    title: 'Movie time',
+    content: '<i class="w-icon mdi mdi-ticket"></i>',
+    class: 'leisure',
+    schedule: 1,
+  },
+  {
+    start: '2018-11-30 21:00',
+    end: '2018-11-30 23:30',
+    title: 'Another movie tonight',
+    content: '<i class="w-icon mdi mdi-ticket"></i>',
+    class: 'leisure',
+    schedule: 1,
+  },
+]
+
+const logsBoxEl = ref(null)
+const exEmittedEvents = reactive({
+  expandedEmittedEvents: ref(Array.from({ length: 30 }).fill(false)),
+  logs: ref([]),
+  clearEventsLog: () => (exEmittedEvents.logs = []),
+  logMouseEvents: ref(false),
+  logEvents: (eventName, params) => {
+    // Filter out mouse move and mouseenter/leave events.
+    if (!exEmittedEvents.logMouseEvents && eventName.includes('-mouse'))
+      return true
+
+    if (params.cell)
+      params.cell = { ...params.cell, events: params.cell.events.value }
+    if (params.e)
+      params.e = `[${params.e.constructor.name}]`
+
+    exEmittedEvents.logs.push({ name: eventName, args: JSON.stringify(params, null, 2) })
+    const scrollableEl = logsBoxEl.value?.$el
+    nextTick(() => scrollableEl?.scrollTo?.({ top: scrollableEl.scrollHeight, behavior: 'smooth' }))
+
+    return true
+  },
+})
+
+const exBackendEvents = reactive({
+  loading: false,
+  events: [],
+  eventsTotal: ref(0),
+  onReady: ({ view: { start, end } }) => {
+    exBackendEvents.events.push({
+      title: 'NAVIGATE WEEKS TO LOAD EVENTS!',
+      start: new Date(start.addDays(3).setHours(10, 0, 0, 0)),
+      end: new Date(start.addDays(3).setHours(14, 0, 0, 0)),
+    })
+  },
+  onViewChange: async (view) => {
+    exBackendEvents.loading = true
+    // Simulate fetching events from a backend for the given formatted date range
+    // and return the events with a delay.
+    await fetchEvents(view.start.format(), view.end.format())
+    exBackendEvents.loading = false
+  },
+})
+
+const exExternalControls = reactive({
+  selectedDate: ref(null),
+  viewDate: ref(null),
+})
+
+const exSyncTwoCalendars = reactive({
+  selectedDate: ref(null),
+  viewDate: ref(null),
+})
+
+/*
+ * Fetch events from a backend.
+ *
+ * @param {string} start - The start date.
+ * @param {string} end - The end date.
+ * @returns {Promise<void>}
+ */
+async function fetchEvents(start, end) {
+  await new Promise(resolve => setTimeout(resolve, 400))
+  const startDate = stringToDate(start)
+  const endDate = stringToDate(end)
+  exBackendEvents.events = generateRandomEvents(startDate, endDate)
+  exBackendEvents.eventsTotal += exBackendEvents.events.length
+}
+
+/*
+ * Generate random events for a given date range as if they were returned from a backend.
+ *
+ * @param {Date} startDate - The start date.
+ * @param {Date} endDate - The end date.
+ * @returns {Array} The events.
+ */
+function generateRandomEvents(startDate, endDate) {
+  const daysRange = countDays(startDate, endDate)
+  const events = []
+  let eventNumber = 0
+  for (let i = 0; i < daysRange; i++) {
+    for (let j = 0; j < 10; j++) {
+      // Set random start and end time in the day, events last 1 hour.
+      // The random start and end time is between 9am and 5pm.
+      const start = new Date(startDate.addDays(i).setHours(Math.floor(Math.random() * 8) + 9, Math.floor(Math.random() * 60), 0, 0))
+      const end = start.addHours(1)
+      events.push({ title: `Event ${++eventNumber}`, start, end })
+    }
+  }
+  return events
+}
+</script>
+
 <template lang="pug">
 //- Example.
 example(title="Vue Cal Emitted Events" anchor="emitted-events")
@@ -396,190 +583,6 @@ example(title="Sync Two Vue Cal Instances" anchor="sync-two-calendars")
         :dark="store.darkMode"
         sm)
 </template>
-
-<script setup>
-import { computed, nextTick, reactive, ref } from 'vue'
-import { useAppStore } from '@/store'
-import { VueCal, stringToDate, countDays } from '@/vue-cal'
-
-const store = useAppStore()
-const view = ref('week')
-const selectedDate = ref(null)
-const viewDate = ref(null)
-
-const events = [
-  {
-    start: '2018-10-30 10:30',
-    end: '2018-10-30 11:30',
-    title: 'Doctor appointment',
-    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
-    class: 'health',
-    schedule: 1
-  },
-  {
-    start: '2018-11-16 10:30',
-    end: '2018-11-16 11:30',
-    title: 'Doctor appointment',
-    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
-    class: 'health',
-    schedule: 1
-  },
-  {
-    start: '2018-11-19 10:35',
-    end: '2018-11-19 11:30',
-    title: 'Doctor appointment',
-    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
-    class: 'health',
-    schedule: 1
-  },
-  {
-    start: '2018-11-19 18:30',
-    end: '2018-11-19 19:15',
-    title: 'Dentist appointment',
-    content: '<i class="w-icon mdi mdi-hospital-box-outline"></i>',
-    class: 'health',
-    schedule: 2
-  },
-  {
-    start: '2018-11-20 18:30',
-    end: '2018-11-20 20:30',
-    title: 'Cross-fit',
-    content: '<i class="w-icon mdi mdi-dumbbell"></i>',
-    class: 'sport',
-    schedule: 2
-  },
-  {
-    start: '2018-11-21 11:00',
-    end: '2018-11-21 13:00',
-    title: 'Brunch with Jane',
-    content: '<i class="w-icon mdi mdi-coffee-outline"></i>',
-    class: 'leisure',
-    schedule: 1,
-    background: false
-  },
-  {
-    start: '2018-11-21 19:30',
-    end: '2018-11-21 23:00',
-    title: 'Swimming lesson',
-    content: '<i class="w-icon mdi mdi-pool"></i>',
-    class: 'sport',
-    schedule: 2
-  },
-  {
-    start: '2018-11-23 12:30',
-    end: '2018-11-23 13:00',
-    title: 'Macca\'s with Mark',
-    content: '<i class="w-icon mdi mdi-food"></i>',
-    class: 'leisure',
-    schedule: 2
-  },
-  {
-    start: '2018-11-23 21:00',
-    end: '2018-11-23 23:30',
-    title: 'Movie time',
-    content: '<i class="w-icon mdi mdi-ticket"></i>',
-    class: 'leisure',
-    schedule: 1
-  },
-  {
-    start: '2018-11-30 21:00',
-    end: '2018-11-30 23:30',
-    title: 'Another movie tonight',
-    content: '<i class="w-icon mdi mdi-ticket"></i>',
-    class: 'leisure',
-    schedule: 1
-  }
-]
-
-const logsBoxEl = ref(null)
-const exEmittedEvents = reactive({
-  expandedEmittedEvents: ref(Array(30).fill(false)),
-  logs: ref([]),
-  clearEventsLog: () => (exEmittedEvents.logs = []),
-  logMouseEvents: ref(false),
-  logEvents: (eventName, params) => {
-    // Filter out mouse move and mouseenter/leave events.
-    if (!exEmittedEvents.logMouseEvents && eventName.includes('-mouse')) return true
-
-    if (params.cell) params.cell = { ...params.cell, events: params.cell.events.value }
-    if (params.e) params.e = `[${params.e.constructor.name}]`
-
-    exEmittedEvents.logs.push({ name: eventName, args: JSON.stringify(params, null, 2) })
-    const scrollableEl = logsBoxEl.value?.$el
-    nextTick(() => scrollableEl?.scrollTo?.({ top: scrollableEl.scrollHeight, behavior: 'smooth' }))
-
-    return true
-  }
-})
-
-const exBackendEvents = reactive({
-  loading: false,
-  events: [],
-  eventsTotal: ref(0),
-  onReady: ({ view: { start, end } }) => {
-    exBackendEvents.events.push({
-      title: 'NAVIGATE WEEKS TO LOAD EVENTS!',
-      start: new Date(start.addDays(3).setHours(10, 0, 0, 0)),
-      end: new Date(start.addDays(3).setHours(14, 0, 0, 0))
-    })
-  },
-  onViewChange: async view => {
-    exBackendEvents.loading = true
-    // Simulate fetching events from a backend for the given formatted date range
-    // and return the events with a delay.
-    await fetchEvents(view.start.format(), view.end.format())
-    exBackendEvents.loading = false
-  }
-})
-
-const exExternalControls = reactive({
-  selectedDate: ref(null),
-  viewDate: ref(null)
-})
-
-const exSyncTwoCalendars = reactive({
-  selectedDate: ref(null),
-  viewDate: ref(null)
-})
-
-/*
- * Fetch events from a backend.
- *
- * @param {string} start - The start date.
- * @param {string} end - The end date.
- * @returns {Promise<void>}
- */
-const fetchEvents = async (start, end) => {
-  await new Promise(resolve => setTimeout(resolve, 400))
-  const startDate = stringToDate(start)
-  const endDate = stringToDate(end)
-  exBackendEvents.events = generateRandomEvents(startDate, endDate)
-  exBackendEvents.eventsTotal += exBackendEvents.events.length
-}
-
-/*
- * Generate random events for a given date range as if they were returned from a backend.
- *
- * @param {Date} startDate - The start date.
- * @param {Date} endDate - The end date.
- * @returns {Array} The events.
- */
-const generateRandomEvents = (startDate, endDate) => {
-  const daysRange = countDays(startDate, endDate)
-  const events = []
-  let eventNumber = 0
-  for (let i = 0; i < daysRange; i++) {
-    for (let j = 0; j < 10; j++) {
-      // Set random start and end time in the day, events last 1 hour.
-      // The random start and end time is between 9am and 5pm.
-      const start = new Date(startDate.addDays(i).setHours(Math.floor(Math.random() * 8) + 9, Math.floor(Math.random() * 60), 0, 0))
-      const end = start.addHours(1)
-      events.push({ title: `Event ${++eventNumber}`, start, end })
-    }
-  }
-  return events
-}
-</script>
 
 <style lang="scss">
 .main--examples-dom-events {

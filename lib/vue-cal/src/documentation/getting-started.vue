@@ -1,3 +1,9 @@
+<script setup>
+import { useAppStore } from '@/store'
+
+const store = useAppStore()
+</script>
+
 <template lang="pug">
 h1.title1 Getting Started
 
@@ -169,7 +175,6 @@ p You can easily change the calendar design with CSS.
 
 p.mt1 Vue Cal comes with default styles scoped in the #[code vuecal--default-theme] class (which is used by default) and a height of 500px, you can override this via CSS.
 
-
 title-link.mt6(h3 anchor="themes") Themes
 p.
   Currently 2 color themes (light &amp; dark) are available.#[br]
@@ -185,13 +190,6 @@ p.
   Vue Cal uses CSS variables for easy customization.#[br]
   Checkout the #[router-link(to="examples/view#ex--css-variables") CSS Control Example] for a demo.
 </template>
-
-<script setup>
-import { useAppStore } from '@/store'
-import { VueCal } from '@/vue-cal'
-
-const store = useAppStore()
-</script>
 
 <style lang="scss">
 .main--getting-started {
