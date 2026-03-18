@@ -853,7 +853,7 @@
         "studentEmailsEnterCountFirst": "Please enter student count above first.",
         "studentEmailsFull": "Maximum reached. To adjust, change the student count above.",
         "studentEmailsPastePlaceholder": "Paste emails, one per line",
-        "studentEmailsPasteHint": "Example: student1@mail.com, student2@mail.com",
+        "studentEmailsPasteHint": "Example: student1{'@'}mail.com, student2{'@'}mail.com",
         "addFromText": "Add from text",
         "addStudentEmail": "Add row",
         "studentEmailPlaceholder": "Email"

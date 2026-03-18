@@ -523,7 +523,7 @@
         "studentEmailsEnterCountFirst": "Vui lòng nhập số lượng học viên ở trên trước.",
         "studentEmailsFull": "Đã đủ số lượng. Muốn điều chỉnh thì thay đổi số lượng ở trên.",
         "studentEmailsPastePlaceholder": "Dán email, mỗi dòng một email",
-        "studentEmailsPasteHint": "Ví dụ: student1@mail.com, student2@mail.com",
+        "studentEmailsPasteHint": "Ví dụ: student1{'@'}mail.com, student2{'@'}mail.com",
         "addFromText": "Thêm từ text",
         "addStudentEmail": "Thêm dòng",
         "studentEmailPlaceholder": "Email"

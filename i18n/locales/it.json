@@ -867,7 +867,7 @@
         "studentEmailsEnterCountFirst": "Inserisci prima il numero di studenti sopra.",
         "studentEmailsFull": "Numero massimo raggiunto. Per modificare, cambia il numero di studenti sopra.",
         "studentEmailsPastePlaceholder": "Incolla email, una per riga",
-        "studentEmailsPasteHint": "Esempio: student1@mail.com, student2@mail.com",
+        "studentEmailsPasteHint": "Esempio: student1{'@'}mail.com, student2{'@'}mail.com",
         "addFromText": "Aggiungi da testo",
         "addStudentEmail": "Aggiungi riga",
         "studentEmailPlaceholder": "Email"

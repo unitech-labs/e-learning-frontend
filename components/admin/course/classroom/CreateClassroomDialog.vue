@@ -787,15 +787,16 @@ watch(() => props.prefillRange, () => {
         name="schedule"
         class="w-full"
         :rules="[{ required: true, message: t('admin.classroom.form.scheduleRequired') }]"
+        :auto-link="false"
       >
         <div class="flex flex-col gap-4 w-full">
-          <div
-            v-for="(item, index) in formState.schedule"
-            :key="index"
-            class="flex flex-col gap-3 p-4 border border-gray-200 rounded-lg"
-          >
-            <div class="flex items-center gap-2 w-full">
-              <a-select
+            <div
+              v-for="(item, index) in formState.schedule"
+              :key="index"
+              class="flex flex-col gap-3 p-4 border border-gray-200 rounded-lg"
+            >
+              <div class="flex items-center gap-2 w-full">
+                <a-select
                 v-model:value="item.day"
                 :placeholder="$t('admin.classroom.form.selectDay')"
                 class="h-10 w-1/3"
