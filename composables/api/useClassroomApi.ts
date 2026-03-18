@@ -2,6 +2,10 @@ import type { ListApiResponse } from '~/api/apiClient'
 import type { CalendarApiResponse, Classroom, ClassroomDetail, ClassroomSchedule } from '~/types/course.type'
 import { useApiClient } from '~/api/apiClient'
 
+export interface StudentEmailEntry {
+  email: string
+}
+
 export interface ClassroomPayload {
   course_id: string
   title: string
@@ -16,6 +20,8 @@ export interface ClassroomPayload {
   discount_price?: string | null
   is_free?: boolean
   background_color?: string
+  // Student emails for pre-enrollment (optional)
+  student_emails?: StudentEmailEntry[]
 }
 
 export interface ClassroomSession {

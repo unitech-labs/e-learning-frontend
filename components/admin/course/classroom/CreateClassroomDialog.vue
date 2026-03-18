@@ -66,6 +66,10 @@ interface ScheduleItem {
   end: any | null
 }
 
+interface StudentEmailItem {
+  email: string
+}
+
 interface CreateClassroomFormState {
   title: string
   student_count: number | null
@@ -74,6 +78,7 @@ interface CreateClassroomFormState {
   schedule: ScheduleItem[]
   price: number | null
   background_color: string
+  student_emails: StudentEmailItem[]
 }
 
 interface CreateSessionFormState {
@@ -115,6 +120,7 @@ const formState = ref<CreateClassroomFormState>({
   // Pricing fields
   price: null as number | null,
   background_color: BACKGROUND_COLORS[0], // Default to first color
+  student_emails: [],
 })
 
 const sessionFormState = ref<CreateSessionFormState>({
@@ -218,6 +224,55 @@ function removeScheduleItem(index: number) {
   }
 }
 
+// Student emails
+function removeStudentEmailRow(index: number) {
+  formState.value.student_emails.splice(index, 1)
+}
+
+function parseStudentEmailsFromText(text: string) {
+  const lines = text.split(/[\n,;]+/).map(s => s.trim()).filter(Boolean)
+  return lines
+    .filter(line => line.includes('@'))
+    .map(email => ({ email }))
+}
+
+const pasteStudentEmailsText = ref('')
+
+const maxStudentEmails = computed(() => {
+  const n = formState.value.student_count
+  return (n != null && n > 0) ? n : 0
+})
+
+const studentEmailsRemaining = computed(() => {
+  const max = maxStudentEmails.value
+  const current = formState.value.student_emails.length
+  return Math.max(0, max - current)
+})
+
+const isStudentEmailsFull = computed(() => maxStudentEmails.value > 0 && studentEmailsRemaining.value === 0)
+
+function handleAddStudentEmailsFromText() {
+  const max = maxStudentEmails.value
+  if (max <= 0)
+    return
+
+  const parsed = parseStudentEmailsFromText(pasteStudentEmailsText.value)
+  if (parsed.length === 0)
+    return
+
+  const remaining = studentEmailsRemaining.value
+  const toAdd = parsed.slice(0, remaining)
+  formState.value.student_emails.push(...toAdd)
+  pasteStudentEmailsText.value = ''
+}
+
+// Trim excess when student_count decreases
+watch(() => formState.value.student_count, (newCount) => {
+  if (newCount != null && newCount > 0 && formState.value.student_emails.length > newCount) {
+    formState.value.student_emails = formState.value.student_emails.slice(0, newCount)
+  }
+})
+
 // Format time for API
 function formatTimeForApi(time: any): string {
   if (!time)
@@ -270,6 +325,7 @@ function resetForm() {
     // Reset pricing fields
     price: null,
     background_color: BACKGROUND_COLORS[0],
+    student_emails: [],
   }
   // Reset form fields if formRef exists
   if (formRef.value) {
@@ -290,6 +346,7 @@ function resetForm() {
     meeting_id: '',
     meeting_pass: '',
   }
+  pasteStudentEmailsText.value = ''
 }
 
 // Handle OK button
@@ -395,6 +452,11 @@ async function handleOk() {
       return
     }
 
+    // Transform student_emails: only include entries with valid email
+    const studentEmailsPayload = formState.value.student_emails
+      .filter(e => e.email?.trim())
+      .map(e => ({ email: e.email.trim() }))
+
     // Transform form data to API format
     const classroomPayload: any = {
       course_id: courseId,
@@ -420,6 +482,10 @@ async function handleOk() {
       background_color: formState.value.background_color,
       // Timezone
       timezone: selectedTimezone.value,
+    }
+
+    if (studentEmailsPayload.length > 0) {
+      classroomPayload.student_emails = studentEmailsPayload
     }
 
     // Call API to create classroom
@@ -784,6 +850,70 @@ watch(() => props.prefillRange, () => {
           </a-button>
         </div>
       </a-form-item>
+
+      <!-- Student Emails Section -->
+      <div class="w-full border-t border-gray-200 pt-4 mt-4">
+        <h3 class="text-base font-semibold text-gray-900 mb-2">
+          {{ t('admin.classroom.dialog.studentEmails') }}
+        </h3>
+        <div class="text-xs text-gray-500 mb-3">
+          {{ t('admin.classroom.dialog.studentEmailsDescription') }}
+        </div>
+
+        <p
+          v-if="maxStudentEmails <= 0"
+          class="text-xs text-amber-600 mb-3"
+        >
+          {{ t('admin.classroom.dialog.studentEmailsEnterCountFirst') }}
+        </p>
+        <p
+          v-else-if="isStudentEmailsFull"
+          class="text-sm text-red-600 font-medium mb-3"
+        >
+          {{ t('admin.classroom.dialog.studentEmailsFull') }}
+        </p>
+
+        <!-- Quick paste -->
+        <div class="mb-3 flex gap-2">
+          <a-textarea
+            v-model:value="pasteStudentEmailsText"
+            :placeholder="t('admin.classroom.dialog.studentEmailsPastePlaceholder')"
+            :rows="2"
+            class="flex-1 text-sm"
+            :disabled="maxStudentEmails <= 0 || isStudentEmailsFull"
+            @blur="handleAddStudentEmailsFromText"
+          />
+          <a-button
+            type="default"
+            size="small"
+            class="shrink-0 self-end"
+            :disabled="!pasteStudentEmailsText.trim() || maxStudentEmails <= 0 || isStudentEmailsFull"
+            @click="handleAddStudentEmailsFromText"
+          >
+            {{ t('admin.classroom.dialog.addFromText') }}
+          </a-button>
+        </div>
+        <div class="text-xs text-gray-400 mb-3">
+          {{ t('admin.classroom.dialog.studentEmailsPasteHint') }}
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <span
+            v-for="(item, idx) in formState.student_emails"
+            :key="idx"
+            class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-sm bg-gray-100 text-gray-800 border border-gray-200"
+          >
+            {{ item.email }}
+            <button
+              type="button"
+              class="ml-0.5 p-0.5 text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
+              @click="removeStudentEmailRow(idx)"
+            >
+              <Icon name="i-material-symbols-delete-outline" class="text-[14px]" />
+            </button>
+          </span>
+        </div>
+      </div>
 
       <!-- Pricing Section -->
       <div class="w-full border-t border-gray-200 pt-4 mt-4">

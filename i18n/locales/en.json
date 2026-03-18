@@ -847,7 +847,16 @@
         "createSessionFailed": "Failed to create session",
         "priceRequired": "Price is required and must be greater than 0",
         "numberOfSessionsRequired": "Please enter total number of sessions",
-        "numberOfSessionsMin": "Total number of sessions must be >= 1"
+        "numberOfSessionsMin": "Total number of sessions must be >= 1",
+        "studentEmails": "Student emails",
+        "studentEmailsDescription": "Add student emails to pre-enroll in the classroom (optional). Max count = student count above.",
+        "studentEmailsEnterCountFirst": "Please enter student count above first.",
+        "studentEmailsFull": "Maximum reached. To adjust, change the student count above.",
+        "studentEmailsPastePlaceholder": "Paste emails, one per line",
+        "studentEmailsPasteHint": "Example: student1@mail.com, student2@mail.com",
+        "addFromText": "Add from text",
+        "addStudentEmail": "Add row",
+        "studentEmailPlaceholder": "Email"
       },
       "sessionDetail": {
         "editSession": "Edit session",

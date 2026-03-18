@@ -1422,7 +1422,7 @@ function formatFileSize(bytes: number): string {
                   <span class="text-sm font-medium text-gray-900 truncate">
                     {{ student.full_name || student.username }}
                   </span>
-                  <span v-if="student.email" class="text-xs text-gray-500 truncate">{{ student.email }}</span>
+                  <span v-if="student.email_linked" class="text-xs text-gray-500 truncate">{{ student.email_linked }}</span>
                 </div>
                 <button
                   type="button"

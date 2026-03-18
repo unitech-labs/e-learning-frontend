@@ -517,7 +517,16 @@
         "createSessionFailed": "Không thể tạo buổi học",
         "priceRequired": "Giá cả là bắt buộc và phải lớn hơn 0",
         "numberOfSessionsRequired": "Vui lòng nhập tổng số buổi học",
-        "numberOfSessionsMin": "Tổng số buổi học phải >= 1"
+        "numberOfSessionsMin": "Tổng số buổi học phải >= 1",
+        "studentEmails": "Email học viên",
+        "studentEmailsDescription": "Thêm danh sách email học viên để đăng ký sẵn vào lớp (tùy chọn). Số lượng tối đa = số lượng học viên ở trên.",
+        "studentEmailsEnterCountFirst": "Vui lòng nhập số lượng học viên ở trên trước.",
+        "studentEmailsFull": "Đã đủ số lượng. Muốn điều chỉnh thì thay đổi số lượng ở trên.",
+        "studentEmailsPastePlaceholder": "Dán email, mỗi dòng một email",
+        "studentEmailsPasteHint": "Ví dụ: student1@mail.com, student2@mail.com",
+        "addFromText": "Thêm từ text",
+        "addStudentEmail": "Thêm dòng",
+        "studentEmailPlaceholder": "Email"
       },
       "sessionDetail": {
         "editSession": "Chỉnh sửa buổi học",

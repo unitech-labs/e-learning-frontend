@@ -861,7 +861,16 @@
         "createSessionFailed": "Không thể tạo buổi học",
         "priceRequired": "Giá cả là bắt buộc và phải lớn hơn 0",
         "numberOfSessionsRequired": "Vui lòng nhập tổng số buổi học",
-        "numberOfSessionsMin": "Tổng số buổi học phải >= 1"
+        "numberOfSessionsMin": "Tổng số buổi học phải >= 1",
+        "studentEmails": "Email studenti",
+        "studentEmailsDescription": "Aggiungi email studenti per pre-iscriversi alla classe (opzionale). Numero massimo = numero studenti sopra.",
+        "studentEmailsEnterCountFirst": "Inserisci prima il numero di studenti sopra.",
+        "studentEmailsFull": "Numero massimo raggiunto. Per modificare, cambia il numero di studenti sopra.",
+        "studentEmailsPastePlaceholder": "Incolla email, una per riga",
+        "studentEmailsPasteHint": "Esempio: student1@mail.com, student2@mail.com",
+        "addFromText": "Aggiungi da testo",
+        "addStudentEmail": "Aggiungi riga",
+        "studentEmailPlaceholder": "Email"
       },
       "sessionDetail": {
         "editSession": "Chỉnh sửa buổi học",
