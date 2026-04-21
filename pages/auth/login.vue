@@ -174,7 +174,8 @@ async function onFinish() {
 
     // Try to parse error response
     if (error?.data) {
-      const errorCode = error.data.code || error.data.error_code
+      // Prefer `error_code` (string) from backend; fall back to numeric `code` if absent
+      const errorCode = error.data.error_code || error.data.code
       const errorData = error.data
       passwordError.value = translateErrorMessage(errorCode, errorData)
     }

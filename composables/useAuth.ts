@@ -112,7 +112,8 @@ export function useAuth() {
       return {
         success: false,
         error: error?.data?.message || error?.statusMessage || 'Login failed',
-        errorCode: error?.data?.code,
+        // Some backends return `error_code` while others return `code` — prefer `error_code`
+        errorCode: error?.data?.error_code || error?.data?.code,
         errorData: error?.data,
       }
     }
@@ -157,7 +158,7 @@ export function useAuth() {
       return {
         success: false,
         error: error?.data?.message || error?.statusMessage || 'Google login failed',
-        errorCode: error?.data?.code,
+        errorCode: error?.data?.error_code || error?.data?.code,
         errorData: error?.data,
       }
     }
@@ -173,9 +174,9 @@ export function useAuth() {
       console.error('Register error:', error)
       return {
         success: false,
-        error: error.data?.message || error.statusMessage || 'Registration failed',
-        errorCode: error.data?.code,
-        errorData: error.data,
+        error: error?.data?.message || error?.statusMessage || 'Registration failed',
+        errorCode: error?.data?.error_code || error?.data?.code,
+        errorData: error?.data,
       }
     }
   }
@@ -208,9 +209,9 @@ export function useAuth() {
       console.error('Forgot password OTP error:', error)
       return {
         success: false,
-        error: error.data?.message || error.statusMessage || 'Failed to send OTP',
-        errorCode: error.data?.code,
-        errorData: error.data,
+        error: error?.data?.message || error?.statusMessage || 'Failed to send OTP',
+        errorCode: error?.data?.error_code || error?.data?.code,
+        errorData: error?.data,
       }
     }
   }
@@ -225,9 +226,9 @@ export function useAuth() {
       console.error('Reset password OTP error:', error)
       return {
         success: false,
-        error: error.data?.message || error.statusMessage || 'Failed to reset password',
-        errorCode: error.data?.code,
-        errorData: error.data,
+        error: error?.data?.message || error?.statusMessage || 'Failed to reset password',
+        errorCode: error?.data?.error_code || error?.data?.code,
+        errorData: error?.data,
       }
     }
   }
