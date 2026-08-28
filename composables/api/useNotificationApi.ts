@@ -35,13 +35,27 @@ export interface NotificationHomework {
   feedback?: string
 }
 
+export interface NotificationFlashcard {
+  id: string
+  word: string
+  meaning: string
+  status: string
+}
+
+export type NotificationType
+  = | 'comment' | 'reply' | 'order' | 'homework_assigned' | 'homework_graded'
+    | 'flashcard_created' | 'flashcard_feedback' | 'flashcard_access_request'
+    | 'flashcard_access_approved' | 'flashcard_access_rejected' | 'flashcard_access_revoked'
+
 export interface Notification {
   id: string
-  notification_type: 'comment' | 'reply' | 'order' | 'homework_assigned' | 'homework_graded'
+  notification_type: NotificationType
   sender: NotificationSender | null
   comment: NotificationComment | null
   order: NotificationOrder | null
   homework: NotificationHomework | null
+  /** Chỉ có ở flashcard_created / flashcard_feedback. */
+  flashcard: NotificationFlashcard | null
   is_read: boolean
   created_at: string
 }

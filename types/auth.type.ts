@@ -54,6 +54,8 @@ export interface User {
   first_name: string
   last_name: string
   is_teacher: boolean
+  /** Quyền quản trị nội dung — backend trả trong /auth/me. */
+  is_admin?: boolean
   is_verified: boolean
   avatar?: string
   role?: 'user' | 'teacher' | 'admin'

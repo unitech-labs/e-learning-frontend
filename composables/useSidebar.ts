@@ -73,6 +73,11 @@ export function useSidebar(isAdmin = false) {
       link: '/calendars',
     },
     {
+      name: t('menu.flashcards'),
+      icon: 'solar:card-2-bold',
+      link: '/flashcards',
+    },
+    {
       name: t('menu.settings'),
       icon: 'solar:settings-bold',
       subItems: [
@@ -139,6 +144,11 @@ export function useSidebar(isAdmin = false) {
       name: t('adminMenu.videoPosts'),
       icon: 'solar:video-frame-play-vertical-bold',
       link: '/admin/video-posts',
+    },
+    {
+      name: t('adminMenu.flashcards'),
+      icon: 'tabler:cards',
+      link: '/admin/flashcards',
     },
     ...(config.public.sessionReminderEnabled
       ? [{

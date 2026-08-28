@@ -21,6 +21,12 @@
     "minutesAgo": "{n} minuti fa",
     "hoursAgo": "{n} ore fa",
     "daysAgo": "{n} giorni fa",
-    "viewAll": "Visualizza tutte le notifiche"
+    "viewAll": "Visualizza tutte le notifiche",
+    "flashcardCreated": "L'AI ha appena creato una nuova flashcard in attesa di revisione",
+    "flashcardFeedback": "ha segnalato un contenuto errato nella scheda",
+    "flashcardAccessRequest": "ha richiesto l'accesso a Flashcard AI",
+    "flashcardAccessApproved": "La tua richiesta di accesso a Flashcard AI è stata approvata",
+    "flashcardAccessRejected": "La tua richiesta di accesso a Flashcard AI è stata rifiutata",
+    "flashcardAccessRevoked": "Il tuo accesso a Flashcard AI è stato revocato"
   }
 }

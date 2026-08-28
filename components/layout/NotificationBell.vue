@@ -64,6 +64,20 @@ async function handleNotificationClick(notif: Notification) {
   else if (notif.notification_type === 'homework_assigned' || notif.notification_type === 'homework_graded') {
     router.push('/homeworks')
   }
+  // Thông báo cho admin -> nhảy thẳng đúng tab trong trang quản lý flashcard
+  else if (notif.notification_type === 'flashcard_created') {
+    router.push('/admin/flashcards')
+  }
+  else if (notif.notification_type === 'flashcard_feedback') {
+    router.push('/admin/flashcards?tab=feedback')
+  }
+  else if (notif.notification_type === 'flashcard_access_request') {
+    router.push('/admin/flashcards?tab=access')
+  }
+  // Thông báo cho học viên về quyền dùng flashcard
+  else if (notif.notification_type.startsWith('flashcard_access_')) {
+    router.push('/flashcards')
+  }
   else if (notif.comment?.course_id && notif.comment?.lesson_id) {
     router.push(`/learning/${notif.comment.course_id}?lessonId=${notif.comment.lesson_id}&tab=comments`)
   }
@@ -200,6 +214,21 @@ onUnmounted(() => {
               <div v-else-if="notif.notification_type === 'homework_graded'" class="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center">
                 <Icon name="solar:check-circle-bold-duotone" size="18" class="text-green-500" />
               </div>
+              <div v-else-if="notif.notification_type === 'flashcard_created'" class="w-9 h-9 rounded-full bg-violet-100 flex items-center justify-center">
+                <Icon name="solar:magic-stick-3-bold-duotone" size="18" class="text-violet-500" />
+              </div>
+              <div v-else-if="notif.notification_type === 'flashcard_feedback'" class="w-9 h-9 rounded-full bg-red-100 flex items-center justify-center">
+                <Icon name="solar:flag-bold-duotone" size="18" class="text-red-500" />
+              </div>
+              <div v-else-if="notif.notification_type === 'flashcard_access_request'" class="w-9 h-9 rounded-full bg-amber-100 flex items-center justify-center">
+                <Icon name="solar:key-bold-duotone" size="18" class="text-amber-500" />
+              </div>
+              <div v-else-if="notif.notification_type === 'flashcard_access_approved'" class="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center">
+                <Icon name="solar:key-bold-duotone" size="18" class="text-green-500" />
+              </div>
+              <div v-else-if="notif.notification_type === 'flashcard_access_rejected' || notif.notification_type === 'flashcard_access_revoked'" class="w-9 h-9 rounded-full bg-red-100 flex items-center justify-center">
+                <Icon name="solar:key-bold-duotone" size="18" class="text-red-500" />
+              </div>
               <a-avatar
                 v-else
                 :size="36"
@@ -263,6 +292,51 @@ onUnmounted(() => {
                   <span class="font-semibold" :class="notif.homework.grade >= 80 ? 'text-green-600' : notif.homework.grade >= 50 ? 'text-blue-600' : 'text-red-500'">
                     {{ t('notificationBell.homeworkGrade') }} {{ notif.homework.grade }}/100
                   </span>
+                </p>
+              </template>
+
+              <!-- Flashcard: AI soạn thẻ mới chờ kiểm duyệt (gửi admin) -->
+              <template v-else-if="notif.notification_type === 'flashcard_created'">
+                <p class="text-sm text-gray-800 leading-snug">
+                  {{ t('notificationBell.flashcardCreated') }}
+                </p>
+                <p v-if="notif.flashcard" class="text-xs text-gray-500 mt-0.5">
+                  <span class="font-medium text-gray-700">"{{ notif.flashcard.word }}"</span>
+                  <span v-if="notif.flashcard.meaning"> · {{ notif.flashcard.meaning }}</span>
+                </p>
+              </template>
+
+              <!-- Flashcard: học viên báo nội dung sai (gửi admin) -->
+              <template v-else-if="notif.notification_type === 'flashcard_feedback'">
+                <p class="text-sm text-gray-800 leading-snug">
+                  <span class="font-semibold">{{ notif.sender?.full_name || t('notificationBell.unknownSender') }}</span>
+                  {{ ` ${t('notificationBell.flashcardFeedback')} ` }}
+                  <span v-if="notif.flashcard" class="font-medium text-gray-900">"{{ notif.flashcard.word }}"</span>
+                </p>
+              </template>
+
+              <!-- Flashcard: xin quyền dùng (gửi admin) -->
+              <template v-else-if="notif.notification_type === 'flashcard_access_request'">
+                <p class="text-sm text-gray-800 leading-snug">
+                  <span class="font-semibold">{{ notif.sender?.full_name || t('notificationBell.unknownSender') }}</span>
+                  {{ ` ${t('notificationBell.flashcardAccessRequest')}` }}
+                </p>
+              </template>
+
+              <!-- Flashcard: kết quả xét quyền (gửi học viên) -->
+              <template v-else-if="notif.notification_type === 'flashcard_access_approved'">
+                <p class="text-sm text-gray-800 leading-snug">
+                  {{ t('notificationBell.flashcardAccessApproved') }}
+                </p>
+              </template>
+              <template v-else-if="notif.notification_type === 'flashcard_access_rejected'">
+                <p class="text-sm text-gray-800 leading-snug">
+                  {{ t('notificationBell.flashcardAccessRejected') }}
+                </p>
+              </template>
+              <template v-else-if="notif.notification_type === 'flashcard_access_revoked'">
+                <p class="text-sm text-gray-800 leading-snug">
+                  {{ t('notificationBell.flashcardAccessRevoked') }}
                 </p>
               </template>
 

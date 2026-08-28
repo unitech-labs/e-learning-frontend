@@ -21,6 +21,12 @@
     "minutesAgo": "{n} phút trước",
     "hoursAgo": "{n} giờ trước",
     "daysAgo": "{n} ngày trước",
-    "viewAll": "Xem tất cả thông báo"
+    "viewAll": "Xem tất cả thông báo",
+    "flashcardCreated": "AI vừa soạn một flashcard mới, chờ bạn kiểm duyệt",
+    "flashcardFeedback": "báo nội dung sai ở thẻ",
+    "flashcardAccessRequest": "xin cấp quyền dùng Flashcard AI",
+    "flashcardAccessApproved": "Yêu cầu dùng Flashcard AI của bạn đã được duyệt, dùng được ngay",
+    "flashcardAccessRejected": "Yêu cầu dùng Flashcard AI của bạn đã bị từ chối",
+    "flashcardAccessRevoked": "Quyền dùng Flashcard AI của bạn đã bị thu hồi"
   }
 }
