@@ -2,7 +2,7 @@
 interface Props {
   italian?: string[]
   vietnamese?: string[]
-  /** Ngôn ngữ hiển thị đậm ở dòng trên. Loa luôn đọc câu tiếng Ý. */
+  /** Mỗi mặt chỉ hiện đúng một ngôn ngữ: 'it' -> câu Ý (kèm loa), 'vi' -> câu dịch. */
   primary?: 'it' | 'vi'
   /** Các dạng của từ đang học, để tô đỏ trong câu ví dụ (số ít + số nhiều). */
   highlightWords?: string[]
@@ -77,7 +77,7 @@ function segments(text: string): Segment[] {
     <h3
       class="rounded-lg bg-[#1B8A3C] px-4 py-2.5 text-center text-sm font-bold tracking-wide text-white sm:text-base"
     >
-      {{ streaming ? 3 : pairs.length }} VÍ DỤ
+      {{ streaming ? 3 : pairs.length }} {{ primary === 'it' ? 'ESEMPI' : 'VÍ DỤ' }}
     </h3>
 
     <ol class="mt-1 divide-y divide-gray-100">
@@ -97,30 +97,20 @@ function segments(text: string): Segment[] {
           <span class="block h-3 w-3/5 animate-pulse rounded bg-gray-100" />
         </div>
         <div v-else class="min-w-0 flex-1">
-          <template v-if="primary === 'it'">
-            <p class="text-sm font-bold text-gray-900 sm:text-base">
-              <template v-for="(segment, i) in segments(pair.it)" :key="i">
-                <span :class="segment.hit ? 'text-[#CE2B37]' : ''">{{ segment.text }}</span>
-              </template>
-            </p>
-            <p v-if="pair.vi" class="mt-1 text-sm italic text-gray-500">
-              {{ pair.vi }}
-            </p>
-          </template>
-          <template v-else>
-            <p class="text-sm font-bold text-gray-900 sm:text-base">
-              {{ pair.vi }}
-            </p>
-            <p class="mt-1 text-sm italic text-gray-500">
-              <template v-for="(segment, i) in segments(pair.it)" :key="i">
-                <span :class="segment.hit ? 'text-[#CE2B37]' : ''">{{ segment.text }}</span>
-              </template>
-            </p>
-          </template>
+          <!-- Mặt Ý: chỉ câu tiếng Ý (tô đỏ từ đang học). Mặt Việt: chỉ câu dịch. -->
+          <p v-if="primary === 'it'" class="text-sm font-bold text-gray-900 sm:text-base">
+            <template v-for="(segment, i) in segments(pair.it)" :key="i">
+              <span :class="segment.hit ? 'text-[#CE2B37]' : ''">{{ segment.text }}</span>
+            </template>
+          </p>
+          <p v-else class="text-sm font-bold text-gray-900 sm:text-base">
+            {{ pair.vi }}
+          </p>
         </div>
 
+        <!-- Loa đọc câu Ý nên chỉ có ở mặt Ý -->
         <FlashcardSpeakButton
-          v-if="pair.it"
+          v-if="primary === 'it' && pair.it"
           :text="pair.it"
           size="md"
           :speaking="speakingText === pair.it"

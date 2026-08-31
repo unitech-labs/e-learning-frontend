@@ -37,17 +37,13 @@ const headWord = computed(() =>
   isItalian.value ? props.flashcard.front.word : props.flashcard.back.word,
 )
 
-/** Nhãn nhỏ trong ô ảnh: luôn là ngôn ngữ còn lại, để hai mặt soi gương nhau. */
-const imageCaption = computed(() =>
-  isItalian.value ? props.flashcard.back.word : props.flashcard.front.word,
-)
-
-/** NGHĨA (mặt Ý): back.word + back.synonyms. TIẾNG Ý (mặt Việt): từ gốc. */
+/**
+ * Mỗi mặt thuần một ngôn ngữ: mặt Ý KHÔNG lộ nghĩa tiếng Việt (muốn biết thì
+ * lật thẻ). Mặt Việt thêm dòng TIẾNG Ý để biết thẻ này của từ nào.
+ */
 const meaningRow = computed(() => {
-  if (isItalian.value) {
-    const { word, synonyms } = props.flashcard.back
-    return { label: 'NGHĨA', value: [word, ...(synonyms ?? [])].filter(Boolean).join(', ') }
-  }
+  if (isItalian.value)
+    return null
   return { label: 'TIẾNG Ý', value: props.flashcard.front.word }
 })
 
@@ -109,35 +105,35 @@ const definition = computed(() =>
             >
               {{ headWord }}
             </h2>
+            <!-- IPA là phiên âm tiếng Ý -> chỉ mặt Ý mới hiện -->
             <span
-              v-if="streaming && !pronunciation"
+              v-if="isItalian && streaming && !pronunciation"
               class="mx-auto mt-2 block h-4 w-24 animate-pulse rounded bg-gray-100"
             />
-            <p v-else-if="pronunciation" class="mt-1.5 whitespace-nowrap text-sm text-gray-600 sm:text-base">
+            <p v-else-if="isItalian && pronunciation" class="mt-1.5 whitespace-nowrap text-sm text-gray-600 sm:text-base">
               [{{ pronunciation }}]
             </p>
           </div>
 
+          <!-- Ô chủ đề chỉ còn icon: nhãn chữ trước đây là ngôn ngữ mặt kia -->
           <div
-            class="flex w-20 shrink-0 flex-col items-center gap-1 rounded-2xl border border-gray-200 px-2 py-2.5 sm:w-24 sm:py-3"
+            class="flex w-20 shrink-0 flex-col items-center justify-center gap-1 rounded-2xl border border-gray-200 px-2 py-2.5 sm:w-24 sm:py-3"
           >
             <Icon :name="topicIcon" class="text-2xl text-[#1B8A3C] sm:text-3xl" />
-            <span v-if="streaming && !imageCaption" class="block h-3 w-12 animate-pulse rounded bg-gray-200" />
-            <span v-else class="line-clamp-1 text-[10px] text-gray-600 sm:text-xs">{{ imageCaption }}</span>
           </div>
         </div>
 
         <FlashcardGrammarTable
           :grammar="flashcard.grammar"
           :primary="side"
-          :meaning="meaningRow.value"
-          :meaning-label="meaningRow.label"
+          :meaning="meaningRow?.value"
+          :meaning-label="meaningRow?.label"
           :streaming="streaming"
         />
 
-        <!-- Ghi nhớ -->
+        <!-- Ghi nhớ viết bằng tiếng Việt -> chỉ nằm ở mặt Việt -->
         <section
-          v-if="flashcard.mnemonic || streaming"
+          v-if="!isItalian && (flashcard.mnemonic || streaming)"
           class="flex items-start gap-2.5 rounded-2xl border border-[#CFE7D4] bg-white px-3.5 py-3 sm:px-4"
         >
           <Icon name="tabler:bulb" class="mt-0.5 shrink-0 text-lg text-amber-500" />

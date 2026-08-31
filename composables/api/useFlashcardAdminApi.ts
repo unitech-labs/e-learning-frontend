@@ -36,10 +36,7 @@ export function useFlashcardAdminApi() {
     updateCard: (id: string, payload: Record<string, unknown>) =>
       apiClient.patch<FlashcardAdminDetail>(`/flashcards/admin/${id}/`, payload),
 
-    approveCard: (id: string) =>
-      apiClient.post<FlashcardAdminDetail>(`/flashcards/admin/${id}/approve/`),
-
-    /** Từ chối = XOÁ thẻ. Lần tra sau AI sinh lại từ đầu. */
+    /** Xoá thẻ (endpoint tên reject vì lịch sử). Lần tra sau AI sinh lại từ đầu. */
     rejectCard: (id: string, reason: string) =>
       apiClient.post<{ deleted: boolean, word: string }>(`/flashcards/admin/${id}/reject/`, { reason }),
 

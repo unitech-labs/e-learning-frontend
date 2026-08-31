@@ -22,7 +22,7 @@
     "hoursAgo": "{n} giờ trước",
     "daysAgo": "{n} ngày trước",
     "viewAll": "Xem tất cả thông báo",
-    "flashcardCreated": "AI vừa soạn một flashcard mới, chờ bạn kiểm duyệt",
+    "flashcardCreated": "AI vừa tạo một flashcard mới (đã vào hệ thống, bạn có thể hậu kiểm)",
     "flashcardFeedback": "báo nội dung sai ở thẻ",
     "flashcardAccessRequest": "xin cấp quyền dùng Flashcard AI",
     "flashcardAccessApproved": "Yêu cầu dùng Flashcard AI của bạn đã được duyệt, dùng được ngay",

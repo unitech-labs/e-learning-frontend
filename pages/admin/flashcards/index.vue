@@ -25,37 +25,33 @@ const VALID_TABS = ['cards', 'access', 'feedback', 'ai']
 const initialTab = String(route.query.tab ?? '')
 const activeTab = ref(VALID_TABS.includes(initialTab) ? initialTab : 'cards')
 
-// ═══ TAB 1: KIỂM DUYỆT THẺ ═══════════════════════════════════════
+// ═══ TAB 1: DANH SÁCH THẺ ════════════════════════════════════════
+// Bước kiểm duyệt đã bỏ (2026-08-29): AI sinh xong là thẻ chính thức ngay.
+// Admin hậu kiểm ở đây: xem / sửa / xoá (xoá xong lần tra sau AI sinh lại).
 const cards = ref<FlashcardListItem[]>([])
 const cardsTotal = ref(0)
 const cardsLoading = ref(false)
 const cardsPage = ref(1)
 const cardsPageSize = 10
-const cardStatus = ref('pending')
 const cardSearch = ref('')
-const pendingCount = ref(0)
 
 const cardColumns = [
   { title: 'Từ', dataIndex: 'word', key: 'word' },
   { title: 'Nghĩa', dataIndex: 'meaning', key: 'meaning' },
-  { title: 'Trạng thái', dataIndex: 'status', key: 'status', width: 130 },
-  { title: 'Ngày tạo', dataIndex: 'created_at', key: 'created_at', width: 120 },
-  { title: 'Thao tác', key: 'actions', width: 260 },
+  { title: 'Ngày tạo', dataIndex: 'created_at', key: 'created_at', width: 130 },
+  { title: 'Thao tác', key: 'actions', width: 220 },
 ]
 
 async function loadCards() {
   cardsLoading.value = true
   try {
     const res = await api.listCards({
-      status: cardStatus.value || undefined,
       search: cardSearch.value || undefined,
       limit: cardsPageSize,
       offset: (cardsPage.value - 1) * cardsPageSize,
     })
     cards.value = res.results
     cardsTotal.value = res.count
-    if (cardStatus.value === 'pending')
-      pendingCount.value = res.count
   }
   catch {
     message.error('Không tải được danh sách thẻ')
@@ -63,20 +59,6 @@ async function loadCards() {
   finally {
     cardsLoading.value = false
   }
-}
-
-const approvedCount = ref(0)
-
-async function refreshPendingCount() {
-  try {
-    const [p, a] = await Promise.all([
-      api.listCards({ status: 'pending', limit: 1 }),
-      api.listCards({ status: 'approved', limit: 1 }),
-    ])
-    pendingCount.value = p.count
-    approvedCount.value = a.count
-  }
-  catch { /* badge phụ, lỗi bỏ qua */ }
 }
 
 // Xem trước thẻ: tái dùng FlashcardDetail (lật được như học sinh thấy)
@@ -93,26 +75,6 @@ async function openPreview(item: FlashcardListItem) {
   }
 }
 
-async function approveCard(item: FlashcardListItem | FlashcardAdminDetail) {
-  Modal.confirm({
-    title: `Duyệt thẻ "${item.word}"?`,
-    content: 'Thẻ sẽ thành dữ liệu chính thức cho mọi học viên.',
-    okText: 'Duyệt',
-    cancelText: 'Huỷ',
-    async onOk() {
-      try {
-        await api.approveCard(item.id)
-        message.success(`Đã duyệt "${item.word}"`)
-        previewOpen.value = false
-        await Promise.all([loadCards(), refreshPendingCount()])
-      }
-      catch {
-        message.error('Duyệt thất bại')
-      }
-    },
-  })
-}
-
 const rejectTarget = ref<FlashcardListItem | FlashcardAdminDetail | null>(null)
 const rejectReason = ref('')
 const rejectSending = ref(false)
@@ -127,10 +89,10 @@ async function submitReject() {
     rejectTarget.value = null
     rejectReason.value = ''
     previewOpen.value = false
-    await Promise.all([loadCards(), refreshPendingCount()])
+    await loadCards()
   }
   catch {
-    message.error('Từ chối thất bại')
+    message.error('Xoá thất bại')
   }
   finally {
     rejectSending.value = false
@@ -501,7 +463,6 @@ watch(activeTab, (tab) => {
 
 onMounted(() => {
   loadCards()
-  refreshPendingCount()
   refreshAccessPendingCount()
   // Vào bằng deep-link ?tab= thì watch(activeTab) không chạy -> tự load tab đó.
   if (activeTab.value === 'access')
@@ -523,31 +484,9 @@ onMounted(() => {
     </div>
 
     <a-tabs v-model:active-key="activeTab">
-      <!-- ═══ TAB DUYỆT THẺ ═══ -->
-      <a-tab-pane key="cards">
-        <template #tab>
-          <span>
-            Duyệt thẻ
-            <a-badge v-if="pendingCount" :count="pendingCount" class="ml-1" />
-          </span>
-        </template>
-
+      <!-- ═══ TAB DANH SÁCH THẺ ═══ -->
+      <a-tab-pane key="cards" tab="Danh sách thẻ">
         <div class="mb-3 flex flex-wrap items-center gap-2">
-          <a-radio-group
-            v-model:value="cardStatus"
-            button-style="solid"
-            @change="() => { cardsPage = 1; loadCards() }"
-          >
-            <a-radio-button value="pending">
-              Chờ duyệt ({{ pendingCount }})
-            </a-radio-button>
-            <a-radio-button value="approved">
-              Đã duyệt ({{ approvedCount }})
-            </a-radio-button>
-            <a-radio-button value="">
-              Tất cả
-            </a-radio-button>
-          </a-radio-group>
           <a-input-search
             v-model:value="cardSearch"
             placeholder="Tìm theo từ hoặc nghĩa…"
@@ -572,11 +511,6 @@ onMounted(() => {
             <template v-if="column.key === 'word'">
               <span class="font-serif font-bold text-[#CE2B37]">{{ record.word }}</span>
             </template>
-            <template v-else-if="column.key === 'status'">
-              <a-tag :color="statusTag[record.status]?.color">
-                {{ statusTag[record.status]?.label }}
-              </a-tag>
-            </template>
             <template v-else-if="column.key === 'created_at'">
               {{ formatDate(record.created_at) }}
             </template>
@@ -589,17 +523,10 @@ onMounted(() => {
                   Sửa
                 </a-button>
                 <a-button
-                  v-if="record.status !== 'approved'"
-                  size="small" type="primary"
-                  @click="approveCard(record)"
-                >
-                  Duyệt
-                </a-button>
-                <a-button
                   size="small" danger
                   @click="rejectTarget = record"
                 >
-                  Từ chối
+                  Xoá
                 </a-button>
               </div>
             </template>
@@ -834,9 +761,6 @@ onMounted(() => {
     <a-modal v-model:open="previewOpen" :footer="null" :width="900" destroy-on-close>
       <template #title>
         <span>Xem trước thẻ</span>
-        <a-tag v-if="previewCard" :color="statusTag[previewCard.status]?.color" class="ml-2">
-          {{ statusTag[previewCard.status]?.label }}
-        </a-tag>
       </template>
       <div v-if="previewCard" class="space-y-4">
         <FlashcardDetail
@@ -854,14 +778,7 @@ onMounted(() => {
             danger
             @click="rejectTarget = previewCard"
           >
-            Từ chối
-          </a-button>
-          <a-button
-            v-if="previewCard.status !== 'approved'"
-            type="primary"
-            @click="approveCard(previewCard)"
-          >
-            Duyệt thẻ này
+            Xoá thẻ
           </a-button>
         </div>
       </div>
@@ -1003,11 +920,11 @@ onMounted(() => {
       </div>
     </a-modal>
 
-    <!-- Modal lý do từ chối -->
+    <!-- Modal xoá thẻ -->
     <a-modal
       :open="rejectTarget !== null"
-      title="Từ chối thẻ"
-      ok-text="Từ chối"
+      title="Xoá thẻ"
+      ok-text="Xoá"
       ok-type="danger"
       cancel-text="Huỷ"
       :confirm-loading="rejectSending"
@@ -1015,7 +932,7 @@ onMounted(() => {
       @cancel="rejectTarget = null"
     >
       <p class="mb-2 text-sm">
-        Từ chối = <b>xoá hẳn</b> thẻ <b class="text-[#CE2B37]">{{ rejectTarget?.word }}</b>
+        Thẻ <b class="text-[#CE2B37]">{{ rejectTarget?.word }}</b> sẽ bị <b>xoá hẳn</b>
         (kèm feedback, lưu từ, lịch sử liên quan). Lần tra sau AI sẽ sinh lại bản hoàn toàn mới.
       </p>
       <a-textarea v-model:value="rejectReason" :rows="3" placeholder="Lý do (không bắt buộc)" />

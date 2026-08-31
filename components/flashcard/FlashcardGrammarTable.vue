@@ -3,13 +3,13 @@ import type { FlashcardGrammar } from '~/types/flashcard.type'
 
 interface Props {
   grammar: FlashcardGrammar
-  /** Dòng cuối bảng: mặt Ý là NGHĨA (tiếng Việt), mặt Việt là TIẾNG Ý (từ gốc). */
+  /** Dòng cuối bảng (chỉ mặt Việt dùng): TIẾNG Ý -> từ gốc. Bỏ qua = không có dòng này. */
   meaning?: string
   meaningLabel?: string
   /**
-   * Ngôn ngữ chính của mặt đang hiển thị: giá trị đậm là ngôn ngữ này,
-   * chú thích trong ngoặc là ngôn ngữ còn lại. Mạo từ / số nhiều là dạng
-   * tiếng Ý nên giữ nguyên ở cả hai mặt.
+   * Ngôn ngữ của mặt đang hiển thị. Mỗi mặt chỉ hiện đúng một ngôn ngữ:
+   * mặt Ý — giá trị + nhãn tiếng Ý, kèm hai dòng mạo từ / số nhiều (dạng Ý);
+   * mặt Việt — giá trị + nhãn tiếng Việt, ẩn mạo từ / số nhiều vì đó là chữ Ý.
    */
   primary?: 'it' | 'vi'
   /** Đang stream: hiện đủ mọi dòng, giá trị chưa tới hiển thị skeleton. */
@@ -17,7 +17,6 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  meaningLabel: 'NGHĨA',
   primary: 'it',
 })
 
@@ -30,8 +29,12 @@ interface GrammarRow {
   /** Phần tô đỏ (mạo từ) đứng trước phần chữ thường. */
   highlight?: string
   value: string
-  /** Chú thích tiếng Việt trong ngoặc, theo đúng design: Nome (Danh từ). */
-  hint?: string
+}
+
+/** Nhãn từng dòng theo ngôn ngữ của mặt — mặt nào thuần ngôn ngữ đó. */
+const LABELS: Record<'it' | 'vi', Record<string, string>> = {
+  it: { pos: 'TIPO DI PAROLA', gender: 'GENERE', number: 'NUMERO', article: 'ARTICOLO', plural: 'PLURALE' },
+  vi: { pos: 'LOẠI TỪ', gender: 'GIỐNG', number: 'SỐ', article: 'MẠO TỪ', plural: 'SỐ NHIỀU' },
 }
 
 /**
@@ -41,6 +44,9 @@ interface GrammarRow {
 const rows = computed<GrammarRow[]>(() => {
   const { part_of_speech: pos, gender, number, article, plural }
     = props.grammar ?? ({} as Partial<FlashcardGrammar>)
+
+  const lang = props.primary
+  const labels = LABELS[lang]
 
   const genderIcon = (gender?.it ?? '').toLowerCase().startsWith('masch')
     ? 'tabler:gender-male'
@@ -53,52 +59,58 @@ const rows = computed<GrammarRow[]>(() => {
   const all: GrammarRow[] = [
     {
       key: 'pos',
-      label: 'LOẠI TỪ',
+      label: labels.pos,
       icon: 'tabler:book-2',
       iconClass: 'text-[#CE2B37]',
-      value: (props.primary === 'it' ? pos?.it : pos?.vi) ?? '',
-      hint: (props.primary === 'it' ? pos?.vi : pos?.it) ?? '',
+      value: (lang === 'it' ? pos?.it : pos?.vi) ?? '',
     },
     {
       key: 'gender',
-      label: 'GIỐNG',
+      label: labels.gender,
       icon: genderIcon,
       iconClass: 'text-[#CE2B37]',
-      value: (props.primary === 'it' ? gender?.it : gender?.vi) ?? '',
-      hint: (props.primary === 'it' ? gender?.vi : gender?.it) ?? '',
+      value: (lang === 'it' ? gender?.it : gender?.vi) ?? '',
     },
     {
       key: 'number',
-      label: 'SỐ',
+      label: labels.number,
       icon: numberIcon,
       iconClass: 'text-[#1B8A3C]',
-      value: (props.primary === 'it' ? number?.it : number?.vi) ?? '',
-      hint: (props.primary === 'it' ? number?.vi : number?.it) ?? '',
-    },
-    {
-      key: 'article',
-      label: 'MẠO TỪ',
-      glyph: 'Aa',
-      iconClass: 'text-slate-700',
-      highlight: article?.article ?? '',
-      value: article?.article ? article.word : '',
-    },
-    {
-      key: 'plural',
-      label: 'SỐ NHIỀU',
-      icon: 'tabler:users',
-      iconClass: 'text-[#1B8A3C]',
-      highlight: plural?.article ?? '',
-      value: plural?.article ? plural.form : '',
-    },
-    {
-      key: 'meaning',
-      label: props.meaningLabel,
-      icon: 'tabler:world',
-      iconClass: 'text-[#1B8A3C]',
-      value: props.meaning ?? '',
+      value: (lang === 'it' ? number?.it : number?.vi) ?? '',
     },
   ]
+
+  // Mạo từ / số nhiều là chữ tiếng Ý -> chỉ mặt Ý mới có.
+  if (lang === 'it') {
+    all.push(
+      {
+        key: 'article',
+        label: labels.article,
+        glyph: 'Aa',
+        iconClass: 'text-slate-700',
+        highlight: article?.article ?? '',
+        value: article?.article ? article.word : '',
+      },
+      {
+        key: 'plural',
+        label: labels.plural,
+        icon: 'tabler:users',
+        iconClass: 'text-[#1B8A3C]',
+        highlight: plural?.article ?? '',
+        value: plural?.article ? plural.form : '',
+      },
+    )
+  }
+
+  if (props.meaning !== undefined) {
+    all.push({
+      key: 'meaning',
+      label: props.meaningLabel ?? '',
+      icon: 'tabler:world',
+      iconClass: 'text-[#1B8A3C]',
+      value: props.meaning,
+    })
+  }
 
   if (props.streaming)
     return all
@@ -133,7 +145,6 @@ const rows = computed<GrammarRow[]>(() => {
         <template v-else>
           <span v-if="row.highlight" class="font-bold text-[#CE2B37]">{{ row.highlight }}&nbsp;</span>
           <span :class="row.key === 'meaning' ? '' : 'font-bold'">{{ row.value }}</span>
-          <span v-if="row.hint" class="ml-1.5 font-normal text-gray-500">({{ row.hint }})</span>
         </template>
       </dd>
     </div>
