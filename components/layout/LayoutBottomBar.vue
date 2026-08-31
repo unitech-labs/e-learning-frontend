@@ -49,6 +49,12 @@ const bottomBarItems = computed<BottomBarItem[]>(() => {
       type: 'link',
     },
     {
+      name: t('menu.flashcards'),
+      icon: 'solar:card-2-bold',
+      link: '/flashcards',
+      type: 'link',
+    },
+    {
       name: t('menu.homeworks'),
       icon: 'solar:document-text-bold',
       link: '/homeworks',
@@ -146,7 +152,11 @@ watch(() => route.path, () => {
 <template>
   <!-- Bottom Navigation Bar - Only visible on mobile -->
   <div class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg safe-area-bottom">
-    <div class="grid grid-cols-5 h-16 relative">
+    <!-- Số cột theo số item để thêm/bớt tab không phải sửa class -->
+    <div
+      class="grid h-16 relative"
+      :style="{ gridTemplateColumns: `repeat(${bottomBarItems.length}, minmax(0, 1fr))` }"
+    >
       <template v-for="item in bottomBarItems" :key="item.name">
         <!-- Regular Link Item -->
         <NuxtLink
@@ -198,7 +208,7 @@ watch(() => route.path, () => {
 
           <!-- Label -->
           <span
-            class="text-xs font-medium transition-all duration-200"
+            class="text-xs font-medium transition-all duration-200 max-w-full truncate px-0.5"
             :class="[
               isActive(item.link)
                 ? 'text-green-600 font-semibold'
