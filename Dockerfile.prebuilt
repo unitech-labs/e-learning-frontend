@@ -1,0 +1,24 @@
+# Đóng image từ .output ĐÃ build sẵn ở máy khác (server yếu RAM, nuxt build
+# hay bị OOM killer). Build .output trước bằng:
+#   API_BASE_URL=<prod> GOOGLE_CLIENT_ID=<prod> pnpm build
+# rồi: docker build -f Dockerfile.prebuilt -t ceruscs/elearning-app:<version> .
+# Lưu ý: .output thuần JS nên build trên máy arm64 chạy được trên server x86.
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV PORT=3000
+
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nuxtjs
+
+COPY --chown=nuxtjs:nodejs .output ./.output
+COPY --chown=nuxtjs:nodejs package.json ./package.json
+
+USER nuxtjs
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+
+CMD ["node", ".output/server/index.mjs"]
