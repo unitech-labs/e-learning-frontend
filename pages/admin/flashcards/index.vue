@@ -68,6 +68,14 @@ async function loadCards() {
 const genOpen = ref(false)
 const genWord = ref('')
 
+// Xoá sạch ô search (kể cả bấm nút clear) là trả về nguyên danh sách.
+watch(cardSearch, (value) => {
+  if (value === '') {
+    cardsPage.value = 1
+    loadCards()
+  }
+})
+
 async function handleCardSearch() {
   cardsPage.value = 1
   await loadCards()
@@ -509,6 +517,7 @@ onMounted(() => {
             v-model:value="cardSearch"
             placeholder="Tìm theo từ hoặc nghĩa…"
             style="width: 240px"
+            allow-clear
             @search="handleCardSearch"
           />
           <span class="text-xs text-gray-400">Search từ tiếng Ý chưa có thẻ sẽ mở màn sinh bằng AI</span>
