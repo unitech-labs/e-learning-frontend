@@ -37,7 +37,9 @@ ENV NITRO_PRESET=node-server
 RUN pnpm postinstall || true
 
 # Build the application
-RUN pnpm build
+# Heap mặc định của Node không đủ cho nuxt build (OOM trên server 8GB) -> nâng
+# riêng cho bước build; không ảnh hưởng stage production.
+RUN NODE_OPTIONS=--max-old-space-size=6144 pnpm build
 
 # Stage 3: Production
 FROM node:20-alpine AS runner
