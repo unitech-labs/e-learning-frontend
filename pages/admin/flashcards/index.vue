@@ -80,10 +80,27 @@ async function handleCardSearch() {
   cardsPage.value = 1
   await loadCards()
   const term = cardSearch.value.trim().toLowerCase()
-  if (term && !term.includes(' ') && isValidItalianWord(term)
-    && !cards.value.some(card => card.word === term)) {
+  if (!term)
+    return
+
+  const isWordShape = !term.includes(' ') && isValidItalianWord(term)
+
+  // Từ tiếng Ý hợp lệ chưa có thẻ -> mở màn sinh bằng AI (nếu từ không có
+  // thật trong từ điển thì chính dialog đó sẽ báo lỗi rõ ràng).
+  if (isWordShape && !cards.value.some(card => card.word === term)) {
     genWord.value = term
     genOpen.value = true
+    return
+  }
+
+  // Không ra kết quả nào (và không phải dạng từ để sinh AI) -> báo rõ
+  // thay vì để bảng trống trơn.
+  if (cardsTotal.value === 0) {
+    Modal.info({
+      title: 'Không tìm thấy kết quả',
+      content: `Không có thẻ nào khớp "${term}". Nếu bạn muốn sinh thẻ mới bằng AI, hãy nhập đúng một từ tiếng Ý (chỉ chữ cái tiếng Ý, dấu nháy đơn và gạch nối, không khoảng trắng).`,
+      okText: 'Đóng',
+    })
   }
 }
 
