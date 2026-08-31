@@ -8,6 +8,7 @@ import type {
 } from '~/types/flashcard.type'
 import { message, Modal } from 'ant-design-vue'
 import { useFlashcardAdminApi } from '~/composables/api/useFlashcardAdminApi'
+import { isValidItalianWord } from '~/composables/api/useFlashcardApi'
 
 definePageMeta({
   layout: 'admin',
@@ -58,6 +59,23 @@ async function loadCards() {
   }
   finally {
     cardsLoading.value = false
+  }
+}
+
+// ─── Sinh thẻ bằng AI ngay từ ô search ───────────────────────────
+// Search một từ tiếng Ý hợp lệ mà hệ thống CHƯA có thẻ -> mở modal sinh
+// (trải nghiệm streaming y hệt học sinh). Từ đã có thì bảng lọc ra là đủ.
+const genOpen = ref(false)
+const genWord = ref('')
+
+async function handleCardSearch() {
+  cardsPage.value = 1
+  await loadCards()
+  const term = cardSearch.value.trim().toLowerCase()
+  if (term && !term.includes(' ') && isValidItalianWord(term)
+    && !cards.value.some(card => card.word === term)) {
+    genWord.value = term
+    genOpen.value = true
   }
 }
 
@@ -491,8 +509,9 @@ onMounted(() => {
             v-model:value="cardSearch"
             placeholder="Tìm theo từ hoặc nghĩa…"
             style="width: 240px"
-            @search="() => { cardsPage = 1; loadCards() }"
+            @search="handleCardSearch"
           />
+          <span class="text-xs text-gray-400">Search từ tiếng Ý chưa có thẻ sẽ mở màn sinh bằng AI</span>
         </div>
 
         <a-table
@@ -919,6 +938,13 @@ onMounted(() => {
         </div>
       </div>
     </a-modal>
+
+    <!-- Modal sinh thẻ bằng AI từ ô search -->
+    <FlashcardGeneratorModal
+      v-model:open="genOpen"
+      :word="genWord"
+      @done="loadCards"
+    />
 
     <!-- Modal xoá thẻ -->
     <a-modal
