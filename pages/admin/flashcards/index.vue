@@ -39,6 +39,7 @@ const cardSearch = ref('')
 const cardColumns = [
   { title: 'Từ', dataIndex: 'word', key: 'word' },
   { title: 'Nghĩa', dataIndex: 'meaning', key: 'meaning' },
+  { title: 'Lượt tra', dataIndex: 'search_count', key: 'search_count', width: 95 },
   { title: 'Ngày tạo', dataIndex: 'created_at', key: 'created_at', width: 130 },
   { title: 'Thao tác', key: 'actions', width: 220 },
 ]

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Flashcard } from '~/types/flashcard.type'
-import { getTopicIcon } from '~/utils/flashcardTopicIcon'
 
 interface Props {
   flashcard: Flashcard
@@ -29,8 +28,6 @@ const isItalian = computed(() => props.side === 'it')
  * API và modal phía sau vẫn nguyên — muốn hiện lại chỉ cần đổi thành true.
  */
 const SHOW_CARD_ACTIONS = false
-
-const topicIcon = computed(() => getTopicIcon(props.flashcard.topics))
 
 /** Từ lớn màu đỏ: mặt Ý là từ tiếng Ý, mặt Việt là nghĩa tiếng Việt. */
 const headWord = computed(() =>
@@ -83,7 +80,7 @@ const definition = computed(() =>
           <div class="flex shrink-0 flex-col items-center gap-1">
             <FlashcardSpeakButton
               :text="flashcard.front.word"
-              size="xl"
+              size="lg"
               tone="red"
               :speaking="speakingText === flashcard.front.word"
               :disabled="speechDisabled"
@@ -113,13 +110,6 @@ const definition = computed(() =>
             <p v-else-if="isItalian && pronunciation" class="mt-1.5 whitespace-nowrap text-sm text-gray-600 sm:text-base">
               [{{ pronunciation }}]
             </p>
-          </div>
-
-          <!-- Ô chủ đề chỉ còn icon: nhãn chữ trước đây là ngôn ngữ mặt kia -->
-          <div
-            class="flex w-20 shrink-0 flex-col items-center justify-center gap-1 rounded-2xl border border-gray-200 px-2 py-2.5 sm:w-24 sm:py-3"
-          >
-            <Icon :name="topicIcon" class="text-2xl text-[#1B8A3C] sm:text-3xl" />
           </div>
         </div>
 

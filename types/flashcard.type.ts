@@ -79,6 +79,8 @@ export interface FlashcardListItem {
   status: FlashcardStatus
   topics: string[]
   is_saved: boolean
+  /** Tổng lượt tra của mọi user — chỉ queryset admin đổ số thật, chỗ khác là 0. */
+  search_count: number
   created_at: string
 }
 
