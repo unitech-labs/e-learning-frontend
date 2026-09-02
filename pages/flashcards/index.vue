@@ -556,7 +556,7 @@ onMounted(async () => {
               class="group cursor-pointer rounded-2xl border border-gray-200 bg-white px-4 py-3 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#1B8A3C] hover:shadow-md"
               @click="openHistoryWord(item)"
             >
-              <p class="truncate font-serif text-lg font-bold text-[#CE2B37]">
+              <p class="truncate text-lg font-bold text-[#CE2B37]">
                 {{ item.word }}
               </p>
               <p class="truncate text-sm text-gray-700">

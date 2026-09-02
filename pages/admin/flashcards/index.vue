@@ -554,7 +554,7 @@ onMounted(() => {
         >
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'word'">
-              <span class="font-serif font-bold text-[#CE2B37]">{{ record.word }}</span>
+              <span class="font-bold text-[#CE2B37]">{{ record.word }}</span>
             </template>
             <template v-else-if="column.key === 'created_at'">
               {{ formatDate(record.created_at) }}
@@ -704,7 +704,7 @@ onMounted(() => {
         >
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'word'">
-              <span class="font-serif font-bold text-[#CE2B37]">{{ record.flashcard_word }}</span>
+              <span class="font-bold text-[#CE2B37]">{{ record.flashcard_word }}</span>
             </template>
             <template v-else-if="column.key === 'status'">
               <a-tag :color="statusTag[record.status]?.color">
@@ -839,7 +839,7 @@ onMounted(() => {
       @ok="saveEdit"
     >
       <template #title>
-        Sửa thẻ <b class="font-serif text-[#CE2B37]">{{ editWord }}</b>
+        Sửa thẻ <b class="text-[#CE2B37]">{{ editWord }}</b>
         <span class="ml-2 text-xs font-normal text-gray-400">AI sinh sai chỗ nào thì sửa thẳng ở đây</span>
       </template>
 

@@ -191,7 +191,7 @@ const shownCard = computed(() => streamCard.value ?? result.value)
   >
     <template #title>
       <span>Sinh flashcard bằng AI</span>
-      <span class="ml-2 font-serif font-bold text-[#CE2B37]">{{ word }}</span>
+      <span class="ml-2 font-bold text-[#CE2B37]">{{ word }}</span>
     </template>
 
     <!-- Đang tra từ điển, AI chưa nhả chữ nào -->

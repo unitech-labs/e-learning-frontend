@@ -100,7 +100,7 @@ const definition = computed(() =>
             />
             <h2
               v-else
-              class="font-serif font-bold leading-none text-[#CE2B37] [overflow-wrap:anywhere]"
+              class="font-bold leading-none text-[#CE2B37] [overflow-wrap:anywhere]"
               :class="wordSizeClass"
             >
               {{ headWord }}
