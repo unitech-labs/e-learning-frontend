@@ -42,10 +42,20 @@ export interface NotificationFlashcard {
   status: string
 }
 
+export interface NotificationQuiz {
+  id: string
+  title: string
+  exercise_type: string
+  level_code: string
+  topic_name: string | null
+  review_status: string
+}
+
 export type NotificationType
   = | 'comment' | 'reply' | 'order' | 'homework_assigned' | 'homework_graded'
     | 'flashcard_created' | 'flashcard_feedback' | 'flashcard_access_request'
     | 'flashcard_access_approved' | 'flashcard_access_rejected' | 'flashcard_access_revoked'
+    | 'ai_exercise_created'
 
 export interface Notification {
   id: string
@@ -56,6 +66,8 @@ export interface Notification {
   homework: NotificationHomework | null
   /** Chỉ có ở flashcard_created / flashcard_feedback. */
   flashcard: NotificationFlashcard | null
+  /** Chỉ có ở ai_exercise_created. */
+  quiz?: NotificationQuiz | null
   is_read: boolean
   created_at: string
 }

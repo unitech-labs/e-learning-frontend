@@ -62,7 +62,8 @@
       "manualGradingRequired": "Requires manual grading",
       "delete": "Delete question",
       "essayQuestionPlaceholder": "Enter essay question...",
-      "essayQuestionInfo": "Essay questions will be manually graded by the teacher."
+      "essayQuestionInfo": "Essay questions will be manually graded by the teacher.",
+      "addOption": "Add option"
     }
   }
 }

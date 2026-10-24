@@ -27,6 +27,7 @@
     "flashcardAccessRequest": "xin cấp quyền dùng Flashcard AI",
     "flashcardAccessApproved": "Yêu cầu dùng Flashcard AI của bạn đã được duyệt, dùng được ngay",
     "flashcardAccessRejected": "Yêu cầu dùng Flashcard AI của bạn đã bị từ chối",
-    "flashcardAccessRevoked": "Quyền dùng Flashcard AI của bạn đã bị thu hồi"
+    "flashcardAccessRevoked": "Quyền dùng Flashcard AI của bạn đã bị thu hồi",
+    "aiExerciseCreated": "vừa tạo bài tập AI mới, cần duyệt"
   }
 }

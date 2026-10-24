@@ -78,6 +78,11 @@ export function useSidebar(isAdmin = false) {
       link: '/flashcards',
     },
     {
+      name: t('menu.aiExercises'),
+      icon: 'solar:pen-new-square-bold',
+      link: '/exercises',
+    },
+    {
       name: t('menu.settings'),
       icon: 'solar:settings-bold',
       subItems: [
@@ -149,6 +154,11 @@ export function useSidebar(isAdmin = false) {
       name: t('adminMenu.flashcards'),
       icon: 'tabler:cards',
       link: '/admin/flashcards',
+    },
+    {
+      name: t('adminMenu.aiExercises'),
+      icon: 'tabler:sparkles',
+      link: '/admin/ai-exercises',
     },
     ...(config.public.sessionReminderEnabled
       ? [{

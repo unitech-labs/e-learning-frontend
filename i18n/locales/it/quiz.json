@@ -62,7 +62,8 @@
       "manualGradingRequired": "Richiede correzione manuale",
       "delete": "Elimina domanda",
       "essayQuestionPlaceholder": "Inserisci la domanda a risposta aperta...",
-      "essayQuestionInfo": "Le domande a risposta aperta saranno corrette manualmente dall'insegnante."
+      "essayQuestionInfo": "Le domande a risposta aperta saranno corrette manualmente dall'insegnante.",
+      "addOption": "Aggiungi opzione"
     }
   }
 }

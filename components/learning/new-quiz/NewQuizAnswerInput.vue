@@ -2,12 +2,15 @@
 import type { NewQuizQuestion } from '~/composables/api/useNewQuizApi'
 import type { SavedAnswer } from '~/types/new-quiz.type'
 import { useDebounceFn } from '@vueuse/core'
+import { OPTION_LABEL_COLORS } from '~/utils/exercise'
 
 interface Props {
   question: NewQuizQuestion
   savedAnswer?: SavedAnswer
   saving?: boolean
   saveError?: string
+  /** Bài tập: đổi đáp án thoải mái, không hiện đúng/sai cho tới khi nộp bài. */
+  deferred?: boolean
 }
 
 const props = defineProps<Props>()
@@ -65,7 +68,14 @@ watch(() => [props.savedAnswer, props.question.id] as const, ([newAnswer, questi
 
 // Computed for feedback display
 const showFeedback = computed(() => {
-  return props.savedAnswer && props.savedAnswer.question_type !== 'essay'
+  return !props.deferred && props.savedAnswer && props.savedAnswer.question_type !== 'essay'
+})
+
+// Deferred mode: the typed answer currently in the box is already saved
+const isTextSaved = computed(() => {
+  return !!props.deferred
+    && !!textAnswer.value.trim()
+    && props.savedAnswer?.text_answer === textAnswer.value.trim()
 })
 
 const isCorrect = computed(() => {
@@ -89,7 +99,10 @@ const isAnswerLocked = computed(() => {
 // Handle MCQ selection
 function handleMCQSelect(optionId: string) {
   // Prevent selection if answer is locked (already has feedback)
-  if (isAnswerLocked.value)
+  if (isAnswerLocked.value || props.saving)
+    return
+  // Deferred mode: re-clicking the saved option is a no-op
+  if (props.deferred && props.savedAnswer?.selected_option === optionId)
     return
 
   selectedOption.value = optionId
@@ -104,11 +117,17 @@ function handleTextInput(text: string) {
 }
 
 function handleTextSubmit() {
-  if (textAnswer.value.trim()) {
+  if (textAnswer.value.trim() && !isTextSaved.value) {
     emit('answerSaved', {
       text_answer: textAnswer.value.trim(),
     })
   }
+}
+
+// Deferred mode: save when leaving the box so moving to another question never loses the answer
+function handleTextBlur() {
+  if (props.deferred)
+    handleTextSubmit()
 }
 
 // Handle essay input (with debounce)
@@ -143,13 +162,8 @@ function handleEssayInput(text: string) {
         @click="handleMCQSelect(option.id)"
       >
         <div
-          class="w-8 h-8 rounded-full flex items-center justify-center text-black font-bold text-sm"
-          :class="{
-            'bg-blue-200': option.label === 'A',
-            'bg-orange-200': option.label === 'B',
-            'bg-red-200': option.label === 'C',
-            'bg-yellow-200': option.label === 'D',
-          }"
+          class="w-8 h-8 rounded-full flex items-center justify-center text-black font-bold text-sm shrink-0"
+          :class="OPTION_LABEL_COLORS[option.label] || 'bg-gray-200'"
         >
           {{ option.label }}
         </div>
@@ -223,9 +237,10 @@ function handleEssayInput(text: string) {
           :placeholder="t('newQuiz.player.answerInput.textInputPlaceholder')"
           @input="handleTextInput(($event.target as HTMLInputElement).value)"
           @keyup.enter="handleTextSubmit"
+          @blur="handleTextBlur"
         >
         <button
-          :disabled="!textAnswer.trim() || saving || showFeedback"
+          :disabled="!textAnswer.trim() || saving || showFeedback || isTextSaved"
           class="px-6 py-3 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 shrink-0"
           @click="handleTextSubmit"
         >
@@ -233,6 +248,10 @@ function handleEssayInput(text: string) {
           <Icon v-else name="mdi:send" class="text-base" />
           {{ saving ? t('newQuiz.player.answerInput.saving') : t('newQuiz.player.answerInput.submit') }}
         </button>
+      </div>
+      <div v-if="isTextSaved" class="flex items-center gap-2 text-sm text-slate-500">
+        <Icon name="mdi:content-save-check-outline" class="text-emerald-600" />
+        {{ t('newQuiz.player.answerInput.savedDeferred') }}
       </div>
       <div
         v-if="showFeedback"

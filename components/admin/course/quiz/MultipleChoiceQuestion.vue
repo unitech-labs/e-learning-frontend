@@ -4,15 +4,21 @@ import type { Rule } from 'ant-design-vue/es/form'
 import type { QuestionOption } from '~/types/quiz.type'
 import { message, Upload } from 'ant-design-vue'
 import { computed, reactive, watch } from 'vue'
+import { OPTION_LABEL_COLORS } from '~/utils/exercise'
 
 interface Props {
   initialData?: Partial<MultipleChoiceQuestionData>
   questionNumber?: number
+  /** Số phương án tối thiểu / tối đa. Mặc định cố định 4 (A-D) như quiz cũ. */
+  minOptions?: number
+  maxOptions?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
   initialData: () => ({}),
   questionNumber: 1,
+  minOptions: 4,
+  maxOptions: 4,
 })
 
 const emit = defineEmits<{
@@ -74,13 +80,29 @@ function getOptionLabel(index: number): string {
 }
 
 function getOptionColor(index: number): string {
-  const colors = [
-    'bg-blue-200',
-    'bg-orange-200',
-    'bg-red-200',
-    'bg-yellow-200',
-  ]
-  return colors[index] || 'bg-gray-200'
+  return OPTION_LABEL_COLORS[getOptionLabel(index)] || 'bg-gray-200'
+}
+
+function addOption() {
+  if (questionData.options.length >= props.maxOptions)
+    return
+  const label = getOptionLabel(questionData.options.length)
+  questionData.options.push({ text: '', label, id: `option-${label.toLowerCase()}-${Date.now()}` })
+}
+
+// Labels are positional (A, B, C...), so removing one relabels the rest and keeps the correct answer pointing at the same option
+function removeOption(index: number) {
+  if (questionData.options.length <= props.minOptions)
+    return
+  const correctIndex = questionData.options.findIndex(option => option.label === questionData.correctAnswer)
+  questionData.options.splice(index, 1)
+  questionData.options.forEach((option, i) => {
+    option.label = getOptionLabel(i)
+  })
+  if (correctIndex === index)
+    questionData.correctAnswer = ''
+  else if (correctIndex > index)
+    questionData.correctAnswer = getOptionLabel(correctIndex - 1)
 }
 
 function updateOption(index: number, value: string) {
@@ -275,8 +297,25 @@ watch(
                 class="flex-1 rounded-lg border-gray-300"
                 @input="updateOption(index, $event.target.value)"
               />
+              <button
+                v-if="questionData.options.length > props.minOptions"
+                type="button"
+                class="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full text-gray-400 hover:bg-red-50 hover:text-red-500"
+                @click="removeOption(index)"
+              >
+                <Icon name="tabler:x" />
+              </button>
             </div>
           </div>
+          <button
+            v-if="questionData.options.length < props.maxOptions"
+            type="button"
+            class="mt-2 inline-flex cursor-pointer items-center gap-1 text-sm font-medium text-green-700 hover:text-green-800"
+            @click="addOption"
+          >
+            <Icon name="tabler:plus" />
+            {{ t('quiz.question.addOption') }}
+          </button>
         </div>
 
         <!-- Correct Answer Selection -->

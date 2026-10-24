@@ -1,4 +1,5 @@
 import type { ListApiResponse } from '~/api/apiClient'
+import type { ExerciseReviewStatus, ExerciseType } from '~/types/ai-exercise.type'
 import type {
   QuizAttempt,
   SaveAnswerRequest,
@@ -49,6 +50,9 @@ export interface NewQuizOption {
 export interface NewQuizSampleAnswer {
   id: string
   text: string
+  /** Các đáp án khác cũng được tính đúng (bài AI tự gõ). */
+  accepted_answers?: string[]
+  case_sensitive?: boolean
 }
 
 // Question types
@@ -82,15 +86,28 @@ export interface NewQuiz {
   is_published: boolean
   retake_limit: number
   total_questions: number
-  created_by: number
-  created_by_name: string
+  created_by: number | null
+  created_by_name: string | null
   created_at: string
   updated_at: string
   user_attempts_count?: number // Number of attempts by current user (optional, returned by API)
+  // Bài tập (AI sinh hoặc admin soạn theo dạng bài) — rỗng/null với quiz kiểu cũ
+  source?: 'manual' | 'ai'
+  exercise_type?: ExerciseType | ''
+  topic?: string | null
+  topic_name?: string | null
+  review_status?: ExerciseReviewStatus | ''
+  /** Học viên đã yêu cầu AI sinh bài này. */
+  requested_by?: number | null
 }
 
 export interface NewQuizDetail extends NewQuiz {
   questions: NewQuizQuestion[]
+  /** Đoạn văn của bài đọc hiểu. */
+  passage?: string
+  /** Audio + ảnh đề của bài nghe. */
+  audio_url?: string
+  image_urls?: string[]
 }
 
 export interface NewQuizListResponse extends ListApiResponse<NewQuiz> {}
@@ -101,6 +118,9 @@ export interface NewQuizListParams {
   created_by?: number
   search?: string
   ordering?: string
+  /** Mặc định backend ẩn bài AI chưa duyệt; truyền 'ai' / 'manual' để lọc rõ. */
+  source?: 'manual' | 'ai'
+  exercise_type?: ExerciseType
 }
 
 export interface NewQuizCreate {
@@ -113,6 +133,11 @@ export interface NewQuizCreate {
   retake_limit?: number
   is_published?: boolean
   questions?: NewQuizQuestionCreate[]
+  exercise_type?: ExerciseType | ''
+  topic?: string | null
+  passage?: string
+  audio_url?: string
+  image_urls?: string[]
 }
 
 export interface NewQuizQuestionCreate {
@@ -210,6 +235,10 @@ export function useNewQuizApi() {
         queryParams.append('search', params.search)
       if (params?.ordering)
         queryParams.append('ordering', params.ordering)
+      if (params?.source)
+        queryParams.append('source', params.source)
+      if (params?.exercise_type)
+        queryParams.append('exercise_type', params.exercise_type)
       const queryString = queryParams.toString()
       return apiClient.get<NewQuizListResponse>(
         `/new_quiz/quizzes/${queryString ? `?${queryString}` : ''}`,

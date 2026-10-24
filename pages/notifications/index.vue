@@ -77,6 +77,10 @@ async function handleNotificationClick(notif: Notification) {
   else if (notif.notification_type === 'flashcard_created') {
     router.push('/admin/flashcards')
   }
+  // Học viên vừa sinh bài tập AI -> mở thẳng bài đó trong hàng chờ duyệt
+  else if (notif.notification_type === 'ai_exercise_created') {
+    router.push(notif.quiz?.id ? `/admin/ai-exercises?id=${notif.quiz.id}` : '/admin/ai-exercises')
+  }
   else if (notif.notification_type === 'flashcard_feedback') {
     router.push('/admin/flashcards?tab=feedback')
   }
@@ -195,6 +199,9 @@ useHead({
             <div v-else-if="notif.notification_type === 'homework_graded'" class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
               <Icon name="solar:check-circle-bold-duotone" size="20" class="text-green-500" />
             </div>
+            <div v-else-if="notif.notification_type === 'ai_exercise_created'" class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
+              <Icon name="solar:pen-new-square-bold" size="20" class="text-emerald-600" />
+            </div>
             <div v-else-if="notif.notification_type === 'flashcard_created'" class="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center">
               <Icon name="solar:magic-stick-3-bold-duotone" size="20" class="text-violet-500" />
             </div>
@@ -268,6 +275,16 @@ useHead({
               </p>
             </template>
 
+            <!-- Bài tập AI: học viên vừa sinh bài mới chờ duyệt (gửi admin) -->
+            <template v-else-if="notif.notification_type === 'ai_exercise_created'">
+              <p class="text-sm text-gray-800 leading-snug">
+                <span class="font-semibold">{{ notif.sender?.full_name || t('notificationBell.unknownSender') }}</span>
+                {{ ` ${t('notificationBell.aiExerciseCreated')}` }}
+              </p>
+              <p v-if="notif.quiz" class="text-xs text-gray-500 mt-0.5 line-clamp-1">
+                <span class="font-medium text-gray-700">"{{ notif.quiz.title }}"</span>
+              </p>
+            </template>
             <!-- Flashcard: AI soạn thẻ mới chờ kiểm duyệt (gửi admin) -->
             <template v-else-if="notif.notification_type === 'flashcard_created'">
               <p class="text-sm text-gray-800 leading-snug">

@@ -30,7 +30,9 @@ async function handleUpdateQuiz(quizData: any) {
       message: t('newQuiz.messages.updateSuccess'),
       duration: 3,
     })
-    router.push(`/admin/new-quiz-management`)
+    // Mở từ trang duyệt bài tập AI -> quay lại đúng bài đó. Chỉ nhận đường dẫn nội bộ khu admin.
+    const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : ''
+    router.push(redirect.startsWith('/admin/') ? redirect : `/admin/new-quiz-management`)
   }
   catch (err: any) {
     error.value = err.message || t('newQuiz.messages.updateError')

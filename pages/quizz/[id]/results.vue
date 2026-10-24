@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { NewQuizDetail } from '~/composables/api/useNewQuizApi'
 import type { QuizAttempt, SavedAnswer } from '~/types/new-quiz.type'
+import ExerciseMaterials from '~/components/learning/new-quiz/ExerciseMaterials.vue'
 import { useNewQuizApi } from '~/composables/api/useNewQuizApi'
+import { OPTION_LABEL_COLORS } from '~/utils/exercise'
 
 definePageMeta({
   layout: 'auth',
@@ -103,9 +105,30 @@ const allQuestionsWithAnswers = computed(() => {
   })
 })
 
+// AI exercises live on /exercises, not in the shared quiz list
+const isAIExercise = computed(() => quiz.value?.source === 'ai')
+// Any exercise-type quiz (AI or admin listening/reading) can be retaken or followed by a new one
+const isExercise = computed(() => !!quiz.value?.exercise_type)
+
 // Navigation methods
 function navigateToQuizList() {
-  router.push('/quizz')
+  router.push(isAIExercise.value ? '/exercises' : '/quizz')
+}
+
+function retakeExercise() {
+  router.push(`/quizz/${quizId}`)
+}
+
+// Prefill the builder with the same choices for a fresh exercise
+function createSimilarExercise() {
+  router.push({
+    path: '/exercises',
+    query: {
+      topic: quiz.value?.topic || undefined,
+      level: quiz.value?.level_code,
+      type: quiz.value?.exercise_type || undefined,
+    },
+  })
 }
 
 // Load attempt results
@@ -252,6 +275,9 @@ onMounted(() => {
           </div>
         </div>
 
+        <!-- Passage / audio / question-sheet images to review against the answers -->
+        <ExerciseMaterials :quiz="quiz" :default-open="false" />
+
         <!-- Question Review -->
         <div class="space-y-4">
           <!-- All Questions -->
@@ -281,7 +307,7 @@ onMounted(() => {
             <!-- Question Content -->
             <div class="p-6">
               <!-- Question Prompt -->
-              <div class="text-green-800 mb-6 font-medium text-xl">
+              <div class="text-green-800 mb-6 font-medium text-xl whitespace-pre-line">
                 {{ item.question.prompt }}
               </div>
 
@@ -309,12 +335,7 @@ onMounted(() => {
                   >
                     <div
                       class="w-8 h-8 rounded-full flex items-center justify-center text-black font-bold text-sm shrink-0"
-                      :class="{
-                        'bg-blue-200': option.label === 'A',
-                        'bg-orange-200': option.label === 'B',
-                        'bg-red-200': option.label === 'C',
-                        'bg-yellow-200': option.label === 'D',
-                      }"
+                      :class="OPTION_LABEL_COLORS[option.label] || 'bg-gray-200'"
                     >
                       {{ option.label }}
                     </div>
@@ -449,13 +470,27 @@ onMounted(() => {
         </div>
 
         <!-- Action Buttons -->
-        <div class="flex justify-center gap-4 pt-6">
+        <div class="flex flex-wrap justify-center gap-4 pt-6">
           <button
             class="px-6 py-2 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-50 transition-colors"
             @click="navigateToQuizList"
           >
             {{ t('newQuiz.results.goBack') }}
           </button>
+          <template v-if="isExercise">
+            <button
+              class="px-6 py-2 border border-green-500 rounded-full text-green-700 hover:bg-green-50 transition-colors"
+              @click="retakeExercise"
+            >
+              {{ t('newQuiz.results.retakeExercise') }}
+            </button>
+            <button
+              class="px-6 py-2 rounded-full bg-emerald-600 text-white hover:bg-emerald-500 transition-colors"
+              @click="createSimilarExercise"
+            >
+              {{ t('newQuiz.results.newExercise') }}
+            </button>
+          </template>
         </div>
       </div>
     </div>
