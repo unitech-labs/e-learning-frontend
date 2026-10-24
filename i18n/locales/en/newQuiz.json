@@ -181,8 +181,14 @@
         "submit": "Answer",
         "correct": "Correct!",
         "incorrect": "Incorrect",
-        "essayNote": "Essay questions will be graded by the teacher after you submit."
-      }
+        "essayNote": "Essay questions will be graded by the teacher after you submit.",
+        "savedDeferred": "Saved — you can still change it before submitting"
+      },
+      "answeredStatus": "Answered",
+      "deferredHint": "You can change answers and go back to previous questions at any time. Correct answers and explanations appear after you submit.",
+      "confirmSubmitTitle": "Submit now?",
+      "confirmSubmitUnanswered": "You still have {count} unanswered question(s). They will be marked as incorrect.",
+      "keepWorking": "Keep working"
     },
     "results": {
       "title": "Quiz Results",
@@ -208,7 +214,9 @@
       "explanation": "Explanation:",
       "pendingReview": "This answer is pending teacher review",
       "goBack": "Go Back",
-      "retakeQuiz": "Retake Quiz"
+      "retakeQuiz": "Retake Quiz",
+      "retakeExercise": "Retake",
+      "newExercise": "New exercise"
     }
   }
 }

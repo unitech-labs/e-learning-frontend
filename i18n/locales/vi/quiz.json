@@ -62,7 +62,8 @@
       "manualGradingRequired": "Cần chấm tay",
       "delete": "Xóa câu hỏi",
       "essayQuestionPlaceholder": "Nhập câu hỏi tự luận...",
-      "essayQuestionInfo": "Câu hỏi tự luận sẽ được giáo viên chấm điểm thủ công."
+      "essayQuestionInfo": "Câu hỏi tự luận sẽ được giáo viên chấm điểm thủ công.",
+      "addOption": "Thêm phương án"
     }
   }
 }

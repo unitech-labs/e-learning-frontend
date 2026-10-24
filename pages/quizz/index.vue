@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { NewQuiz, NewQuizLevel, OverallRankingEntry } from '~/composables/api/useNewQuizApi'
 import { useNewQuizApi } from '~/composables/api/useNewQuizApi'
+import { exerciseTypeLabel } from '~/utils/exercise'
 
 // empty layout
 definePageMeta({
@@ -251,6 +252,13 @@ onMounted(() => {
               Bắt đầu khám phá
               <Icon name="mdi:arrow-right" class="text-base" />
             </NuxtLink>
+            <NuxtLink
+              to="/exercises"
+              class="inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold rounded-2xl border border-emerald-600 !text-emerald-700 hover:bg-emerald-50"
+            >
+              <Icon name="tabler:sparkles" class="text-base" />
+              Tạo bài tập AI theo chủ đề
+            </NuxtLink>
           </div>
         </div>
         <div class="bg-white border border-slate-200 rounded-3xl p-6 lg:p-8 shadow-xl">
@@ -438,6 +446,9 @@ onMounted(() => {
                       <span class="inline-flex items-center rounded-full bg-slate-100 text-slate-700 text-xs font-medium px-2 py-0.5">
                         {{ quiz.total_questions }} câu
                       </span>
+                      <span v-if="quiz.exercise_type" class="inline-flex items-center rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium px-2 py-0.5">
+                        {{ exerciseTypeLabel(quiz.exercise_type) }}<template v-if="quiz.topic_name"> · {{ quiz.topic_name }}</template>
+                      </span>
                       <span class="inline-flex items-center text-xs text-slate-500">
                         {{ formatTimeLimit(quiz) }} · {{ formatRetake(quiz) }}
                       </span>
@@ -451,7 +462,7 @@ onMounted(() => {
                       </p>
                     </div>
                     <p class="text-xs text-slate-500">
-                      GV: {{ quiz.created_by_name }} · Cập nhật {{ formatUpdatedAt(quiz.updated_at) }}
+                      {{ quiz.source === 'ai' ? 'Bài tập AI' : `GV: ${quiz.created_by_name ?? ''}` }} · Cập nhật {{ formatUpdatedAt(quiz.updated_at) }}
                     </p>
                   </div>
                   <div class="flex flex-col sm:flex-row gap-2 shrink-0">

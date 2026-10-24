@@ -181,8 +181,14 @@
         "submit": "Rispondi",
         "correct": "Esatto!",
         "incorrect": "Errato",
-        "essayNote": "Le domande a risposta aperta verranno corrette dall'insegnante dopo l'invio."
-      }
+        "essayNote": "Le domande a risposta aperta verranno corrette dall'insegnante dopo l'invio.",
+        "savedDeferred": "Salvata — puoi ancora modificarla prima della consegna"
+      },
+      "answeredStatus": "Risposto",
+      "deferredHint": "Puoi cambiare le risposte e tornare alle domande precedenti in qualsiasi momento. Risposte corrette e spiegazioni appariranno dopo la consegna.",
+      "confirmSubmitTitle": "Consegnare ora?",
+      "confirmSubmitUnanswered": "Hai ancora {count} domande senza risposta. Saranno considerate errate.",
+      "keepWorking": "Continua"
     },
     "results": {
       "title": "Risultati Quiz",
@@ -208,7 +214,9 @@
       "explanation": "Spiegazione:",
       "pendingReview": "Questa risposta è in attesa di revisione da parte dell'insegnante",
       "goBack": "Torna indietro",
-      "retakeQuiz": "Ripeti Quiz"
+      "retakeQuiz": "Ripeti Quiz",
+      "retakeExercise": "Rifai",
+      "newExercise": "Nuovo esercizio"
     }
   }
 }

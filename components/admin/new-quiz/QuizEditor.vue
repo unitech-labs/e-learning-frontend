@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import type { Rule } from 'ant-design-vue/es/form'
 import type { NewQuizQuestion, NewQuizQuestionCreate } from '~/composables/api/useNewQuizApi'
-import { notification } from 'ant-design-vue'
+import type { ExerciseTopic, ExerciseType } from '~/types/ai-exercise.type'
+import { message, notification } from 'ant-design-vue'
 import EssayQuestion from '~/components/admin/course/quiz/EssayQuestion.vue'
 import MultipleChoiceQuestion from '~/components/admin/course/quiz/MultipleChoiceQuestion.vue'
 import TextInputQuestion from '~/components/admin/course/quiz/TextInputQuestion.vue'
+import { useAIExerciseApi } from '~/composables/api/useAIExerciseApi'
 import { useNewQuizApi } from '~/composables/api/useNewQuizApi'
+import { QUIZ_AUDIO_TYPES, QUIZ_IMAGE_TYPES, useQuizMediaUpload } from '~/composables/useQuizMediaUpload'
+import { EXERCISE_TYPE_META } from '~/utils/exercise'
 import LevelSelector from './LevelSelector.vue'
 
 interface Props {
@@ -43,9 +47,92 @@ const formData = reactive({
   time_value: 30,
   time_unit: 'minute' as 'minute' | 'second',
   retake_limit: 1,
+  // Dạng bài tập (đọc hiểu, nghe hiểu...) — rỗng = quiz thường
+  exercise_type: '' as ExerciseType | '',
+  topic: undefined as string | undefined,
+  passage: '',
+  audio_url: '',
+  image_urls: [] as string[],
 })
 
 const loadingQuiz = ref(false)
+
+const noTimeLimit = computed({
+  get: () => formData.time_type === 'none',
+  set: (value: boolean) => {
+    formData.time_type = value ? 'none' : 'limit'
+  },
+})
+
+// ─── Dạng bài tập ──────────────────────────────────────────────
+const { getTopics } = useAIExerciseApi()
+const topics = ref<ExerciseTopic[]>([])
+
+const exerciseTypeOptions = [
+  { label: 'Quiz thường (không theo dạng bài)', value: '' },
+  ...Object.entries(EXERCISE_TYPE_META).map(([value, meta]) => ({ label: meta.label, value })),
+]
+
+async function loadTopics() {
+  try {
+    const res = await getTopics({ limit: 100 })
+    topics.value = res.results
+  }
+  catch (err) {
+    console.error('Error loading exercise topics:', err)
+  }
+}
+
+const { uploadAudio, uploadImage, progress: uploadProgress } = useQuizMediaUpload()
+const uploadingAudio = ref(false)
+const uploadingImages = ref(0)
+
+// a-upload: tự upload qua presigned URL, return false để chặn upload mặc định
+function handleAudioSelect(file: File) {
+  if (!QUIZ_AUDIO_TYPES.includes(file.type)) {
+    message.error('Chỉ hỗ trợ file audio MP3 hoặc WAV')
+    return false
+  }
+  uploadingAudio.value = true
+  uploadAudio(file)
+    .then((url) => {
+      formData.audio_url = url
+    })
+    .catch(() => message.error('Tải audio lên thất bại'))
+    .finally(() => {
+      uploadingAudio.value = false
+    })
+  return false
+}
+
+function handleImageSelect(file: File) {
+  if (!QUIZ_IMAGE_TYPES.includes(file.type)) {
+    message.error('Chỉ hỗ trợ ảnh JPG, PNG, WEBP hoặc GIF')
+    return false
+  }
+  uploadingImages.value++
+  uploadImage(file)
+    .then((url) => {
+      formData.image_urls.push(url)
+    })
+    .catch(() => message.error(`Tải ảnh ${file.name} lên thất bại`))
+    .finally(() => {
+      uploadingImages.value--
+    })
+  return false
+}
+
+function removeImage(index: number) {
+  formData.image_urls.splice(index, 1)
+}
+
+function moveImage(index: number, direction: -1 | 1) {
+  const target = index + direction
+  if (target < 0 || target >= formData.image_urls.length)
+    return
+  const images = formData.image_urls
+  ;[images[index], images[target]] = [images[target], images[index]]
+}
 
 const rules: Record<string, Rule[]> = {
   title: [
@@ -229,10 +316,16 @@ async function loadQuizData() {
     formData.title = quiz.title
     formData.description = quiz.description || ''
     formData.level_id = quiz.level
-    formData.time_type = 'limit' // Always use limit
+    // Bài tập AI không giới hạn thời gian — giữ nguyên thay vì ép thành 30 phút khi sửa
+    formData.time_type = quiz.time_type === 'none' ? 'none' : 'limit'
     formData.time_value = quiz.time_value || 30
     formData.time_unit = quiz.time_unit || 'minute'
     formData.retake_limit = quiz.retake_limit
+    formData.exercise_type = quiz.exercise_type || ''
+    formData.topic = quiz.topic || undefined
+    formData.passage = quiz.passage || ''
+    formData.audio_url = quiz.audio_url || ''
+    formData.image_urls = [...(quiz.image_urls || [])]
 
     // Load questions
     if (quiz.questions && quiz.questions.length > 0) {
@@ -287,18 +380,36 @@ function createApiPayload() {
     title: formData.title,
     description: formData.description,
     level_id: formData.level_id,
-    time_type: 'limit', // Always use limit
-    time_value: formData.time_value,
+    time_type: formData.time_type,
+    time_value: formData.time_type === 'limit' ? formData.time_value : null,
     time_unit: formData.time_unit,
     retake_limit: formData.retake_limit,
     is_published: false,
     questions: transformQuestionsToApi(),
+    exercise_type: formData.exercise_type,
+    topic: formData.topic || null,
+    passage: formData.passage,
+    audio_url: formData.audio_url,
+    image_urls: formData.image_urls,
   }
 
   return payload
 }
 
 async function onFinish() {
+  if (formData.exercise_type === 'listening' && !formData.audio_url) {
+    notification.warning({
+      message: t('newQuiz.messages.validationError'),
+      description: 'Bài nghe cần có file audio.',
+      duration: 4,
+    })
+    return
+  }
+  if (uploadingAudio.value || uploadingImages.value > 0) {
+    message.warning('Đang tải file lên, vui lòng đợi xong rồi lưu.')
+    return
+  }
+
   if (!questionsValidation.value.isValid) {
     notification.warning({
       message: t('newQuiz.messages.validationError'),
@@ -343,6 +454,7 @@ const unitOptions = [
 ]
 
 onMounted(async () => {
+  loadTopics()
   if (props.mode === 'edit' && props.quizId) {
     await loadQuizData()
   }
@@ -444,6 +556,119 @@ const totalScore = computed(() => {
           </div>
         </div>
 
+        <!-- Exercise Card -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div class="flex items-center gap-2 mb-6">
+            <Icon name="tabler:list-check" class="text-xl text-emerald-600" />
+            <h2 class="text-lg font-semibold text-gray-800">
+              Dạng bài tập
+            </h2>
+          </div>
+
+          <div class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <a-form-item label="Dạng bài" class="mb-0">
+                <a-select
+                  v-model:value="formData.exercise_type"
+                  size="large"
+                  :options="exerciseTypeOptions"
+                />
+              </a-form-item>
+              <a-form-item label="Chủ đề" class="mb-0">
+                <a-select
+                  v-model:value="formData.topic"
+                  size="large"
+                  allow-clear
+                  placeholder="Chọn chủ đề"
+                  :options="topics.map(topic => ({ label: topic.name, value: topic.id }))"
+                />
+              </a-form-item>
+            </div>
+            <p v-if="formData.exercise_type" class="text-xs text-gray-500">
+              Bài theo dạng bài tập: học viên được đổi đáp án và quay lại câu trước, chỉ xem đúng/sai sau khi nộp bài.
+              <template v-if="formData.exercise_type === 'listening'">
+                Học viên chọn "Nghe hiểu" sẽ nhận bài nghe đã xuất bản đúng trình độ + chủ đề này.
+              </template>
+            </p>
+
+            <!-- Reading passage -->
+            <a-form-item v-if="formData.exercise_type === 'reading'" label="Đoạn văn đọc hiểu" class="mb-0">
+              <a-textarea
+                v-model:value="formData.passage"
+                :rows="8"
+                placeholder="Đoạn văn tiếng Ý học viên đọc trước khi trả lời câu hỏi"
+              />
+            </a-form-item>
+
+            <!-- Listening: audio + question-sheet images -->
+            <template v-if="formData.exercise_type === 'listening'">
+              <a-form-item label="Audio (MP3/WAV)" class="mb-0" required>
+                <div class="space-y-2">
+                  <audio v-if="formData.audio_url" :src="formData.audio_url" controls class="w-full" />
+                  <div class="flex flex-wrap items-center gap-2">
+                    <a-upload
+                      accept=".mp3,.wav,audio/mpeg,audio/wav"
+                      :show-upload-list="false"
+                      :before-upload="handleAudioSelect"
+                    >
+                      <a-button :loading="uploadingAudio" class="!flex !items-center !gap-1">
+                        <Icon name="tabler:headphones" />
+                        {{ formData.audio_url ? 'Đổi file audio' : 'Tải audio lên' }}
+                      </a-button>
+                    </a-upload>
+                    <span v-if="uploadingAudio" class="text-xs text-gray-500">{{ uploadProgress }}%</span>
+                    <a-button v-if="formData.audio_url && !uploadingAudio" type="text" danger @click="formData.audio_url = ''">
+                      Xoá audio
+                    </a-button>
+                  </div>
+                </div>
+              </a-form-item>
+
+              <a-form-item label="Ảnh đề (theo thứ tự trang)" class="mb-0">
+                <div class="space-y-3">
+                  <div v-if="formData.image_urls.length" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div
+                      v-for="(url, index) in formData.image_urls"
+                      :key="url"
+                      class="relative rounded-lg border border-gray-200 overflow-hidden bg-gray-50"
+                    >
+                      <a-image :src="url" class="!h-32 w-full object-cover" />
+                      <div class="flex items-center justify-between px-2 py-1 text-xs text-gray-600">
+                        <span>Trang {{ index + 1 }}</span>
+                        <div class="flex gap-1">
+                          <button type="button" class="cursor-pointer px-1 hover:text-gray-900 disabled:opacity-30" :disabled="index === 0" @click="moveImage(index, -1)">
+                            ←
+                          </button>
+                          <button type="button" class="cursor-pointer px-1 hover:text-gray-900 disabled:opacity-30" :disabled="index === formData.image_urls.length - 1" @click="moveImage(index, 1)">
+                            →
+                          </button>
+                          <button type="button" class="cursor-pointer px-1 text-red-500 hover:text-red-700" @click="removeImage(index)">
+                            <Icon name="tabler:trash" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <a-upload
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    multiple
+                    :show-upload-list="false"
+                    :before-upload="handleImageSelect"
+                  >
+                    <a-button :loading="uploadingImages > 0" class="!flex !items-center !gap-1">
+                      <Icon name="tabler:photo" />
+                      Thêm ảnh đề
+                    </a-button>
+                  </a-upload>
+                  <p class="text-xs text-gray-500">
+                    Tạo câu hỏi tương ứng với đề trên ảnh ở phần Câu hỏi bên dưới (ví dụ "Question 1" với các lựa chọn A, B, C...).
+                  </p>
+                </div>
+              </a-form-item>
+            </template>
+          </div>
+        </div>
+
         <!-- Settings Card -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div class="flex items-center gap-2 mb-6">
@@ -454,8 +679,12 @@ const totalScore = computed(() => {
           </div>
 
           <div class="space-y-4">
+            <a-checkbox v-model:checked="noTimeLimit">
+              Không giới hạn thời gian
+            </a-checkbox>
+
             <!-- Time Settings -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div v-if="!noTimeLimit" class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <a-form-item :label="$t('newQuiz.editor.timeLimit')" name="time_value" class="mb-0">
                 <a-input-number
                   v-model:value="formData.time_value"
@@ -548,6 +777,8 @@ const totalScore = computed(() => {
                 v-else-if="question.type === 'multiple-choice'"
                 :initial-data="question.data"
                 :question-number="index + 1"
+                :min-options="2"
+                :max-options="8"
                 @delete="removeQuestion(index)"
                 @update="updateQuestion(index, $event)"
               />

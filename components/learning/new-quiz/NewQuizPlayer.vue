@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { NewQuizDetail } from '~/composables/api/useNewQuizApi'
 import type { QuizAttempt, SaveAnswerResponse, SubmitAttemptResponse } from '~/types/new-quiz.type'
-import { notification } from 'ant-design-vue'
+import { Modal, notification } from 'ant-design-vue'
 import { useNewQuizApi } from '~/composables/api/useNewQuizApi'
 import { useConfetti } from '~/composables/useConfetti'
+import { revealsAnswersAfterSubmit } from '~/utils/exercise'
+import ExerciseMaterials from './ExerciseMaterials.vue'
 import NewQuizProgress from './NewQuizProgress.vue'
 import NewQuizQuestion from './NewQuizQuestion.vue'
 import NewQuizResults from './NewQuizResults.vue'
@@ -35,6 +37,9 @@ const showResults = ref(false)
 const results = ref<SubmitAttemptResponse | null>(null)
 const timeRemaining = ref<number | null>(null)
 let timerInterval: NodeJS.Timeout | null = null
+
+// Bài tập (AI / theo dạng bài): đổi đáp án tự do, không chấm từng câu, tự bấm nộp để xem đáp án
+const deferred = computed(() => revealsAnswersAfterSubmit(props.quiz))
 
 // Timer functions
 function startTimer() {
@@ -156,9 +161,10 @@ const hasEssayQuestions = computed(() => {
 
 // Watch for all questions answered to auto-submit (only if no essay questions)
 watch([answeredCount, allQuestionsAnswered], ([_count, allAnswered]) => {
-  // Only auto-submit if there are no essay questions
+  // Only auto-submit if there are no essay questions (exercises are always submitted manually)
   if (
     allAnswered
+    && !deferred.value
     && !hasEssayQuestions.value
     && !submitting.value
     && !showResults.value
@@ -232,6 +238,12 @@ async function handleAnswerSave(questionId: string, answerData: any) {
       if (score === null || score === undefined)
         return 0
       return typeof score === 'string' ? Number.parseFloat(score) || 0 : score
+    }
+
+    // Deferred mode: no per-question scoring or feedback before submit
+    if (deferred.value) {
+      emit('attemptUpdated', currentAttempt.value)
+      return
     }
 
     // Update attempt scores accurately
@@ -371,6 +383,23 @@ async function handleSubmit() {
   }
 }
 
+// Exercise mode: confirm before submitting with unanswered questions
+function confirmSubmit() {
+  const total = props.quiz.questions?.length ?? 0
+  const unanswered = total - answeredCount.value
+  if (unanswered <= 0) {
+    handleSubmit()
+    return
+  }
+  Modal.confirm({
+    title: t('newQuiz.player.confirmSubmitTitle'),
+    content: t('newQuiz.player.confirmSubmitUnanswered', { count: unanswered }),
+    okText: t('newQuiz.player.submit'),
+    cancelText: t('newQuiz.player.keepWorking'),
+    onOk: () => handleSubmit(),
+  })
+}
+
 // Timer expired handler
 function handleTimeExpired() {
   // Stop timer
@@ -387,6 +416,8 @@ function getQuestionStatus(questionId: string) {
   const savedAnswer = currentAttempt.value.answers.find(a => a.question === questionId)
   if (!savedAnswer)
     return 'unanswered'
+  if (deferred.value)
+    return 'answered'
   if (savedAnswer.question_type === 'essay')
     return 'pending'
   return savedAnswer.is_correct ? 'correct' : 'incorrect'
@@ -441,8 +472,25 @@ function formatTime(seconds: number): string {
           :questions="quiz.questions"
           :get-question-status="getQuestionStatus"
           :current-question-index="currentQuestionIndex"
+          :deferred="deferred"
           @go-to-question="goToQuestion"
         />
+
+        <!-- Exercise mode: submit any time, answers revealed afterwards -->
+        <div v-if="deferred && !showResults" class="mt-4 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
+          <p class="text-sm text-slate-600">
+            {{ t('newQuiz.player.deferredHint') }}
+          </p>
+          <button
+            :disabled="submitting"
+            class="flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xl bg-emerald-600 px-6 py-2.5 font-semibold text-white transition-colors hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-50"
+            @click="confirmSubmit"
+          >
+            <Icon v-if="submitting" name="mdi:loading" class="animate-spin text-base" />
+            <Icon v-else name="mdi:send" class="text-base" />
+            {{ submitting ? t('newQuiz.player.submitting') : t('newQuiz.player.submit') }}
+          </button>
+        </div>
 
         <!-- Submit Button (only show if quiz has essay questions) -->
         <div v-if="hasEssayQuestions && allQuestionsAnswered && !showResults" class="max-w-6xl mx-auto px-6 py-4">
@@ -470,6 +518,9 @@ function formatTime(seconds: number): string {
         </div>
       </div>
     </div>
+
+    <!-- Passage / audio / question-sheet images (kept outside the question block so audio keeps playing) -->
+    <ExerciseMaterials v-if="!showResults" :quiz="quiz" class="mt-6" />
 
     <!-- Main Content -->
     <div class="max-w-6xl mx-auto py-8">
@@ -499,6 +550,7 @@ function formatTime(seconds: number): string {
             :saved-answer="currentAttempt.answers.find(a => a.question === currentQuestion?.id)"
             :saving="saving[currentQuestion.id]"
             :save-error="saveErrors[currentQuestion.id]"
+            :deferred="deferred"
             @answer-saved="handleAnswerSave"
           />
 
@@ -520,6 +572,16 @@ function formatTime(seconds: number): string {
             >
               {{ t('newQuiz.player.next') }}
               <Icon name="solar:arrow-right-bold" class="text-white text-lg" />
+            </button>
+
+            <button
+              v-if="deferred && isLastQuestion"
+              :disabled="submitting"
+              class="cursor-pointer !flex items-center gap-1 px-6 py-2 bg-emerald-600 text-white rounded-full hover:bg-emerald-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              @click="confirmSubmit"
+            >
+              <Icon name="mdi:send" class="text-white text-lg" />
+              {{ t('newQuiz.player.submit') }}
             </button>
           </div>
         </div>

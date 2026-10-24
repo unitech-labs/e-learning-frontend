@@ -6,8 +6,10 @@ interface Props {
   answeredCount: number
   progress: number
   questions?: NewQuizQuestion[]
-  getQuestionStatus?: (questionId: string) => 'unanswered' | 'correct' | 'incorrect' | 'pending'
+  getQuestionStatus?: (questionId: string) => 'unanswered' | 'correct' | 'incorrect' | 'pending' | 'answered'
   currentQuestionIndex?: number
+  /** Bài tập: chỉ phân biệt đã/chưa trả lời, đúng sai xem sau khi nộp. */
+  deferred?: boolean
 }
 
 const _props = defineProps<Props>()
@@ -24,6 +26,8 @@ function getStatusClass(status: string) {
       return 'bg-red-500 border-red-600 text-white'
     case 'pending':
       return 'bg-yellow-500 border-yellow-600 text-white'
+    case 'answered':
+      return 'bg-sky-500 border-sky-600 text-white'
     default:
       return 'bg-gray-100 border-gray-300 text-gray-700'
   }
@@ -74,7 +78,17 @@ function getStatusIcon(status: string) {
           </span>
         </button>
       </div>
-      <div class="mt-2 flex flex-wrap gap-3 text-[10px] text-gray-600">
+      <div v-if="deferred" class="mt-2 flex flex-wrap gap-3 text-[10px] text-gray-600">
+        <div class="flex items-center gap-1">
+          <div class="w-3 h-3 rounded bg-gray-100 border border-gray-300" />
+          <span>{{ $t('quiz.notAnswered') }}</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <div class="w-3 h-3 rounded bg-sky-500 border border-sky-600" />
+          <span>{{ $t('newQuiz.player.answeredStatus') }}</span>
+        </div>
+      </div>
+      <div v-else class="mt-2 flex flex-wrap gap-3 text-[10px] text-gray-600">
         <div class="flex items-center gap-1">
           <div class="w-3 h-3 rounded bg-gray-100 border border-gray-300" />
           <span>{{ $t('quiz.notAnswered') }}</span>

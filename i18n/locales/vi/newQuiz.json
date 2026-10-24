@@ -181,8 +181,14 @@
         "submit": "Trả lời",
         "correct": "Đúng!",
         "incorrect": "Sai",
-        "essayNote": "Câu hỏi tự luận sẽ được giáo viên chấm điểm sau khi bạn nộp bài."
-      }
+        "essayNote": "Câu hỏi tự luận sẽ được giáo viên chấm điểm sau khi bạn nộp bài.",
+        "savedDeferred": "Đã lưu — vẫn sửa được trước khi nộp bài"
+      },
+      "answeredStatus": "Đã trả lời",
+      "deferredHint": "Bạn có thể đổi đáp án và quay lại câu trước bất cứ lúc nào. Đáp án đúng và giải thích sẽ hiện sau khi nộp bài.",
+      "confirmSubmitTitle": "Nộp bài?",
+      "confirmSubmitUnanswered": "Bạn còn {count} câu chưa trả lời. Các câu này sẽ được tính là sai.",
+      "keepWorking": "Làm tiếp"
     },
     "results": {
       "title": "Kết quả Quiz",
@@ -208,7 +214,9 @@
       "explanation": "Giải thích:",
       "pendingReview": "Câu trả lời này đang chờ giáo viên xem xét",
       "goBack": "Quay lại",
-      "retakeQuiz": "Làm lại Quiz"
+      "retakeQuiz": "Làm lại Quiz",
+      "retakeExercise": "Làm lại",
+      "newExercise": "Tạo bài mới"
     }
   }
 }

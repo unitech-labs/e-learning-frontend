@@ -10,6 +10,8 @@ interface Props {
   savedAnswer?: SavedAnswer
   saving?: boolean
   saveError?: string
+  /** Bài tập: chỉ xem giải thích / đúng sai sau khi nộp bài. */
+  deferred?: boolean
 }
 
 const props = defineProps<Props>()
@@ -28,7 +30,7 @@ function handleAnswerSave(answerData: any) {
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <!-- Left Side - Question -->
     <div>
-      <div class="text-green-800 mb-6 font-medium text-xl">
+      <div class="text-green-800 mb-6 font-medium text-xl whitespace-pre-line">
         {{ question.prompt }}
       </div>
       <p class="text-sm text-gray-500">
@@ -43,7 +45,7 @@ function handleAnswerSave(answerData: any) {
 
       <!-- Explanation (shown after answer is saved) -->
       <div
-        v-if="savedAnswer && question.explanation"
+        v-if="!deferred && savedAnswer && question.explanation"
         class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl"
       >
         <div class="flex items-start gap-2">
@@ -72,6 +74,7 @@ function handleAnswerSave(answerData: any) {
         :saved-answer="savedAnswer"
         :saving="saving"
         :save-error="saveError"
+        :deferred="deferred"
         @answer-saved="handleAnswerSave"
       />
 

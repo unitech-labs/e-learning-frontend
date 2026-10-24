@@ -27,6 +27,7 @@
     "flashcardAccessRequest": "requested access to Flashcard AI",
     "flashcardAccessApproved": "Your Flashcard AI access request has been approved",
     "flashcardAccessRejected": "Your Flashcard AI access request has been rejected",
-    "flashcardAccessRevoked": "Your Flashcard AI access has been revoked"
+    "flashcardAccessRevoked": "Your Flashcard AI access has been revoked",
+    "aiExerciseCreated": "created a new AI exercise awaiting review"
   }
 }
