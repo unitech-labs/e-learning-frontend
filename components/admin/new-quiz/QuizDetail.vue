@@ -129,6 +129,9 @@ const questionTypes = {
                 <p class="text-blue-900 mt-1">
                   {{ question.sample_answer.text }}
                 </p>
+                <p v-if="question.sample_answer.accepted_answers?.length" class="text-sm text-blue-800 mt-1">
+                  Cũng chấp nhận: {{ question.sample_answer.accepted_answers.join(', ') }}
+                </p>
               </div>
             </div>
           </div>

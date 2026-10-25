@@ -46,6 +46,13 @@ export const OPTION_LABEL_COLORS: Record<string, string> = {
   H: 'bg-cyan-200',
 }
 
+/** Đáp án điền từ: đáp án chính + các đáp án khác cũng được chấm đúng, vd "macchina / auto / automobile". */
+export function formatTextAnswers(answer?: { text: string, accepted_answers?: string[] } | null): string {
+  if (!answer)
+    return ''
+  return [answer.text, ...(answer.accepted_answers || [])].join(' / ')
+}
+
 export function exerciseTypeLabel(type?: string | null): string {
   return (type && EXERCISE_TYPE_META[type as ExerciseType]?.label) || ''
 }

@@ -155,6 +155,7 @@ export interface NewQuizQuestionCreate {
   }>
   sample_answer?: {
     text: string
+    accepted_answers?: string[]
   }
 }
 

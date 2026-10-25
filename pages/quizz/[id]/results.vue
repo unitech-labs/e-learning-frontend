@@ -3,7 +3,7 @@ import type { NewQuizDetail } from '~/composables/api/useNewQuizApi'
 import type { QuizAttempt, SavedAnswer } from '~/types/new-quiz.type'
 import ExerciseMaterials from '~/components/learning/new-quiz/ExerciseMaterials.vue'
 import { useNewQuizApi } from '~/composables/api/useNewQuizApi'
-import { OPTION_LABEL_COLORS } from '~/utils/exercise'
+import { formatTextAnswers, OPTION_LABEL_COLORS } from '~/utils/exercise'
 
 definePageMeta({
   layout: 'auth',
@@ -398,7 +398,7 @@ onMounted(() => {
                     </div>
                     <div class="p-4 bg-green-100 border border-green-300 rounded-xl">
                       <span class="text-gray-800">
-                        {{ item.answer.correct_answer.text }}
+                        {{ formatTextAnswers(item.answer.correct_answer) }}
                       </span>
                     </div>
                   </div>

@@ -213,6 +213,7 @@ function addTextInputQuestion() {
       score: 1.0,
       files: [],
       answer: '',
+      acceptedAnswers: [],
     },
   }
   questions.value.push(newQuestion)
@@ -297,6 +298,7 @@ function transformQuestionsToApi(): Array<NewQuizQuestionCreate & { id?: string 
     if (question.type === 'text-input') {
       baseQuestion.sample_answer = {
         text: question.data.answer,
+        accepted_answers: question.data.acceptedAnswers ?? [],
       }
     }
 
@@ -351,6 +353,7 @@ async function loadQuizData() {
 
         if (questionType === 'text-input' && q.sample_answer) {
           questionData.answer = q.sample_answer.text
+          questionData.acceptedAnswers = q.sample_answer.accepted_answers || []
         }
 
         return {
@@ -770,6 +773,7 @@ const totalScore = computed(() => {
                 v-if="question.type === 'text-input'"
                 :initial-data="question.data"
                 :question-number="index + 1"
+                allow-alternatives
                 @delete="removeQuestion(index)"
                 @update="updateQuestion(index, $event)"
               />

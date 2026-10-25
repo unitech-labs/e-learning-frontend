@@ -7,11 +7,14 @@ import { reactive, watch } from 'vue'
 interface Props {
   initialData?: Partial<TextInputQuestionData>
   questionNumber?: number
+  /** Cho nhập thêm các đáp án khác cũng đúng (từ đồng nghĩa...) — chỉ bộ quiz mới chấm theo danh sách. */
+  allowAlternatives?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   initialData: () => ({}),
   questionNumber: 1,
+  allowAlternatives: false,
 })
 
 const emit = defineEmits<{
@@ -27,6 +30,7 @@ interface TextInputQuestionData {
   score: number
   files: any[]
   answer: string
+  acceptedAnswers: string[]
 }
 
 const questionData = reactive<TextInputQuestionData>({
@@ -35,6 +39,7 @@ const questionData = reactive<TextInputQuestionData>({
   score: props.initialData.score || 1.0,
   files: props.initialData.files || [],
   answer: props.initialData.answer || '',
+  acceptedAnswers: [...(props.initialData.acceptedAnswers || [])],
 })
 
 const rules: Record<string, Rule[]> = {
@@ -229,6 +234,22 @@ watch(
             :placeholder="t('quiz.question.sampleAnswerPlaceholder')"
             :rows="3"
             class="rounded-lg border-gray-300"
+          />
+        </a-form-item>
+
+        <a-form-item
+          v-if="allowAlternatives"
+          label="Đáp án khác cũng đúng"
+          extra="Từ đồng nghĩa hoặc cách viết khác — học viên gõ đáp án nào trong danh sách cũng được chấm đúng. Nhấn Enter (hoặc dấu phẩy) sau mỗi đáp án."
+          class="mb-0 mt-3"
+        >
+          <a-select
+            v-model:value="questionData.acceptedAnswers"
+            mode="tags"
+            :open="false"
+            :token-separators="[',', ';']"
+            placeholder="Ví dụ: auto, automobile"
+            class="w-full"
           />
         </a-form-item>
       </a-form>
