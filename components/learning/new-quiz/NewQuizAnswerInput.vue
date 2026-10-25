@@ -2,7 +2,7 @@
 import type { NewQuizQuestion } from '~/composables/api/useNewQuizApi'
 import type { SavedAnswer } from '~/types/new-quiz.type'
 import { useDebounceFn } from '@vueuse/core'
-import { OPTION_LABEL_COLORS } from '~/utils/exercise'
+import { formatTextAnswers, OPTION_LABEL_COLORS } from '~/utils/exercise'
 
 interface Props {
   question: NewQuizQuestion
@@ -211,7 +211,7 @@ function handleEssayInput(text: string) {
               {{ t('newQuiz.player.answerInput.correctAnswer') }}
             </p>
             <p class="text-sm text-red-700 mt-1">
-              {{ correctAnswer.label ? `${correctAnswer.label}. ${correctAnswer.text}` : correctAnswer.text }}
+              {{ correctAnswer.label ? `${correctAnswer.label}. ${correctAnswer.text}` : formatTextAnswers(correctAnswer) }}
             </p>
           </div>
         </div>
@@ -265,7 +265,7 @@ function handleEssayInput(text: string) {
           {{ isCorrect ? t('newQuiz.player.answerInput.correct') : t('newQuiz.player.answerInput.incorrect') }}
         </span>
         <span v-if="!isCorrect && correctAnswer" class="text-sm text-slate-600">
-          {{ t('newQuiz.player.answerInput.correctAnswerPrefix') }} {{ correctAnswer.text }}
+          {{ t('newQuiz.player.answerInput.correctAnswerPrefix') }} {{ formatTextAnswers(correctAnswer) }}
         </span>
       </div>
     </div>

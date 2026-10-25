@@ -34,6 +34,8 @@ export interface SavedAnswer {
   correct_answer: {
     label?: string
     text: string
+    /** Điền từ: các đáp án khác cũng đúng (từ đồng nghĩa...). */
+    accepted_answers?: string[]
   } | null
   auto_graded: boolean
   answered_at: string
