@@ -12,6 +12,7 @@ export type ExerciseErrorCode
   = | 'EXERCISE_ACCESS_DENIED'
     | 'EXERCISE_AI_UNAVAILABLE'
     | 'EXERCISE_LISTENING_NOT_AVAILABLE'
+    | 'EXERCISE_LISTENING_EXHAUSTED'
     | 'EXERCISE_DAILY_LIMIT_REACHED'
     | 'EXERCISE_JOB_IN_PROGRESS'
     | 'EXERCISE_QUEUE_TIMEOUT'
@@ -92,6 +93,9 @@ export interface ExerciseJob {
   queue_position: number | null
   progress: { stage: 'thinking' | 'writing', preview: ExercisePreview | null } | null
   quiz: string | null
+  /** Chủ đề thật của bài nhận được — bài nghe có thể khác `topic` khi hết bài đúng chủ đề. */
+  quiz_topic: string | null
+  quiz_topic_name: string | null
   error: { error_code: ExerciseErrorCode | string, message: string } | null
   created_at: string
   started_at: string | null

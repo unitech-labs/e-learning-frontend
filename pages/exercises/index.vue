@@ -7,6 +7,7 @@ import type {
   ExerciseType,
   ExerciseTypeOption,
 } from '~/types/ai-exercise.type'
+import { message } from 'ant-design-vue'
 import ExerciseAccessGate from '~/components/exercise/ExerciseAccessGate.vue'
 import ExerciseHistory from '~/components/exercise/ExerciseHistory.vue'
 import ExerciseStreamPreview from '~/components/exercise/ExerciseStreamPreview.vue'
@@ -164,6 +165,13 @@ async function handleGenerate() {
     })
     // Nghe hiểu: không qua hàng đợi, có bài ngay
     if (created.status === 'succeeded' && created.quiz) {
+      // Hết bài nghe đúng chủ đề -> backend lấy bài cùng trình độ ở chủ đề khác
+      if (created.quiz_topic && created.quiz_topic !== created.topic) {
+        message.info(
+          `Chủ đề "${created.topic_name}" hiện chưa có bài nghe dành cho bạn — đã chọn bài chủ đề "${created.quiz_topic_name}" cùng trình độ ${created.level_code}.`,
+          6,
+        )
+      }
       await router.push(`/quizz/${created.quiz}`)
       return
     }

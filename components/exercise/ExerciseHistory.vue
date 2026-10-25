@@ -4,7 +4,7 @@ import type { ExerciseReviewStatus, ExerciseType } from '~/types/ai-exercise.typ
 import { useAIExerciseApi } from '~/composables/api/useAIExerciseApi'
 import { EXERCISE_TYPE_META } from '~/utils/exercise'
 
-/** Bài AI học viên đã tạo, mới nhất trước. Kết quả từng lần làm xem ở /quizz/{id}/attempts. */
+/** Bài AI học viên đã tạo + bài nghe đã nhận, theo lần nhận gần nhất. Kết quả từng lần làm xem ở /quizz/{id}/attempts. */
 const PAGE_SIZE = 10
 
 const api = useAIExerciseApi()
@@ -60,7 +60,7 @@ onMounted(() => load())
     <div class="mb-4 flex items-center gap-2">
       <Icon name="tabler:history" class="text-xl text-[#1B8A3C]" />
       <h2 class="text-lg font-semibold text-gray-900">
-        Bài đã tạo
+        Bài tập của bạn
       </h2>
       <span v-if="total" class="text-sm text-gray-400">({{ total }})</span>
     </div>
@@ -70,7 +70,7 @@ onMounted(() => load())
     </div>
 
     <p v-else-if="!items.length" class="py-6 text-center text-sm text-gray-500">
-      Bạn chưa tạo bài tập nào. Chọn chủ đề và trình độ ở trên để bắt đầu.
+      Bạn chưa có bài tập nào. Chọn chủ đề và trình độ ở trên để bắt đầu.
     </p>
 
     <ul v-else class="space-y-3">
@@ -88,7 +88,7 @@ onMounted(() => load())
           </p>
           <div class="mt-1 flex flex-wrap items-center gap-2 text-xs text-gray-500">
             <span>{{ quiz.total_questions }} câu</span>
-            <span>· {{ formatDate(quiz.created_at) }}</span>
+            <span>· {{ formatDate(quiz.last_requested_at ?? quiz.created_at) }}</span>
             <span v-if="quiz.user_attempts_count">· Đã làm {{ quiz.user_attempts_count }} lần</span>
             <span
               v-if="quiz.review_status"
