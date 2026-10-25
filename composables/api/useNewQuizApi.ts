@@ -99,6 +99,8 @@ export interface NewQuiz {
   review_status?: ExerciseReviewStatus | ''
   /** Học viên đã yêu cầu AI sinh bài này. */
   requested_by?: number | null
+  /** Chỉ có ở ai-exercises/mine: lần gần nhất học viên nhận bài này. */
+  last_requested_at?: string
 }
 
 export interface NewQuizDetail extends NewQuiz {
