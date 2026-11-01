@@ -520,7 +520,7 @@ function formatTime(seconds: number): string {
     </div>
 
     <!-- Passage / audio / question-sheet images (kept outside the question block so audio keeps playing) -->
-    <ExerciseMaterials v-if="!showResults" :quiz="quiz" class="mt-6" />
+    <ExerciseMaterials v-if="!showResults" :quiz="quiz" :current-section="currentQuestion?.section" class="mt-6" />
 
     <!-- Main Content -->
     <div class="max-w-6xl mx-auto py-8">

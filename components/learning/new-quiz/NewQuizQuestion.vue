@@ -30,6 +30,11 @@ function handleAnswerSave(answerData: any) {
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <!-- Left Side - Question -->
     <div>
+      <!-- Phần của đề (vd "Prova n. 2 — Scegli la risposta corretta") để học viên dò trên ảnh đề -->
+      <p v-if="question.section" class="mb-2 flex items-start gap-1.5 text-sm font-medium text-green-700/80">
+        <Icon name="tabler:bookmark" class="mt-0.5 shrink-0" />
+        {{ question.section }}
+      </p>
       <div class="text-green-800 mb-6 font-medium text-xl whitespace-pre-line">
         {{ question.prompt }}
       </div>

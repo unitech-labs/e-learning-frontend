@@ -1,3 +1,4 @@
+import type { AudioTrack } from '~/composables/api/useNewQuizApi'
 import type { ExerciseReviewStatus, ExerciseType } from '~/types/ai-exercise.type'
 
 export const EXERCISE_TYPE_META: Record<ExerciseType, { label: string, icon: string, description: string }> = {
@@ -64,4 +65,16 @@ export function exerciseTypeLabel(type?: string | null): string {
  */
 export function revealsAnswersAfterSubmit(quiz?: { exercise_type?: string | null } | null): boolean {
   return !!quiz?.exercise_type
+}
+
+/** Các file audio của bài nghe; bài chỉ có `audio_url` thì coi như một file dùng cho cả bài. */
+export function quizAudioTracks(quiz: { audio_url?: string, audio_tracks?: AudioTrack[] }): AudioTrack[] {
+  if (quiz.audio_tracks?.length)
+    return quiz.audio_tracks
+  return quiz.audio_url ? [{ url: quiz.audio_url, title: '', section: '' }] : []
+}
+
+/** Tên hiển thị của một file audio: tiêu đề giáo viên đặt, hoặc "Audio 1", "Audio 2"... */
+export function audioTrackLabel(track: AudioTrack, index: number): string {
+  return track.title.trim() || `Audio ${index + 1}`
 }

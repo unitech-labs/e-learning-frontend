@@ -10,6 +10,8 @@ import type {
   ExerciseTopic,
   ExerciseTopicAdmin,
   GenerateExerciseRequest,
+  GrammarPoint,
+  GrammarPointAdmin,
 } from '~/types/ai-exercise.type'
 import { useApiClient } from '~/api/apiClient'
 
@@ -125,7 +127,7 @@ export function useAIExerciseApi() {
       }
     },
 
-    getMine: (params?: { exercise_type?: string, level?: string, topic?: string, limit?: number, offset?: number }) =>
+    getMine: (params?: { exercise_type?: string, level?: string, topic?: string, grammar_point?: string, limit?: number, offset?: number }) =>
       apiClient.get<ListApiResponse<NewQuiz>>(`/new_quiz/ai-exercises/mine/${buildQuery(params)}`),
 
     // ─── Chủ đề ────────────────────────────────────────────────
@@ -140,6 +142,19 @@ export function useAIExerciseApi() {
 
     deleteTopic: (id: string) =>
       apiClient.delete<void>(`/new_quiz/exercise-topics/${id}/`),
+
+    // ─── Chủ điểm ngữ pháp ─────────────────────────────────────
+    getGrammarPoints: (params?: { level?: string, limit?: number, offset?: number }) =>
+      apiClient.get<ListApiResponse<GrammarPointAdmin | GrammarPoint>>(`/new_quiz/grammar-points/${buildQuery(params)}`),
+
+    createGrammarPoint: (data: Partial<GrammarPointAdmin>) =>
+      apiClient.post<GrammarPointAdmin>('/new_quiz/grammar-points/', data),
+
+    updateGrammarPoint: (id: string, data: Partial<GrammarPointAdmin>) =>
+      apiClient.patch<GrammarPointAdmin>(`/new_quiz/grammar-points/${id}/`, data),
+
+    deleteGrammarPoint: (id: string) =>
+      apiClient.delete<void>(`/new_quiz/grammar-points/${id}/`),
 
     // ─── Admin: hàng chờ duyệt ─────────────────────────────────
     adminList: (params?: AdminAIExerciseListParams) =>

@@ -97,6 +97,9 @@ const questionTypes = {
                 </span>
               </div>
             </div>
+            <p v-if="question.section" class="mb-1 text-xs font-medium text-gray-500">
+              {{ question.section }}
+            </p>
             <p class="text-gray-800 mb-2">
               {{ question.prompt }}
             </p>

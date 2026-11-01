@@ -126,6 +126,7 @@ function createSimilarExercise() {
     query: {
       topic: quiz.value?.topic || undefined,
       level: quiz.value?.level_code,
+      grammar: quiz.value?.grammar_point || undefined,
       type: quiz.value?.exercise_type || undefined,
     },
   })
@@ -307,6 +308,9 @@ onMounted(() => {
             <!-- Question Content -->
             <div class="p-6">
               <!-- Question Prompt -->
+              <p v-if="item.question.section" class="mb-2 text-sm font-medium text-green-700/80">
+                {{ item.question.section }}
+              </p>
               <div class="text-green-800 mb-6 font-medium text-xl whitespace-pre-line">
                 {{ item.question.prompt }}
               </div>

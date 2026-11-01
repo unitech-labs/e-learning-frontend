@@ -34,6 +34,23 @@ export interface ExerciseTopicAdmin extends ExerciseTopic {
   updated_at: string
 }
 
+/** Chủ điểm ngữ pháp (passato prossimo, câu phức...) — học viên chọn sau trình độ, bắt buộc với bài AI. */
+export interface GrammarPoint {
+  id: string
+  name: string
+  /** Các trình độ dùng chủ điểm này, theo thứ tự A1 → C2. */
+  levels: ExerciseLevel[]
+  order: number
+}
+
+/** Bản admin có thêm mô tả (đưa vào prompt AI, học viên không thấy) và cờ bật/tắt. */
+export interface GrammarPointAdmin extends GrammarPoint {
+  description: string
+  is_active: boolean
+  created_at: string
+  updated_at: string
+}
+
 export interface ExerciseTypeOption {
   value: ExerciseType
   label: string
@@ -54,6 +71,7 @@ export interface ExerciseOptions {
   access: { can_use: boolean, reason: ExerciseAccessReason }
   topics: ExerciseTopic[]
   levels: ExerciseLevel[]
+  grammar_points: GrammarPoint[]
   exercise_types: ExerciseTypeOption[]
   question_counts: number[]
   daily_limit: ExerciseDailyLimit
@@ -61,6 +79,8 @@ export interface ExerciseOptions {
 
 export interface GenerateExerciseRequest {
   topic_id: string
+  /** Bắt buộc với bài AI; bỏ qua với bài nghe. */
+  grammar_point_id: string | null
   level: ExerciseLevel
   exercise_type: ExerciseType
   question_count: number
@@ -89,6 +109,8 @@ export interface ExerciseJob {
   level_code: string
   topic: string | null
   topic_name: string | null
+  grammar_point: string | null
+  grammar_point_name: string | null
   question_count: number
   queue_position: number | null
   progress: { stage: 'thinking' | 'writing', preview: ExercisePreview | null } | null
@@ -117,6 +139,8 @@ export interface AdminAIExerciseListItem {
   level_code: string
   topic: string | null
   topic_name: string | null
+  grammar_point: string | null
+  grammar_point_name: string | null
   exercise_type: ExerciseType
   review_status: ExerciseReviewStatus
   review_note: string
