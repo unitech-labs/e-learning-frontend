@@ -41,6 +41,7 @@ const optionsError = ref('')
 const topicId = ref<string>(String(route.query.topic ?? ''))
 const level = ref<ExerciseLevel | ''>((String(route.query.level ?? '').toUpperCase() as ExerciseLevel) || '')
 const exerciseType = ref<ExerciseType | ''>((String(route.query.type ?? '') as ExerciseType) || '')
+const grammarPointId = ref<string>(String(route.query.grammar ?? ''))
 const questionCount = ref(10)
 
 const generating = ref(false)
@@ -59,6 +60,18 @@ const selectedType = computed<ExerciseTypeOption | undefined>(() =>
 const isListening = computed(() => exerciseType.value === 'listening')
 const selectedTopicName = computed(() => options.value?.topics.find(t => t.id === topicId.value)?.name ?? '')
 
+/** Chủ điểm ngữ pháp của trình độ đang chọn (bắt buộc với bài AI, bài nghe bỏ qua). */
+const levelGrammarPoints = computed(() =>
+  level.value ? (options.value?.grammar_points ?? []).filter(p => p.levels.includes(level.value as ExerciseLevel)) : [],
+)
+const selectedGrammarName = computed(() => levelGrammarPoints.value.find(p => p.id === grammarPointId.value)?.name ?? '')
+
+// Đổi trình độ -> bỏ chủ điểm không dùng cho trình độ mới
+watch(levelGrammarPoints, (points) => {
+  if (grammarPointId.value && !points.some(p => p.id === grammarPointId.value))
+    grammarPointId.value = ''
+})
+
 /** Kiểu trả lời của dạng bài ở trình độ đang chọn (điền từ B2+ là tự gõ). */
 function answerModeLabel(item: ExerciseTypeOption): string {
   if (!item.ai_generated)
@@ -72,14 +85,24 @@ const remainingGenerations = computed(() => options.value?.daily_limit.remaining
 const limitReached = computed(() => !isListening.value && remainingGenerations.value !== null && remainingGenerations.value <= 0)
 
 const canGenerate = computed(() =>
-  !!topicId.value && !!level.value && !!exerciseType.value && !generating.value && !limitReached.value,
+  !!topicId.value && !!level.value && !!exerciseType.value
+  && (isListening.value || !!grammarPointId.value)
+  && !generating.value && !limitReached.value,
 )
 
 // Nhãn + số câu lấy theo job (khi tiếp tục một job cũ, form có thể đang chọn thứ khác)
 const previewLabel = computed(() => {
-  if (job.value)
-    return [EXERCISE_TYPE_META[job.value.exercise_type]?.label, job.value.topic_name, job.value.level_code].filter(Boolean).join(' · ')
-  return [EXERCISE_TYPE_META[exerciseType.value as ExerciseType]?.label, selectedTopicName.value, level.value]
+  if (job.value) {
+    return [EXERCISE_TYPE_META[job.value.exercise_type]?.label, job.value.grammar_point_name, job.value.topic_name, job.value.level_code]
+      .filter(Boolean)
+      .join(' · ')
+  }
+  return [
+    EXERCISE_TYPE_META[exerciseType.value as ExerciseType]?.label,
+    isListening.value ? '' : selectedGrammarName.value,
+    selectedTopicName.value,
+    level.value,
+  ]
     .filter(Boolean)
     .join(' · ')
 })
@@ -159,6 +182,7 @@ async function handleGenerate() {
   try {
     const created = await api.createJob({
       topic_id: topicId.value,
+      grammar_point_id: isListening.value ? null : grammarPointId.value || null,
       level: level.value,
       exercise_type: exerciseType.value,
       question_count: questionCount.value,
@@ -316,10 +340,40 @@ onUnmounted(() => pollAbort?.abort())
               </div>
             </div>
 
+            <!-- Ngữ pháp -->
+            <div>
+              <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-500">
+                3. Ngữ pháp
+              </h2>
+              <p v-if="isListening" class="text-sm text-gray-500">
+                Bài nghe do giáo viên soạn, không cần chọn chủ điểm ngữ pháp.
+              </p>
+              <p v-else-if="!level" class="text-sm text-gray-500">
+                Chọn trình độ để xem các chủ điểm ngữ pháp.
+              </p>
+              <p v-else-if="!levelGrammarPoints.length" class="text-sm text-amber-700">
+                Trình độ {{ level }} chưa có chủ điểm ngữ pháp nào. Hãy chọn trình độ khác hoặc quay lại sau.
+              </p>
+              <div v-else class="flex flex-wrap gap-2">
+                <button
+                  v-for="point in levelGrammarPoints"
+                  :key="point.id"
+                  type="button"
+                  class="cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition-colors"
+                  :class="grammarPointId === point.id
+                    ? 'border-[#1B8A3C] bg-[#1B8A3C] text-white'
+                    : 'border-gray-200 text-gray-700 hover:border-green-300 hover:bg-green-50'"
+                  @click="grammarPointId = point.id"
+                >
+                  {{ point.name }}
+                </button>
+              </div>
+            </div>
+
             <!-- Dạng bài -->
             <div>
               <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-500">
-                3. Dạng bài
+                4. Dạng bài
               </h2>
               <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 <button
@@ -353,7 +407,7 @@ onUnmounted(() => pollAbort?.abort())
             <!-- Số câu -->
             <div>
               <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-500">
-                4. Số lượng câu hỏi
+                5. Số lượng câu hỏi
               </h2>
               <p v-if="isListening" class="text-sm text-gray-500">
                 Bài nghe có số câu cố định theo đề của giáo viên.
@@ -392,8 +446,8 @@ onUnmounted(() => pollAbort?.abort())
                 <Icon :name="isListening ? 'tabler:headphones' : 'tabler:sparkles'" />
                 {{ isListening ? 'Lấy bài nghe' : 'Tạo bài tập' }}
               </button>
-              <p v-if="!topicId || !level || !exerciseType" class="text-xs text-gray-400">
-                Chọn đủ chủ đề, trình độ và dạng bài để bắt đầu.
+              <p v-if="!topicId || !level || !exerciseType || (!isListening && !grammarPointId)" class="text-xs text-gray-400">
+                Chọn đủ chủ đề, trình độ, ngữ pháp và dạng bài để bắt đầu.
               </p>
               <p v-else-if="limitReached" class="text-xs text-red-500">
                 Bạn đã dùng hết {{ options.daily_limit.limit }} lượt tạo trong 24 giờ qua. Hãy quay lại sau nhé.

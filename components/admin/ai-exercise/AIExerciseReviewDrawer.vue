@@ -116,6 +116,7 @@ function formatDate(date?: string | null) {
           <span>Dạng bài: <b class="text-gray-800">{{ exerciseTypeLabel(exercise.exercise_type) }}</b></span>
           <span>Trình độ: <b class="text-gray-800">{{ exercise.level_code }}</b></span>
           <span>Chủ đề: <b class="text-gray-800">{{ exercise.topic_name || '—' }}</b></span>
+          <span>Ngữ pháp: <b class="text-gray-800">{{ exercise.grammar_point_name || '—' }}</b></span>
           <span>Số câu: <b class="text-gray-800">{{ exercise.questions.length }}</b></span>
           <span class="break-words">Học viên: <b class="text-gray-800">{{ exercise.requested_by_name || '—' }}</b> {{ exercise.requested_by_email ? `(${exercise.requested_by_email})` : '' }}</span>
           <span>Tạo lúc: {{ formatDate(exercise.created_at) }}</span>

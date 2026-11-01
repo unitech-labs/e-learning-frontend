@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Rule } from 'ant-design-vue/es/form'
-import type { NewQuizQuestion, NewQuizQuestionCreate } from '~/composables/api/useNewQuizApi'
+import type { NewQuizQuestion, NewQuizQuestionCreate, QuizSourcePage } from '~/composables/api/useNewQuizApi'
+import type { ImportedQuestion, PdfImportPayload } from '~/composables/api/useQuizImportApi'
 import type { ExerciseTopic, ExerciseType } from '~/types/ai-exercise.type'
 import { message, notification } from 'ant-design-vue'
 import EssayQuestion from '~/components/admin/course/quiz/EssayQuestion.vue'
@@ -11,6 +12,7 @@ import { useNewQuizApi } from '~/composables/api/useNewQuizApi'
 import { QUIZ_AUDIO_TYPES, QUIZ_IMAGE_TYPES, useQuizMediaUpload } from '~/composables/useQuizMediaUpload'
 import { EXERCISE_TYPE_META } from '~/utils/exercise'
 import LevelSelector from './LevelSelector.vue'
+import PdfExamImport from './PdfExamImport.vue'
 
 interface Props {
   mode?: 'create' | 'edit'
@@ -37,7 +39,7 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<Emits>()
 
 const { t } = useI18n()
-const { getQuiz } = useNewQuizApi()
+const { getQuiz, getLevels } = useNewQuizApi()
 
 const formData = reactive({
   title: '',
@@ -53,6 +55,8 @@ const formData = reactive({
   passage: '',
   audio_url: '',
   image_urls: [] as string[],
+  // Trang đề PDF đã nhập: chỉ để người soạn rà câu hỏi bên cạnh đúng trang, học viên không thấy.
+  source_pages: [] as QuizSourcePage[],
 })
 
 const loadingQuiz = ref(false)
@@ -212,6 +216,8 @@ function addTextInputQuestion() {
       explanation: '',
       score: 1.0,
       files: [],
+      section: lastSection(),
+      sourcePage: lastSourcePage(),
       answer: '',
       acceptedAnswers: [],
     },
@@ -228,6 +234,8 @@ function addEssayQuestion() {
       explanation: '',
       score: 1.0,
       files: [],
+      section: lastSection(),
+      sourcePage: lastSourcePage(),
     },
   }
   questions.value.push(newQuestion)
@@ -242,6 +250,8 @@ function addMultipleChoiceQuestion() {
       explanation: '',
       score: 1.0,
       files: [],
+      section: lastSection(),
+      sourcePage: lastSourcePage(),
       options: [
         { text: '', label: 'A', id: 'option-a' },
         { text: '', label: 'B', id: 'option-b' },
@@ -252,6 +262,147 @@ function addMultipleChoiceQuestion() {
     },
   }
   questions.value.push(newQuestion)
+}
+
+// ─── Phần của đề (Prova 1, Prova 2...) ─────────────────────────
+// Câu mới thêm tay nằm cùng phần với câu cuối, để không tách nhóm khi bổ sung câu.
+function lastSection(): string {
+  return questions.value.at(-1)?.data.section ?? ''
+}
+
+function lastSourcePage(): number | null {
+  return questions.value.at(-1)?.data.sourcePage ?? null
+}
+
+// ─── Trang đề PDF: rà câu hỏi bên cạnh đúng trang ─────────────
+function pageOf(question: Question): number | null {
+  const page = question.data.sourcePage
+  return typeof page === 'number' && page >= 1 && page <= formData.source_pages.length ? page : null
+}
+
+// Nhóm các câu liền nhau cùng trang đề; câu không gắn trang (thêm tay, quiz thường) nằm nhóm riêng.
+const questionGroups = computed(() => {
+  const groups: { key: string, page: number | null, items: { question: Question, index: number }[] }[] = []
+  questions.value.forEach((question, index) => {
+    const page = pageOf(question)
+    const last = groups.at(-1)
+    if (last && last.page === page)
+      last.items.push({ question, index })
+    else
+      groups.push({ key: `${page ?? 'none'}-${question.id}`, page, items: [{ question, index }] })
+  })
+  return groups
+})
+
+// Trang không có câu hỏi nào (trang đáp án, hướng dẫn...) — vẫn cho xem để đối chiếu.
+const otherPages = computed(() =>
+  formData.source_pages.filter((_, index) => !questions.value.some(question => pageOf(question) === index + 1)),
+)
+
+const hasSections = computed(() => questions.value.some(q => q.data.section))
+
+// Vị trí bắt đầu mỗi nhóm câu liền nhau cùng phần — hiện tiêu đề phần ở đó.
+const sectionStarts = computed(() => {
+  const starts = new Set<number>()
+  if (!hasSections.value)
+    return starts
+  questions.value.forEach((question, index) => {
+    if (index === 0 || (question.data.section ?? '') !== (questions.value[index - 1]?.data.section ?? ''))
+      starts.add(index)
+  })
+  return starts
+})
+
+/** Đổi tên phần: áp cho cả nhóm câu liền nhau bắt đầu từ `start`. */
+function renameSection(start: number, value: string) {
+  const old = questions.value[start]?.data.section ?? ''
+  for (let index = start; index < questions.value.length; index++) {
+    const question = questions.value[index]!
+    if ((question.data.section ?? '') !== old)
+      break
+    question.data.section = value
+  }
+}
+
+function isMissingAnswer(question: Question): boolean {
+  if (question.type === 'multiple-choice')
+    return !question.data.correctAnswer
+  if (question.type === 'text-input')
+    return !question.data.answer?.trim()
+  return false
+}
+
+const missingAnswerCount = computed(() => questions.value.filter(isMissingAnswer).length)
+
+// ─── Tạo câu hỏi từ đề PDF ─────────────────────────────────────
+const pdfImportOpen = ref(false)
+const importSummary = ref<{ count: number, warnings: string[] } | null>(null)
+const questionsCard = ref<HTMLElement | null>(null)
+
+function importedToQuestion(imported: ImportedQuestion, pageOffset = 0): Question {
+  const id = `question-${Date.now()}-${Math.random()}`
+  const base = {
+    question: imported.prompt,
+    explanation: imported.explanation || '',
+    score: 1.0,
+    files: [],
+    section: imported.section,
+    sourcePage: imported.source_page ? imported.source_page + pageOffset : null,
+  }
+  if (imported.question_type === 'text_input') {
+    return {
+      id,
+      type: 'text-input',
+      data: {
+        ...base,
+        answer: imported.sample_answer?.text ?? '',
+        acceptedAnswers: imported.sample_answer?.accepted_answers ?? [],
+        caseSensitive: imported.sample_answer?.case_sensitive ?? false,
+      },
+    }
+  }
+  const options = imported.options ?? []
+  return {
+    id,
+    type: 'multiple-choice',
+    data: {
+      ...base,
+      options: options.map(option => ({ text: option.text, label: option.label, id: `option-${option.label.toLowerCase()}` })),
+      correctAnswer: options.find(option => option.is_correct)?.label ?? '',
+    },
+  }
+}
+
+// Trang PDF chỉ để AI đọc — không gắn vào bài: học viên làm bài trên câu hỏi tương tác.
+async function applyPdfImport({ pages, result, mode }: PdfImportPayload) {
+  if (mode === 'replace') {
+    formData.source_pages = pages
+    questions.value = result.questions.map(question => importedToQuestion(question))
+  }
+  else {
+    // Thêm vào sau: trang mới nối tiếp trang cũ nên số trang của câu mới phải dời theo.
+    const offset = formData.source_pages.length
+    formData.source_pages.push(...pages)
+    questions.value.push(...result.questions.map(question => importedToQuestion(question, offset)))
+  }
+  const imported = result.questions
+  if (!formData.title.trim() && result.title)
+    formData.title = result.title
+  if (!formData.level_id && result.level) {
+    try {
+      const levels = await getLevels({ is_active: true })
+      const level = levels.results.find(item => item.code.toUpperCase() === result.level)
+      if (level)
+        formData.level_id = level.id
+    }
+    catch (err) {
+      console.error('Error loading levels:', err)
+    }
+  }
+  importSummary.value = { count: imported.length, warnings: result.warnings }
+  message.success(`Đã tạo ${imported.length} câu hỏi từ đề`)
+  await nextTick()
+  questionsCard.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 function removeQuestion(index: number) {
@@ -276,6 +427,8 @@ function transformQuestionsToApi(): Array<NewQuizQuestionCreate & { id?: string 
   return questions.value.map((question, index) => {
     const baseQuestion: NewQuizQuestionCreate & { id?: string } = {
       question_type: question.type === 'multiple-choice' ? 'multiple_choice' : question.type === 'text-input' ? 'text_input' : 'essay',
+      section: question.data.section || '',
+      source_page: pageOf(question),
       prompt: question.data.question,
       explanation: question.data.explanation || '',
       order: index + 1,
@@ -299,6 +452,8 @@ function transformQuestionsToApi(): Array<NewQuizQuestionCreate & { id?: string 
       baseQuestion.sample_answer = {
         text: question.data.answer,
         accepted_answers: question.data.acceptedAnswers ?? [],
+        // Không gửi thì backend coi là phân biệt hoa/thường — giữ nguyên giá trị đang có khi sửa.
+        case_sensitive: question.data.caseSensitive,
       }
     }
 
@@ -328,6 +483,7 @@ async function loadQuizData() {
     formData.passage = quiz.passage || ''
     formData.audio_url = quiz.audio_url || ''
     formData.image_urls = [...(quiz.image_urls || [])]
+    formData.source_pages = [...(quiz.source_pages || [])]
 
     // Load questions
     if (quiz.questions && quiz.questions.length > 0) {
@@ -339,6 +495,8 @@ async function loadQuizData() {
           explanation: q.explanation || '',
           score: q.score,
           files: [],
+          section: q.section || '',
+          sourcePage: q.source_page ?? null,
         }
 
         if (questionType === 'multiple-choice' && q.options) {
@@ -354,6 +512,7 @@ async function loadQuizData() {
         if (questionType === 'text-input' && q.sample_answer) {
           questionData.answer = q.sample_answer.text
           questionData.acceptedAnswers = q.sample_answer.accepted_answers || []
+          questionData.caseSensitive = q.sample_answer.case_sensitive
         }
 
         return {
@@ -387,13 +546,15 @@ function createApiPayload() {
     time_value: formData.time_type === 'limit' ? formData.time_value : null,
     time_unit: formData.time_unit,
     retake_limit: formData.retake_limit,
-    is_published: false,
+    // Chỉ quiz mới tạo là bản nháp; sửa bài không được tự gỡ xuất bản.
+    ...(props.mode === 'create' ? { is_published: false } : {}),
     questions: transformQuestionsToApi(),
     exercise_type: formData.exercise_type,
     topic: formData.topic || null,
     passage: formData.passage,
     audio_url: formData.audio_url,
     image_urls: formData.image_urls,
+    source_pages: formData.source_pages,
   }
 
   return payload
@@ -472,7 +633,7 @@ const totalScore = computed(() => {
 
 <template>
   <div class="p-4 sm:p-6 lg:p-8 max-md:px-0 bg-gray-50 min-h-screen">
-    <div class="w-full max-w-5xl mx-auto space-y-6">
+    <div class="w-full mx-auto space-y-6" :class="formData.source_pages.length ? 'max-w-7xl' : 'max-w-5xl'">
       <!-- Header Section -->
       <div class="mb-6 sm:mb-8">
         <div class="flex items-center gap-4 mb-4">
@@ -518,7 +679,7 @@ const totalScore = computed(() => {
         :model="formData"
         :rules="rules"
         layout="vertical"
-        class="space-y-6"
+        class="flex flex-col gap-6"
         @finish="onFinish"
         @finish-failed="onFinishFailed"
       >
@@ -568,7 +729,7 @@ const totalScore = computed(() => {
             </h2>
           </div>
 
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <a-form-item label="Dạng bài" class="mb-0">
                 <a-select
@@ -590,7 +751,7 @@ const totalScore = computed(() => {
             <p v-if="formData.exercise_type" class="text-xs text-gray-500">
               Bài theo dạng bài tập: học viên được đổi đáp án và quay lại câu trước, chỉ xem đúng/sai sau khi nộp bài.
               <template v-if="formData.exercise_type === 'listening'">
-                Học viên chọn "Nghe hiểu" sẽ nhận bài nghe đã xuất bản đúng trình độ + chủ đề này.
+                Học viên chọn "Nghe hiểu" sẽ nhận bài nghe đã xuất bản đúng trình độ, ưu tiên bài cùng chủ đề này.
               </template>
             </p>
 
@@ -605,6 +766,24 @@ const totalScore = computed(() => {
 
             <!-- Listening: audio + question-sheet images -->
             <template v-if="formData.exercise_type === 'listening'">
+              <div class="flex flex-col gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 sm:flex-row sm:items-center sm:justify-between">
+                <div class="flex items-start gap-3">
+                  <Icon name="tabler:file-type-pdf" class="mt-0.5 shrink-0 text-2xl text-red-500" />
+                  <div>
+                    <p class="font-semibold text-gray-900">
+                      Tạo nhanh từ đề PDF (CILS, CELI…)
+                    </p>
+                    <p class="text-sm text-gray-600">
+                      Tải PDF đề lên, AI đọc đề ra câu hỏi tương tác (học viên không xem file PDF). Bạn chỉ cần kiểm tra và chọn đáp án.
+                    </p>
+                  </div>
+                </div>
+                <a-button type="primary" class="!flex shrink-0 !items-center !justify-center !gap-1" @click="pdfImportOpen = true">
+                  <Icon name="tabler:sparkles" />
+                  Tải đề PDF
+                </a-button>
+              </div>
+
               <a-form-item label="Audio (MP3/WAV)" class="mb-0" required>
                 <div class="space-y-2">
                   <audio v-if="formData.audio_url" :src="formData.audio_url" controls class="w-full" />
@@ -627,7 +806,7 @@ const totalScore = computed(() => {
                 </div>
               </a-form-item>
 
-              <a-form-item label="Ảnh đề (theo thứ tự trang)" class="mb-0">
+              <a-form-item label="Ảnh kèm đề (không bắt buộc)" class="mb-0">
                 <div class="space-y-3">
                   <div v-if="formData.image_urls.length" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     <div
@@ -664,7 +843,7 @@ const totalScore = computed(() => {
                     </a-button>
                   </a-upload>
                   <p class="text-xs text-gray-500">
-                    Tạo câu hỏi tương ứng với đề trên ảnh ở phần Câu hỏi bên dưới (ví dụ "Question 1" với các lựa chọn A, B, C...).
+                    Học viên xem các ảnh này khi làm bài (vd tranh cho câu chọn hình). Đề PDF thì dùng "Tải đề PDF" ở trên — không cần thêm ảnh.
                   </p>
                 </div>
               </a-form-item>
@@ -725,7 +904,7 @@ const totalScore = computed(() => {
         </div>
 
         <!-- Questions Section Card -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div ref="questionsCard" class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 scroll-mt-4">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div class="flex items-center gap-2">
               <Icon name="solar:question-circle-bold-duotone" class="text-xl text-purple-600" />
@@ -766,34 +945,105 @@ const totalScore = computed(() => {
             </div>
           </div>
 
-          <!-- Questions List -->
-          <div class="space-y-4">
-            <template v-for="(question, index) in questions" :key="question.id">
-              <TextInputQuestion
-                v-if="question.type === 'text-input'"
-                :initial-data="question.data"
-                :question-number="index + 1"
-                allow-alternatives
-                @delete="removeQuestion(index)"
-                @update="updateQuestion(index, $event)"
-              />
-              <MultipleChoiceQuestion
-                v-else-if="question.type === 'multiple-choice'"
-                :initial-data="question.data"
-                :question-number="index + 1"
-                :min-options="2"
-                :max-options="8"
-                @delete="removeQuestion(index)"
-                @update="updateQuestion(index, $event)"
-              />
-              <EssayQuestion
-                v-else-if="question.type === 'essay'"
-                :initial-data="question.data"
-                :question-number="index + 1"
-                @delete="removeQuestion(index)"
-                @update="updateQuestion(index, $event)"
-              />
+          <a-alert
+            v-if="importSummary"
+            :type="missingAnswerCount ? 'warning' : 'success'"
+            show-icon
+            closable
+            class="!mb-4"
+            @close="importSummary = null"
+          >
+            <template #message>
+              AI đã tạo {{ importSummary.count }} câu hỏi từ đề.
+              <template v-if="missingAnswerCount">
+                Còn <b>{{ missingAnswerCount }}</b> câu chưa có đáp án (viền vàng) — nghe audio hoặc xem file đáp án rồi chọn đáp án đúng trước khi lưu.
+              </template>
+              <template v-else>
+                Mọi câu đã có đáp án — hãy rà lại nội dung trước khi lưu.
+              </template>
             </template>
+            <template v-if="importSummary.warnings.length" #description>
+              <ul class="mb-0 list-disc pl-5 text-sm">
+                <li v-for="warning in importSummary.warnings" :key="warning">
+                  {{ warning }}
+                </li>
+              </ul>
+            </template>
+          </a-alert>
+
+          <!-- Questions List: có trang đề PDF thì mỗi nhóm câu nằm cạnh trang chứa nó -->
+          <div class="space-y-4">
+            <div
+              v-for="group in questionGroups"
+              :key="group.key"
+              :class="group.page ? 'grid items-start gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]' : 'space-y-4'"
+            >
+              <div v-if="group.page" class="rounded-xl border border-gray-200 bg-gray-50 p-2 lg:sticky lg:top-4">
+                <p class="mb-2 flex items-center gap-1 px-1 text-xs font-semibold text-gray-600">
+                  <Icon name="tabler:file-text" />
+                  Trang {{ formData.source_pages[group.page - 1]?.page }} trong PDF · {{ group.items.length }} câu
+                </p>
+                <a-image
+                  :src="formData.source_pages[group.page - 1]?.url"
+                  :alt="`Trang ${formData.source_pages[group.page - 1]?.page} trong PDF`"
+                  class="rounded-md"
+                />
+              </div>
+              <div class="min-w-0 space-y-4">
+                <template v-for="{ question, index } in group.items" :key="question.id">
+                  <div v-if="sectionStarts.has(index)" class="flex items-center gap-2 pt-2">
+                    <span class="shrink-0 text-xs font-semibold uppercase tracking-wide text-gray-500">Phần</span>
+                    <a-input
+                      :value="question.data.section"
+                      :maxlength="200"
+                      placeholder="Vd: Prova n. 1 — Scegli la risposta corretta"
+                      @change="(e: Event) => renameSection(index, (e.target as HTMLInputElement).value)"
+                    />
+                  </div>
+                  <div :class="importSummary && isMissingAnswer(question) ? 'rounded-xl ring-2 ring-amber-400 ring-offset-2' : ''">
+                    <TextInputQuestion
+                      v-if="question.type === 'text-input'"
+                      :initial-data="question.data"
+                      :question-number="index + 1"
+                      allow-alternatives
+                      @delete="removeQuestion(index)"
+                      @update="updateQuestion(index, $event)"
+                    />
+                    <MultipleChoiceQuestion
+                      v-else-if="question.type === 'multiple-choice'"
+                      :initial-data="question.data"
+                      :question-number="index + 1"
+                      :min-options="2"
+                      :max-options="8"
+                      @delete="removeQuestion(index)"
+                      @update="updateQuestion(index, $event)"
+                    />
+                    <EssayQuestion
+                      v-else-if="question.type === 'essay'"
+                      :initial-data="question.data"
+                      :question-number="index + 1"
+                      @delete="removeQuestion(index)"
+                      @update="updateQuestion(index, $event)"
+                    />
+                  </div>
+                </template>
+              </div>
+            </div>
+
+            <a-collapse v-if="otherPages.length" ghost>
+              <a-collapse-panel key="other" :header="`Trang khác của đề (đáp án, hướng dẫn…) — ${otherPages.length} trang`">
+                <a-image-preview-group>
+                  <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                    <div v-for="item in otherPages" :key="item.url" class="rounded-lg border border-gray-200 bg-gray-50 p-1">
+                      <a-image :src="item.url" :alt="`Trang ${item.page} trong PDF`" />
+                      <p class="mt-1 text-center text-xs text-gray-500">
+                        Trang {{ item.page }} trong PDF
+                      </p>
+                    </div>
+                  </div>
+                </a-image-preview-group>
+              </a-collapse-panel>
+            </a-collapse>
 
             <!-- Các nút thêm quiz -->
             <div v-if="questions.length > 0" class="flex flex-wrap gap-2">
@@ -876,5 +1126,11 @@ const totalScore = computed(() => {
         </div>
       </a-form>
     </div>
+
+    <PdfExamImport
+      v-model:open="pdfImportOpen"
+      :existing-question-count="questions.length"
+      @imported="applyPdfImport"
+    />
   </div>
 </template>

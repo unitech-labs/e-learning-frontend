@@ -55,7 +55,7 @@ onMounted(() => {
 
 <template>
   <a-select
-    :value="modelValue"
+    :value="modelValue || undefined"
     :placeholder="placeholder || $t('newQuiz.level.selectLevel')"
     :loading="loading"
     :disabled="disabled || loading"

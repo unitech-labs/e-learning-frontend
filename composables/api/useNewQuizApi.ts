@@ -60,6 +60,10 @@ export interface NewQuizQuestion {
   id: string
   quiz: string
   question_type: 'multiple_choice' | 'text_input' | 'essay'
+  /** Phần của đề chứa câu này (vd "Prova n. 2 — Scegli la risposta corretta"). */
+  section?: string
+  /** Trang của đề PDF chứa câu này (từ 1, trong quiz.source_pages). */
+  source_page?: number | null
   prompt: string
   explanation?: string
   media?: string | null
@@ -96,11 +100,27 @@ export interface NewQuiz {
   exercise_type?: ExerciseType | ''
   topic?: string | null
   topic_name?: string | null
+  /** Chủ điểm ngữ pháp của bài AI. */
+  grammar_point?: string | null
+  grammar_point_name?: string | null
   review_status?: ExerciseReviewStatus | ''
   /** Học viên đã yêu cầu AI sinh bài này. */
   requested_by?: number | null
   /** Chỉ có ở ai-exercises/mine: lần gần nhất học viên nhận bài này. */
   last_requested_at?: string
+}
+
+/** Một file audio của bài nghe; `section` khớp phần của câu hỏi, rỗng = dùng cho cả bài. */
+export interface AudioTrack {
+  url: string
+  title: string
+  section: string
+}
+
+/** Một trang đề PDF đã nhập: ảnh trang + số trang trong file PDF gốc. */
+export interface QuizSourcePage {
+  url: string
+  page: number
 }
 
 export interface NewQuizDetail extends NewQuiz {
@@ -109,7 +129,11 @@ export interface NewQuizDetail extends NewQuiz {
   passage?: string
   /** Audio + ảnh đề của bài nghe. */
   audio_url?: string
+  /** Nhiều file audio; trống thì bài chỉ có `audio_url`. */
+  audio_tracks?: AudioTrack[]
   image_urls?: string[]
+  /** Trang đề PDF đã nhập — chỉ người soạn nhận được, học viên luôn là []. */
+  source_pages?: QuizSourcePage[]
 }
 
 export interface NewQuizListResponse extends ListApiResponse<NewQuiz> {}
@@ -123,6 +147,7 @@ export interface NewQuizListParams {
   /** Mặc định backend ẩn bài AI chưa duyệt; truyền 'ai' / 'manual' để lọc rõ. */
   source?: 'manual' | 'ai'
   exercise_type?: ExerciseType
+  limit?: number
 }
 
 export interface NewQuizCreate {
@@ -139,11 +164,16 @@ export interface NewQuizCreate {
   topic?: string | null
   passage?: string
   audio_url?: string
+  /** Nhiều file audio; trống thì bài chỉ có `audio_url`. */
+  audio_tracks?: AudioTrack[]
   image_urls?: string[]
+  source_pages?: QuizSourcePage[]
 }
 
 export interface NewQuizQuestionCreate {
   question_type: 'multiple_choice' | 'text_input' | 'essay'
+  section?: string
+  source_page?: number | null
   prompt: string
   explanation?: string
   order: number
@@ -156,6 +186,7 @@ export interface NewQuizQuestionCreate {
   sample_answer?: {
     text: string
     accepted_answers?: string[]
+    case_sensitive?: boolean
   }
 }
 
@@ -242,6 +273,8 @@ export function useNewQuizApi() {
         queryParams.append('source', params.source)
       if (params?.exercise_type)
         queryParams.append('exercise_type', params.exercise_type)
+      if (params?.limit)
+        queryParams.append('limit', String(params.limit))
       const queryString = queryParams.toString()
       return apiClient.get<NewQuizListResponse>(
         `/new_quiz/quizzes/${queryString ? `?${queryString}` : ''}`,

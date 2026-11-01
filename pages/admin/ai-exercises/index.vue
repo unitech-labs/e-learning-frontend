@@ -3,6 +3,7 @@ import type { AdminAIExerciseListItem, ExerciseReviewStatus, ExerciseType } from
 import { message } from 'ant-design-vue'
 import AIExerciseReviewDrawer from '~/components/admin/ai-exercise/AIExerciseReviewDrawer.vue'
 import ExerciseTopicManager from '~/components/admin/ai-exercise/ExerciseTopicManager.vue'
+import GrammarPointManager from '~/components/admin/ai-exercise/GrammarPointManager.vue'
 import { parseExerciseError, useAIExerciseApi } from '~/composables/api/useAIExerciseApi'
 import { EXERCISE_TYPE_META, REVIEW_STATUS_META } from '~/utils/exercise'
 
@@ -17,7 +18,8 @@ const api = useAIExerciseApi()
 const route = useRoute()
 const router = useRouter()
 
-const activeTab = ref(route.query.tab === 'topics' ? 'topics' : 'exercises')
+const TABS = ['exercises', 'topics', 'grammar']
+const activeTab = ref(TABS.includes(String(route.query.tab)) ? String(route.query.tab) : 'exercises')
 
 // ─── Hàng chờ duyệt ──────────────────────────────────────────────
 const PAGE_SIZE = 15
@@ -109,7 +111,7 @@ function formatDate(date: string) {
 }
 
 watch(activeTab, (tab) => {
-  router.replace({ query: { ...route.query, tab: tab === 'topics' ? 'topics' : undefined } })
+  router.replace({ query: { ...route.query, tab: tab === 'exercises' ? undefined : tab } })
 })
 
 onMounted(load)
@@ -234,6 +236,10 @@ onMounted(load)
 
       <a-tab-pane key="topics" tab="Chủ đề">
         <ExerciseTopicManager />
+      </a-tab-pane>
+
+      <a-tab-pane key="grammar" tab="Ngữ pháp">
+        <GrammarPointManager />
       </a-tab-pane>
     </a-tabs>
 

@@ -160,6 +160,11 @@ export function useSidebar(isAdmin = false) {
       icon: 'tabler:sparkles',
       link: '/admin/ai-exercises',
     },
+    {
+      name: t('adminMenu.listening'),
+      icon: 'tabler:headphones',
+      link: '/admin/listening',
+    },
     ...(config.public.sessionReminderEnabled
       ? [{
           name: t('adminMenu.sessionReminders'),
