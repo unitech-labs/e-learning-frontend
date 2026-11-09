@@ -246,6 +246,13 @@
         "deleteLessonSuccessDescription": "La lezione è stata eliminata con successo.",
         "deleteLessonFailed": "Eliminazione lezione fallita",
         "deleteLessonFailedDescription": "Errore durante l'eliminazione della lezione. Riprova."
+      },
+      "compression": {
+        "pending": "In attesa di creare la versione a qualità normale. Viene compressa automaticamente dopo il salvataggio; nel frattempo gli studenti vedono l’originale.",
+        "processing": "Compressione della versione a qualità normale in corso. Nel frattempo gli studenti vedono l’originale.",
+        "done": "Versione a qualità normale pronta. Gli studenti la vedono di default e possono passare alla qualità alta.",
+        "skipped": "Il video è già leggero, non serve una versione compressa.",
+        "failed": "Creazione della versione a qualità normale non riuscita. Gli studenti vedono ancora l’originale. Chiedi al supporto di ricomprimerlo."
       }
     },
     "calendars": {

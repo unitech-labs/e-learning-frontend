@@ -80,6 +80,13 @@
       "yesterday": "Hôm qua",
       "daysAgo": "{days} ngày trước",
       "weeksAgo": "{weeks} tuần trước"
+    },
+    "videoQuality": {
+      "label": "Chất lượng",
+      "normal": "Bình thường",
+      "high": "Cao",
+      "normalHint": "Nhẹ, ít bị giật, hợp với mạng yếu",
+      "highHint": "Video gốc, nét nhất, cần mạng mạnh"
     }
   }
 }

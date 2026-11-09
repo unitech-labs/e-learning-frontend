@@ -80,6 +80,13 @@
       "yesterday": "Ieri",
       "daysAgo": "{days} giorni fa",
       "weeksAgo": "{weeks} settimane fa"
+    },
+    "videoQuality": {
+      "label": "Qualità",
+      "normal": "Normale",
+      "high": "Alta",
+      "normalHint": "Più leggero, meno interruzioni con connessioni lente",
+      "highHint": "Video originale, più nitido, richiede una connessione veloce"
     }
   }
 }
