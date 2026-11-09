@@ -141,6 +141,45 @@ const videoPlayerOptions = {
   },
 }
 
+// Chất lượng video: "Bình thường" = bản nén (mặc định, ít giật), "Cao" = video gốc.
+// Bài chưa có bản nén chỉ có một bản nên không hiện nút chọn.
+type VideoQuality = 'normal' | 'high'
+const videoQuality = ref<VideoQuality>('normal')
+const hasQualityChoice = computed(() => {
+  const lesson = activeLesson.value
+  return !!(lesson?.video_url && lesson.compressed_video_url && lesson.compressed_video_url !== lesson.video_url)
+})
+const activeVideoSrc = computed(() => {
+  const lesson = activeLesson.value
+  if (!lesson?.video_url)
+    return ''
+  return videoQuality.value === 'normal' && lesson.compressed_video_url ? lesson.compressed_video_url : lesson.video_url
+})
+
+// Đổi chất lượng giữa chừng thì xem tiếp đúng chỗ đang xem (và tiếp tục phát nếu đang phát).
+let resumeAfterQualitySwitch: { time: number, playing: boolean } | null = null
+
+function selectVideoQuality(quality: VideoQuality) {
+  if (quality === videoQuality.value)
+    return
+  const player = playerInstance.value?.player
+  if (player)
+    resumeAfterQualitySwitch = { time: player.currentTime() || 0, playing: !player.paused() }
+  videoQuality.value = quality
+}
+
+function handleVideoLoadedMetadata() {
+  const player = playerInstance.value?.player
+  const resume = resumeAfterQualitySwitch
+  resumeAfterQualitySwitch = null
+  if (!player || !resume)
+    return
+  if (resume.time > 0)
+    player.currentTime(resume.time)
+  if (resume.playing)
+    player.play()?.catch?.(() => {})
+}
+
 function preventContextMenu(event: MouseEvent) {
   if (!drmContainer.value) {
     return
@@ -776,6 +815,8 @@ onMounted(async () => {
 })
 
 watch(activeLesson, () => {
+  // Bài mới phát từ đầu, không lấy vị trí của bài trước.
+  resumeAfterQualitySwitch = null
   if (!playerInstance.value) {
     return
   }
@@ -873,12 +914,13 @@ onBeforeUnmount(() => {
               :width="400"
               :height="225"
               class="rounded-2xl overflow-hidden"
-              :src="activeLesson?.video_url"
+              :src="activeVideoSrc"
               controls
               :loop="true"
               :volume="0.6"
               playsinline
               @mounted="handlePlayerReady"
+              @loadedmetadata="handleVideoLoadedMetadata"
               @timeupdate="handleVideoProgress"
               @ended="handleVideoEnded"
             />
@@ -897,6 +939,19 @@ onBeforeUnmount(() => {
             <div v-if="activeLesson && activeLesson.video_url && videoProgress > 0" class="absolute top-4 right-4 bg-black bg-opacity-75 text-white px-3 py-1 rounded-full text-sm font-medium">
               {{ Math.round(videoProgress) }}%
             </div>
+          </div>
+
+          <!-- Chất lượng video -->
+          <div v-if="hasQualityChoice" class="flex items-center justify-end gap-2 -mt-4 mb-6" data-testid="video-quality">
+            <span class="text-sm text-gray-500">{{ t('learning.videoQuality.label') }}</span>
+            <a-radio-group :value="videoQuality" size="small" button-style="solid" @update:value="selectVideoQuality">
+              <a-radio-button value="normal" :title="t('learning.videoQuality.normalHint')">
+                {{ t('learning.videoQuality.normal') }}
+              </a-radio-button>
+              <a-radio-button value="high" :title="t('learning.videoQuality.highHint')">
+                {{ t('learning.videoQuality.high') }}
+              </a-radio-button>
+            </a-radio-group>
           </div>
 
           <!-- Lesson Materials Section -->

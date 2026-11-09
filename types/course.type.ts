@@ -227,12 +227,18 @@ export interface LessonPayload {
   materials?: LessonMaterial[]
 }
 
+export type VideoCompressionStatus = '' | 'pending' | 'processing' | 'done' | 'skipped' | 'failed'
+
 export interface Lesson {
   id: string
   title: string
   slug: string
   description: string
+  /** Video gốc giáo viên upload = chất lượng cao. */
   video_url: string
+  /** Bản nén (chất lượng thường), server tự tạo sau khi lưu video; null/'' khi chưa có. */
+  compressed_video_url?: string | null
+  video_compression_status?: VideoCompressionStatus
   video_duration: number
   video_duration_formatted: string
   order: number

@@ -246,6 +246,13 @@
         "deleteLessonSuccessDescription": "The lesson has been deleted successfully.",
         "deleteLessonFailed": "Failed to delete lesson",
         "deleteLessonFailedDescription": "An error occurred while deleting the lesson. Please try again."
+      },
+      "compression": {
+        "pending": "Waiting to create the normal-quality version. It is compressed automatically after saving; students can watch the original meanwhile.",
+        "processing": "Compressing the normal-quality version. Students can watch the original meanwhile.",
+        "done": "Normal-quality version ready. Students watch it by default and can switch to high quality.",
+        "skipped": "The video is already light, no compressed version needed.",
+        "failed": "Creating the normal-quality version failed. Students still watch the original. Ask support to compress it again."
       }
     },
     "calendars": {

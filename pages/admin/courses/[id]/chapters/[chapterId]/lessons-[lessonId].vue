@@ -47,6 +47,23 @@ const uploadProgress = ref(0)
 const isUploading = ref(false)
 const lastUploadedFile = ref<File | null>(null)
 
+// Trạng thái bản "chất lượng thường" của video ĐÃ LƯU (server tự nén sau khi lưu video mới).
+// Ẩn khi giáo viên vừa chọn file khác mà chưa lưu: trạng thái đó là của video cũ.
+const COMPRESSION_ALERT: Record<string, 'info' | 'success' | 'warning'> = {
+  pending: 'info',
+  processing: 'info',
+  done: 'success',
+  skipped: 'success',
+  failed: 'warning',
+}
+const videoCompressionStatus = computed(() => {
+  const saved = currentLesson.value
+  if (!saved?.video_url || lessonId.value === 'create' || videoPreviewUrl.value !== saved.video_url)
+    return null
+  const status = saved.video_compression_status || ''
+  return status in COMPRESSION_ALERT ? status : null
+})
+
 // Delete dialog state
 const showDeleteDialog = ref(false)
 const isDeleting = ref(false)
@@ -946,6 +963,14 @@ async function handleDeleteMaterial(material: LessonMaterial, index: number) {
               </p>
             </template>
           </a-upload-dragger>
+          <a-alert
+            v-if="videoCompressionStatus"
+            class="!mt-3"
+            show-icon
+            :type="COMPRESSION_ALERT[videoCompressionStatus]"
+            :message="t(`admin.formLesson.compression.${videoCompressionStatus}`)"
+            data-testid="video-compression-status"
+          />
         </a-form-item>
 
         <!-- Image Upload -->

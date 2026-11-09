@@ -162,7 +162,7 @@ function getChapterDuration(lessons: Lesson[]): string {
             </div>
             <div class="w-full aspect-video bg-black/90 rounded-md overflow-hidden flex items-center justify-center" @click.stop>
               <video
-                :src="lesson.video_url"
+                :src="lesson.compressed_video_url || lesson.video_url"
                 controls
                 class="w-full h-full"
               />

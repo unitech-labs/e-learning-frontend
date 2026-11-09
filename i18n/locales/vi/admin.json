@@ -246,6 +246,13 @@
         "deleteLessonSuccessDescription": "Bài học đã được xóa thành công.",
         "deleteLessonFailed": "Xóa bài học thất bại",
         "deleteLessonFailedDescription": "Đã xảy ra lỗi khi xóa bài học. Vui lòng thử lại."
+      },
+      "compression": {
+        "pending": "Đang chờ tạo bản chất lượng thường. Hệ thống tự nén sau khi lưu, học viên vẫn xem được video gốc trong lúc chờ.",
+        "processing": "Đang nén bản chất lượng thường. Học viên vẫn xem được video gốc trong lúc chờ.",
+        "done": "Đã có bản chất lượng thường. Học viên mặc định xem bản này, có thể chuyển sang chất lượng cao.",
+        "skipped": "Video đã nhẹ sẵn nên không cần bản nén.",
+        "failed": "Tạo bản chất lượng thường bị lỗi. Học viên vẫn xem video gốc. Hãy báo kỹ thuật để nén lại."
       }
     },
     "calendars": {
